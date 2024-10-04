@@ -8,17 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		321D48142CAF6098007A0B20 /* CuppaJoyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D48132CAF6098007A0B20 /* CuppaJoyApp.swift */; };
-		321D48162CAF6098007A0B20 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D48152CAF6098007A0B20 /* ContentView.swift */; };
 		321D48182CAF6099007A0B20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 321D48172CAF6099007A0B20 /* Assets.xcassets */; };
 		321D481B2CAF6099007A0B20 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 321D481A2CAF6099007A0B20 /* Preview Assets.xcassets */; };
+		329341F52CB06536002FAF63 /* GreetingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329341F42CB06536002FAF63 /* GreetingScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		321D48102CAF6098007A0B20 /* CuppaJoy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CuppaJoy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		321D48132CAF6098007A0B20 /* CuppaJoyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuppaJoyApp.swift; sourceTree = "<group>"; };
-		321D48152CAF6098007A0B20 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		321D48172CAF6099007A0B20 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		321D481A2CAF6099007A0B20 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		329341F42CB06536002FAF63 /* GreetingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,9 +52,9 @@
 			isa = PBXGroup;
 			children = (
 				321D48132CAF6098007A0B20 /* CuppaJoyApp.swift */,
-				321D48152CAF6098007A0B20 /* ContentView.swift */,
 				321D48172CAF6099007A0B20 /* Assets.xcassets */,
 				321D48192CAF6099007A0B20 /* Preview Content */,
+				329341F42CB06536002FAF63 /* GreetingScreen.swift */,
 			);
 			path = CuppaJoy;
 			sourceTree = "<group>";
@@ -137,7 +137,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				321D48162CAF6098007A0B20 /* ContentView.swift in Sources */,
+				329341F52CB06536002FAF63 /* GreetingScreen.swift in Sources */,
 				321D48142CAF6098007A0B20 /* CuppaJoyApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
