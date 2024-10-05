@@ -13,9 +13,11 @@ struct GreetingScreen: View {
             Color.cream.ignoresSafeArea()
             VStack {
                 TopBlock()
+                    .padding(.top, 10)
                 DescriptionView()
                     .padding(.top, 40)
                 PagesIndicator()
+                
                 Spacer()
                 NextButton()
                     .padding(.bottom, 20)
@@ -38,25 +40,29 @@ struct TopBlock: View {
                 height: 260,
                 alignment: .center
             )
+            .shadow(radius: 10)
             .padding(.horizontal, 20)
             .overlay {
                 Image(.logo)
                     .resizable()
-                    .frame(width: 310, height: 330)
+                    .frame(width: 300, height: 320)
             }
     }
 }
 
 struct DescriptionView: View {
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 3) {
             Text("Feel yourself like a barista!")
-                .font(.custom("Avenir", size: 37))
+                .font(.custom("Poppins", size: 35))
+                .fontWeight(.regular)
+                
                 .foregroundStyle(.middleBrown)
                 .multilineTextAlignment(.center)
             
             Text("Magic coffee on order.")
-                .font(.custom("Avenir", size: 21))
+                .font(.custom("Poppins", size: 20))
+                .fontWeight(.regular)
                 .foregroundStyle(.hotGray)
         }
     }
@@ -90,7 +96,7 @@ struct NextButton: View {
             Spacer()
             
             Button {
-                print("Next button pressed")
+                // action
             } label: {
                 Circle()
                     .fill(.middleBrown)
@@ -99,6 +105,7 @@ struct NextButton: View {
                         height: 64,
                         alignment: .center
                     )
+                    .shadow(radius: 8)
                     .overlay {
                         Image(systemName: "arrow.right")
                             .resizable()

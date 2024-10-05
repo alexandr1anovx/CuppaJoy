@@ -7,17 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3209B2912CB08D4400814F7C /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3209B2902CB08D4400814F7C /* SignInScreen.swift */; };
 		321D48142CAF6098007A0B20 /* CuppaJoyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D48132CAF6098007A0B20 /* CuppaJoyApp.swift */; };
 		321D48182CAF6099007A0B20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 321D48172CAF6099007A0B20 /* Assets.xcassets */; };
 		321D481B2CAF6099007A0B20 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 321D481A2CAF6099007A0B20 /* Preview Assets.xcassets */; };
+		324A9FDD2CB0BD63007F6998 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 324A9FDA2CB0BD63007F6998 /* Poppins-Bold.ttf */; };
+		324A9FDE2CB0BD63007F6998 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 324A9FDB2CB0BD63007F6998 /* Poppins-Medium.ttf */; };
+		324A9FDF2CB0BD63007F6998 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 324A9FDC2CB0BD63007F6998 /* Poppins-Regular.ttf */; };
 		329341F52CB06536002FAF63 /* GreetingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329341F42CB06536002FAF63 /* GreetingScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3209B2902CB08D4400814F7C /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
 		321D48102CAF6098007A0B20 /* CuppaJoy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CuppaJoy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		321D48132CAF6098007A0B20 /* CuppaJoyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuppaJoyApp.swift; sourceTree = "<group>"; };
 		321D48172CAF6099007A0B20 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		321D481A2CAF6099007A0B20 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		324A9FD22CB0BB56007F6998 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		324A9FDA2CB0BD63007F6998 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		324A9FDB2CB0BD63007F6998 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		324A9FDC2CB0BD63007F6998 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		329341F42CB06536002FAF63 /* GreetingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -51,10 +60,13 @@
 		321D48122CAF6098007A0B20 /* CuppaJoy */ = {
 			isa = PBXGroup;
 			children = (
+				324A9FD32CB0BB83007F6998 /* Fonts */,
+				324A9FD22CB0BB56007F6998 /* Info.plist */,
 				321D48132CAF6098007A0B20 /* CuppaJoyApp.swift */,
 				321D48172CAF6099007A0B20 /* Assets.xcassets */,
 				321D48192CAF6099007A0B20 /* Preview Content */,
 				329341F42CB06536002FAF63 /* GreetingScreen.swift */,
+				3209B2902CB08D4400814F7C /* SignInScreen.swift */,
 			);
 			path = CuppaJoy;
 			sourceTree = "<group>";
@@ -65,6 +77,16 @@
 				321D481A2CAF6099007A0B20 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		324A9FD32CB0BB83007F6998 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				324A9FDA2CB0BD63007F6998 /* Poppins-Bold.ttf */,
+				324A9FDB2CB0BD63007F6998 /* Poppins-Medium.ttf */,
+				324A9FDC2CB0BD63007F6998 /* Poppins-Regular.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,7 +148,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				321D481B2CAF6099007A0B20 /* Preview Assets.xcassets in Resources */,
+				324A9FDE2CB0BD63007F6998 /* Poppins-Medium.ttf in Resources */,
+				324A9FDD2CB0BD63007F6998 /* Poppins-Bold.ttf in Resources */,
 				321D48182CAF6099007A0B20 /* Assets.xcassets in Resources */,
+				324A9FDF2CB0BD63007F6998 /* Poppins-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +164,7 @@
 			files = (
 				329341F52CB06536002FAF63 /* GreetingScreen.swift in Sources */,
 				321D48142CAF6098007A0B20 /* CuppaJoyApp.swift in Sources */,
+				3209B2912CB08D4400814F7C /* SignInScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,11 +301,12 @@
 				DEVELOPMENT_TEAM = 5C7T379SKG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CuppaJoy/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -287,9 +314,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.andr1anovx.CuppaJoy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -304,11 +335,12 @@
 				DEVELOPMENT_TEAM = 5C7T379SKG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CuppaJoy/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -316,9 +348,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.andr1anovx.CuppaJoy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
