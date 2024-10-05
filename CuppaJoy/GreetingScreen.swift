@@ -33,20 +33,23 @@ struct GreetingScreen: View {
 
 struct TopBlock: View {
     var body: some View {
-        RoundedRectangle(cornerRadius: 30)
-            .fill(.beige)
-            .frame(
-                width: .infinity - 40,
-                height: 260,
-                alignment: .center
-            )
-            .shadow(radius: 10)
-            .padding(.horizontal, 20)
-            .overlay {
-                Image(.logo)
-                    .resizable()
-                    .frame(width: 300, height: 320)
-            }
+        GeometryReader { geometry in
+            RoundedRectangle(cornerRadius: 30)
+                .fill(.beige)
+                .frame(
+                    width: geometry.size.width - 40,
+                    height: 260,
+                    alignment: .center
+                )
+                .shadow(radius: 10)
+                .padding(.horizontal, 20)
+                .overlay {
+                    Image(.logo)
+                        .resizable()
+                        .frame(width: 300, height: 320)
+                }
+        }
+        
     }
 }
 
