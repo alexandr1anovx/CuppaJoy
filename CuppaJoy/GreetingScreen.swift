@@ -33,23 +33,20 @@ struct GreetingScreen: View {
 
 struct TopBlock: View {
     var body: some View {
-        GeometryReader { geometry in
-            RoundedRectangle(cornerRadius: 30)
-                .fill(.beige)
-                .frame(
-                    width: geometry.size.width - 40,
-                    height: 260,
-                    alignment: .center
-                )
-                .shadow(radius: 10)
-                .padding(.horizontal, 20)
-                .overlay {
-                    Image(.logo)
-                        .resizable()
-                        .frame(width: 300, height: 320)
-                }
-        }
-        
+        RoundedRectangle(cornerRadius: 30)
+            .fill(.beige)
+            .frame(
+                width: UIScreen.main.bounds.width - 40,
+                height: 260,
+                alignment: .center
+            )
+            .shadow(radius: 10)
+            .padding(.horizontal, 20)
+            .overlay {
+                Image(.logo)
+                    .resizable()
+                    .frame(width: 300, height: 320)
+            }
     }
 }
 
@@ -59,7 +56,7 @@ struct DescriptionView: View {
             Text("Feel yourself like a barista!")
                 .font(.custom("Poppins", size: 35))
                 .fontWeight(.regular)
-                
+            
                 .foregroundStyle(.middleBrown)
                 .multilineTextAlignment(.center)
             
