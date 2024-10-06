@@ -9,80 +9,102 @@ import SwiftUI
 
 struct SignInScreen: View {
     
-    @State private var username = ""
+    @State private var email = ""
+    @State private var password = ""
+    
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        ZStack {
-            Color.cream.ignoresSafeArea()
-            
-            // MARK: - Main
-            VStack {
+        NavigationStack {
+            ZStack {
+                Color.cream.ignoresSafeArea()
                 
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text("Sign In")
-                            .font(.custom("Poppins", size: 22))
-                            .fontWeight(.medium)
-                            .foregroundStyle(.darkBrown)
-                            
-                        Text("Welcome back")
-                            .font(.custom("Poppins", size: 14))
-                            .fontWeight(.regular)
-                            .foregroundStyle(.hotGray)
+                VStack {
+                    Spacer()
+                    VStack(alignment: .leading, spacing: 50) {
+                        
+                        HeaderLabels()
+                        
+                        VStack(spacing: 25) {
+                            CustomTextField(
+                                imageName: "envelope",
+                                placeholder: "Email address",
+                                inputData: $email
+                            )
+                            CustomTextField(
+                                imageName: "lock.rectangle",
+                                placeholder: "Password",
+                                inputData: $password
+                            )
+                        }
                     }
+                    .padding(.horizontal, 40)
+                    
+                    Button("Forgot Password?") {
+                        
+                    }
+                    .font(.poppins(.medium, size: 13))
+                    .foregroundStyle(.middleBrown)
+                    .padding(.top, 20)
                     
                     Spacer()
-                }
-                .padding(.leading, 40)
-                
-                VStack(spacing: 8) {
-                    HStack {
-                        Image(systemName: "envelope")
-                            .font(.callout)
-                        Rectangle()
-                            .fill(.hotGray)
-                            .frame(width: 0.5, height: 20)
-                        
-                        TextField("Email address", text: $username)
-                            .font(.custom("Poppins", size: 14))
-                            .fontWeight(.medium)
-                        
-                    }
-                    Rectangle()
-                        .fill(Color.hotGray)
-                        .frame(width: .infinity, height: 0.5)
                     
-                    HStack {
-                        Image(systemName: "envelope")
-                            .font(.callout)
-                        Rectangle()
-                            .fill(.hotGray)
-                            .frame(width: 0.5, height: 20)
-                        
-                        TextField("Email address", text: $username)
-                            .font(.custom("Poppins", size: 14))
-                            .fontWeight(.medium)
-                        
+                    NavigationLink {
+                        // MainScreen()
+                    } label: {
+                        Spacer()
+                        NextStepView()
                     }
-                    Rectangle()
-                        .fill(Color.hotGray)
-                        .frame(width: .infinity, height: 0.5)
+                    .padding(.trailing, 20)
+                    
+                    Spacer()
+                    
+                    HStack(spacing: 5) {
+                        Text("New member?")
+                            .font(.poppins(.regular, size: 15))
+                            .foregroundStyle(.hotGray)
+                        
+                        NavigationLink("Sign Up") {
+                            // SignUpScreen()
+                        }
+                        .font(.poppins(.medium, size: 16))
+                        .foregroundStyle(.darkBrown)
+                        Spacer()
+                    }
+                    .padding(30)
                 }
-                .padding(.horizontal, 40)
-                .padding(.top)
-                
-                
-                
-                
-                
-                
-                
-                
+                .navigationBarBackButtonHidden(true)
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "arrow.left")
+                                .font(.system(size: 20))
+                                .foregroundStyle(.darkBrown)
+                        }
+                    }
+                }
             }
         }
     }
 }
 
+
 #Preview {
     SignInScreen()
+}
+
+struct HeaderLabels: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 18) {
+            Text("Sign In")
+                .font(.poppins(.medium, size: 23))
+                .foregroundStyle(.darkBrown)
+            
+            Text("Welcome back!")
+                .font(.poppins(.regular, size: 15))
+                .foregroundStyle(.hotGray)
+        }
+    }
 }
