@@ -10,26 +10,22 @@ import SwiftUI
 struct GreetingScreen: View {
     var body: some View {
         NavigationStack {
-            ZStack {
-                Color.cream.ignoresSafeArea()
+            VStack {
+                LogoBlock()
+                    .padding(.top, 20)
+                DescriptionView()
+                    .padding(.top, 40)
+                PagesIndicator()
                 
-                VStack {
-                    LogoBlock()
-                        .padding(.top, 20)
-                    DescriptionView()
-                        .padding(.top, 40)
-                    PagesIndicator()
-                    
+                Spacer()
+                
+                NavigationLink {
+                    SignInScreen()
+                } label: {
                     Spacer()
-                    
-                    NavigationLink {
-                        SignInScreen()
-                    } label: {
-                        Spacer()
-                        NextStepView()
-                    }
-                    .padding(20)
+                    NextStepView()
                 }
+                .padding(20)
             }
         }
     }
