@@ -14,8 +14,8 @@ struct CustomTextField: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Image(systemName: imageName)
+            HStack(spacing: 8) {
+                Image(imageName)
                     .foregroundStyle(.darkBrown)
                     .font(.callout)
                 Rectangle()
@@ -26,10 +26,15 @@ struct CustomTextField: View {
                     .font(.poppins(.medium, size: 14))
                     .foregroundStyle(.darkBrown)
             }
-            Rectangle()
-                .fill(Color.hotGray)
-                .frame(height: 0.5)
-                .padding(.top, 5)
+            Divider()
         }
     }
+}
+
+#Preview {
+    CustomTextField(
+        imageName: "lock",
+        placeholder: "Enter your password",
+        inputData: .constant("")
+    )
 }
