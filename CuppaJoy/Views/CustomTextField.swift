@@ -16,6 +16,8 @@ struct CustomTextField: View {
         VStack {
             HStack(spacing: 8) {
                 Image(imageName)
+                    .resizable()
+                    .frame(width: 21, height: 20)
                     .foregroundStyle(.darkBrown)
                     .font(.callout)
                 Rectangle()

@@ -69,11 +69,11 @@ struct SignUpScreen: View {
                 Spacer()
                 
                 HStack(spacing: 5) {
-                    Text("New member?")
+                    Text("Already a member?")
                         .font(.poppins(.regular, size: 14))
                         .foregroundStyle(.hotGray)
                     
-                    NavigationLink("Sign Up") {
+                    NavigationLink("Sign In") {
                         // SignUpScreen()
                     }
                     .font(.poppins(.medium, size: 14))
