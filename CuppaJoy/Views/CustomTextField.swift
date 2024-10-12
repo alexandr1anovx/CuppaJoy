@@ -18,15 +18,17 @@ struct CustomTextField: View {
                 Image(imageName)
                     .resizable()
                     .frame(width: 21, height: 20)
-                    .foregroundStyle(.darkBrown)
+                    .foregroundStyle(.customReversed)
+                    
                     .font(.callout)
                 Rectangle()
-                    .fill(.hotGray)
+                    
                     .frame(width: 0.5, height: 20)
                 
                 TextField(placeholder, text: $inputData)
                     .font(.poppins(.medium, size: 14))
-                    .foregroundStyle(.darkBrown)
+                    .foregroundStyle(.customReversed)
+                    
             }
             Divider()
         }

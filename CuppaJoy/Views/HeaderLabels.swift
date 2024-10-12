@@ -12,14 +12,14 @@ struct HeaderLabels: View {
     let subtitle: String
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 24) {
+        VStack(alignment: .leading, spacing: 20) {
             Text(title)
                 .font(.poppins(.medium, size: 22))
-                .foregroundStyle(.darkBrown)
-            
+                .foregroundStyle(.customReversed)
             Text(subtitle)
                 .font(.poppins(.regular, size: 14))
-                .foregroundStyle(.hotGray)
+                .foregroundStyle(.customReversed)
+                
         }
     }
 }
