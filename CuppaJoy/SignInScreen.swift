@@ -9,75 +9,67 @@ import SwiftUI
 
 struct SignInScreen: View {
     
-    @State private var emailAddress = ""
-    @State private var password = ""
-    
-    @Environment(\.dismiss) var dismiss
+    @State private var isPresentedHomeScreen: Bool = false
+    @State private var isPresentedSignUpScreen: Bool = false
+    @State private var phoneNumber: String = ""
     
     var body: some View {
-        NavigationStack {
-            VStack {
-                Spacer()
-                VStack(alignment: .leading, spacing: 50) {
-                    HeaderLabels(
-                        title: "Sign In",
-                        subtitle: "Welcome back!"
-                    )
+        Group {
+            if isPresentedHomeScreen {
+                HomeScreen()
+            } else {
+                ZStack {
+                    Color.customSystem.ignoresSafeArea()
                     
-                    VStack(spacing: 25) {
-                        CustomTextField(
-                            imageName: "message",
-                            placeholder: "Email address",
-                            inputData: $emailAddress
+                    // MARK: - Main VStack
+                    VStack(alignment: .leading, spacing: 35) {
+                        HeaderLabels(
+                            title: "Sign In",
+                            subtitle: "Welcome back!"
                         )
                         CustomTextField(
-                            imageName: "lock",
-                            placeholder: "Password",
-                            inputData: $password
+                            imageName: "smartphone",
+                            placeholder: "Phone Number",
+                            inputData: $phoneNumber
                         )
+                        
+                        HStack {
+                            Spacer()
+                            
+                            BorderedButton(
+                                title: "Next",
+                                imageName: "arrow.right") {
+                                    withAnimation(.smooth(duration: 0.6)) {
+                                        isPresentedHomeScreen.toggle()
+                                    }
+                                }
+                        }
+                        
+                        HStack(spacing: 5) {
+                            Text("New member?")
+                                .font(.poppins(.regular, size: 14))
+                                .foregroundStyle(.customReversed)
+                                .opacity(0.6)
+                            
+                            Button("Sign Up") {
+                                isPresentedSignUpScreen.toggle()
+                            }
+                            .font(.poppins(.medium, size: 14))
+                            .foregroundStyle(.customReversed)
+                        }
                     }
-                }
-                
-                Button("Forgot Password?") {
-                    
-                }
-                .font(.poppins(.medium, size: 14))
-                .foregroundStyle(.middleBrown)
-                .padding(.top, 20)
-                
-                Spacer()
-                
-                NavigationLink {
-                    // MainScreen()
-                } label: {
-                    Spacer()
-                    NextStepView()
-                }
-                .padding(.trailing, 20)
-                
-                Spacer()
-                
-                HStack(spacing: 5) {
-                    Text("New member?")
-                        .font(.poppins(.regular, size: 14))
-                        .foregroundStyle(.hotGray)
-                    
-                    NavigationLink("Sign Up") {
+                    .padding(.horizontal, 40)
+                    .sheet(isPresented: $isPresentedSignUpScreen) {
                         SignUpScreen()
+                            .presentationDetents([.large])
+                            .presentationDragIndicator(.visible)
+                            .presentationCornerRadius(20)
                     }
-                    .font(.poppins(.medium, size: 14))
-                    .foregroundStyle(.darkBrown)
-                    
-                    Spacer()
                 }
-                .padding(.bottom, 30)
             }
-            .navigationBarBackButtonHidden(true)
-            .padding(.horizontal, 40)
         }
     }
 }
-
 
 #Preview {
     SignInScreen()
