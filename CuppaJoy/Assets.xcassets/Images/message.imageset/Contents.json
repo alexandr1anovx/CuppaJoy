@@ -49,6 +49,7 @@
       "scale" : "2x"
     },
     {
+      "filename" : "message-darkMode.svg",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -59,7 +60,6 @@
           "value" : "light"
         }
       ],
-      "filename" : "message-lightMode.svg",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -70,7 +70,6 @@
           "value" : "dark"
         }
       ],
-      "filename" : "message-darkMode.svg",
       "idiom" : "universal",
       "scale" : "3x"
     }
@@ -78,5 +77,8 @@
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "template"
   }
 }
