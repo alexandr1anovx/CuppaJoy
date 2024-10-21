@@ -5,7 +5,6 @@
 //  Created by Alexander Andrianov on 06.10.2024.
 //
 
-import Foundation
 import SwiftUI
 
 extension Font {
@@ -16,16 +15,12 @@ extension Font {
         
         var value: String {
             switch self {
-            case .regular:
-                return "Poppins-Regular"
-            case .medium:
-                return "Poppins-Medium"
-            case .bold:
-                return "Poppins-Bold"
+            case .regular: "Poppins-Regular"
+            case .medium: "Poppins-Medium"
+            case .bold: "Poppins-Bold"
             }
         }
     }
-    
     static func poppins(_ type: PoppinsFont, size: CGFloat = 20) -> Font {
         return .custom(type.value, size: size)
     }
