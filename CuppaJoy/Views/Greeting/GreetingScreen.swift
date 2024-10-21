@@ -9,44 +9,38 @@ import SwiftUI
 
 struct GreetingScreen: View {
     
-    @State private var isPresentedSignInScreen = false
+    @State private var isShownSignIn: Bool = false
     
     var body: some View {
         Group {
-            if isPresentedSignInScreen {
+            if isShownSignIn {
                 SignInScreen()
             } else {
                 ZStack {
-                    Color.customSystem.ignoresSafeArea()
+                    Color.primarySystem.ignoresSafeArea()
                     
                     VStack {
                         Image(.header)
-                            .shadow(color: .customMintGreen, radius: 5)
-                        
+                            .shadow(color: .primaryMint, radius: 5)
                         VStack(spacing: 8) {
                             Text("Feel yourself like a barista!")
                                 .font(.poppins(.regular, size: 25))
-                                .foregroundStyle(.customReversed)
+                                .foregroundStyle(.primaryReversed)
                                 .multilineTextAlignment(.center)
                             
                             Text("Magic coffee on order.")
                                 .font(.poppins(.regular, size: 15))
-                                .foregroundStyle(.customReversed)
-                                .opacity(0.6)
+                                .foregroundStyle(.primaryGray)
                         }
                         .padding(.vertical, 60)
                         
                         Button {
-                            withAnimation(.smooth(duration: 0.7)) {
-                                isPresentedSignInScreen.toggle()
-                            }
+                            withAnimation(.smooth) { isShownSignIn = true }
                         } label: {
-                            Label("Get Started", systemImage: "arrow.up")
-                                .font(.poppins(.medium, size: 15))
-                                .foregroundStyle(.customSystem)
-                                .padding(13)
-                                .background(.customReversed)
-                                .clipShape(.buttonBorder)
+                            BorderedLabel(
+                                title: "Get Started",
+                                imageName: "checkmark"
+                            )
                         }
                     }
                 }
