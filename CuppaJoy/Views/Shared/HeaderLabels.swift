@@ -15,10 +15,10 @@ struct HeaderLabels: View {
         VStack(alignment: .leading, spacing: 20) {
             Text(title)
                 .font(.poppins(.medium, size: 22))
-                .foregroundStyle(.customReversed)
+                .foregroundStyle(.primaryReversed)
             Text(subtitle)
                 .font(.poppins(.regular, size: 14))
-                .foregroundStyle(.customReversed)
+                .foregroundStyle(.primaryReversed)
                 
         }
     }
