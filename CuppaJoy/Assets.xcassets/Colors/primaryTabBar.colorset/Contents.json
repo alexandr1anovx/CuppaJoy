@@ -14,9 +14,9 @@
         "color-space" : "srgb",
         "components" : {
           "alpha" : "1.000",
-          "blue" : "0x89",
-          "green" : "0xAB",
-          "red" : "0x86"
+          "blue" : "0xD3",
+          "green" : "0xEF",
+          "red" : "0xD8"
         }
       },
       "idiom" : "universal"
