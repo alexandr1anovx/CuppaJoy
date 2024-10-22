@@ -16,7 +16,7 @@ struct BorderedLabel: View {
             .font(.poppins(.medium, size: 15))
             .foregroundStyle(.primarySystem)
             .padding(13)
-            .background(.primaryReversed)
+            .background(.primaryMint)
             .clipShape(.buttonBorder)
     }
 }

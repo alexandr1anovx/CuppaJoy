@@ -17,14 +17,14 @@ struct CustomTextField: View {
             HStack(spacing: 8) {
                 Image(systemName: imageName)
                     .font(.callout)
-                    .foregroundStyle(.primaryReversed)
+                    .foregroundStyle(.primaryMint)
                 
                 Divider()
                     .frame(height: 20)
                 
                 TextField(placeholder, text: $inputData)
                     .font(.poppins(.regular, size: 15))
-                    .foregroundStyle(.primaryReversed)
+                    .foregroundStyle(.primaryMint)
             }
             Divider()
         }

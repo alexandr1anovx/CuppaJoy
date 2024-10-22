@@ -15,12 +15,12 @@ struct BackButton: View {
             dismiss()
         } label: {
             Circle()
-                .fill(.primaryReversed)
+                .fill(.primaryMint)
                 .frame(width: 30, height: 30)
                 .overlay {
                     Image(systemName: "arrow.left")
                         .font(.footnote)
-                        .foregroundStyle(.primarySystem)
+                        .foregroundStyle(.primaryGreen)
                 }
         }
     }

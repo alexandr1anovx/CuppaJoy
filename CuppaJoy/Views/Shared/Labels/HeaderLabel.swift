@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HeaderLabels: View {
+struct HeaderLabel: View {
     let title: String
     let subtitle: String
     
@@ -15,17 +15,15 @@ struct HeaderLabels: View {
         VStack(alignment: .leading, spacing: 20) {
             Text(title)
                 .font(.poppins(.medium, size: 22))
-                .foregroundStyle(.primaryReversed)
             Text(subtitle)
                 .font(.poppins(.regular, size: 14))
-                .foregroundStyle(.primaryReversed)
-                
         }
+        .foregroundStyle(.primaryMint)
     }
 }
 
 #Preview {
-    HeaderLabels(
+    HeaderLabel(
         title: "Forgot Password?",
         subtitle: "Enter your email address"
     )
