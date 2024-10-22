@@ -20,13 +20,15 @@ struct SignInScreen: View {
         NavigationStack {
             Group {
                 if isShownHome {
-                    HomeScreen()
+                    CustomTabBar()
+                    
+//                    EmptyView()
                 } else {
                     ZStack {
                         Color.primarySystem.ignoresSafeArea()
                         
                         VStack(alignment: .leading, spacing: 30) {
-                            HeaderLabels(
+                            HeaderLabel(
                                 title: "Sign In",
                                 subtitle: "Welcome back!"
                             )
@@ -51,7 +53,7 @@ struct SignInScreen: View {
                             HStack(spacing: 5) {
                                 Text("New member?")
                                     .font(.poppins(.regular, size: 14))
-                                    .foregroundStyle(.primaryReversed)
+                                    .foregroundStyle(.primaryMint)
                                     .opacity(0.6)
                                 
                                 NavigationLink {
@@ -59,7 +61,7 @@ struct SignInScreen: View {
                                 } label: {
                                     Text("Sign Up")
                                         .font(.poppins(.medium, size: 14))
-                                        .foregroundStyle(.primaryReversed)
+                                        .foregroundStyle(.primaryMint)
                                 }
                             }
                         }

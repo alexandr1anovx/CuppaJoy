@@ -20,18 +20,17 @@ struct GreetingScreen: View {
                     Color.primarySystem.ignoresSafeArea()
                     
                     VStack {
-                        Image(.header)
+                        Image("header")
                             .shadow(color: .primaryMint, radius: 5)
                         VStack(spacing: 8) {
                             Text("Feel yourself like a barista!")
                                 .font(.poppins(.regular, size: 25))
-                                .foregroundStyle(.primaryReversed)
                                 .multilineTextAlignment(.center)
                             
                             Text("Magic coffee on order.")
                                 .font(.poppins(.regular, size: 15))
-                                .foregroundStyle(.primaryGray)
                         }
+                        .foregroundStyle(.primaryMint)
                         .padding(.vertical, 60)
                         
                         Button {

@@ -16,7 +16,7 @@ struct SMSVerificationScreen: View {
             Color.primarySystem.ignoresSafeArea()
             
             VStack(alignment: .leading, spacing: 35) {
-                HeaderLabels(
+                HeaderLabel(
                     title: "Verification",
                     subtitle: "Enter the OTP code we sent you"
                 )

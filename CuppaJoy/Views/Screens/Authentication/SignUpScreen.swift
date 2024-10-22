@@ -17,7 +17,7 @@ struct SignUpScreen: View {
             Color.primarySystem.ignoresSafeArea()
             
             VStack(alignment: .leading, spacing: 40) {
-                HeaderLabels(
+                HeaderLabel(
                     title: "Sign Up",
                     subtitle: "Create an account here."
                 )
@@ -37,12 +37,12 @@ struct SignUpScreen: View {
                 HStack(spacing: 5) {
                     Text("Already a member?")
                         .font(.poppins(.regular, size: 13))
-                        .foregroundStyle(.primaryWhite)
+                        .foregroundStyle(.primaryGray)
                     Button("Sign In") {
                         dismiss()
                     }
                     .font(.poppins(.medium, size: 15))
-                    .foregroundStyle(.primaryReversed)
+                    .foregroundStyle(.primaryMint)
                 }
                 
                 Spacer()
