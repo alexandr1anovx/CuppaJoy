@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BarButton: View {
+struct TabBarButton: View {
     let title: String
     let image: String
     let tab: Tab
@@ -23,25 +23,19 @@ struct BarButton: View {
                 Image(image)
                     .resizable()
                     .frame(width: 24, height: 24)
-                    .foregroundStyle(.primaryReversed)
+                    .foregroundStyle(.primaryGreen)
                     .opacity(0.8)
                 
                 if selectedTab == tab {
                     Text(title)
                         .font(.poppins(.medium, size: 16))
-                        .foregroundStyle(.primaryReversed)
+                        .foregroundStyle(.primaryGreen)
                 }
             }
             .padding(.vertical, 10)
             .padding(.horizontal)
-            .background(.primaryReversed.opacity(selectedTab == tab ? 0.08 : 0.0))
-            .clipShape(.capsule)
+            .background(.primaryGreen.opacity(selectedTab == tab ? 0.1 : 0.0))
+            .clipShape(.rect(cornerRadius: 20))
         }
     }
 }
-
-/*
-#Preview {
-    TabBarButton()
-}
-*/

@@ -11,9 +11,7 @@ struct CustomTabBar: View {
     @State private var selectedTab = Tab.home
     @State private var isShownTabBar: Bool = true
     
-    init() {
-        UITabBar.appearance().isHidden = true
-    }
+    init() { UITabBar.appearance().isHidden = true }
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -25,11 +23,10 @@ struct CustomTabBar: View {
                 OrdersScreen(isShownTabBar: $isShownTabBar)
                     .tag(Tab.orders)
             }
-            
             if isShownTabBar {
                 HStack {
                     ForEach(Tab.allCases, id: \.self) { tab in
-                        BarButton(
+                        TabBarButton(
                             title: tab.title,
                             image: tab.iconName,
                             tab: tab,
@@ -40,10 +37,9 @@ struct CustomTabBar: View {
                         }
                     }
                 }
-                .padding(.vertical, 11)
-                .padding(.horizontal)
-                .background(.primarySystem)
-                .clipShape(.capsule)
+                .padding(12)
+                .background(.primaryTabBar)
+                .clipShape(.rect(cornerRadius: 20))
                 .padding(.horizontal, 25)
                 .shadow(radius: 8)
             }
