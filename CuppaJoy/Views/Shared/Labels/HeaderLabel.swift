@@ -22,9 +22,11 @@ struct HeaderLabel: View {
     }
 }
 
+#if DEBUG
 #Preview {
     HeaderLabel(
         title: "Forgot Password?",
         subtitle: "Enter your email address"
     )
 }
+#endif
