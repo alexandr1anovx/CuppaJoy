@@ -21,8 +21,8 @@ enum Tab: Int, CaseIterable {
     var iconName: String {
         switch self {
         case .home: "house"
-        case .rewards: "rewards"
-        case .orders: "orders"
+        case .rewards: "gift"
+        case .orders: "bill"
         }
     }
 }

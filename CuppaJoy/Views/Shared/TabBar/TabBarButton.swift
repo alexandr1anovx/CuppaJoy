@@ -22,7 +22,7 @@ struct TabBarButton: View {
             HStack(spacing: 10) {
                 Image(image)
                     .resizable()
-                    .frame(width: 24, height: 24)
+                    .frame(width: 25, height: 25)
                     .foregroundStyle(.primaryGreen)
                     .opacity(0.8)
                 
@@ -34,8 +34,12 @@ struct TabBarButton: View {
             }
             .padding(.vertical, 10)
             .padding(.horizontal)
-            .background(.primaryGreen.opacity(selectedTab == tab ? 0.1 : 0.0))
-            .clipShape(.rect(cornerRadius: 20))
+            .background(.primaryGreen.opacity(selectedTab == tab ? 0.2 : 0.0))
+            .clipShape(.capsule)
         }
     }
+}
+
+#Preview {
+    TabBarButton(title: "Home", image: "house", tab: .home, selectedTab: .constant(.home))
 }

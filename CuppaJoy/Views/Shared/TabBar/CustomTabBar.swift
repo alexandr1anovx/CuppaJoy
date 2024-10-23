@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CustomTabBar: View {
     @State private var selectedTab = Tab.home
-    @State private var isShownTabBar: Bool = true
+    @State private var isShownTabBar = true
     
     init() { UITabBar.appearance().isHidden = true }
     
@@ -39,7 +39,7 @@ struct CustomTabBar: View {
                 }
                 .padding(12)
                 .background(.primaryTabBar)
-                .clipShape(.rect(cornerRadius: 20))
+                .clipShape(.capsule)
                 .padding(.horizontal, 25)
                 .shadow(radius: 8)
             }
