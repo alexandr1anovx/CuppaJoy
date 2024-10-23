@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GreetingScreen: View {
     
-    @State private var isShownSignIn: Bool = false
+    @State private var isShownSignIn = false
     
     var body: some View {
         Group {
@@ -33,13 +33,10 @@ struct GreetingScreen: View {
                         .foregroundStyle(.primaryMint)
                         .padding(.vertical, 60)
                         
-                        Button {
-                            withAnimation(.smooth) { isShownSignIn = true }
-                        } label: {
-                            BorderedLabel(
-                                title: "Get Started",
-                                imageName: "checkmark"
-                            )
+                        RoundedButton("Get Started", image: "checkmark") {
+                            withAnimation(.smooth) {
+                                isShownSignIn = true
+                            }
                         }
                     }
                 }

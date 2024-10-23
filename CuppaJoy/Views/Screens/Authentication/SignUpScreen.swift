@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SignUpScreen: View {
     
-    @State private var isShownVerification: Bool = false
+    @State private var isShownVerification = false
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -26,11 +26,8 @@ struct SignUpScreen: View {
                 
                 HStack {
                     Spacer()
-                    
-                    Button {
+                    RoundedButton("Sign Up", image: "checkmark") {
                         isShownVerification.toggle()
-                    } label: {
-                        BorderedLabel(title: "Sign Up", imageName: "checkmark")
                     }
                 }
                 
@@ -44,9 +41,7 @@ struct SignUpScreen: View {
                     .font(.poppins(.medium, size: 15))
                     .foregroundStyle(.primaryMint)
                 }
-                
                 Spacer()
-                
             }
             .padding(.top, 40)
             .padding(.horizontal, 30)
@@ -59,39 +54,36 @@ struct SignUpScreen: View {
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        BackButton()
-                    }
+                    BackButton()
                 }
             }
         }
     }
 }
 
-#Preview {
-    SignUpScreen()
-}
-
 struct TextFieldsForm: View {
-    
-    @State private var initials: String = ""
-    @State private var phoneNumber: String = ""
-    @State private var email: String = ""
+    @State private var initials = ""
+    @State private var phoneNumber = ""
+    @State private var email = ""
     
     var body: some View {
         VStack(spacing: 25) {
             CustomTextField(
-                imageName: "person",
+                imageName: "user",
                 placeholder: "Name and surname",
                 inputData: $initials
             )
             CustomTextField(
-                imageName: "iphone.gen3",
+                imageName: "phone",
                 placeholder: "Phone Number",
                 inputData: $phoneNumber
             )
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    SignUpScreen()
+}
+#endif

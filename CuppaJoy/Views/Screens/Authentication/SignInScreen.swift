@@ -8,21 +8,14 @@
 import SwiftUI
 
 struct SignInScreen: View {
-    
-    @State private var isShownHome: Bool = false
-    @State private var phoneNumber: String = ""
-    
-    private var isValidPhoneNumber: Bool {
-        !phoneNumber.isEmpty
-    }
+    @State private var isShownHome = false
+    @State private var phoneNumber = ""
     
     var body: some View {
         NavigationStack {
             Group {
                 if isShownHome {
                     CustomTabBar()
-                    
-//                    EmptyView()
                 } else {
                     ZStack {
                         Color.primarySystem.ignoresSafeArea()
@@ -33,22 +26,18 @@ struct SignInScreen: View {
                                 subtitle: "Welcome back!"
                             )
                             CustomTextField(
-                                imageName: "smartphone",
+                                imageName: "phone",
                                 placeholder: "Phone Number",
                                 inputData: $phoneNumber
                             )
                             
                             HStack {
                                 Spacer()
-                                
-                                Button {
-                                    withAnimation(.spring) { isShownHome = true }
-                                } label: {
-                                    BorderedLabel(
-                                        title: "Next",
-                                        imageName: "arrow.right")
+                                RoundedButton("Next", image: "arrow.right") {
+                                    withAnimation(.spring) {
+                                        isShownHome = true
+                                    }
                                 }
-//                                .opacity(isValidPhoneNumber ? 1.0 : 0.5)
                             }
                             HStack(spacing: 5) {
                                 Text("New member?")
@@ -73,6 +62,8 @@ struct SignInScreen: View {
     }
 }
 
+#if DEBUG
 #Preview {
     SignInScreen()
 }
+#endif
