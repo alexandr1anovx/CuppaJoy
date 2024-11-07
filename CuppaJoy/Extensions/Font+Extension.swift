@@ -9,9 +9,7 @@ import SwiftUI
 
 extension Font {
     enum PoppinsFont {
-        case regular
-        case medium
-        case bold
+        case regular, medium, bold
         
         var value: String {
             switch self {
