@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct GreetingScreen: View {
-    
     @State private var isShownSignIn = false
     
     var body: some View {
@@ -22,18 +21,19 @@ struct GreetingScreen: View {
                     VStack {
                         Image("header")
                             .shadow(color: .primaryMint, radius: 5)
-                        VStack(spacing: 8) {
+                        VStack(spacing: 10) {
                             Text("Feel yourself like a barista!")
-                                .font(.poppins(.regular, size: 25))
+                                .font(.poppins(.regular, size: 23))
                                 .multilineTextAlignment(.center)
                             
                             Text("Magic coffee on order.")
                                 .font(.poppins(.regular, size: 15))
+                                .foregroundStyle(.primaryWhite)
                         }
                         .foregroundStyle(.primaryMint)
                         .padding(.vertical, 60)
-                        
-                        RoundedButton("Get Started", image: "checkmark") {
+                         
+                        MainButton("Get Started") {
                             withAnimation(.smooth) {
                                 isShownSignIn = true
                             }
@@ -45,6 +45,6 @@ struct GreetingScreen: View {
     }
 }
 
-#Preview {
-    GreetingScreen()
-}
+#if DEBUG
+#Preview { GreetingScreen() }
+#endif
