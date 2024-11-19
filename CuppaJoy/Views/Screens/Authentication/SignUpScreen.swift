@@ -9,59 +9,60 @@ import SwiftUI
 
 struct SignUpScreen: View {
     
-    @State private var isShownVerification = false
+    @State private var isShownSMSConfirmation = false
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        ZStack {
-            Color.primarySystem.ignoresSafeArea()
-            
-            VStack(alignment: .leading, spacing: 40) {
-                HeaderLabel(
-                    title: "Sign Up",
-                    subtitle: "Create an account here."
-                )
+        NavigationStack {
+            ZStack {
+                Color.primaryBrown.ignoresSafeArea()
                 
-                TextFieldsForm()
-                
-                HStack {
-                    Spacer()
-                    RoundedButton("Sign Up", image: "checkmark") {
-                        isShownVerification.toggle()
+                VStack(alignment: .leading, spacing: 40) {
+                    HeaderLabel(
+                        title: "Sign Up",
+                        subtitle: "Create an account here."
+                    )
+                    
+                    SignUpForm()
+                    
+                    HStack {
+                        Spacer()
+                        MainButton("Sign Up") {
+                            isShownSMSConfirmation.toggle()
+                        }
+                    }
+                    
+                    HStack(spacing: 5) {
+                        Text("Already a member?")
+                            .font(.poppins(.regular, size: 13))
+                            .foregroundStyle(.primaryWhite)
+                        Button("Sign In") {
+                            dismiss()
+                        }
+                        .font(.poppins(.medium, size: 15))
+                        .foregroundStyle(.primaryMint)
                     }
                 }
-                
-                HStack(spacing: 5) {
-                    Text("Already a member?")
-                        .font(.poppins(.regular, size: 13))
-                        .foregroundStyle(.primaryGray)
-                    Button("Sign In") {
-                        dismiss()
-                    }
-                    .font(.poppins(.medium, size: 15))
-                    .foregroundStyle(.primaryMint)
+                .padding(.horizontal, 30)
+                .sheet(isPresented: $isShownSMSConfirmation) {
+                    SMSConfirmationView()
+                        
+                        .presentationDetents([.height(290)])
+                        .presentationCornerRadius(20)
+                        .presentationDragIndicator(.visible)
                 }
-                Spacer()
-            }
-            .padding(.top, 40)
-            .padding(.horizontal, 30)
-            .sheet(isPresented: $isShownVerification) {
-                SMSVerificationScreen()
-                    .presentationDetents([.medium])
-                    .presentationCornerRadius(25)
-                    .presentationDragIndicator(.visible)
-            }
-            .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    BackButton()
+                .navigationBarBackButtonHidden(true)
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        BackButton()
+                    }
                 }
             }
         }
     }
 }
 
-struct TextFieldsForm: View {
+struct SignUpForm: View {
     @State private var initials = ""
     @State private var phoneNumber = ""
     @State private var email = ""
@@ -83,7 +84,5 @@ struct TextFieldsForm: View {
 }
 
 #if DEBUG
-#Preview {
-    SignUpScreen()
-}
+#Preview { SignUpScreen() }
 #endif

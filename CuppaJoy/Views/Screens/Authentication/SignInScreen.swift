@@ -18,7 +18,7 @@ struct SignInScreen: View {
                     CustomTabBar()
                 } else {
                     ZStack {
-                        Color.primarySystem.ignoresSafeArea()
+                        Color.primaryBrown.ignoresSafeArea()
                         
                         VStack(alignment: .leading, spacing: 30) {
                             HeaderLabel(
@@ -33,7 +33,7 @@ struct SignInScreen: View {
                             
                             HStack {
                                 Spacer()
-                                RoundedButton("Next", image: "arrow.right") {
+                                MainButton("Next") {
                                     withAnimation(.spring) {
                                         isShownHome = true
                                     }
@@ -42,8 +42,8 @@ struct SignInScreen: View {
                             HStack(spacing: 5) {
                                 Text("New member?")
                                     .font(.poppins(.regular, size: 14))
-                                    .foregroundStyle(.primaryMint)
-                                    .opacity(0.6)
+                                    .foregroundStyle(.primaryWhite)
+                                    .opacity(0.5)
                                 
                                 NavigationLink {
                                     SignUpScreen()
