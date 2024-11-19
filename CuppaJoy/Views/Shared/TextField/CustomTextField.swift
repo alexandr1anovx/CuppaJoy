@@ -14,26 +14,26 @@ struct CustomTextField: View {
     
     var body: some View {
         VStack {
-            HStack(spacing: 8) {
-                Image(systemName: imageName)
-                    .font(.callout)
+            HStack(spacing: 15) {
+                Image(imageName)
+                    .resizable()
+                    .frame(width: 23, height: 23)
                     .foregroundStyle(.primaryMint)
-                
-                Divider()
-                    .frame(height: 20)
                 
                 TextField(placeholder, text: $inputData)
                     .font(.poppins(.regular, size: 15))
                     .foregroundStyle(.primaryMint)
             }
-            Divider()
+            Rectangle()
+                .frame(height: 0.5)
+                .foregroundStyle(.primaryGray)
         }
     }
 }
 
 #Preview {
     CustomTextField(
-        imageName: "lock",
+        imageName: "user",
         placeholder: "Enter your password",
         inputData: .constant("")
     )
