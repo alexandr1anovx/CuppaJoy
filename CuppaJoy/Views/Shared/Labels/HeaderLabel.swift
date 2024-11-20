@@ -12,11 +12,12 @@ struct HeaderLabel: View {
     let subtitle: String
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
+        VStack(alignment: .leading, spacing: 16) {
             Text(title)
                 .font(.poppins(.medium, size: 22))
             Text(subtitle)
-                .font(.poppins(.regular, size: 14))
+                .font(.poppins(.regular, size: 13))
+                .foregroundStyle(.primaryWhite)
         }
         .foregroundStyle(.primaryMint)
     }

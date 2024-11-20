@@ -22,7 +22,7 @@ struct GreetingScreen: View {
                         Image("header")
                             .shadow(color: .primaryMint, radius: 5)
                         VStack(spacing: 10) {
-                            Text("Feel yourself like a barista!")
+                            Text("Feel yourself like a barista.")
                                 .font(.poppins(.regular, size: 23))
                                 .multilineTextAlignment(.center)
                             
