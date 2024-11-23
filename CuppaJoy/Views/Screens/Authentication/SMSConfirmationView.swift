@@ -7,34 +7,40 @@
 
 import SwiftUI
 
-struct SMSVerificationScreen: View {
+struct SMSConfirmationView: View {
     
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
         ZStack {
-            Color.primarySystem.ignoresSafeArea()
+            Color.primaryBrown.ignoresSafeArea()
+                
             
-            VStack(alignment: .leading, spacing: 35) {
-                HeaderLabel(
-                    title: "Verification",
-                    subtitle: "Enter the OTP code we sent you"
-                )
+            VStack(spacing: 30) {
+                HStack {
+                    HeaderLabel(
+                        title: "Verification",
+                        subtitle: "Enter the code we sent to your phone number"
+                    )
+                    Spacer()
+                }
+               
                 HStack(spacing: 20) {
                     ForEach(0..<4) { _ in
                         RoundedRectangle(cornerRadius: 10)
-                            .fill(.primaryWhite)
+                            .fill(.primaryBlue)
                             .frame(width: 45, height: 55)
                     }
                 }
                 Text("Resend in 00:30")
                     .font(.poppins(.regular, size: 15))
-                    .foregroundStyle(.primaryGray)
+                    .foregroundStyle(.primaryWhite)
             }
+            .padding(.horizontal, 30)
         }
     }
 }
 
 #Preview {
-    SMSVerificationScreen()
+    SMSConfirmationView()
 }
