@@ -18,10 +18,8 @@ struct SignUpScreen: View {
                 Color.primaryBrown.ignoresSafeArea()
                 
                 VStack(alignment: .leading, spacing: 40) {
-                    HeaderLabel(
-                        title: "Sign Up",
-                        subtitle: "Create an account here."
-                    )
+                    HeaderView(title: "Sign Up",
+                               subtitle: "Create an account here.")
                     
                     SignUpForm()
                     
@@ -44,9 +42,9 @@ struct SignUpScreen: View {
                     }
                 }
                 .padding(.horizontal, 30)
+                
                 .sheet(isPresented: $isShownSMSConfirmation) {
                     SMSConfirmationView()
-                        
                         .presentationDetents([.height(290)])
                         .presentationCornerRadius(20)
                         .presentationDragIndicator(.visible)
