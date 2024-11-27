@@ -1,13 +1,13 @@
 //
-//  HeaderLabels.swift
+//  HeaderView.swift
 //  CuppaJoy
 //
-//  Created by Alexander Andrianov on 06.10.2024.
+//  Created by Alexander Andrianov on 27.11.2024.
 //
 
 import SwiftUI
 
-struct HeaderLabel: View {
+struct HeaderView: View {
     let title: String
     let subtitle: String
     
@@ -25,7 +25,7 @@ struct HeaderLabel: View {
 
 #if DEBUG
 #Preview {
-    HeaderLabel(
+    HeaderView(
         title: "Forgot Password?",
         subtitle: "Enter your email address"
     )
