@@ -8,43 +8,38 @@
 import SwiftUI
 
 struct GreetingScreen: View {
-    @State private var isShownSignIn = false
     
     var body: some View {
-        Group {
-            if isShownSignIn {
-                SignInScreen()
-            } else {
-                ZStack {
-                    Color.primarySystem.ignoresSafeArea()
+        ZStack {
+            Color.primaryBrown.ignoresSafeArea()
+            
+            VStack(spacing: 50) {
+                Image("header")
+                    .shadow(color: .primaryDarkBrown, radius: 5)
+                VStack(spacing: 10) {
+                    Text("Feel yourself like a barista.")
+                        .font(.poppins(.regular, size: 25))
+                        .multilineTextAlignment(.center)
                     
-                    VStack {
-                        Image("header")
-                            .shadow(color: .primaryMint, radius: 5)
-                        VStack(spacing: 10) {
-                            Text("Feel yourself like a barista.")
-                                .font(.poppins(.regular, size: 23))
-                                .multilineTextAlignment(.center)
-                            
-                            Text("Magic coffee on order.")
-                                .font(.poppins(.regular, size: 15))
-                                .foregroundStyle(.primaryWhite)
-                        }
-                        .foregroundStyle(.primaryMint)
-                        .padding(.vertical, 60)
-                         
-                        MainButton("Get Started") {
-                            withAnimation(.smooth) {
-                                isShownSignIn = true
-                            }
-                        }
+                    Text("Magic coffee on order.")
+                        .font(.poppins(.regular, size: 15))
+                        .foregroundStyle(.primaryWhite)
+                }
+                .foregroundStyle(.primaryMint)
+                
+                MainButton("Get Started") {
+                    withAnimation(.smooth) {
+                        // show Sign In screen
                     }
                 }
             }
+            .padding(50)
         }
     }
 }
 
 #if DEBUG
-#Preview { GreetingScreen() }
+#Preview {
+    GreetingScreen()
+}
 #endif
