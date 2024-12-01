@@ -8,32 +8,33 @@
 import SwiftUI
 
 struct CustomTextField: View {
-    let imageName: String
+    let image: String
     let placeholder: String
     @Binding var inputData: String
     
     var body: some View {
         VStack {
             HStack(spacing: 15) {
-                Image(imageName)
+                Image(image)
                     .resizable()
                     .frame(width: 23, height: 23)
-                    .foregroundStyle(.primaryMint)
-                
-                TextField(placeholder, text: $inputData)
-                    .font(.poppins(.regular, size: 15))
-                    .foregroundStyle(.primaryMint)
+                    .foregroundStyle(.cstMint)
+                TextField(text: $inputData) {
+                    Text(placeholder)
+                        .font(.poppins(.medium, size: 13))
+                        .foregroundStyle(.cstGray)
+                }
             }
             Rectangle()
                 .frame(height: 0.5)
-                .foregroundStyle(.primaryGray)
+                .foregroundStyle(.cstGray)
         }
     }
 }
 
 #Preview {
     CustomTextField(
-        imageName: "user",
+        image: "user",
         placeholder: "Enter your password",
         inputData: .constant("")
     )
