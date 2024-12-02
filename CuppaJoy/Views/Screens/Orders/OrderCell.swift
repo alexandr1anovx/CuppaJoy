@@ -20,11 +20,11 @@ struct OrderCell: View {
         VStack(alignment: .leading, spacing: 15) {
             HStack {
                 Text(date)
-                    .font(.poppins(.medium, size: 12))
+                    .font(.poppins(.medium, size: 13))
                     .foregroundStyle(.cstGray)
                 Spacer()
-                Text("UAH \(String(format: "%.2f", price))")
-                    .font(.poppins(.medium, size: 18))
+                Text("₴ \(String(format: "%.2f", price))")
+                    .font(.poppins(.bold, size: 18))
                     .foregroundStyle(.cstWhite)
             }
             OrderRow(content: coffee, imageName: "coffeeGlass")
@@ -41,11 +41,11 @@ struct OrderRow: View {
         HStack(spacing: 10) {
             Image(imageName)
                 .resizable()
-                .frame(width: 20, height: 20)
+                .frame(width: 25, height: 25)
                 .foregroundStyle(.cstWhite)
             Text(content)
                 .font(.poppins(.medium, size: 13))
-                .foregroundStyle(.cstMint)
+                .foregroundStyle(.cstCream)
         }
     }
 }

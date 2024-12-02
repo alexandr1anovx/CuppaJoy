@@ -10,7 +10,7 @@ import SwiftUI
 struct CompletedOrderView: View {
     var body: some View {
         ZStack {
-            Color.cstBrown.ignoresSafeArea()
+            Color.cstDarkBrown.ignoresSafeArea()
             VStack(spacing: 15) {
                 
                 Image("takeaway")

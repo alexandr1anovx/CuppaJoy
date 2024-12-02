@@ -32,9 +32,9 @@ struct OrdersScreen: View {
             .listRowBackground(Color.cstBlack)
         }
         .shadow(radius: 10)
-        .listRowSpacing(18)
+        .listRowSpacing(20)
         .scrollContentBackground(.hidden)
-        .background(.cstBrown)
+        .background(.cstDarkBrown)
     }
 }
 
