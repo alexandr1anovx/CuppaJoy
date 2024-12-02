@@ -15,11 +15,13 @@ struct SignUpScreen: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.primaryBrown.ignoresSafeArea()
+                Color.cstDarkBrown.ignoresSafeArea()
                 
-                VStack(alignment: .leading, spacing: 40) {
-                    HeaderView(title: "Sign Up",
-                               subtitle: "Create an account here.")
+                VStack(alignment: .leading, spacing: 30) {
+                    TitleView(
+                        "Sign Up",
+                        subtitle: "Create an account here."
+                    )
                     
                     SignUpForm()
                     
@@ -29,23 +31,21 @@ struct SignUpScreen: View {
                             isShownSMSConfirmation.toggle()
                         }
                     }
-                    
                     HStack(spacing: 5) {
                         Text("Already a member?")
                             .font(.poppins(.regular, size: 13))
-                            .foregroundStyle(.primaryWhite)
+                            .foregroundStyle(.cstGray)
                         Button("Sign In") {
                             dismiss()
                         }
                         .font(.poppins(.medium, size: 15))
-                        .foregroundStyle(.primaryMint)
+                        .foregroundStyle(.cstMint)
                     }
                 }
                 .padding(.horizontal, 30)
-                
                 .sheet(isPresented: $isShownSMSConfirmation) {
                     SMSConfirmationView()
-                        .presentationDetents([.height(290)])
+                        .presentationDetents([.medium])
                         .presentationCornerRadius(20)
                         .presentationDragIndicator(.visible)
                 }
@@ -68,12 +68,12 @@ struct SignUpForm: View {
     var body: some View {
         VStack(spacing: 25) {
             CustomTextField(
-                imageName: "user",
+                image: "user",
                 placeholder: "Name and surname",
                 inputData: $initials
             )
             CustomTextField(
-                imageName: "phone",
+                image: "phone",
                 placeholder: "Phone Number",
                 inputData: $phoneNumber
             )
@@ -81,6 +81,6 @@ struct SignUpForm: View {
     }
 }
 
-#if DEBUG
-#Preview { SignUpScreen() }
-#endif
+#Preview {
+    SignUpScreen()
+}

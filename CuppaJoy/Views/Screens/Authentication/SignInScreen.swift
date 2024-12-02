@@ -13,32 +13,29 @@ struct SignInScreen: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.primaryBrown.ignoresSafeArea()
+                Color.cstDarkBrown.ignoresSafeArea()
                 
                 VStack(alignment: .leading, spacing: 30) {
-                    HeaderLabel(
-                        title: "Sign In",
-                        subtitle: "Welcome back!"
-                    )
+                    TitleView("Sign In", subtitle: "Welcome back.")
+                    
                     CustomTextField(
-                        imageName: "phone",
+                        image: "phone",
                         placeholder: "Phone Number",
                         inputData: $phoneNumber
                     )
-                    
                     HStack {
                         Spacer()
                         MainButton("Next") {
                             /*
                              + show the Home screen if credentials are correct
-                             - show an alert with error description
+                             - show an alert with the error description
                              */
                         }
                     }
                     HStack(spacing: 5) {
                         Text("New member?")
                             .font(.poppins(.regular, size: 14))
-                            .foregroundStyle(.primaryWhite)
+                            .foregroundStyle(.cstWhite)
                             .opacity(0.5)
                         
                         NavigationLink {
@@ -46,15 +43,16 @@ struct SignInScreen: View {
                         } label: {
                             Text("Sign Up")
                                 .font(.poppins(.medium, size: 14))
-                                .foregroundStyle(.primaryMint)
+                                .foregroundStyle(.cstMint)
                         }
                     }
-                }.padding(.horizontal, 30)
+                }
+                .padding(.horizontal, 30)
             }
         }
     }
 }
 
-#if DEBUG
-#Preview { SignInScreen() }
-#endif
+#Preview {
+    SignInScreen()
+}
