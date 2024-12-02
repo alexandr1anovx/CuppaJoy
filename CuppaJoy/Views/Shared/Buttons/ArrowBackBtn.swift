@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct BackButton: View {
+struct ArrowBackBtn: View {
+    
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -17,11 +18,11 @@ struct BackButton: View {
             Image("arrowLeft")
                 .resizable()
                 .frame(width: 30, height: 30)
-                .foregroundStyle(.primaryMint)
+                .foregroundStyle(.cstCream)
         }
     }
 }
 
 #Preview {
-    BackButton()
+    ArrowBackBtn()
 }
