@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct CoffeeAssemblageScreen: View {
+struct AssemblerScreen: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.primaryBrown.ignoresSafeArea()
+                Color.cstBrown.ignoresSafeArea()
                 
                 VStack {
                     List {
@@ -30,7 +30,7 @@ struct CoffeeAssemblageScreen: View {
                 }
                 .padding(.top, 10)
             }
-            .navigationTitle("Coffee assemblage")
+            .navigationTitle("Assembler")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -41,14 +41,12 @@ struct CoffeeAssemblageScreen: View {
     }
 }
 
-#if DEBUG
 #Preview {
-    CoffeeAssemblageScreen()
+    AssemblerScreen()
 }
-#endif
 
 // MARK: - Views
-private extension CoffeeAssemblageScreen {
+private extension AssemblerScreen {
     
     struct BaristaSelectionView: View {
         var body: some View {
@@ -57,10 +55,10 @@ private extension CoffeeAssemblageScreen {
             } label: {
                 Text("Select a barista")
                     .font(.poppins(.medium, size: 15))
-                    .foregroundStyle(.primaryWhite)
+                    .foregroundStyle(.cstWhite)
             }
             .padding(.vertical)
-            .listRowBackground(Color.primaryBrown)
+            .listRowBackground(Color.cstBrown)
         }
     }
     
@@ -70,21 +68,21 @@ private extension CoffeeAssemblageScreen {
         var body: some View {
             HStack(spacing: 50) {
                 Text("Coffee type")
-                    .foregroundStyle(.primaryWhite)
+                    .foregroundStyle(.cstWhite)
                     .font(.poppins(.medium, size: 15))
                 VStack {
                     Slider(value: $value, in: 0...1)
-                        .tint(.primaryMint)
+                        .tint(.cstMint)
                     HStack {
                         Text("Arabica")
                         Spacer()
                         Text("Robusta")
                     }
-                    .foregroundStyle(.primaryMint)
+                    .foregroundStyle(.cstMint)
                     .font(.poppins(.regular, size: 13))
                 }
             }
-            .listRowBackground(Color.primaryBrown)
+            .listRowBackground(Color.cstBrown)
         }
     }
     
@@ -99,9 +97,9 @@ private extension CoffeeAssemblageScreen {
             }
             .pickerStyle(.menu)
             .font(.poppins(.medium, size: 15))
-            .foregroundStyle(.primaryWhite)
-            .tint(.primaryMint)
-            .listRowBackground(Color.primaryBrown)
+            .foregroundStyle(.cstWhite)
+            .tint(.cstMint)
+            .listRowBackground(Color.cstBrown)
         }
     }
     
@@ -116,9 +114,9 @@ private extension CoffeeAssemblageScreen {
             }
             .pickerStyle(.menu)
             .font(.poppins(.medium, size: 15))
-            .foregroundStyle(.primaryWhite)
-            .tint(.primaryMint)
-            .listRowBackground(Color.primaryBrown)
+            .foregroundStyle(.cstWhite)
+            .tint(.cstMint)
+            .listRowBackground(Color.cstBrown)
         }
     }
     
@@ -133,9 +131,9 @@ private extension CoffeeAssemblageScreen {
             }
             .pickerStyle(.menu)
             .font(.poppins(.medium, size: 15))
-            .foregroundStyle(.primaryWhite)
-            .tint(.primaryMint)
-            .listRowBackground(Color.primaryBrown)
+            .foregroundStyle(.cstWhite)
+            .tint(.cstMint)
+            .listRowBackground(Color.cstBrown)
         }
     }
     
@@ -146,19 +144,19 @@ private extension CoffeeAssemblageScreen {
             Picker("Additives", selection: $additive) {
                 ForEach(Additive.allCases, id: \.self) { additive in
                     Text(additive.rawValue)
-                        .foregroundStyle(.primaryMint)
+                        .foregroundStyle(.cstMint)
                 }
             }
             .pickerStyle(.navigationLink)
             .font(.poppins(.medium, size: 15))
-            .foregroundStyle(.primaryWhite)
-            .listRowBackground(Color.primaryBrown)
+            .foregroundStyle(.cstWhite)
+            .listRowBackground(Color.cstBrown)
         }
     }
 }
 
 // MARK: - Enums
-private extension CoffeeAssemblageScreen {
+private extension AssemblerScreen {
     
     enum CoffeeSort: String, CaseIterable {
         case santos = "Santos"
