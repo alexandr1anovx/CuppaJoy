@@ -11,17 +11,35 @@ struct OrdersScreen: View {
     @Binding var isShownTabBar: Bool
     
     var body: some View {
-        ZStack {
-            Color.primarySystem.ignoresSafeArea()
-            VStack {
-                Image("orders")
-                Text("Orders")
-                    .font(.poppins(.medium, size: 25))
-            }
+        List {
+            OrderCell(
+                coffee: "Cappuccino",
+                address: "3rd Slobidska",
+                price: 35.00
+            ).listRowBackground(Color.cstBlack)
+            
+            OrderCell(
+                coffee: "Latte",
+                address: "3rd Slobidska",
+                price: 32.50
+            ).listRowBackground(Color.cstBlack)
+            
+            OrderCell(
+                coffee: "Espresso",
+                address: "3rd Slobidska",
+                price: 38.50
+            )
+            .listRowBackground(Color.cstBlack)
         }
+        .shadow(radius: 10)
+        .listRowSpacing(18)
+        .scrollContentBackground(.hidden)
+        .background(.cstBrown)
     }
 }
 
 #Preview {
-    OrdersScreen(isShownTabBar: .constant(true))
+    OrdersScreen(
+        isShownTabBar: .constant(true)
+    )
 }

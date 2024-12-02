@@ -17,20 +17,19 @@ struct OrderCell: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 15) {
             HStack {
                 Text(date)
-                    .font(.poppins(.medium, size: 10))
-                    .foregroundStyle(.primaryGray)
+                    .font(.poppins(.medium, size: 12))
+                    .foregroundStyle(.cstGray)
                 Spacer()
                 Text("UAH \(String(format: "%.2f", price))")
-                    .font(.poppins(.medium, size: 16))
-                    .foregroundStyle(.primaryReversed)
+                    .font(.poppins(.medium, size: 18))
+                    .foregroundStyle(.cstWhite)
             }
-            OrderRow(content: coffee, imageName: "coffeeCup")
+            OrderRow(content: coffee, imageName: "coffeeGlass")
             OrderRow(content: address, imageName: "location")
         }
-        .padding(.horizontal, 30)
     }
 }
 
@@ -39,13 +38,14 @@ struct OrderRow: View {
     let imageName: String
     
     var body: some View {
-        HStack {
+        HStack(spacing: 10) {
             Image(imageName)
                 .resizable()
-                .frame(width: 15, height: 15)
+                .frame(width: 20, height: 20)
+                .foregroundStyle(.cstWhite)
             Text(content)
-                .font(.poppins(.medium, size: 12))
-                .foregroundStyle(.primaryReversed)
+                .font(.poppins(.medium, size: 13))
+                .foregroundStyle(.cstMint)
         }
     }
 }

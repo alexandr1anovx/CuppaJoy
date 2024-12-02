@@ -9,43 +9,39 @@ import SwiftUI
 
 struct CoffeeOrderScreen: View {
     
-    // MARK: - Properties
-    @State private var coffeeCount = 0
+    @State private var glassCount = 0
     @State private var selectedCup: CoffeeCup = .small
     @State private var isShownTime = false
     @State private var currentTime = Date.now
     
     var body: some View {
         ZStack {
-            Color.primarySystem.ignoresSafeArea()
+            Color.cstDarkBrown.ignoresSafeArea()
             
-            VStack(spacing: 30) {
+            VStack(spacing: 23) {
                 
-                // MARK: - Coffee Image
-                Image("coffeeGlass")
+                Image("coffeeCup")
                     .resizable()
-                    .frame(width: 100, height: 100)
-                    .foregroundStyle(.primaryMint)
+                    .frame(width: 180, height: 160)
+                    .foregroundStyle(.cstMint)
                 
-                // MARK: - Coffee Quantity
-                HStack {
+                HStack(spacing: 15) {
                     Text("Cappuccino")
                     Spacer()
-                    Button("+") { coffeeCount += 1 }
-                    Text("\(coffeeCount)")
-                    Button("-") { coffeeCount -= 1 }
+                    Button("+") { glassCount += 1 }
+                    Text("\(glassCount)")
+                    Button("-") { glassCount -= 1 }
                 }
-                .foregroundStyle(.primaryMint)
+                .foregroundStyle(.cstCream)
                 .font(.poppins(.medium, size: 15))
                 .buttonStyle(.bordered)
                 
-                Divider()
+                CustomDivider()
                 
-                // MARK: - Coffee cup size
                 HStack {
                     Text("Cup size, ml")
                         .font(.poppins(.medium, size: 15))
-                        .foregroundStyle(.primaryMint)
+                        .foregroundStyle(.cstCream)
                     
                     Spacer()
                     
@@ -56,75 +52,60 @@ struct CoffeeOrderScreen: View {
                                     .resizable()
                                     .frame(width: cup.size, height: cup.size)
                                 Text(cup.ml)
-                                    .font(.poppins(.regular, size: 14))
+                                    .font(.poppins(.regular, size: 15))
                             }
                             .onTapGesture { selectedCup = cup }
                             .foregroundStyle(
-                                selectedCup == cup ? .primaryBrown : .primaryMint
+                                selectedCup == cup ? .cstCream : .cstGray
                             )
                         }
                     }
                 }
                 
-                Divider()
+                CustomDivider()
                 
-                // MARK: - Time-based delivery
                 HStack {
                     VStack(spacing: 20) {
                         Toggle("Specific delivery time", isOn: $isShownTime)
-                            .tint(.primaryMint)
                             .font(.poppins(.medium, size: 15))
-                            .foregroundStyle(.primaryMint)
+                            .foregroundStyle(.cstCream)
+                            .tint(.cstCream)
                         
                         if isShownTime {
-                            DatePicker(
-                                "",
-                                selection: $currentTime,
-                                displayedComponents: .hourAndMinute
+                            DatePicker("", selection: $currentTime, displayedComponents: .hourAndMinute
                             )
                         }
                     }
                 }
-                
-                // MARK: - Coffee assemblage
-                Button {
-                    // Redirect to assemblage screen
-                } label: {
-                    HStack(spacing: 10) {
-                        Image(systemName: "checklist.unchecked")
-                        Text("Coffee assemblage")
-                        Spacer()
-                        Image(systemName: "arrow.right")
+                HStack {
+                    MainButton("Assembler") {
+                        // Redirect to assemblage screen
                     }
-                    .foregroundStyle(.primaryGreen)
-                    .padding()
-                    .background(.primaryMint)
-                    .clipShape(.buttonBorder)
+                    
+                    Spacer()
                 }
                 
                 Spacer()
                 
-                // MARK: - Total Amount and Next button
-                VStack(spacing: 30) {
+                VStack(spacing: 20) {
                     HStack {
                         Text("Total amount")
-                            .font(.poppins(.medium, size: 16))
+                            .font(.poppins(.medium, size: 17))
                         Spacer()
                         Text("UAH 50.00")
-                            .font(.poppins(.bold, size: 18))
+                            .font(.poppins(.medium, size: 20))
                     }
+                    .foregroundStyle(.cstCream)
                     
-                    Button("Next") {
+                    CustomDivider()
+                    
+                    MainButton("Next") {
                         
                     }
-                    .padding(.vertical)
-                    .padding(.horizontal, 80)
-                    .background(.primaryMint)
-                    .foregroundStyle(.primaryGreen)
-                    .clipShape(.buttonBorder)
+                    
                 }
             }
-            .padding(.top)
+            .padding(.vertical)
             .padding(.horizontal, 30)
         }
     }
@@ -158,8 +139,4 @@ enum CoffeeCup: Int, CaseIterable {
     }
 }
 
-#if DEBUG
-#Preview {
-    CoffeeOrderScreen()
-}
-#endif
+#Preview { CoffeeOrderScreen() }
