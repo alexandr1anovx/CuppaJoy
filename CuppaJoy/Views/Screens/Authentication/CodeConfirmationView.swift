@@ -1,0 +1,56 @@
+//
+//  VerificationView.swift
+//  CuppaJoy
+//
+//  Created by Alexander Andrianov on 09.10.2024.
+//
+
+import SwiftUI
+
+struct CodeConfirmationView: View {
+  
+  @Environment(\.dismiss) var dismiss
+  @State private var confirmationCode = ""
+  
+  var body: some View {
+    ZStack {
+      Color.cstDarkBrown.ignoresSafeArea()
+      
+      VStack(alignment: .leading, spacing: 35) {
+        // Header
+        VStack(alignment: .leading, spacing: 15) {
+          Text("Verification")
+            .foregroundStyle(.cstCream)
+            .font(.poppins(.medium, size: 20))
+          Text("Enter the code we sent to your phone number.")
+            .font(.poppins(.regular, size: 14))
+            .foregroundStyle(.cstGray)
+        }
+        
+        CustomTextField(
+          image: "mailbox",
+          placeholder: "Confirmation code",
+          inputData: $confirmationCode)
+        
+        Text("Resend in 00:30")
+          .font(.poppins(.medium, size: 15))
+          .foregroundStyle(.pink)
+          .opacity(0.7)
+        HStack {
+          Spacer()
+          CustomBtn("Confirm", action: {})
+        }
+      }
+      .padding(.horizontal, 30)
+      .toolbar {
+        ToolbarItem(placement: .topBarLeading) {
+          ArrowBackBtn()
+        }
+      }
+    }
+  }
+}
+
+#Preview {
+  CodeConfirmationView()
+}
