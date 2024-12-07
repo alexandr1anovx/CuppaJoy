@@ -8,48 +8,53 @@
 import SwiftUI
 
 struct ProfileScreen: View {
-    var body: some View {
-        NavigationStack { // Remove the NavigationStack in the future!
-            ZStack {
-                Color.cstDarkBrown.ignoresSafeArea(.all)
-                
-                VStack(spacing: 30) {
-                    ProfileContentCell(
-                        image: "user",
-                        header: "Name",
-                        content: "Alexander"
-                    )
-                    ProfileContentCell(
-                        image: "smartphone",
-                        header: "Phone number",
-                        content: "+380955302040"
-                    )
-                    ProfileContentCell(
-                        image: "mailbox",
-                        header: "Email",
-                        content: "myEmail@gmail.com"
-                    )
-                    ProfileContentCell(
-                        image: "mappin",
-                        header: "Magic Coffee store address",
-                        content: "3-rd Slobidska"
-                    )
-                    
-                    Spacer()
-                    Image(systemName: "qrcode.viewfinder")
-                        .resizable()
-                        .frame(width: 200, height: 200)
-                        .foregroundStyle(.cstGray)
-                    Spacer()
-                }
-                .padding(.top, 30)
-            }
-            .navigationTitle("Profile")
-            .navigationBarTitleDisplayMode(.inline)
-        }
+  var body: some View {
+    ZStack {
+      Color.cstDarkBrown.ignoresSafeArea(.all)
+      
+      VStack(spacing: 30) {
+        UserDataConfigurationCell(
+          image: "user",
+          header: "Name",
+          content: "Alexander"
+        )
+        UserDataConfigurationCell(
+          image: "smartphone",
+          header: "Phone number",
+          content: "+380955302040"
+        )
+        UserDataConfigurationCell(
+          image: "mailbox",
+          header: "Email",
+          content: "myEmail@gmail.com"
+        )
+        UserDataConfigurationCell(
+          image: "mappin",
+          header: "Magic Coffee store address",
+          content: "3-rd Slobidska"
+        )
+        
+        Spacer()
+        Image(systemName: "qrcode.viewfinder")
+          .resizable()
+          .scaledToFit()
+          .frame(width: 150, height: 150)
+          .foregroundStyle(.cstGray)
+        Spacer()
+      }
+      .padding(.top, 25)
     }
+    .navigationTitle("Profile")
+    .navigationBarTitleDisplayMode(.inline)
+    .navigationBarBackButtonHidden()
+    .toolbar {
+      ToolbarItem(placement: .topBarLeading) {
+        ArrowBackBtn()
+      }
+    }
+  }
 }
 
 #Preview {
-    ProfileScreen()
+  ProfileScreen()
 }
