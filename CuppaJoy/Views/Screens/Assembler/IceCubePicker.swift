@@ -14,8 +14,8 @@ enum IceCube: String, CaseIterable {
   case three = "Three cubes"
 }
 
-struct IceCubeCell: View {
-  @State private var iceCubeCount: IceCube = .two
+struct IceCubePicker: View {
+  @State private var iceCubeCount: IceCube = .none
   
   var body: some View {
     Picker("Ice Cube", selection: $iceCubeCount) {

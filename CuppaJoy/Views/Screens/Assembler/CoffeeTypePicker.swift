@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct CoffeeTypeCell: View {
+struct CoffeeTypePicker: View {
   @State private var value: Double = 0.0
   
   var body: some View {
-    HStack(spacing: 50) {
+    HStack(spacing: 40) {
       Text("Type")
         .foregroundStyle(.cstWhite)
         .font(.poppins(.medium, size: 15))
@@ -29,4 +29,8 @@ struct CoffeeTypeCell: View {
     }
     .listRowBackground(Color.cstBrown)
   }
+}
+
+#Preview {
+  CoffeeTypePicker()
 }

@@ -15,7 +15,7 @@ enum Milk: String, CaseIterable {
   case vegetable = "Vegetable"
 }
 
-struct MilkCell: View {
+struct MilkPicker: View {
   @State private var milk: Milk = .none
   
   var body: some View {

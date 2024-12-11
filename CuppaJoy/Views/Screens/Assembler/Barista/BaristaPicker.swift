@@ -1,5 +1,5 @@
 //
-//  BaristaSelectionCell.swift
+//  BaristaPicker.swift
 //  CuppaJoy
 //
 //  Created by Alexander Andrianov on 07.12.2024.
@@ -7,13 +7,17 @@
 
 import SwiftUI
 
-struct BaristaCell: View {
+struct BaristaPicker: View {
   var body: some View {
     NavigationLink("Select a barista") {
-      CoffeeOrderScreen()
+      BaristaScreen()
     }
     .font(.poppins(.medium, size: 15))
     .foregroundStyle(.cstWhite)
     .listRowBackground(Color.cstBrown)
   }
+}
+
+#Preview {
+  BaristaPicker()
 }

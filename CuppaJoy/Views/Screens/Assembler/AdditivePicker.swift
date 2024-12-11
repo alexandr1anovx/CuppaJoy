@@ -17,7 +17,7 @@ enum Additive: String, CaseIterable {
   case iceCream = "Ice cream"
 }
 
-struct AdditiveCell: View {
+struct AdditivePicker: View {
   @State private var additive: Additive = .none
   
   var body: some View {
@@ -27,9 +27,10 @@ struct AdditiveCell: View {
           .foregroundStyle(.cstCream)
       }
     }
-    .pickerStyle(.navigationLink)
+    .pickerStyle(.menu)
     .font(.poppins(.medium, size: 15))
     .foregroundStyle(.cstWhite)
+    .tint(.cstCream)
     .listRowBackground(Color.cstBrown)
   }
 }

@@ -16,7 +16,7 @@ enum Sort: String, CaseIterable {
   case flatBeat = "Flat Beat"
 }
 
-struct SortCell: View {
+struct SortPicker: View {
   @State private var sort: Sort = .santos
   
   var body: some View {
