@@ -1,52 +1,33 @@
 //
-//  TabBar.swift
+//  CustomTabBar.swift
 //  CuppaJoy
 //
-//  Created by Alexander Andrianov on 22.10.2024.
+//  Created by Alexander Andrianov on 07.12.2024.
 //
 
 import SwiftUI
 
 struct CustomTabBar: View {
-    @State private var selectedTab = Tab.home
-    @State private var isShownTabBar = true
-    
-    init() { UITabBar.appearance().isHidden = true }
-    
-    var body: some View {
-        ZStack(alignment: .bottom) {
-            TabView(selection: $selectedTab) {
-                HomeScreen(isShownTabBar: $isShownTabBar)
-                    .tag(Tab.home)
-                RewardsScreen(isShownTabBar: $isShownTabBar)
-                    .tag(Tab.rewards)
-                OrdersScreen(isShownTabBar: $isShownTabBar)
-                    .tag(Tab.orders)
-            }
-            if isShownTabBar {
-                HStack {
-                    ForEach(Tab.allCases, id: \.self) { tab in
-                        TabBarButton(
-                            title: tab.title,
-                            image: tab.iconName,
-                            tab: tab,
-                            selectedTab: $selectedTab
-                        )
-                        if tab != Tab.allCases.last {
-                            Spacer()
-                        }
-                    }
-                }
-                .padding(12)
-                .background(.primaryTabBar)
-                .clipShape(.capsule)
-                .padding(.horizontal, 25)
-                .shadow(radius: 8)
-            }
+  private let tabs = TabItem.allCases
+  @Binding var selectedTab: TabItem
+  
+  var body: some View {
+    HStack {
+      ForEach(tabs, id: \.self) { tab in
+        TabBarButton(
+          title: tab.title,
+          image: tab.iconName,
+          tab: tab,
+          selectedTab: $selectedTab
+        )
+        if tab != tabs.last {
+          Spacer()
         }
+      }
     }
-}
-
-#Preview {
-    CustomTabBar()
+    .padding(8)
+    .background(Color.cstBrown)
+    .clipShape(.rect(cornerRadius: 20))
+    .padding(.horizontal, 50)
+  }
 }
