@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct CustomDivider: View {
-    var body: some View {
-        Rectangle()
-            .frame(height: 0.5)
-            .foregroundStyle(.cstGray)
-    }
+  var body: some View {
+    Rectangle()
+      .frame(height: 0.5)
+      .foregroundStyle(.cstCream)
+      .opacity(0.7)
+  }
 }

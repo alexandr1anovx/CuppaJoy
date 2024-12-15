@@ -21,8 +21,8 @@ struct CustomBtn: View {
       .frame(minWidth: 50)
       .font(.poppins(.medium, size: 15))
       .foregroundStyle(.cstDarkBrown)
-      .padding(14)
-      .background(.cstCream.shadow(.inner(radius: 3)))
+      .padding(13)
+      .background(Color.cstCream.shadow(.inner(radius: 3)))
       .clipShape(.buttonBorder)
   }
 }

@@ -16,10 +16,11 @@ struct ArrowBackBtn: View {
     } label: {
       Image("arrowLeft")
         .resizable()
-        .frame(width: 30, height: 30)
+        .frame(width: 28, height: 28)
         .foregroundStyle(.cstCream)
-        .opacity(0.7)
+        .opacity(0.8)
     }
+    
   }
 }
 
