@@ -17,55 +17,59 @@ struct SignUpScreen: View {
   @Environment(\.dismiss) var dismiss
   
   var body: some View {
-    NavigationStack {
-      ZStack {
-        Color.cstDarkBrown.ignoresSafeArea()
+    ZStack {
+      Color.cstDarkBrown.ignoresSafeArea()
+      
+      VStack(alignment: .leading, spacing: 30) {
+        // Header
+        VStack(alignment: .leading, spacing: 15) {
+          Text("Sign Up")
+            .foregroundStyle(.cstCream)
+            .font(.poppins(.medium, size: 20))
+          Text("Create an account here.")
+            .font(.poppins(.regular, size: 14))
+            .foregroundStyle(.cstGray)
+        }
         
-        VStack(alignment: .leading, spacing: 30) {
-          // Header
-          VStack(alignment: .leading, spacing: 15) {
-            Text("Sign Up")
+        SignUpForm()
+        
+        HStack(spacing: 15) {
+          
+          Button {
+            isShownCodeConfirmation.toggle()
+          } label: {
+            Text("Continue")
+              .font(.poppins(.bold, size: 16))
               .foregroundStyle(.cstCream)
-              .font(.poppins(.medium, size: 20))
-            Text("Create an account here.")
-              .font(.poppins(.regular, size: 14))
-              .foregroundStyle(.cstGray)
+              .padding(5)
           }
+          .tint(.cstCream)
           
-          SignUpForm()
           
-          HStack {
-            Spacer()
-            CustomBtn("Sign Up") {
-              isShownCodeConfirmation.toggle()
-            }
-          }
+          Spacer()
           
-          HStack(spacing: 5) {
+          HStack(spacing: 8) {
             Text("Already a member?")
               .font(.poppins(.regular, size: 13))
               .foregroundStyle(.cstGray)
             Button("Sign In") {
               dismiss()
             }
-            .font(.poppins(.medium, size: 15))
+            .font(.poppins(.bold, size: 16))
             .foregroundStyle(.cstCream)
           }
         }
-        .padding(.horizontal, 30)
-        .sheet(isPresented: $isShownCodeConfirmation) {
-          CodeConfirmationView()
-            .presentationDetents([.medium])
-            .presentationCornerRadius(20)
-            .presentationDragIndicator(.visible)
-        }
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-          ToolbarItem(placement: .topBarLeading) {
-            ArrowBackBtn()
-          }
-        }
+        Spacer()
       }
+      .padding(.top, 30)
+      .padding(.horizontal, 20)
+      .sheet(isPresented: $isShownCodeConfirmation) {
+        CodeConfirmationView()
+          .presentationDetents([.medium])
+          .presentationCornerRadius(20)
+          .presentationDragIndicator(.visible)
+      }
+      .navigationBarBackButtonHidden(true)
     }
   }
 }
@@ -95,7 +99,9 @@ private extension SignUpScreen {
           ForEach(City.allCases, id: \.self) { city in
             Text(city.rawValue)
           }
-        }.pickerStyle(.segmented)
+        }
+        .pickerStyle(.segmented)
+        .colorMultiply(.cstCream)
       }
     }
   }
