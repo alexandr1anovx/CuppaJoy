@@ -33,12 +33,19 @@ struct SignInScreen: View {
           )
           HStack {
             Spacer()
-            CustomBtn("Next") {
+            Button {
               /*
-               + show the Home screen if credentials are correct
+               + show the "Home" screen if credentials are correct
                - show an alert with the error description
                */
+            } label: {
+              Text("Next")
+                .font(.poppins(.bold, size: 15))
+                .foregroundStyle(.cstCream)
+                .padding(5)
             }
+            .buttonStyle(.bordered)
+            .tint(.cstCream)
           }
           HStack(spacing: 5) {
             Text("New member?")
@@ -49,7 +56,7 @@ struct SignInScreen: View {
               SignUpScreen()
             } label: {
               Text("Sign Up")
-                .font(.poppins(.medium, size: 14))
+                .font(.poppins(.bold, size: 15))
                 .foregroundStyle(.cstCream)
             }
           }

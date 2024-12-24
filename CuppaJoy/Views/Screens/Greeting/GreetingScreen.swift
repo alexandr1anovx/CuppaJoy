@@ -14,6 +14,7 @@ struct GreetingScreen: View {
       
       VStack(spacing: 60) {
         Image("header")
+          .shadow(color: .cstCream, radius: 5)
         VStack(spacing: 10) {
           Text("Feel yourself like a barista 😊")
             .font(.poppins(.medium, size: 22))
@@ -26,11 +27,18 @@ struct GreetingScreen: View {
         }
         .foregroundStyle(.cstMint)
         
-        CustomBtn("Get Started") {
+        Button {
           withAnimation(.smooth) {
             // show screen action
           }
+        } label: {
+          Text("Get Started")
+            .font(.poppins(.bold, size: 16))
+            .foregroundStyle(.cstCream)
+            .padding(5)
         }
+        .buttonStyle(.bordered)
+        .tint(.cstCream)
       }
     }
   }

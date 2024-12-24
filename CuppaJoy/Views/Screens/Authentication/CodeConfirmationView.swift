@@ -34,11 +34,21 @@ struct CodeConfirmationView: View {
         
         Text("Resend in 00:30")
           .font(.poppins(.medium, size: 15))
-          .foregroundStyle(.pink)
+          .foregroundStyle(.cstMint)
           .opacity(0.7)
         HStack {
           Spacer()
-          CustomBtn("Confirm", action: {})
+          
+          Button {
+            // action
+          } label: {
+            Text("Confirm")
+              .font(.poppins(.bold, size: 16))
+              .foregroundStyle(.cstCream)
+              .padding(5)
+          }
+          .tint(.cstCream)
+          .buttonStyle(.bordered)
         }
       }
       .padding(.horizontal, 30)
