@@ -8,30 +8,23 @@
 import SwiftUI
 
 struct MyOrdersScreen: View {
-  @Binding var isShownTabBar: Bool
+  @Binding var isTabBarVisible: Bool
   
   var body: some View {
     List {
-      FinishedOrderView(
-        coffee: "Cappuccino",
+      OrderReceiptView(
+        coffee: Coffee.americano,
         address: "3rd Slobidska",
         price: 35.00
       ).listRowBackground(Color.cstBlack)
       
-      FinishedOrderView(
-        coffee: "Latte",
+      OrderReceiptView(
+        coffee: Coffee.latte,
         address: "3rd Slobidska",
         price: 32.50
       ).listRowBackground(Color.cstBlack)
-      
-      FinishedOrderView(
-        coffee: "Espresso",
-        address: "3rd Slobidska",
-        price: 38.50
-      ).listRowBackground(Color.cstBlack)
     }
     .listStyle(.insetGrouped)
-    .shadow(radius: 5)
     .listRowSpacing(20)
     .scrollContentBackground(.hidden)
     .background(.cstDarkBrown)
@@ -39,5 +32,5 @@ struct MyOrdersScreen: View {
 }
 
 #Preview {
-  MyOrdersScreen(isShownTabBar: .constant(true))
+  MyOrdersScreen(isTabBarVisible: .constant(true))
 }
