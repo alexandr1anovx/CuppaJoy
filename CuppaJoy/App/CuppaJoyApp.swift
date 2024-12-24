@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct CuppaJoyApp: App {
-    var body: some Scene {
-        WindowGroup {
-            GreetingScreen()
-        }
+  var body: some Scene {
+    WindowGroup {
+      GreetingScreen()
+        .preferredColorScheme(.dark)
     }
+  }
 }
