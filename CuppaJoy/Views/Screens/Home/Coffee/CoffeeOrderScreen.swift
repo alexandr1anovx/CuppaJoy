@@ -8,29 +8,39 @@
 import SwiftUI
 
 struct CoffeeOrderScreen: View {
+  let selectedCoffee: Coffee
   
   var body: some View {
     ZStack {
       Color.cstDarkBrown.ignoresSafeArea()
       
       VStack(alignment: .leading, spacing: 25) {
-        
+        HStack {
+          Spacer()
+          Image(systemName: "cup.and.saucer.fill")
+            .resizable()
+            .scaledToFit()
+            .frame(maxHeight: 70)
+            .foregroundStyle(.cstCream)
+          Spacer()
+        }
+
         CupCountCell()
         CustomDivider()
         CupSizeCell()
         CustomDivider()
         
         Button {
-          // Show the Assembler screen
+          // show the Assembler screen
         } label: {
-          Image(systemName: "hand.tap")
+          Image(systemName: "cup.and.heat.waves.fill")
             .foregroundStyle(.cstCream)
           HStack(spacing: 5) {
             Text("Customize with")
-              .font(.poppins(.regular, size: 15))
+              .font(.poppins(.medium, size: 14))
               .foregroundStyle(.cstCream)
             Text("Assembler")
-              .font(.poppins(.bold, size: 16))
+              .font(.poppins(.bold, size: 15))
               .foregroundStyle(.cstMint)
           }
         }
@@ -50,16 +60,25 @@ struct CoffeeOrderScreen: View {
           CustomDivider()
           CustomBtn("Next") {}
         }
-        // If the screen matches the iPhone SE(third generation) screen, then use a 20px bottom padding. If not, then use a 0px padding.
+        /*
+         Use a 20px padding for iPhone SE 3rd.
+         Use a 0px padding for others iPhones.
+        */
         .padding(.bottom, UIScreen.current?.bounds.height == 667 ? 20 : 0)
       }
-      .padding(.horizontal)
+      .padding(.horizontal, 20)
+      .navigationBarBackButtonHidden(true)
+      .toolbar {
+        ToolbarItem(placement: .topBarLeading) {
+          ArrowBackBtn()
+        }
+      }
     }
   }
 }
 
 #Preview {
-  CoffeeOrderScreen()
+  CoffeeOrderScreen(selectedCoffee: .espresso)
 }
 
 // MARK: View Components
@@ -72,11 +91,11 @@ private extension CoffeeOrderScreen {
       HStack(spacing: 15) {
         Text("Cup count")
         Spacer()
-        Button("+") { count += 1 }
-        Text("\(count)")
         Button("-") { count -= 1 }
+        Text("\(count)")
+        Button("+") { count += 1 }
       }
-      .foregroundStyle(.cstWhite)
+      .foregroundStyle(.cstCream)
       .font(.poppins(.medium, size: 15))
       .buttonStyle(.bordered)
     }
@@ -89,13 +108,14 @@ private extension CoffeeOrderScreen {
       VStack(alignment: .leading) {
         Text("Cup size (ml): ")
           .font(.poppins(.medium, size: 15))
-          .foregroundStyle(.cstWhite)
+          .foregroundStyle(.cstCream)
         Picker("", selection: $selectedSize) {
           ForEach(CoffeeCup.allCases, id: \.self) { cupSize in
             Text(cupSize.ml)
           }
         }
         .pickerStyle(.segmented)
+        .colorMultiply(.cstCream)
       }
     }
   }
