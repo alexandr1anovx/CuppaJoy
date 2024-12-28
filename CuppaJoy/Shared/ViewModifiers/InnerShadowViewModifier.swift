@@ -1,8 +1,8 @@
 //
-//  InnerShadowModifier.swift
+//  InnerShadowViewModifier.swift
 //  CuppaJoy
 //
-//  Created by Alexander Andrianov on 30.11.2024.
+//  Created by Alexander Andrianov on 29.12.2024.
 //
 
 import SwiftUI

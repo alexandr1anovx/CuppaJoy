@@ -11,7 +11,7 @@ import SwiftUI
 struct CuppaJoyApp: App {
   var body: some Scene {
     WindowGroup {
-      GreetingScreen()
+      CustomTabView()
         .preferredColorScheme(.dark)
     }
   }
