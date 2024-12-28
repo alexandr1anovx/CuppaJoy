@@ -25,7 +25,7 @@ struct CustomTextField: View {
             .foregroundStyle(.cstGray)
         }
       }
-      CustomDivider()
+      CustomSeparator()
     }
   }
 }

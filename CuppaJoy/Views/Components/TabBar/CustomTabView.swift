@@ -11,9 +11,7 @@ struct CustomTabView: View {
   @State private var selectedTab = TabItem.home
   @State private var isTabBarVisible = true
   
-  init() {
-    UITabBar.appearance().isHidden = true
-  }
+  init() { UITabBar.appearance().isHidden = true }
   
   var body: some View {
     ZStack(alignment: .bottom) {
@@ -21,9 +19,9 @@ struct CustomTabView: View {
       TabView(selection: $selectedTab) {
         HomeScreen(isTabBarVisible: $isTabBarVisible)
           .tag(TabItem.home)
-        MyRewardsScreen(isTabBarVisible: $isTabBarVisible)
+        RewardsTabScreen(isTabBarVisible: $isTabBarVisible)
           .tag(TabItem.rewards)
-        MyOrdersScreen(isTabBarVisible: $isTabBarVisible)
+        OngoingOrderScreen(isTabBarVisible: $isTabBarVisible)
           .tag(TabItem.orders)
       }
       

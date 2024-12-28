@@ -1,0 +1,17 @@
+//
+//  CustomDivider.swift
+//  CuppaJoy
+//
+//  Created by Alexander Andrianov on 02.12.2024.
+//
+
+import SwiftUI
+
+struct CustomSeparator: View {
+  var body: some View {
+    Rectangle()
+      .frame(height: 0.5)
+      .foregroundStyle(.cstCream)
+      .opacity(0.7)
+  }
+}
