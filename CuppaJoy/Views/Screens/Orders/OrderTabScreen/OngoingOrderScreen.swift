@@ -7,18 +7,18 @@
 
 import SwiftUI
 
-struct MyOrdersScreen: View {
+struct OngoingOrderScreen: View {
   @Binding var isTabBarVisible: Bool
   
   var body: some View {
     List {
-      OrderReceiptView(
+      OrderReceiptCell(
         coffee: Coffee.americano,
         address: "3rd Slobidska",
         price: 35.00
       ).listRowBackground(Color.cstBlack)
       
-      OrderReceiptView(
+      OrderReceiptCell(
         coffee: Coffee.latte,
         address: "3rd Slobidska",
         price: 32.50
@@ -32,5 +32,5 @@ struct MyOrdersScreen: View {
 }
 
 #Preview {
-  MyOrdersScreen(isTabBarVisible: .constant(true))
+  OngoingOrderScreen(isTabBarVisible: .constant(true))
 }

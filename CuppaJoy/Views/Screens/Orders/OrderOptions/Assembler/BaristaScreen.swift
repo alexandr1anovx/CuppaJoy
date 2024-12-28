@@ -13,10 +13,12 @@ struct BaristaScreen: View {
       Color.cstDarkBrown.ignoresSafeArea()
       
       VStack(alignment: .leading, spacing: 0) {
+        
         Text("Select a barista")
-          .font(.poppins(.medium, size: 16))
+          .font(.poppins(.medium, size: 15))
           .foregroundStyle(.cstGray)
           .padding(.leading, 25)
+        
         List {
           BaristaCell()
             .listRowBackground(Color.cstBrown)
@@ -29,7 +31,6 @@ struct BaristaScreen: View {
         .listRowSpacing(20)
         .scrollContentBackground(.hidden)
       }
-      .padding(.top)
     }
     .navigationBarBackButtonHidden(true)
     .toolbar {

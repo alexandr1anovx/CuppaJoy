@@ -10,7 +10,11 @@ import SwiftUI
 struct CompletedOrderScreen: View {
   var body: some View {
     ZStack {
-      Color.cstDarkBrown.ignoresSafeArea()
+      
+      LinearGradient(
+        colors: [.cstDarkBrown, .cstBlue],
+        startPoint: .top,
+        endPoint: .bottom).ignoresSafeArea()
       
       VStack(spacing: 15) {
         Image("takeaway")

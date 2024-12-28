@@ -17,7 +17,7 @@ struct BaristaCell: View {
         .scaledToFit()
         .frame(width: 50)
         .background(
-          RoundedRectangle(cornerRadius: 15)
+          RoundedRectangle(cornerRadius: 10)
             .fill(Color.cstCream)
             .frame(width: 55, height: 55)
         )
@@ -35,13 +35,9 @@ struct BaristaCell: View {
       
       Circle()
         .fill(Color.cstMint)
-        .frame(width: 18, height: 18)
+        .frame(width: 15, height: 15)
     }
   }
 }
 
-
-
-#Preview {
-  BaristaScreen()
-}
+#Preview { BaristaScreen() }

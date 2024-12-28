@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OrderReceiptView: View {
+struct OrderReceiptCell: View {
   let coffee: Coffee
   let address: String
   let price: Double
@@ -39,7 +39,7 @@ struct OrderReceiptView: View {
       }
       
       HStack(spacing: 10) {
-        Image("location")
+        Image("map")
           .resizable()
           .frame(width: 25, height: 25)
           .foregroundStyle(.cstWhite)
@@ -52,7 +52,7 @@ struct OrderReceiptView: View {
 }
 
 #Preview {
-  OrderReceiptView(
+  OrderReceiptCell(
     coffee: Coffee.americano,
     address: "Bradford St.1",
     price: 35.00
