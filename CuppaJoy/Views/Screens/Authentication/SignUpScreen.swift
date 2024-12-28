@@ -20,37 +20,23 @@ struct SignUpScreen: View {
     ZStack {
       Color.cstDarkBrown.ignoresSafeArea()
       
-      VStack(alignment: .leading, spacing: 30) {
+      VStack(alignment: .leading, spacing: 40) {
         // Header
         VStack(alignment: .leading, spacing: 15) {
           Text("Sign Up")
             .foregroundStyle(.cstCream)
             .font(.poppins(.medium, size: 20))
           Text("Create an account here.")
-            .font(.poppins(.regular, size: 14))
+            .font(.poppins(.regular, size: 13))
             .foregroundStyle(.cstGray)
         }
         
         SignUpForm()
         
-        HStack(spacing: 15) {
-          
-          Button {
-            isShownCodeConfirmation.toggle()
-          } label: {
-            Text("Continue")
-              .font(.poppins(.bold, size: 16))
-              .foregroundStyle(.cstCream)
-              .padding(5)
-          }
-          .tint(.cstCream)
-          
-          
-          Spacer()
-          
-          HStack(spacing: 8) {
+        HStack {
+          VStack(spacing: 5) {
             Text("Already a member?")
-              .font(.poppins(.regular, size: 13))
+              .font(.poppins(.regular, size: 12))
               .foregroundStyle(.cstGray)
             Button("Sign In") {
               dismiss()
@@ -58,7 +44,20 @@ struct SignUpScreen: View {
             .font(.poppins(.bold, size: 16))
             .foregroundStyle(.cstCream)
           }
+          
+          Spacer()
+          
+          Button {
+            isShownCodeConfirmation.toggle()
+          } label: {
+            Text("Sign Up")
+              .font(.poppins(.bold, size: 16))
+              .foregroundStyle(.cstMint)
+              .padding(5)
+          }
+          .tint(.cstCream)
         }
+        
         Spacer()
       }
       .padding(.top, 30)
