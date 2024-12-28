@@ -16,14 +16,14 @@ struct CodeConfirmationView: View {
     ZStack {
       Color.cstDarkBrown.ignoresSafeArea()
       
-      VStack(alignment: .leading, spacing: 35) {
+      VStack(alignment: .leading, spacing: 30) {
         // Header
         VStack(alignment: .leading, spacing: 15) {
           Text("Verification")
             .foregroundStyle(.cstCream)
             .font(.poppins(.medium, size: 20))
           Text("Enter the code we sent to your phone number.")
-            .font(.poppins(.regular, size: 14))
+            .font(.poppins(.regular, size: 13))
             .foregroundStyle(.cstGray)
         }
         
@@ -33,9 +33,9 @@ struct CodeConfirmationView: View {
           inputData: $confirmationCode)
         
         Text("Resend in 00:30")
-          .font(.poppins(.medium, size: 15))
+          .font(.poppins(.medium, size: 14))
           .foregroundStyle(.cstMint)
-          .opacity(0.7)
+          .opacity(0.5)
         HStack {
           Spacer()
           
@@ -43,7 +43,7 @@ struct CodeConfirmationView: View {
             // action
           } label: {
             Text("Confirm")
-              .font(.poppins(.bold, size: 16))
+              .font(.poppins(.medium, size: 16))
               .foregroundStyle(.cstCream)
               .padding(5)
           }
@@ -52,11 +52,6 @@ struct CodeConfirmationView: View {
         }
       }
       .padding(.horizontal, 30)
-      .toolbar {
-        ToolbarItem(placement: .topBarLeading) {
-          ArrowBackBtn()
-        }
-      }
     }
   }
 }
