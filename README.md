@@ -1,2 +1,2 @@
 # CuppaJoy
-iOS app for coffee shop
+Development stack: MVVM + Clean Architecture, SwiftUI, Combine, Firebase.
