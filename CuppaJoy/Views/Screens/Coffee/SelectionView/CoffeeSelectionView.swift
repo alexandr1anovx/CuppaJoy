@@ -31,30 +31,7 @@ struct CoffeeSelectionView: View {
   }
 }
 
-struct CoffeeCell: View {
-  let coffee: Coffee
-  
-  var body: some View {
-    NavigationLink {
-      CoffeeOrderScreen(selectedCoffee: coffee)
-    } label: {
-      RoundedRectangle(cornerRadius: 20)
-        .fill(Color.cstCream)
-        .aspectRatio(1.1, contentMode: .fit)
-        .overlay {
-          VStack(spacing: 10) {
-            Image(systemName: "cup.and.saucer.fill")
-              .resizable()
-              .scaledToFit()
-              .frame(maxHeight: 50)
-            Text(coffee.rawValue)
-              .font(.poppins(.medium, size: 15))
-          }
-          .foregroundStyle(.cstDarkBrown)
-        }
-    }
-  }
-}
+
 
 #Preview {
   CoffeeSelectionView()
