@@ -13,8 +13,12 @@ struct GreetingScreen: View {
       Color.cstDarkBrown.ignoresSafeArea()
       
       VStack(spacing: 60) {
-        Image("header")
+        Image("logo")
+          .resizable()
+          .scaledToFit()
+          .aspectRatio(2, contentMode: .fit)
           .shadow(color: .cstCream, radius: 5)
+        
         VStack(spacing: 10) {
           Text("Feel yourself like a barista 😊")
             .font(.poppins(.medium, size: 22))

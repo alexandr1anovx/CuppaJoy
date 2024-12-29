@@ -33,7 +33,7 @@ struct HomeHeaderView: View {
       Spacer()
       
       NavigationLink {
-        AssemblerScreen()
+        CompletedOrderScreen()
       } label: {
         Image("bag")
           .resizable()

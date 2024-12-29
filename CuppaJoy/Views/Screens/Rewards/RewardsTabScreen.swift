@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MyRewardsScreen: View {
+struct RewardsTabScreen: View {
   @Binding var isTabBarVisible: Bool
   
   var body: some View {
@@ -67,5 +67,5 @@ struct LoyaltyCardView: View {
 }
 
 #Preview {
-  MyRewardsScreen(isTabBarVisible: .constant(true))
+  RewardsTabScreen(isTabBarVisible: .constant(true))
 }
