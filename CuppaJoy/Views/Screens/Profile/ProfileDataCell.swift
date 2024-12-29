@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct UserDataConfigurationCell: View {
+struct ProfileDataCell: View {
   let image: String
   let header: String
   let content: String
@@ -47,7 +47,7 @@ struct UserDataConfigurationCell: View {
 }
 
 #Preview {
-  UserDataConfigurationCell(
+  ProfileDataCell(
     image: "user",
     header: "Name",
     content: "Alexander"

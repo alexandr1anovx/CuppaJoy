@@ -13,22 +13,22 @@ struct ProfileScreen: View {
       Color.cstDarkBrown.ignoresSafeArea(.all)
       
       VStack(spacing: 30) {
-        UserDataConfigurationCell(
+        ProfileDataCell(
           image: "user",
           header: "Name",
           content: "Alexander"
         )
-        UserDataConfigurationCell(
+        ProfileDataCell(
           image: "smartphone",
           header: "Phone number",
           content: "+380955302040"
         )
-        UserDataConfigurationCell(
+        ProfileDataCell(
           image: "mailbox",
           header: "Email",
           content: "myEmail@gmail.com"
         )
-        UserDataConfigurationCell(
+        ProfileDataCell(
           image: "mappin",
           header: "Magic Coffee store address",
           content: "3-rd Slobidska"
