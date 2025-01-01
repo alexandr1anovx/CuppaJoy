@@ -140,8 +140,6 @@
 			children = (
 				D1C859CE2D20BD3C00DDB941 /* Lifecycle */,
 				D1C859CF2D20BE2400DDB941 /* Shared */,
-				D1C859C32D20B9E100DDB941 /* ViewModels */,
-				D1C859C22D20B9C000DDB941 /* Models */,
 				32325EDE2CB2B7350048E557 /* Views */,
 			);
 			path = CuppaJoy;
@@ -341,20 +339,6 @@
 				3293AC942CC7166A00A9A9B5 /* OrderReceiptCell.swift */,
 			);
 			path = OrderTabScreen;
-			sourceTree = "<group>";
-		};
-		D1C859C22D20B9C000DDB941 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		D1C859C32D20B9E100DDB941 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		D1C859C92D20BACE00DDB941 /* Separator */ = {
