@@ -32,20 +32,13 @@ struct ConfirmedOrderCell: View {
       
       Spacer()
       
-      HStack(spacing: 4) {
-        Text("₴")
-        Text("35.00")
-      }
+      Text("₴ 35.00")
       .font(.poppins(.bold, size: 18))
       .foregroundStyle(.cstCream)
     }
-    .padding()
-    .background(
-      RoundedRectangle(cornerRadius: 20)
-        .fill(Color.cstBlue)
-    )
+//    .padding()
     // Changes the default List row background color
-    .listRowBackground(Color.cstDarkBrown)
+    
   }
 }
 

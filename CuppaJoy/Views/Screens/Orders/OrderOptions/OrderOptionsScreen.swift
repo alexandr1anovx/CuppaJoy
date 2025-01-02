@@ -59,8 +59,17 @@ struct OrderOptionsScreen: View {
               .foregroundStyle(.cstWhite)
           }
           CustomSeparator()
-          CustomBtn("Make an order") {
-            // action
+          
+          NavigationLink {
+            ConfirmedOrderList()
+          } label: {
+            Text("Make an order")
+              .frame(minWidth: 50)
+              .font(.poppins(.medium, size: 15))
+              .foregroundStyle(.cstDarkBrown)
+              .padding(13)
+              .background(Color.cstCream.shadow(.inner(radius: 3)))
+              .clipShape(.buttonBorder)
           }
         }
         // 20px bottom padding for iPhone SE 3rd generation.
