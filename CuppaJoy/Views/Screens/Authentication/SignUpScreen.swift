@@ -18,7 +18,7 @@ struct SignUpScreen: View {
   
   var body: some View {
     ZStack {
-      Color.cstDarkBrown.ignoresSafeArea()
+      Color.mainBackgroundGradient.ignoresSafeArea()
       
       VStack(alignment: .leading, spacing: 40) {
         // Header
@@ -41,7 +41,7 @@ struct SignUpScreen: View {
             Button("Sign In") {
               dismiss()
             }
-            .font(.poppins(.bold, size: 16))
+            .font(.poppins(.bold, size: 15))
             .foregroundStyle(.cstCream)
           }
           
@@ -51,7 +51,7 @@ struct SignUpScreen: View {
             isShownCodeConfirmation.toggle()
           } label: {
             Text("Sign Up")
-              .font(.poppins(.bold, size: 16))
+              .font(.poppins(.bold, size: 15))
               .foregroundStyle(.cstMint)
               .padding(5)
           }
@@ -60,8 +60,7 @@ struct SignUpScreen: View {
         
         Spacer()
       }
-      .padding(.top, 30)
-      .padding(.horizontal, 20)
+      .padding(25)
       .sheet(isPresented: $isShownCodeConfirmation) {
         CodeConfirmationView()
           .presentationDetents([.medium])

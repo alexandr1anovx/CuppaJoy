@@ -14,7 +14,7 @@ struct CodeConfirmationView: View {
   
   var body: some View {
     ZStack {
-      Color.cstDarkBrown.ignoresSafeArea()
+      Color.mainBackgroundGradient.ignoresSafeArea()
       
       VStack(alignment: .leading, spacing: 30) {
         // Header
@@ -34,8 +34,8 @@ struct CodeConfirmationView: View {
         
         Text("Resend in 00:30")
           .font(.poppins(.medium, size: 14))
-          .foregroundStyle(.cstMint)
-          .opacity(0.5)
+          .foregroundStyle(.cstLightPink)
+          .opacity(0.7)
         HStack {
           Spacer()
           

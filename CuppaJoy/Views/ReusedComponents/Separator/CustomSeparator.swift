@@ -12,6 +12,6 @@ struct CustomSeparator: View {
     Rectangle()
       .frame(height: 0.5)
       .foregroundStyle(.cstCream)
-      .opacity(0.7)
+      .opacity(0.6)
   }
 }

@@ -13,9 +13,10 @@ struct SignInScreen: View {
   var body: some View {
     NavigationStack {
       ZStack {
-        Color.cstDarkBrown.ignoresSafeArea()
+        Color.mainBackgroundGradient.ignoresSafeArea()
         
         VStack(alignment: .leading, spacing: 30) {
+          
           // Header
           VStack(alignment: .leading, spacing: 15) {
             Text("Sign In")
