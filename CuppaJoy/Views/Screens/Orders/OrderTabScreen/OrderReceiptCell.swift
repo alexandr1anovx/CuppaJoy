@@ -13,41 +13,42 @@ struct OrderReceiptCell: View {
   let price: Double
   
   private var date: String {
-    return "24 June | 12:30 | by 18:10"
+    return "24 June, 12:30, by 18:10"
   }
   
   var body: some View {
     VStack(alignment: .leading, spacing: 15) {
       HStack {
         Text(date)
-          .font(.poppins(.regular, size: 13))
+          .font(.poppins(.regular, size: 12))
           .foregroundStyle(.cstGray)
         Spacer()
         Text("₴ \(String(format: "%.2f", price))")
-          .font(.poppins(.bold, size: 18))
+          .font(.poppins(.bold, size: 17))
           .foregroundStyle(.cstWhite)
       }
       
-      HStack(spacing: 10) {
-        Image("coffeeGlass")
-          .resizable()
-          .frame(width: 25, height: 25)
-          .foregroundStyle(.cstWhite)
-        Text(coffee.rawValue)
-          .font(.poppins(.medium, size: 14))
-          .foregroundStyle(.cstCream)
-      }
-      
-      HStack(spacing: 10) {
-        Image("map")
-          .resizable()
-          .frame(width: 25, height: 25)
-          .foregroundStyle(.cstWhite)
-        Text(address)
-          .font(.poppins(.medium, size: 14))
-          .foregroundStyle(.cstCream)
+      VStack(alignment: .leading, spacing: 15) {
+        HStack(spacing: 10) {
+          Image(systemName: "mug")
+            .frame(width: 20, height: 20)
+            .foregroundStyle(.cstCream)
+          Text(coffee.rawValue)
+            .font(.poppins(.medium, size: 14))
+            .foregroundStyle(.cstWhite)
+        }
+        
+        HStack(spacing: 10) {
+          Image(systemName: "map")
+            .frame(width: 20, height: 20)
+            .foregroundStyle(.cstCream)
+          Text(address)
+            .font(.poppins(.medium, size: 14))
+            .foregroundStyle(.cstWhite)
+        }
       }
     }
+    .padding(.bottom,8)
   }
 }
 

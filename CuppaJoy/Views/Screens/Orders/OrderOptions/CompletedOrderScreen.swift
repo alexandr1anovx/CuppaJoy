@@ -10,18 +10,14 @@ import SwiftUI
 struct CompletedOrderScreen: View {
   var body: some View {
     ZStack {
-      
-      LinearGradient(
-        colors: [.cstDarkBrown, .cstBlue],
-        startPoint: .top,
-        endPoint: .bottom).ignoresSafeArea()
+      Color.mainBackgroundGradient.ignoresSafeArea()
       
       VStack(spacing: 15) {
         Image("takeaway")
           .resizable()
           .frame(width: 140, height: 140)
           .foregroundStyle(.cstCream)
-        Text("Order accepted!")
+        Text("Order received!")
           .font(.poppins(.bold, size: 20))
           .foregroundStyle(.cstCream)
         
@@ -36,6 +32,12 @@ struct CompletedOrderScreen: View {
         .font(.poppins(.regular, size: 14))
         .padding(.horizontal, 30)
         .multilineTextAlignment(.center)
+      }
+    }
+    .navigationBarBackButtonHidden(true)
+    .toolbar {
+      ToolbarItem(placement: .topBarLeading) {
+        ArrowBackBtn()
       }
     }
   }

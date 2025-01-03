@@ -10,7 +10,8 @@ import SwiftUI
 struct ProfileScreen: View {
   var body: some View {
     ZStack {
-      Color.cstDarkBrown.ignoresSafeArea(.all)
+      
+      Color.mainBackgroundGradient.ignoresSafeArea()
       
       VStack(spacing: 30) {
         ProfileDataCell(

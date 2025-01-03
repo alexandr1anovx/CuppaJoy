@@ -13,11 +13,12 @@ struct HomeScreen: View {
   var body: some View {
     NavigationStack {
       ZStack {
-        Color.cstBrown.ignoresSafeArea()
+        Color.mainBackgroundGradient.ignoresSafeArea()
         
         VStack(alignment: .leading, spacing: 25) {
           HomeHeaderView()
           CoffeeSelectionView()
+            .shadow(radius: 5)
         }
       }
       .onAppear { isTabBarVisible = true }

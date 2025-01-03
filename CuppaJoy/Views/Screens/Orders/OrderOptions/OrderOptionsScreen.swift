@@ -15,7 +15,7 @@ struct OrderOptionsScreen: View {
     // The views for this screen are located at the bottom of the file.
     
     ZStack {
-      Color.cstDarkBrown.ignoresSafeArea()
+      Color.mainBackgroundGradient.ignoresSafeArea()
       
       VStack(alignment: .leading, spacing: 25) {
         HStack {
@@ -50,12 +50,12 @@ struct OrderOptionsScreen: View {
         
         VStack(spacing: 20) {
           HStack {
-            Text("Total Amount:")
-              .font(.poppins(.medium, size: 15))
-              .foregroundStyle(.cstCream)
+            Text("Total Price:")
+              .font(.poppins(.medium, size: 17))
+              .foregroundStyle(.cstGray)
             Spacer()
             Text("₴ \(String(format: "%.2f", 50.00))")
-              .font(.poppins(.bold, size: 18))
+              .font(.poppins(.bold, size: 20))
               .foregroundStyle(.cstWhite)
           }
           CustomSeparator()

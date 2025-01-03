@@ -10,18 +10,13 @@ import SwiftUI
 struct GreetingScreen: View {
   var body: some View {
     ZStack {
-      Color.cstDarkBrown.ignoresSafeArea()
+      Color.mainBackgroundGradient.ignoresSafeArea()
       
-      VStack(spacing: 60) {
-        Image("logo")
-          .resizable()
-          .scaledToFit()
-          .aspectRatio(2, contentMode: .fit)
-          .shadow(color: .cstCream, radius: 5)
+      VStack(spacing: 50) {
         
         VStack(spacing: 10) {
           Text("Feel yourself like a barista 😊")
-            .font(.poppins(.medium, size: 22))
+            .font(.poppins(.medium, size: 20))
             .foregroundStyle(.cstCream)
             .multilineTextAlignment(.center)
           
