@@ -13,27 +13,38 @@ struct ConfirmedOrderList: View {
       Color.cstDarkBrown.ignoresSafeArea()
       
       VStack {
-        
         List {
           ConfirmedOrderCell()
+            .swipeActions {
+              Button("", systemImage: "trash") {
+                // delete the order
+              }
+              .tint(.pink)
+            }
           ConfirmedOrderCell()
-          ConfirmedOrderCell()
+            .swipeActions {
+              Button("", systemImage: "trash") {
+                // delete the order
+              }
+              .tint(.pink)
+            }
         }
+        .listStyle(.insetGrouped)
+        .listRowSpacing(20)
         .scrollContentBackground(.hidden)
-        .listStyle(.plain)
-        .listRowSeparator(.hidden)
-        .scrollIndicators(.hidden)
+        .background(.cstDarkBrown)
         
         Spacer()
         
         HStack {
-          VStack(alignment: .leading, spacing: 10) {
+          VStack(alignment: .leading, spacing: 8) {
             Text("Total Price")
-              .font(.poppins(.medium, size: 18))
+              .font(.poppins(.medium, size: 17))
+              .foregroundStyle(.cstGray)
             Text("UAH 35.00")
               .font(.poppins(.bold, size: 20))
+              .foregroundStyle(.cstWhite)
           }
-          .foregroundStyle(.cstWhite)
           
           Spacer()
           
