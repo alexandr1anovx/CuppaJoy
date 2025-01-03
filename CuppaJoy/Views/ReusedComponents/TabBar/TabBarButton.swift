@@ -15,8 +15,6 @@ struct TabBarButton: View {
   
   var body: some View {
     Button {
-      // When the user selects another tab button,
-      // there is a smooth transition of the previously selected tab to its original place.
       withAnimation(.smooth) {
         selectedTab = tab
       }

@@ -20,7 +20,6 @@ struct ArrowBackBtn: View {
         .foregroundStyle(.cstCream)
         .opacity(0.8)
     }
-    
   }
 }
 
