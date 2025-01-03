@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct RewardsTabScreen: View {
+struct RewardsScreen: View {
   @Binding var isTabBarVisible: Bool
   
   var body: some View {
     ZStack {
-      Color.cstDarkBrown.ignoresSafeArea()
+      Color.mainBackgroundGradient.ignoresSafeArea()
       
       Text("Rewards Screen")
         .font(.poppins(.medium, size: 25))
@@ -67,5 +67,5 @@ struct LoyaltyCardView: View {
 }
 
 #Preview {
-  RewardsTabScreen(isTabBarVisible: .constant(true))
+  RewardsScreen(isTabBarVisible: .constant(true))
 }
