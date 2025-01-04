@@ -8,24 +8,19 @@
 import SwiftUI
 
 struct HomeScreen: View {
-  @Binding var isTabBarVisible: Bool
-  
   var body: some View {
-    NavigationStack {
-      ZStack {
-        Color.mainBackgroundGradient.ignoresSafeArea()
-        
-        VStack(alignment: .leading, spacing: 25) {
-          HomeHeaderView()
-          CoffeeSelectionView()
-            .shadow(radius: 5)
-        }
+    ZStack {
+      Color.mainBackgroundGradient.ignoresSafeArea()
+      
+      VStack(alignment: .leading, spacing: 25) {
+        HomeHeaderView()
+        CoffeeSelectionView()
+          .shadow(radius: 5)
       }
-      .onAppear { isTabBarVisible = true }
     }
   }
 }
 
 #Preview {
-  HomeScreen(isTabBarVisible: .constant(true))
+  HomeScreen()
 }
