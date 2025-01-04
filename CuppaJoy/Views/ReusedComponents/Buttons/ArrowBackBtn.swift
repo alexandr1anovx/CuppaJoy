@@ -14,11 +14,10 @@ struct ArrowBackBtn: View {
     Button {
       dismiss()
     } label: {
-      Image("arrowLeft")
-        .resizable()
-        .frame(width: 28, height: 28)
+      Image(systemName: "arrow.left.circle")
+        .font(.title3)
         .foregroundStyle(.cstCream)
-        .opacity(0.8)
+        .opacity(0.7)
     }
   }
 }
