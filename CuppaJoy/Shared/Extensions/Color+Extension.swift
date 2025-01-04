@@ -10,7 +10,7 @@ import SwiftUI
 extension Color {
   
   static let mainBackgroundGradient = LinearGradient(
-    colors: [.cstDarkBrown, .cstBlue],
+    colors: [.cstDarkBrown, .cstBlack],
     startPoint: .topLeading,
     endPoint: .bottomTrailing
   )
