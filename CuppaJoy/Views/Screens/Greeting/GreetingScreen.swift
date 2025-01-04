@@ -10,7 +10,7 @@ import SwiftUI
 struct GreetingScreen: View {
   var body: some View {
     ZStack {
-      Color.mainBackgroundGradient.ignoresSafeArea()
+      Color.cstBrown.ignoresSafeArea()
       
       VStack(spacing: 50) {
         
@@ -32,11 +32,11 @@ struct GreetingScreen: View {
           }
         } label: {
           Text("Get Started")
-            .font(.poppins(.bold, size: 16))
-            .foregroundStyle(.cstCream)
+            .font(.poppins(.medium, size: 14))
+            .foregroundStyle(.cstDarkBrown)
             .padding(5)
         }
-        .buttonStyle(.bordered)
+        .buttonStyle(.borderedProminent)
         .tint(.cstCream)
       }
     }

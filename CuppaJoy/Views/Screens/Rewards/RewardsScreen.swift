@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct RewardsScreen: View {
-  @Binding var isTabBarVisible: Bool
-  
   var body: some View {
     ZStack {
       Color.mainBackgroundGradient.ignoresSafeArea()
@@ -17,17 +15,12 @@ struct RewardsScreen: View {
       Text("Rewards Screen")
         .font(.poppins(.medium, size: 25))
     }
-    /*
-     .navigationTitle("Rewards")
-     .navigationBarTitleDisplayMode(.inline)
-     */
   }
 }
 
 struct LoyaltyCardView: View {
   var body: some View {
     VStack {
-      
       RoundedRectangle(cornerRadius: 15)
         .fill(Color.cstBrown
           .shadow(.inner(color: .cstBlack, radius: 2, y: 3))
@@ -67,5 +60,5 @@ struct LoyaltyCardView: View {
 }
 
 #Preview {
-  RewardsScreen(isTabBarVisible: .constant(true))
+  RewardsScreen()
 }

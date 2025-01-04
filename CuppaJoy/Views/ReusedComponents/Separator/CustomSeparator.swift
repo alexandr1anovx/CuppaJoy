@@ -10,8 +10,8 @@ import SwiftUI
 struct CustomSeparator: View {
   var body: some View {
     Rectangle()
-      .frame(height: 0.5)
-      .foregroundStyle(.cstCream)
+      .frame(height: 0.6)
+      .foregroundStyle(.cstGray)
       .opacity(0.6)
   }
 }

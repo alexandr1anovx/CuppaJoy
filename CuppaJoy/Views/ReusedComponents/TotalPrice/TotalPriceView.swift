@@ -12,10 +12,10 @@ struct TotalPriceView: View {
     HStack {
       VStack(alignment: .leading, spacing: 8) {
         Text("Total Price")
-          .font(.poppins(.medium, size: 17))
+          .font(.poppins(.medium, size: 15))
           .foregroundStyle(.cstGray)
         Text("UAH 35.00")
-          .font(.poppins(.bold, size: 22))
+          .font(.poppins(.bold, size: 18))
           .foregroundStyle(.cstWhite)
       }
       

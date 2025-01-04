@@ -31,8 +31,6 @@ struct CoffeeSelectionView: View {
   }
 }
 
-
-
 #Preview {
   CoffeeSelectionView()
 }
