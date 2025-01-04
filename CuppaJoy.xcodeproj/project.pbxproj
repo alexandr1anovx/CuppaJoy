@@ -26,17 +26,14 @@
 		32EA86CB2CB607A1003E774D /* CodeConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EA86CA2CB607A1003E774D /* CodeConfirmationView.swift */; };
 		32EA86CF2CB62588003E774D /* ArrowBackBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EA86CE2CB62588003E774D /* ArrowBackBtn.swift */; };
 		32FF43AB2CC6CC9E001C0E0C /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF43AA2CC6CC9E001C0E0C /* ProfileScreen.swift */; };
-		32FF43AF2CC6CDF3001C0E0C /* RewardsTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF43AE2CC6CDF3001C0E0C /* RewardsTabScreen.swift */; };
+		32FF43AF2CC6CDF3001C0E0C /* RewardsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF43AE2CC6CDF3001C0E0C /* RewardsScreen.swift */; };
 		32FF43B12CC6CFFA001C0E0C /* ProfileDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF43B02CC6CFFA001C0E0C /* ProfileDataCell.swift */; };
-		32FF43BB2CC6FA35001C0E0C /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF43BA2CC6FA35001C0E0C /* CustomTabView.swift */; };
-		32FF43BD2CC6FA4E001C0E0C /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF43BC2CC6FA4E001C0E0C /* TabBarButton.swift */; };
-		32FF43C12CC6FA63001C0E0C /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF43C02CC6FA63001C0E0C /* Tab.swift */; };
-		32FF43C42CC6FD4B001C0E0C /* OngoingOrderScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF43C32CC6FD4B001C0E0C /* OngoingOrderScreen.swift */; };
+		32FF43BB2CC6FA35001C0E0C /* EntryPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF43BA2CC6FA35001C0E0C /* EntryPoint.swift */; };
+		32FF43C42CC6FD4B001C0E0C /* OrderOngoingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF43C32CC6FD4B001C0E0C /* OrderOngoingView.swift */; };
 		50288ACA2CF7E73300DA7304 /* CoffeeSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50288AC92CF7E73300DA7304 /* CoffeeSelectionView.swift */; };
 		503F0B7A2CCDB41A00769C9B /* CompletedOrderScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503F0B792CCDB41A00769C9B /* CompletedOrderScreen.swift */; };
 		50B9B6262CFE1A58005E3E03 /* CustomSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B9B6252CFE1A58005E3E03 /* CustomSeparator.swift */; };
 		50DFA8132D046D840058A4D4 /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DFA8122D046D840058A4D4 /* UIWindow+Extension.swift */; };
-		50DFA8152D0476310058A4D4 /* BaristaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DFA8142D0476310058A4D4 /* BaristaCell.swift */; };
 		50DFA8172D0476560058A4D4 /* CoffeeTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DFA8162D0476560058A4D4 /* CoffeeTypePicker.swift */; };
 		50DFA8192D0476770058A4D4 /* SortPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DFA8182D0476770058A4D4 /* SortPicker.swift */; };
 		50DFA81B2D04768D0058A4D4 /* MilkPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DFA81A2D04768D0058A4D4 /* MilkPicker.swift */; };
@@ -44,16 +41,20 @@
 		50DFA81F2D0476AD0058A4D4 /* AdditivePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DFA81E2D0476AD0058A4D4 /* AdditivePicker.swift */; };
 		50DFA8212D0476BD0058A4D4 /* IceCubePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DFA8202D0476BD0058A4D4 /* IceCubePicker.swift */; };
 		50DFA8232D04AC660058A4D4 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DFA8222D04AC660058A4D4 /* HomeHeaderView.swift */; };
-		50DFA8252D04C3AD0058A4D4 /* BaristaScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DFA8242D04C3AD0058A4D4 /* BaristaScreen.swift */; };
-		50DFA8282D04CD600058A4D4 /* BaristaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DFA8272D04CD600058A4D4 /* BaristaPicker.swift */; };
 		50DFA82D2D04FB7F0058A4D4 /* Coffee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DFA82C2D04FB7F0058A4D4 /* Coffee.swift */; };
 		50E79D622D038C7200842850 /* TopRoundedRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E79D612D038C7200842850 /* TopRoundedRectangle.swift */; };
-		50E79D642D03AEDB00842850 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E79D632D03AEDB00842850 /* CustomTabBar.swift */; };
+		D1A24CBF2D26512800B1632E /* PaymentScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A24CBE2D26512800B1632E /* PaymentScreen.swift */; };
+		D1A24CC12D2651DF00B1632E /* PaymentMethodsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A24CC02D2651DF00B1632E /* PaymentMethodsContainer.swift */; };
+		D1A24CC32D26548300B1632E /* PaymentMethodCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A24CC22D26548300B1632E /* PaymentMethodCell.swift */; };
+		D1A24CC62D265E8C00B1632E /* TotalPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A24CC52D265E8C00B1632E /* TotalPriceView.swift */; };
 		D1C859B62D20A55000DDB941 /* CoffeeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C859B52D20A55000DDB941 /* CoffeeCell.swift */; };
-		D1C859BB2D20A7ED00DDB941 /* OrdersHistoryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C859BA2D20A7ED00DDB941 /* OrdersHistoryScreen.swift */; };
+		D1C859BB2D20A7ED00DDB941 /* OrderHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C859BA2D20A7ED00DDB941 /* OrderHistoryView.swift */; };
 		D1C859BE2D20B80700DDB941 /* ConfirmedOrderList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C859BD2D20B80700DDB941 /* ConfirmedOrderList.swift */; };
 		D1C859C12D20B87400DDB941 /* ConfirmedOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C859C02D20B87400DDB941 /* ConfirmedOrderCell.swift */; };
 		D1C859CB2D20BB5200DDB941 /* InnerShadowViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C859CA2D20BB5200DDB941 /* InnerShadowViewModifier.swift */; };
+		D1CD6C3B2D274B11007FF006 /* OrderTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CD6C3A2D274B11007FF006 /* OrderTabScreen.swift */; };
+		D1EC2FFC2D2637FA008E8265 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EC2FFB2D2637FA008E8265 /* Color+Extension.swift */; };
+		D1F223912D28813C00FE1FD2 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F223902D28813C00FE1FD2 /* QRCodeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,17 +79,14 @@
 		32EA86CA2CB607A1003E774D /* CodeConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeConfirmationView.swift; sourceTree = "<group>"; };
 		32EA86CE2CB62588003E774D /* ArrowBackBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowBackBtn.swift; sourceTree = "<group>"; };
 		32FF43AA2CC6CC9E001C0E0C /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
-		32FF43AE2CC6CDF3001C0E0C /* RewardsTabScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardsTabScreen.swift; sourceTree = "<group>"; };
+		32FF43AE2CC6CDF3001C0E0C /* RewardsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardsScreen.swift; sourceTree = "<group>"; };
 		32FF43B02CC6CFFA001C0E0C /* ProfileDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataCell.swift; sourceTree = "<group>"; };
-		32FF43BA2CC6FA35001C0E0C /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
-		32FF43BC2CC6FA4E001C0E0C /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
-		32FF43C02CC6FA63001C0E0C /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
-		32FF43C32CC6FD4B001C0E0C /* OngoingOrderScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingOrderScreen.swift; sourceTree = "<group>"; };
+		32FF43BA2CC6FA35001C0E0C /* EntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryPoint.swift; sourceTree = "<group>"; };
+		32FF43C32CC6FD4B001C0E0C /* OrderOngoingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderOngoingView.swift; sourceTree = "<group>"; };
 		50288AC92CF7E73300DA7304 /* CoffeeSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeSelectionView.swift; sourceTree = "<group>"; };
 		503F0B792CCDB41A00769C9B /* CompletedOrderScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedOrderScreen.swift; sourceTree = "<group>"; };
 		50B9B6252CFE1A58005E3E03 /* CustomSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSeparator.swift; sourceTree = "<group>"; };
 		50DFA8122D046D840058A4D4 /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
-		50DFA8142D0476310058A4D4 /* BaristaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaristaCell.swift; sourceTree = "<group>"; };
 		50DFA8162D0476560058A4D4 /* CoffeeTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeTypePicker.swift; sourceTree = "<group>"; };
 		50DFA8182D0476770058A4D4 /* SortPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortPicker.swift; sourceTree = "<group>"; };
 		50DFA81A2D04768D0058A4D4 /* MilkPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilkPicker.swift; sourceTree = "<group>"; };
@@ -96,16 +94,20 @@
 		50DFA81E2D0476AD0058A4D4 /* AdditivePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditivePicker.swift; sourceTree = "<group>"; };
 		50DFA8202D0476BD0058A4D4 /* IceCubePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IceCubePicker.swift; sourceTree = "<group>"; };
 		50DFA8222D04AC660058A4D4 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
-		50DFA8242D04C3AD0058A4D4 /* BaristaScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaristaScreen.swift; sourceTree = "<group>"; };
-		50DFA8272D04CD600058A4D4 /* BaristaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaristaPicker.swift; sourceTree = "<group>"; };
 		50DFA82C2D04FB7F0058A4D4 /* Coffee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coffee.swift; sourceTree = "<group>"; };
 		50E79D612D038C7200842850 /* TopRoundedRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRoundedRectangle.swift; sourceTree = "<group>"; };
-		50E79D632D03AEDB00842850 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
+		D1A24CBE2D26512800B1632E /* PaymentScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentScreen.swift; sourceTree = "<group>"; };
+		D1A24CC02D2651DF00B1632E /* PaymentMethodsContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodsContainer.swift; sourceTree = "<group>"; };
+		D1A24CC22D26548300B1632E /* PaymentMethodCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodCell.swift; sourceTree = "<group>"; };
+		D1A24CC52D265E8C00B1632E /* TotalPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPriceView.swift; sourceTree = "<group>"; };
 		D1C859B52D20A55000DDB941 /* CoffeeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeCell.swift; sourceTree = "<group>"; };
-		D1C859BA2D20A7ED00DDB941 /* OrdersHistoryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersHistoryScreen.swift; sourceTree = "<group>"; };
+		D1C859BA2D20A7ED00DDB941 /* OrderHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryView.swift; sourceTree = "<group>"; };
 		D1C859BD2D20B80700DDB941 /* ConfirmedOrderList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmedOrderList.swift; sourceTree = "<group>"; };
 		D1C859C02D20B87400DDB941 /* ConfirmedOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmedOrderCell.swift; sourceTree = "<group>"; };
 		D1C859CA2D20BB5200DDB941 /* InnerShadowViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerShadowViewModifier.swift; sourceTree = "<group>"; };
+		D1CD6C3A2D274B11007FF006 /* OrderTabScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTabScreen.swift; sourceTree = "<group>"; };
+		D1EC2FFB2D2637FA008E8265 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		D1F223902D28813C00FE1FD2 /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,8 +141,8 @@
 			isa = PBXGroup;
 			children = (
 				D1C859CE2D20BD3C00DDB941 /* Lifecycle */,
-				D1C859CF2D20BE2400DDB941 /* Shared */,
 				32325EDE2CB2B7350048E557 /* Views */,
+				D1C859CF2D20BE2400DDB941 /* Shared */,
 			);
 			path = CuppaJoy;
 			sourceTree = "<group>";
@@ -157,7 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				32FF43B62CC6F973001C0E0C /* Screens */,
-				D1C859D22D20C00000DDB941 /* Components */,
+				D1C859D22D20C00000DDB941 /* ReusedComponents */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -167,6 +169,7 @@
 			children = (
 				3239D8F82CB221800094D38B /* Font+Extension.swift */,
 				50DFA8122D046D840058A4D4 /* UIWindow+Extension.swift */,
+				D1EC2FFB2D2637FA008E8265 /* Color+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -196,6 +199,7 @@
 			children = (
 				3261083F2CBAD3B10072D238 /* HomeScreen.swift */,
 				50DFA8222D04AC660058A4D4 /* HomeHeaderView.swift */,
+				D1F223902D28813C00FE1FD2 /* QRCodeView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -203,7 +207,7 @@
 		32FF43AD2CC6CDB4001C0E0C /* Rewards */ = {
 			isa = PBXGroup;
 			children = (
-				32FF43AE2CC6CDF3001C0E0C /* RewardsTabScreen.swift */,
+				32FF43AE2CC6CDF3001C0E0C /* RewardsScreen.swift */,
 			);
 			path = Rewards;
 			sourceTree = "<group>";
@@ -247,24 +251,13 @@
 			path = Buttons;
 			sourceTree = "<group>";
 		};
-		32FF43B92CC6F9CB001C0E0C /* TabBar */ = {
-			isa = PBXGroup;
-			children = (
-				32FF43BA2CC6FA35001C0E0C /* CustomTabView.swift */,
-				50E79D632D03AEDB00842850 /* CustomTabBar.swift */,
-				32FF43BC2CC6FA4E001C0E0C /* TabBarButton.swift */,
-				32FF43C02CC6FA63001C0E0C /* Tab.swift */,
-			);
-			path = TabBar;
-			sourceTree = "<group>";
-		};
 		32FF43C22CC6FB05001C0E0C /* Orders */ = {
 			isa = PBXGroup;
 			children = (
+				D1CD6C392D273CC3007FF006 /* Payment */,
 				D1C859B82D20A6A500DDB941 /* OrderOptions */,
 				D1C859B92D20A6C800DDB941 /* OrderTabScreen */,
-				D1C859BD2D20B80700DDB941 /* ConfirmedOrderList.swift */,
-				D1C859C02D20B87400DDB941 /* ConfirmedOrderCell.swift */,
+				D1A24CC42D265ACA00B1632E /* ConfirmedOrder */,
 			);
 			path = Orders;
 			sourceTree = "<group>";
@@ -282,9 +275,6 @@
 			isa = PBXGroup;
 			children = (
 				320400422CC94415001B75D9 /* AssemblerScreen.swift */,
-				50DFA8242D04C3AD0058A4D4 /* BaristaScreen.swift */,
-				50DFA8142D0476310058A4D4 /* BaristaCell.swift */,
-				50DFA8272D04CD600058A4D4 /* BaristaPicker.swift */,
 				50DFA8162D0476560058A4D4 /* CoffeeTypePicker.swift */,
 				50DFA8182D0476770058A4D4 /* SortPicker.swift */,
 				50DFA81A2D04768D0058A4D4 /* MilkPicker.swift */,
@@ -312,6 +302,23 @@
 			path = TopRoundedRectangle;
 			sourceTree = "<group>";
 		};
+		D10952782D272E24003E876B /* TotalPrice */ = {
+			isa = PBXGroup;
+			children = (
+				D1A24CC52D265E8C00B1632E /* TotalPriceView.swift */,
+			);
+			path = TotalPrice;
+			sourceTree = "<group>";
+		};
+		D1A24CC42D265ACA00B1632E /* ConfirmedOrder */ = {
+			isa = PBXGroup;
+			children = (
+				D1C859BD2D20B80700DDB941 /* ConfirmedOrderList.swift */,
+				D1C859C02D20B87400DDB941 /* ConfirmedOrderCell.swift */,
+			);
+			path = ConfirmedOrder;
+			sourceTree = "<group>";
+		};
 		D1C859B72D20A56900DDB941 /* SelectionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -325,8 +332,8 @@
 			isa = PBXGroup;
 			children = (
 				32152D682CC8101A00F7AC37 /* OrderOptionsScreen.swift */,
-				50D4C60B2CFE1057004C584C /* Assembler */,
 				503F0B792CCDB41A00769C9B /* CompletedOrderScreen.swift */,
+				50D4C60B2CFE1057004C584C /* Assembler */,
 			);
 			path = OrderOptions;
 			sourceTree = "<group>";
@@ -334,8 +341,9 @@
 		D1C859B92D20A6C800DDB941 /* OrderTabScreen */ = {
 			isa = PBXGroup;
 			children = (
-				32FF43C32CC6FD4B001C0E0C /* OngoingOrderScreen.swift */,
-				D1C859BA2D20A7ED00DDB941 /* OrdersHistoryScreen.swift */,
+				D1CD6C3A2D274B11007FF006 /* OrderTabScreen.swift */,
+				32FF43C32CC6FD4B001C0E0C /* OrderOngoingView.swift */,
+				D1C859BA2D20A7ED00DDB941 /* OrderHistoryView.swift */,
 				3293AC942CC7166A00A9A9B5 /* OrderReceiptCell.swift */,
 			);
 			path = OrderTabScreen;
@@ -352,6 +360,7 @@
 		D1C859CE2D20BD3C00DDB941 /* Lifecycle */ = {
 			isa = PBXGroup;
 			children = (
+				32FF43BA2CC6FA35001C0E0C /* EntryPoint.swift */,
 				321D48132CAF6098007A0B20 /* CuppaJoyApp.swift */,
 				324A9FD22CB0BB56007F6998 /* Info.plist */,
 			);
@@ -386,16 +395,26 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
-		D1C859D22D20C00000DDB941 /* Components */ = {
+		D1C859D22D20C00000DDB941 /* ReusedComponents */ = {
 			isa = PBXGroup;
 			children = (
-				32FF43B92CC6F9CB001C0E0C /* TabBar */,
+				D10952782D272E24003E876B /* TotalPrice */,
 				32FF43B72CC6F98C001C0E0C /* Buttons */,
 				32FF43B42CC6F92A001C0E0C /* TextField */,
 				D1C859C92D20BACE00DDB941 /* Separator */,
 				50E79D652D03B3FE00842850 /* TopRoundedRectangle */,
 			);
-			path = Components;
+			path = ReusedComponents;
+			sourceTree = "<group>";
+		};
+		D1CD6C392D273CC3007FF006 /* Payment */ = {
+			isa = PBXGroup;
+			children = (
+				D1A24CBE2D26512800B1632E /* PaymentScreen.swift */,
+				D1A24CC02D2651DF00B1632E /* PaymentMethodsContainer.swift */,
+				D1A24CC22D26548300B1632E /* PaymentMethodCell.swift */,
+			);
+			path = Payment;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -472,25 +491,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				329341F52CB06536002FAF63 /* GreetingScreen.swift in Sources */,
-				32FF43C12CC6FA63001C0E0C /* Tab.swift in Sources */,
+				D1A24CBF2D26512800B1632E /* PaymentScreen.swift in Sources */,
 				50DFA81D2D04769E0058A4D4 /* SyrupPicker.swift in Sources */,
-				32FF43AF2CC6CDF3001C0E0C /* RewardsTabScreen.swift in Sources */,
+				32FF43AF2CC6CDF3001C0E0C /* RewardsScreen.swift in Sources */,
 				50DFA8232D04AC660058A4D4 /* HomeHeaderView.swift in Sources */,
-				50E79D642D03AEDB00842850 /* CustomTabBar.swift in Sources */,
+				D1A24CC32D26548300B1632E /* PaymentMethodCell.swift in Sources */,
 				50DFA81B2D04768D0058A4D4 /* MilkPicker.swift in Sources */,
-				50DFA8152D0476310058A4D4 /* BaristaCell.swift in Sources */,
 				320400432CC94415001B75D9 /* AssemblerScreen.swift in Sources */,
+				D1F223912D28813C00FE1FD2 /* QRCodeView.swift in Sources */,
 				321D48142CAF6098007A0B20 /* CuppaJoyApp.swift in Sources */,
 				3239D8F92CB221800094D38B /* Font+Extension.swift in Sources */,
-				50DFA8252D04C3AD0058A4D4 /* BaristaScreen.swift in Sources */,
-				D1C859BB2D20A7ED00DDB941 /* OrdersHistoryScreen.swift in Sources */,
+				D1C859BB2D20A7ED00DDB941 /* OrderHistoryView.swift in Sources */,
 				50DFA8132D046D840058A4D4 /* UIWindow+Extension.swift in Sources */,
 				32EA86CF2CB62588003E774D /* ArrowBackBtn.swift in Sources */,
 				32152D692CC8101A00F7AC37 /* OrderOptionsScreen.swift in Sources */,
 				503F0B7A2CCDB41A00769C9B /* CompletedOrderScreen.swift in Sources */,
 				D1C859B62D20A55000DDB941 /* CoffeeCell.swift in Sources */,
 				50DFA8172D0476560058A4D4 /* CoffeeTypePicker.swift in Sources */,
-				32FF43BD2CC6FA4E001C0E0C /* TabBarButton.swift in Sources */,
 				50DFA8192D0476770058A4D4 /* SortPicker.swift in Sources */,
 				3293AC952CC7166A00A9A9B5 /* OrderReceiptCell.swift in Sources */,
 				50E79D622D038C7200842850 /* TopRoundedRectangle.swift in Sources */,
@@ -501,15 +518,18 @@
 				32FF43B12CC6CFFA001C0E0C /* ProfileDataCell.swift in Sources */,
 				D1C859CB2D20BB5200DDB941 /* InnerShadowViewModifier.swift in Sources */,
 				50B9B6262CFE1A58005E3E03 /* CustomSeparator.swift in Sources */,
-				32FF43BB2CC6FA35001C0E0C /* CustomTabView.swift in Sources */,
+				D1EC2FFC2D2637FA008E8265 /* Color+Extension.swift in Sources */,
+				32FF43BB2CC6FA35001C0E0C /* EntryPoint.swift in Sources */,
 				32FF43AB2CC6CC9E001C0E0C /* ProfileScreen.swift in Sources */,
 				326108402CBAD3B10072D238 /* HomeScreen.swift in Sources */,
-				50DFA8282D04CD600058A4D4 /* BaristaPicker.swift in Sources */,
+				D1CD6C3B2D274B11007FF006 /* OrderTabScreen.swift in Sources */,
 				32EA86CB2CB607A1003E774D /* CodeConfirmationView.swift in Sources */,
 				32325EE02CB2B9490048E557 /* CustomTextField.swift in Sources */,
+				D1A24CC62D265E8C00B1632E /* TotalPriceView.swift in Sources */,
 				D1C859C12D20B87400DDB941 /* ConfirmedOrderCell.swift in Sources */,
+				D1A24CC12D2651DF00B1632E /* PaymentMethodsContainer.swift in Sources */,
 				50DFA8212D0476BD0058A4D4 /* IceCubePicker.swift in Sources */,
-				32FF43C42CC6FD4B001C0E0C /* OngoingOrderScreen.swift in Sources */,
+				32FF43C42CC6FD4B001C0E0C /* OrderOngoingView.swift in Sources */,
 				32325EE22CB2C3EB0048E557 /* SignUpScreen.swift in Sources */,
 				D1C859BE2D20B80700DDB941 /* ConfirmedOrderList.swift in Sources */,
 				50DFA82D2D04FB7F0058A4D4 /* Coffee.swift in Sources */,
