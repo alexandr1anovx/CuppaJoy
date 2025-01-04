@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-struct OngoingOrderScreen: View {
-  @Binding var isTabBarVisible: Bool
-  
+struct OrderOngoingView: View {
   var body: some View {
     List {
       OrderReceiptCell(
@@ -34,5 +32,5 @@ struct OngoingOrderScreen: View {
 }
 
 #Preview {
-  OngoingOrderScreen(isTabBarVisible: .constant(true))
+  OrderOngoingView()
 }
