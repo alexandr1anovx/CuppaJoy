@@ -8,11 +8,7 @@
 import SwiftUI
 
 enum Syrup: String, CaseIterable {
-  case none = "None"
-  case amaretto = "Amaretto"
-  case coconut = "Coconut"
-  case vanilla = "Vanilla"
-  case caramel = "Caramel"
+  case none, amaretto, coconut, vanilla, caramel
 }
 
 struct SyrupPicker: View {
@@ -21,7 +17,7 @@ struct SyrupPicker: View {
   var body: some View {
     Picker("Syrup", selection: $syrup) {
       ForEach(Syrup.allCases, id: \.self) { syrup in
-        Text(syrup.rawValue)
+        Text(syrup.rawValue.capitalized)
       }
     }
     .pickerStyle(.menu)

@@ -15,30 +15,27 @@ struct ConfirmedOrderCell: View {
       Image(systemName: "cup.and.saucer.fill")
         .resizable()
         .aspectRatio(contentMode: .fit)
-        .frame(width: 50, height: 50)
+        .frame(width: 40, height: 40)
         .foregroundStyle(.cstCream)
       
       VStack(alignment: .leading, spacing: 5) {
         Text("Americano")
-          .font(.poppins(.medium, size: 16))
-          .foregroundStyle(.cstWhite)
+          .font(.poppins(.medium, size: 15))
+          .foregroundStyle(.cstCream)
         Text("Single, Iced, Medium")
           .font(.poppins(.regular, size: 12))
           .foregroundStyle(.cstGray)
         Text("x 2")
-          .font(.poppins(.bold, size: 14))
+          .font(.poppins(.bold, size: 13))
           .foregroundStyle(.cstGray)
       }
       
       Spacer()
       
       Text("₴ 35.00")
-      .font(.poppins(.bold, size: 18))
+      .font(.poppins(.bold, size: 16))
       .foregroundStyle(.cstCream)
     }
-//    .padding()
-    // Changes the default List row background color
-    
   }
 }
 

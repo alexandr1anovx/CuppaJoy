@@ -18,17 +18,17 @@ struct CompletedOrderScreen: View {
           .frame(width: 140, height: 140)
           .foregroundStyle(.cstCream)
         Text("Order received!")
-          .font(.poppins(.bold, size: 20))
+          .font(.poppins(.medium, size: 18))
           .foregroundStyle(.cstCream)
         
         VStack(alignment: .center, spacing: 20) {
           Text("The order will be ready today to 18:10 at the address Bradford BD1 1PR.")
             .foregroundStyle(.cstCream)
           
-          Text("Submit your personal QR code at the coffee shop to receive an order.")
+          Text("* submit your personal QR code at the coffee shop to receive an order.")
             .foregroundStyle(.cstGray)
         }
-        .padding(.top, 20)
+        .padding(.top, 30)
         .font(.poppins(.regular, size: 14))
         .padding(.horizontal, 30)
         .multilineTextAlignment(.center)

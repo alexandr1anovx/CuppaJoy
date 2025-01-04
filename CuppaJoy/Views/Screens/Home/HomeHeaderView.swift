@@ -9,35 +9,27 @@ import SwiftUI
 
 struct HomeHeaderView: View {
   var body: some View {
-    HStack(spacing: 20) {
-      
+    HStack(spacing: 23) {
       VStack(alignment: .leading, spacing: 15) {
         Text("Initials")
           .font(.poppins(.medium, size: 18))
-          .foregroundStyle(.cstCream)
-        Text("+380(67)-936-75-89")
+          .foregroundStyle(.cstWhite)
+        Text("Phone number")
           .font(.poppins(.medium, size: 13))
           .foregroundStyle(.cstWhite)
-        
-        HStack {
-          Image("location")
-            .resizable()
-            .frame(width: 23, height: 23)
-            .foregroundStyle(.cstCream)
-          Text("Street address")
-            .font(.poppins(.medium, size: 14))
-            .foregroundStyle(.cstWhite)
-        }
+        Label("Address", systemImage: "mappin.and.ellipse")
+          .font(.poppins(.medium, size: 14))
+          .foregroundStyle(.cstWhite)
       }
       
       Spacer()
       
       NavigationLink {
-        CompletedOrderScreen()
+        QRCodeView()
       } label: {
-        Image("bag")
+        Image(systemName: "qrcode")
           .resizable()
-          .frame(width: 28, height: 28)
+          .frame(width: 23, height: 23)
           .foregroundStyle(.cstCream)
       }
       
@@ -46,11 +38,15 @@ struct HomeHeaderView: View {
       } label: {
         Image("user")
           .resizable()
-          .frame(width: 27, height: 27)
+          .frame(width: 26, height: 26)
           .foregroundStyle(.cstCream)
       }
     }
     .padding(.horizontal, 25)
     .padding(.top, 10)
   }
+}
+
+#Preview {
+  HomeHeaderView()
 }

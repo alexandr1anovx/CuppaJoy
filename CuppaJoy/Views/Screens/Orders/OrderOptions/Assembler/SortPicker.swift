@@ -32,3 +32,7 @@ struct SortPicker: View {
     .listRowBackground(Color.cstBrown)
   }
 }
+
+#Preview {
+  SortPicker()
+}

@@ -11,9 +11,7 @@ struct OrderOptionsScreen: View {
   let selectedCoffee: Coffee
   
   var body: some View {
-    
     // The views for this screen are located at the bottom of the file.
-    
     ZStack {
       Color.mainBackgroundGradient.ignoresSafeArea()
       
@@ -51,11 +49,11 @@ struct OrderOptionsScreen: View {
         VStack(spacing: 20) {
           HStack {
             Text("Total Price:")
-              .font(.poppins(.medium, size: 17))
+              .font(.poppins(.medium, size: 15))
               .foregroundStyle(.cstGray)
             Spacer()
             Text("₴ \(String(format: "%.2f", 50.00))")
-              .font(.poppins(.bold, size: 20))
+              .font(.poppins(.bold, size: 18))
               .foregroundStyle(.cstWhite)
           }
           CustomSeparator()
@@ -76,7 +74,7 @@ struct OrderOptionsScreen: View {
         // 0px bottom padding for others iPhones.
         .padding(.bottom, UIScreen.current?.bounds.height == 667 ? 20 : 0)
       }
-      .padding(.horizontal, 20)
+      .padding(.horizontal, 25)
       .navigationBarBackButtonHidden(true)
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {

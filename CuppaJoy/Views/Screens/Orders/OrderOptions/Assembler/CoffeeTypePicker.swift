@@ -7,26 +7,23 @@
 
 import SwiftUI
 
+enum CoffeeType: String, CaseIterable {
+  case arabica, robusta, excelsa, liberica
+}
+
 struct CoffeeTypePicker: View {
-  @State private var value: Double = 0.0
+  @State private var coffeeType: CoffeeType = .arabica
   
   var body: some View {
-    HStack(spacing: 40) {
-      Text("Type")
-        .foregroundStyle(.cstWhite)
-        .font(.poppins(.medium, size: 15))
-      VStack {
-        Slider(value: $value, in: 0...1)
-          .tint(.cstCream)
-        HStack {
-          Text("Arabica")
-          Spacer()
-          Text("Robusta")
-        }
-        .foregroundStyle(.cstCream)
-        .font(.poppins(.regular, size: 13))
+    Picker("Type", selection: $coffeeType) {
+      ForEach(CoffeeType.allCases, id: \.self) { type in
+        Text(type.rawValue.capitalized)
       }
     }
+    .pickerStyle(.menu)
+    .font(.poppins(.medium, size: 15))
+    .foregroundStyle(.cstWhite)
+    .tint(.cstCream)
     .listRowBackground(Color.cstBrown)
   }
 }
