@@ -10,7 +10,6 @@ import SwiftUI
 struct ProfileScreen: View {
   var body: some View {
     ZStack {
-      
       Color.mainBackgroundGradient.ignoresSafeArea()
       
       VStack(spacing: 30) {
@@ -30,24 +29,17 @@ struct ProfileScreen: View {
           content: "myEmail@gmail.com"
         )
         ProfileDataCell(
-          image: "mappin",
-          header: "Magic Coffee store address",
+          image: "map",
+          header: "Favourite location",
           content: "3-rd Slobidska"
         )
-        
-        Spacer()
-        Image(systemName: "qrcode.viewfinder")
-          .resizable()
-          .scaledToFit()
-          .frame(width: 150, height: 150)
-          .foregroundStyle(.cstGray)
         Spacer()
       }
       .padding(.top, 25)
     }
     .navigationTitle("Profile")
     .navigationBarTitleDisplayMode(.inline)
-    .navigationBarBackButtonHidden()
+    .navigationBarBackButtonHidden(true)
     .toolbar {
       ToolbarItem(placement: .topBarLeading) {
         ArrowBackBtn()

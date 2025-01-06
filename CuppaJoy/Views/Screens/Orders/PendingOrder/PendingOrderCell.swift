@@ -11,11 +11,10 @@ struct PendingOrderCell: View {
   
   var body: some View {
     HStack(spacing: 20) {
-      
       Image(systemName: "cup.and.saucer.fill")
         .resizable()
         .aspectRatio(contentMode: .fit)
-        .frame(width: 40, height: 40)
+        .frame(width: 35, height: 35)
         .foregroundStyle(.cstCream)
       
       VStack(alignment: .leading, spacing: 5) {
@@ -36,6 +35,7 @@ struct PendingOrderCell: View {
       .font(.poppins(.bold, size: 16))
       .foregroundStyle(.cstCream)
     }
+    .listRowBackground(Color.cstBlack)
   }
 }
 

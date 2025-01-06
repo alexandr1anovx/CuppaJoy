@@ -10,7 +10,7 @@ import SwiftUI
 struct PaymentMethodsContainer: View {
   var body: some View {
     ZStack {
-      
+
       RoundedRectangle(cornerRadius: 25)
         .fill(Color.cstDarkBrown)
         .ignoresSafeArea()

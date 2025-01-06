@@ -12,24 +12,18 @@ struct CompletedOrderScreen: View {
     ZStack {
       Color.mainBackgroundGradient.ignoresSafeArea()
       
-      VStack(spacing: 15) {
+      VStack(spacing: 25) {
         Image("takeaway")
           .resizable()
-          .frame(width: 140, height: 140)
+          .frame(width: 130, height: 130)
           .foregroundStyle(.cstCream)
         Text("Order received!")
-          .font(.poppins(.medium, size: 18))
+          .font(.poppins(.medium, size: 17))
           .foregroundStyle(.cstCream)
         
-        VStack(alignment: .center, spacing: 20) {
-          Text("The order will be ready today to 18:10 at the address Bradford BD1 1PR.")
-            .foregroundStyle(.cstCream)
-          
-          Text("* submit your personal QR code at the coffee shop to receive an order.")
-            .foregroundStyle(.cstGray)
-        }
-        .padding(.top, 30)
-        .font(.poppins(.regular, size: 14))
+        Text("The order will be ready today to 18:10 at the address Bradford BD1 1PR.")
+          .foregroundStyle(.cstGray)
+        .font(.poppins(.regular, size: 13))
         .padding(.horizontal, 30)
         .multilineTextAlignment(.center)
       }
