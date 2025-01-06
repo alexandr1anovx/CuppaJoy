@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PendingOrderListScreen: View {
+struct PendingOrderScreen: View {
   var body: some View {
     ZStack {
       Color.mainBackgroundGradient.ignoresSafeArea()
@@ -32,7 +32,6 @@ struct PendingOrderListScreen: View {
         .listStyle(.insetGrouped)
         .listRowSpacing(20)
         .scrollContentBackground(.hidden)
-        .background(Color.mainBackgroundGradient)
         
         Spacer()
         
@@ -62,7 +61,7 @@ struct PendingOrderListScreen: View {
         .padding(25)
       }
     }
-    .navigationTitle("Orders")
+    .navigationTitle("Pending Orders")
     .navigationBarTitleDisplayMode(.inline)
     .navigationBarBackButtonHidden(true)
     .toolbar {
@@ -74,5 +73,5 @@ struct PendingOrderListScreen: View {
 }
 
 #Preview {
-  PendingOrderListScreen()
+  PendingOrderScreen()
 }
