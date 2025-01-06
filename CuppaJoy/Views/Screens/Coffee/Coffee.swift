@@ -16,7 +16,7 @@ enum Coffee: String, CaseIterable {
   case mocha = "Mocha"
 }
 
-enum CoffeeCup: CaseIterable {
+enum CoffeeCup: String, CaseIterable {
   case small, medium, large
   
   var ml: String {
