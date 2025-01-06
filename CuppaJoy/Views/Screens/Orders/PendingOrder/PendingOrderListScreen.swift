@@ -7,21 +7,21 @@
 
 import SwiftUI
 
-struct ConfirmedOrderList: View {
+struct PendingOrderListScreen: View {
   var body: some View {
     ZStack {
-      Color.cstDarkBrown.ignoresSafeArea()
+      Color.mainBackgroundGradient.ignoresSafeArea()
       
       VStack {
         List {
-          ConfirmedOrderCell()
+          PendingOrderCell()
             .swipeActions {
               Button("", systemImage: "trash") {
                 // delete the order
               }
               .tint(.pink)
             }
-          ConfirmedOrderCell()
+          PendingOrderCell()
             .swipeActions {
               Button("", systemImage: "trash") {
                 // delete the order
@@ -32,7 +32,7 @@ struct ConfirmedOrderList: View {
         .listStyle(.insetGrouped)
         .listRowSpacing(20)
         .scrollContentBackground(.hidden)
-        .background(.cstDarkBrown)
+        .background(Color.mainBackgroundGradient)
         
         Spacer()
         
@@ -74,5 +74,5 @@ struct ConfirmedOrderList: View {
 }
 
 #Preview {
-  ConfirmedOrderList()
+  PendingOrderListScreen()
 }

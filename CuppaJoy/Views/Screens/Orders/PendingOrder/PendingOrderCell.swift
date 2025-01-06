@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ConfirmedOrderCell: View {
+struct PendingOrderCell: View {
   
   var body: some View {
     HStack(spacing: 20) {
@@ -40,5 +40,5 @@ struct ConfirmedOrderCell: View {
 }
 
 #Preview {
-  ConfirmedOrderCell()
+  PendingOrderCell()
 }
