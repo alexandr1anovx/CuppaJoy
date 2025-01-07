@@ -49,18 +49,10 @@ struct PaymentMethodsContainer: View {
         .padding(.top, 25)
         .padding(.horizontal, 25)
         
-        List {
-          PaymentMethodCell()
-            .listRowBackground(Color.cstBlack)
-        }
-        .listStyle(.sidebar)
-        .scrollContentBackground(.hidden)
-        
+        PaymentMethodCell()
         Spacer()
-        
         TotalPriceView()
           .padding(25)
-        
       }
     }
   }

@@ -16,16 +16,7 @@ struct PaymentScreen: View {
         PaymentScreenHeader()
         PaymentMethodsContainer()
           .shadow(radius: 5)
-          .padding(.top, 50)
           .padding()
-      }
-    }
-    .navigationTitle("My order")
-    .navigationBarTitleDisplayMode(.inline)
-    .navigationBarBackButtonHidden(true)
-    .toolbar {
-      ToolbarItem(placement: .topBarLeading) {
-        ArrowBackBtn()
       }
     }
   }
@@ -36,7 +27,16 @@ struct PaymentScreen: View {
 }
 
 struct PaymentScreenHeader: View {
+  @Environment(\.dismiss) var dismiss
   var body: some View {
-    Text("")
+    HStack {
+      Spacer()
+      Image(systemName: "xmark.circle.fill")
+        .font(.title)
+        .foregroundStyle(.cstGray)
+        .onTapGesture {
+          dismiss()
+        }
+    }.padding(.horizontal)
   }
 }
