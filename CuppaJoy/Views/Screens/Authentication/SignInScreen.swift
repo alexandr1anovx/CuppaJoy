@@ -16,16 +16,7 @@ struct SignInScreen: View {
         Color.mainBackgroundGradient.ignoresSafeArea()
         
         VStack(alignment: .leading, spacing: 30) {
-          
-          // Header
-          VStack(alignment: .leading, spacing: 15) {
-            Text("Sign In")
-              .foregroundStyle(.cstCream)
-              .font(.poppins(.medium, size: 20))
-            Text("Welcome back.")
-              .font(.poppins(.regular, size: 14))
-              .foregroundStyle(.cstGray)
-          }
+          AuthHeaderView(title: "Sign In", subtitle: "Welcome back.")
           
           CustomTextField(
             image: "phone",

@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct CodeConfirmationView: View {
-  
-  @Environment(\.dismiss) var dismiss
   @State private var confirmationCode = ""
   
   var body: some View {
@@ -17,15 +15,10 @@ struct CodeConfirmationView: View {
       Color.mainBackgroundGradient.ignoresSafeArea()
       
       VStack(alignment: .leading, spacing: 30) {
-        // Header
-        VStack(alignment: .leading, spacing: 15) {
-          Text("Verification")
-            .foregroundStyle(.cstCream)
-            .font(.poppins(.medium, size: 20))
-          Text("Enter the code we sent to your phone number.")
-            .font(.poppins(.regular, size: 13))
-            .foregroundStyle(.cstGray)
-        }
+        AuthHeaderView(
+          title: "Verification", 
+          subtitle: "Enter the code we sent to your phone number."
+        )
         
         CustomTextField(
           image: "mailbox",
@@ -34,7 +27,7 @@ struct CodeConfirmationView: View {
         
         Text("Resend in 00:30")
           .font(.poppins(.medium, size: 14))
-          .foregroundStyle(.cstLightPink)
+          .foregroundStyle(.cstCream)
           .opacity(0.7)
         HStack {
           Spacer()
@@ -43,15 +36,15 @@ struct CodeConfirmationView: View {
             // action
           } label: {
             Text("Confirm")
-              .font(.poppins(.medium, size: 16))
-              .foregroundStyle(.cstCream)
+              .font(.poppins(.medium, size: 14))
+              .foregroundStyle(.cstDarkBrown)
               .padding(5)
           }
           .tint(.cstCream)
-          .buttonStyle(.bordered)
+          .buttonStyle(.borderedProminent)
         }
       }
-      .padding(.horizontal, 30)
+      .padding(.horizontal, 25)
     }
   }
 }

@@ -21,15 +21,7 @@ struct SignUpScreen: View {
       Color.mainBackgroundGradient.ignoresSafeArea()
       
       VStack(alignment: .leading, spacing: 40) {
-        // Header
-        VStack(alignment: .leading, spacing: 15) {
-          Text("Sign Up")
-            .foregroundStyle(.cstCream)
-            .font(.poppins(.medium, size: 20))
-          Text("Create an account here.")
-            .font(.poppins(.regular, size: 13))
-            .foregroundStyle(.cstGray)
-        }
+        AuthHeaderView(title: "Sign Up", subtitle: "Create an account here.")
         
         SignUpForm()
         
