@@ -8,14 +8,20 @@
 import SwiftUI
 
 struct PaymentMethodCell: View {
+  @State private var isShownApplePay: Bool = false
+  
   var body: some View {
     List {
-      CreditCardPaymentCell()
-      ApplePaymentCell()
+      ApplePaymentCell(isShownApplePay: $isShownApplePay)
     }
     .listStyle(.insetGrouped)
-    .listRowSpacing(20)
     .scrollContentBackground(.hidden)
+    .sheet(isPresented: $isShownApplePay) {
+      ApplePayView()
+        .presentationDetents([.medium])
+        .presentationDragIndicator(.visible)
+        .presentationBackgroundInteraction(.disabled)
+    }
   }
 }
 
@@ -23,6 +29,26 @@ struct PaymentMethodCell: View {
   PaymentMethodCell()
 }
 
+struct ApplePaymentCell: View {
+  @Binding var isShownApplePay: Bool
+  
+  var body: some View {
+    HStack(spacing: 20) {
+      Text("Apple Pay")
+        .font(.poppins(.medium, size: 16))
+        .foregroundStyle(.cstWhite)
+      Spacer()
+      Image("applePay")
+        .resizable()
+        .scaledToFit()
+        .frame(width: 40, height: 40)
+    }
+    .onTapGesture { isShownApplePay.toggle() }
+    .listRowBackground(Color.cstBlack)
+  }
+}
+
+/*
 struct CreditCardPaymentCell: View {
   var body: some View {
     HStack(spacing: 20) {
@@ -43,19 +69,4 @@ struct CreditCardPaymentCell: View {
     .listRowBackground(Color.cstBlack)
   }
 }
-
-struct ApplePaymentCell: View {
-  var body: some View {
-    HStack(spacing: 20) {
-      Text("Apple Pay")
-        .font(.poppins(.medium, size: 16))
-        .foregroundStyle(.cstWhite)
-      Spacer()
-      Image("applePay")
-        .resizable()
-        .scaledToFit()
-        .frame(width: 40, height: 40)
-    }
-    .listRowBackground(Color.cstBlack)
-  }
-}
+*/
