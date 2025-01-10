@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ApplePayView: View {
+  @Environment(\.dismiss) var dismiss
+  
   var body: some View {
     NavigationStack {
       List {
@@ -33,6 +35,9 @@ struct ApplePayView: View {
             .font(.title2)
             .symbolRenderingMode(.hierarchical)
             .foregroundStyle(.gray)
+            .onTapGesture {
+              dismiss()
+            }
         }
         ToolbarItem(placement: .bottomBar) {
           ApplePayFooter()
