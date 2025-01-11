@@ -53,6 +53,7 @@ struct ApplePayView: View {
 }
 
 private extension ApplePayView {
+  
   struct ApplePayHeaderView: View {
     var body: some View {
       HStack {
@@ -70,12 +71,16 @@ private extension ApplePayView {
   
   struct AppOverviewSection: View {
     var body: some View {
-      HStack(spacing: 15) {
-        Image("applogo")
+      HStack(spacing: 18) {
+        Image("beans")
           .resizable()
-          .frame(width: 60, height: 60)
-          .clipShape(.buttonBorder)
-        VStack(alignment: .leading, spacing: 8) {
+          .frame(width: 40, height: 40)
+          .background(
+            RoundedRectangle(cornerRadius: 10)
+              .fill(Color.cstBlack)
+              .frame(width: 50, height: 50)
+          )
+        VStack(alignment: .leading, spacing: 5) {
           Text("Cuppa Joy")
             .foregroundStyle(.white)
           Text("Medium Coffee Cup")
