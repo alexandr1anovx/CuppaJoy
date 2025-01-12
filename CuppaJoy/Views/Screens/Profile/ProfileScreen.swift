@@ -42,7 +42,7 @@ struct ProfileScreen: View {
     .navigationBarBackButtonHidden(true)
     .toolbar {
       ToolbarItem(placement: .topBarLeading) {
-        ArrowBackBtn()
+        ReturnButton()
       }
     }
   }

@@ -63,7 +63,7 @@ struct OrderOptionsScreen: View {
       .navigationBarBackButtonHidden(true)
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
-          ArrowBackBtn()
+          ReturnButton()
         }
       }
     }

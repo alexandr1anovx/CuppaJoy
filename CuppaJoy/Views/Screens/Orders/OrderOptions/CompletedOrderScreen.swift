@@ -31,7 +31,7 @@ struct CompletedOrderScreen: View {
     .navigationBarBackButtonHidden(true)
     .toolbar {
       ToolbarItem(placement: .topBarLeading) {
-        ArrowBackBtn()
+        ReturnButton()
       }
     }
   }

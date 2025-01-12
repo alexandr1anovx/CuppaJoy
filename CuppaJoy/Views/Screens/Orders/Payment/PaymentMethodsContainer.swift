@@ -10,14 +10,13 @@ import SwiftUI
 struct PaymentMethodsContainer: View {
   var body: some View {
     ZStack {
-
       RoundedRectangle(cornerRadius: 25)
         .fill(Color.cstDarkBrown)
         .ignoresSafeArea()
       
       VStack(alignment: .leading) {
         
-        VStack(alignment: .leading, spacing: 40) {
+        VStack(alignment: .leading, spacing: 30) {
           Text("Order Payment")
             .font(.poppins(.bold, size: 18))
             .foregroundStyle(.cstWhite)

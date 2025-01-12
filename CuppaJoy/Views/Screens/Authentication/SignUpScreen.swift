@@ -44,7 +44,7 @@ struct SignUpScreen: View {
           } label: {
             Text("Sign Up")
               .font(.poppins(.bold, size: 15))
-              .foregroundStyle(.cstMint)
+              .foregroundStyle(.accent)
               .padding(5)
           }
           .tint(.cstCream)
@@ -60,6 +60,11 @@ struct SignUpScreen: View {
           .presentationDragIndicator(.visible)
       }
       .navigationBarBackButtonHidden(true)
+      .toolbar {
+        ToolbarItem(placement: .topBarLeading) {
+          ReturnButton()
+        }
+      }
     }
   }
 }

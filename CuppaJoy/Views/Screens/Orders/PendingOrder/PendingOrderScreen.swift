@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct PendingOrderScreen: View {
+  @State private var isShownPaymentScreen: Bool = false
+  
   var body: some View {
     ZStack {
       Color.mainBackgroundGradient.ignoresSafeArea()
@@ -19,14 +21,14 @@ struct PendingOrderScreen: View {
               Button("", systemImage: "trash") {
                 // delete the order
               }
-              .tint(.pink)
+              .tint(.red)
             }
           PendingOrderCell()
             .swipeActions {
               Button("", systemImage: "trash") {
                 // delete the order
               }
-              .tint(.pink)
+              .tint(.red)
             }
         }
         .listStyle(.insetGrouped)
@@ -47,8 +49,10 @@ struct PendingOrderScreen: View {
           
           Spacer()
           
+          
           Button {
             // action
+            isShownPaymentScreen.toggle()
           } label: {
             Label("Next", systemImage: "cart.badge.plus")
               .font(.poppins(.medium, size: 16))
@@ -66,8 +70,11 @@ struct PendingOrderScreen: View {
     .navigationBarBackButtonHidden(true)
     .toolbar {
       ToolbarItem(placement: .topBarLeading) {
-        ArrowBackBtn()
+        ReturnButton()
       }
+    }
+    .fullScreenCover(isPresented: $isShownPaymentScreen) {
+      PaymentScreen()
     }
   }
 }
