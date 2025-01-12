@@ -11,7 +11,7 @@ import SwiftUI
 struct CuppaJoyApp: App {
   var body: some Scene {
     WindowGroup {
-      CustomTabView()
+      OnboardingScreen()
         .preferredColorScheme(.dark)
     }
   }

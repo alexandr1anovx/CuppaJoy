@@ -14,7 +14,7 @@ struct SignInScreen: View {
     NavigationStack {
       ZStack {
         Color.mainBackgroundGradient.ignoresSafeArea()
-        
+
         VStack(alignment: .leading, spacing: 30) {
           AuthHeaderView(title: "Sign In", subtitle: "Welcome back.")
           

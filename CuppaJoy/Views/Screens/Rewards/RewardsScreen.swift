@@ -27,7 +27,6 @@ struct LoyaltyCardView: View {
           .shadow(.drop(color: .cstBlack, radius: 3)))
         .frame(width: 345, height: 135)
         .overlay {
-          
           VStack(spacing: 15) {
             HStack {
               Text("Loyalty Card")

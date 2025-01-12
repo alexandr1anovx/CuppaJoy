@@ -19,7 +19,6 @@
 		324A9FDE2CB0BD63007F6998 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 324A9FDB2CB0BD63007F6998 /* Poppins-Medium.ttf */; };
 		324A9FDF2CB0BD63007F6998 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 324A9FDC2CB0BD63007F6998 /* Poppins-Regular.ttf */; };
 		326108402CBAD3B10072D238 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3261083F2CBAD3B10072D238 /* HomeScreen.swift */; };
-		329341F52CB06536002FAF63 /* GreetingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329341F42CB06536002FAF63 /* GreetingScreen.swift */; };
 		3293AC952CC7166A00A9A9B5 /* OrderReceiptCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3293AC942CC7166A00A9A9B5 /* OrderReceiptCell.swift */; };
 		32E73B242CBB091700730A1A /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E73B232CBB091700730A1A /* CustomButton.swift */; };
 		32EA86CB2CB607A1003E774D /* CodeConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EA86CA2CB607A1003E774D /* CodeConfirmationView.swift */; };
@@ -81,7 +80,6 @@
 		324A9FDB2CB0BD63007F6998 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		324A9FDC2CB0BD63007F6998 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		3261083F2CBAD3B10072D238 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
-		329341F42CB06536002FAF63 /* GreetingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingScreen.swift; sourceTree = "<group>"; };
 		3293AC942CC7166A00A9A9B5 /* OrderReceiptCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderReceiptCell.swift; sourceTree = "<group>"; };
 		32E73B232CBB091700730A1A /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		32EA86CA2CB607A1003E774D /* CodeConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeConfirmationView.swift; sourceTree = "<group>"; };
@@ -231,14 +229,6 @@
 			path = Rewards;
 			sourceTree = "<group>";
 		};
-		32FF43B22CC6E055001C0E0C /* Greeting */ = {
-			isa = PBXGroup;
-			children = (
-				329341F42CB06536002FAF63 /* GreetingScreen.swift */,
-			);
-			path = Greeting;
-			sourceTree = "<group>";
-		};
 		32FF43B42CC6F92A001C0E0C /* TextField */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,7 +241,6 @@
 			isa = PBXGroup;
 			children = (
 				D177E1A92D339DC10055658D /* Onboarding */,
-				32FF43B22CC6E055001C0E0C /* Greeting */,
 				32FF43A72CC6C742001C0E0C /* Authentication */,
 				32FF43AC2CC6CDA3001C0E0C /* Home */,
 				32FF43AD2CC6CDB4001C0E0C /* Rewards */,
@@ -533,7 +522,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				329341F52CB06536002FAF63 /* GreetingScreen.swift in Sources */,
 				D1A24CBF2D26512800B1632E /* PaymentScreen.swift in Sources */,
 				50DFA81D2D04769E0058A4D4 /* SyrupPicker.swift in Sources */,
 				32FF43AF2CC6CDF3001C0E0C /* RewardsScreen.swift in Sources */,
