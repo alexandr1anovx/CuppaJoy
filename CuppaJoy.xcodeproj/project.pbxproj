@@ -175,7 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				32FF43B62CC6F973001C0E0C /* Screens */,
-				D1C859D22D20C00000DDB941 /* ReusedComponents */,
+				D1C859D22D20C00000DDB941 /* Components */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -417,7 +417,7 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
-		D1C859D22D20C00000DDB941 /* ReusedComponents */ = {
+		D1C859D22D20C00000DDB941 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				D1E497D82D2BEA4200ACBB56 /* UnderlinedTabItem */,
@@ -427,7 +427,7 @@
 				D1C859C92D20BACE00DDB941 /* Separator */,
 				50E79D652D03B3FE00842850 /* TopRoundedRectangle */,
 			);
-			path = ReusedComponents;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		D1CD6C392D273CC3007FF006 /* Payment */ = {
