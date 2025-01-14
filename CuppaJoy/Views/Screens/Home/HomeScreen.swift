@@ -18,6 +18,7 @@ struct HomeScreen: View {
           .shadow(radius: 5)
       }
     }
+    .toolbar(.hidden, for: .navigationBar)
   }
 }
 
