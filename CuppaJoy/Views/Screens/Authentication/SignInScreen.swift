@@ -33,11 +33,11 @@ struct SignInScreen: View {
             } label: {
               Text("Next")
                 .font(.poppins(.bold, size: 15))
-                .foregroundStyle(.cstCream)
+                .foregroundStyle(.accent)
                 .padding(5)
             }
             .buttonStyle(.bordered)
-            .tint(.cstCream)
+            .tint(.accent)
           }
           HStack(spacing: 5) {
             Text("New member?")
@@ -49,7 +49,7 @@ struct SignInScreen: View {
             } label: {
               Text("Sign Up")
                 .font(.poppins(.bold, size: 15))
-                .foregroundStyle(.cstCream)
+                .foregroundStyle(.accent)
             }
           }
         }

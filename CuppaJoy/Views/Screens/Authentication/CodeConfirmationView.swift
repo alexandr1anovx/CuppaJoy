@@ -27,7 +27,7 @@ struct CodeConfirmationView: View {
         
         Text("Resend in 00:30")
           .font(.poppins(.medium, size: 14))
-          .foregroundStyle(.cstCream)
+          .foregroundStyle(.accent)
           .opacity(0.7)
         HStack {
           Spacer()
@@ -40,7 +40,7 @@ struct CodeConfirmationView: View {
               .foregroundStyle(.cstDarkBrown)
               .padding(5)
           }
-          .tint(.cstCream)
+          .tint(.accent)
           .buttonStyle(.borderedProminent)
         }
       }

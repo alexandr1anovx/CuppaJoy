@@ -30,7 +30,7 @@ struct HomeHeaderView: View {
         Image(systemName: "qrcode")
           .resizable()
           .frame(width: 23, height: 23)
-          .foregroundStyle(.cstCream)
+          .foregroundStyle(.accent)
       }
       
       NavigationLink {
@@ -39,7 +39,7 @@ struct HomeHeaderView: View {
         Image("user")
           .resizable()
           .frame(width: 26, height: 26)
-          .foregroundStyle(.cstCream)
+          .foregroundStyle(.accent)
       }
     }
     .padding(.horizontal, 25)

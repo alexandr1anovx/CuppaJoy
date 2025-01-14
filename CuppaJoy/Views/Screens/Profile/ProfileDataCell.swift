@@ -31,7 +31,7 @@ struct ProfileDataCell: View {
           .foregroundStyle(.cstWhite)
         Text(content)
           .font(.poppins(.medium, size: 14))
-          .foregroundStyle(.cstCream)
+          .foregroundStyle(.accent)
       }
       
       Spacer()

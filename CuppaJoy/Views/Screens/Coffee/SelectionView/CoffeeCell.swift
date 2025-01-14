@@ -26,7 +26,7 @@ struct CoffeeCell: View {
             Text(coffee.rawValue)
               .font(.poppins(.medium, size: 14))
           }
-          .foregroundStyle(.cstCream)
+          .foregroundStyle(.accent)
         }
     }
   }

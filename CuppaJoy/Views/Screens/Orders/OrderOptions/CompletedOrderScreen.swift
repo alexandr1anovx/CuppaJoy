@@ -16,10 +16,10 @@ struct CompletedOrderScreen: View {
         Image("takeaway")
           .resizable()
           .frame(width: 130, height: 130)
-          .foregroundStyle(.cstCream)
+          .foregroundStyle(.accent)
         Text("Order received!")
           .font(.poppins(.medium, size: 17))
-          .foregroundStyle(.cstCream)
+          .foregroundStyle(.accent)
         
         Text("The order will be ready today to 18:10 at the address Bradford BD1 1PR.")
           .foregroundStyle(.cstGray)

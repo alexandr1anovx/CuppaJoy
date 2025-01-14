@@ -18,7 +18,7 @@ struct OnboardingScreen: View {
       Color.mainBackgroundGradient.ignoresSafeArea()
       
       if isFinished {
-        SignInScreen()
+        EntryPoint()
       } else {
         VStack(spacing: 40) {
           Spacer()

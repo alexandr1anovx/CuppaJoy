@@ -21,13 +21,13 @@ struct IceCubePicker: View {
     Picker("Ice Cube", selection: $iceCubeCount) {
       ForEach(IceCube.allCases, id: \.self) { iceCube in
         Text(iceCube.rawValue)
-          .foregroundStyle(.cstCream)
+          .foregroundStyle(.accent)
       }
     }
     .pickerStyle(.menu)
     .font(.poppins(.medium, size: 15))
     .foregroundStyle(.cstWhite)
-    .tint(.cstCream)
+    .tint(.accent)
     .listRowBackground(Color.cstBrown)
   }
 }

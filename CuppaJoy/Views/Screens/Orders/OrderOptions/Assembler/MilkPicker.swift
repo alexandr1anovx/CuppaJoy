@@ -27,7 +27,7 @@ struct MilkPicker: View {
     .pickerStyle(.menu)
     .font(.poppins(.medium, size: 15))
     .foregroundStyle(.cstWhite)
-    .tint(.cstCream)
+    .tint(.accent)
     .listRowBackground(Color.cstBrown)
   }
 }

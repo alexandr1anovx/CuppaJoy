@@ -23,7 +23,7 @@ struct CupSizeCell: View {
         }
       }
       .pickerStyle(.segmented)
-      .colorMultiply(.cstCream)
+      .colorMultiply(.accent)
     }
     .listRowBackground(Color.cstBrown)
   }

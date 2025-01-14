@@ -18,7 +18,7 @@ struct CustomTextField: View {
         Image(image)
           .resizable()
           .frame(width: 21, height: 21)
-          .foregroundStyle(.cstCream)
+          .foregroundStyle(.accent)
         TextField(text: $inputData) {
           Text(placeholder)
             .font(.poppins(.medium, size: 12))

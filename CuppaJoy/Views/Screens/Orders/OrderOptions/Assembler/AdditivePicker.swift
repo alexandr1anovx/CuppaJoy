@@ -24,13 +24,13 @@ struct AdditivePicker: View {
     Picker("Additives", selection: $additive) {
       ForEach(Additive.allCases, id: \.self) { additive in
         Text(additive.rawValue)
-          .foregroundStyle(.cstCream)
+          .foregroundStyle(.accent)
       }
     }
     .pickerStyle(.menu)
     .font(.poppins(.medium, size: 15))
     .foregroundStyle(.cstWhite)
-    .tint(.cstCream)
+    .tint(.accent)
     .listRowBackground(Color.cstBrown)
   }
 }

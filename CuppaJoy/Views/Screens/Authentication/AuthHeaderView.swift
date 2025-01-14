@@ -14,7 +14,7 @@ struct AuthHeaderView: View {
   var body: some View {
     VStack(alignment: .leading, spacing: 15) {
       Text(title)
-        .foregroundStyle(.cstCream)
+        .foregroundStyle(.accent)
         .font(.poppins(.medium, size: 20))
       Text(subtitle)
         .font(.poppins(.regular, size: 13))

@@ -59,7 +59,7 @@ struct PendingOrderScreen: View {
               .foregroundStyle(.cstDarkBrown)
               .padding(5)
           }
-          .tint(Color.cstCream)
+          .tint(.accent)
           .buttonStyle(.borderedProminent)
         }
         .padding(25)

@@ -15,12 +15,12 @@ struct PendingOrderCell: View {
         .resizable()
         .aspectRatio(contentMode: .fit)
         .frame(width: 35, height: 35)
-        .foregroundStyle(.cstCream)
+        .foregroundStyle(.accent)
       
       VStack(alignment: .leading, spacing: 5) {
         Text("Americano")
           .font(.poppins(.medium, size: 15))
-          .foregroundStyle(.cstCream)
+          .foregroundStyle(.accent)
         Text("Single, Iced, Medium")
           .font(.poppins(.regular, size: 12))
           .foregroundStyle(.cstGray)
@@ -33,7 +33,7 @@ struct PendingOrderCell: View {
       
       Text("₴ 35.00")
       .font(.poppins(.bold, size: 16))
-      .foregroundStyle(.cstCream)
+      .foregroundStyle(.accent)
     }
     .listRowBackground(Color.cstBlack)
   }

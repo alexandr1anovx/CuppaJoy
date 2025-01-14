@@ -15,10 +15,10 @@ struct UnderlinedTabItem: View {
     VStack {
       Text(tabName)
         .font(.poppins(.medium, size: 16))
-        .foregroundColor(isSelected ? .cstCream : .cstGray)
+        .foregroundColor(isSelected ? .accent : .cstGray)
       Rectangle()
         .frame(width: 80, height: 2)
-        .foregroundColor(isSelected ? .cstCream : .clear)
+        .foregroundColor(isSelected ? .accent : .clear)
         .animation(.easeInOut, value: isSelected)
     }
   }

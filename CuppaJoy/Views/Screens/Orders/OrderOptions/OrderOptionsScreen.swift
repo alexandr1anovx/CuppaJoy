@@ -52,7 +52,7 @@ struct OrderOptionsScreen: View {
               .font(.poppins(.medium, size: 14))
               .foregroundStyle(.cstDarkBrown)
               .padding(13)
-              .background(.cstCream)
+              .background(.accent)
               .clipShape(.buttonBorder)
           }
         }

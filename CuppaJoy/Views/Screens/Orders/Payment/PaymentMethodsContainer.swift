@@ -30,7 +30,7 @@ struct PaymentMethodsContainer: View {
               .padding(8)
               .background(
                 RoundedRectangle(cornerRadius: 10)
-                  .fill(Color.cstCream)
+                  .fill(Color.accent)
               )
             
             VStack(alignment: .leading, spacing: 8) {
@@ -39,7 +39,7 @@ struct PaymentMethodsContainer: View {
                 .foregroundStyle(.cstWhite)
               Text("Magic Coffee store: Bradford BD1 1PR")
                 .font(.poppins(.regular, size: 12))
-                .foregroundStyle(.cstCream)
+                .foregroundStyle(.accent)
                 .lineLimit(2)
                 .multilineTextAlignment(.leading)
             }

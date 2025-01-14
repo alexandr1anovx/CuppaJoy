@@ -22,7 +22,7 @@ struct CustomButton: View {
       .font(.poppins(.medium, size: 15))
       .foregroundStyle(.cstDarkBrown)
       .padding(13)
-      .background(Color.cstCream.shadow(.inner(radius: 3)))
+      .background(Color.accent.shadow(.inner(radius: 3)))
       .clipShape(.buttonBorder)
   }
 }

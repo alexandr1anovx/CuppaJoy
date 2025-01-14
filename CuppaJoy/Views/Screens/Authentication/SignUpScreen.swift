@@ -34,7 +34,7 @@ struct SignUpScreen: View {
               dismiss()
             }
             .font(.poppins(.bold, size: 15))
-            .foregroundStyle(.cstCream)
+            .foregroundStyle(.accent)
           }
           
           Spacer()
@@ -47,7 +47,7 @@ struct SignUpScreen: View {
               .foregroundStyle(.accent)
               .padding(5)
           }
-          .tint(.cstCream)
+          .tint(.accent)
         }
         
         Spacer()
@@ -96,7 +96,7 @@ private extension SignUpScreen {
           }
         }
         .pickerStyle(.segmented)
-        .colorMultiply(.cstCream)
+        .colorMultiply(.accent)
       }
     }
   }

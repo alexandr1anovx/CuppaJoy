@@ -25,26 +25,26 @@ struct OrderReceiptCell: View {
         Spacer()
         Text("₴ \(String(format: "%.2f", price))")
           .font(.poppins(.bold, size: 17))
-          .foregroundStyle(.cstCream)
+          .foregroundStyle(.accent)
       }
       
       VStack(alignment: .leading, spacing: 15) {
         HStack(spacing: 10) {
           Image(systemName: "mug.fill")
             .frame(width: 20, height: 20)
-            .foregroundStyle(.cstCream)
+            .foregroundStyle(.accent)
           Text(coffee.rawValue)
             .font(.poppins(.medium, size: 13))
-            .foregroundStyle(.cstCream)
+            .foregroundStyle(.accent)
         }
         
         HStack(spacing: 10) {
           Image(systemName: "mappin.and.ellipse")
             .frame(width: 20, height: 20)
-            .foregroundStyle(.cstCream)
+            .foregroundStyle(.accent)
           Text(address)
             .font(.poppins(.medium, size: 13))
-            .foregroundStyle(.cstCream)
+            .foregroundStyle(.accent)
         }
       }
     }
