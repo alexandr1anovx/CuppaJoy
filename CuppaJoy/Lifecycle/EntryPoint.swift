@@ -7,35 +7,43 @@
 
 import SwiftUI
 
-/*
- HOME:
- 
- 1) Home Screen -> QRCode Screen.
- 2) Home Screen -> Profile Screen.
- 3) Home Screen -> OrderOptionsScreen -> 
-*/
+enum Tab: String, Hashable {
+  case home
+  case rewards
+  case history
+  
+  var title: String {
+    rawValue.capitalized
+  }
+}
 
 struct EntryPoint: View {
+  @State private var selectedTab: Tab = .home
   
   var body: some View {
     NavigationStack {
-      TabView {
+      TabView(selection: $selectedTab) {
         HomeScreen()
+          .tag(Tab.home)
           .tabItem {
             Image("house")
             Text("Home")
           }
         RewardsScreen()
+          .tag(Tab.rewards)
           .tabItem {
             Image("gift")
             Text("Rewards")
           }
         OrderTabScreen()
+          .tag(Tab.history)
           .tabItem {
             Image("bill")
             Text("History")
           }
       }
+      .navigationTitle(selectedTab.title)
+      .navigationBarTitleDisplayMode(.inline)
     }
   }
 }
