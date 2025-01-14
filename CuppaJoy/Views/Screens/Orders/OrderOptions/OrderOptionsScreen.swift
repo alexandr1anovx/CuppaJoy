@@ -60,6 +60,8 @@ struct OrderOptionsScreen: View {
         // 20px bottom padding for iPhone SE 3rd generation.
         .padding(.bottom, UIScreen.current?.bounds.height == 667 ? 20 : 0)
       }
+      .navigationTitle("Order Options")
+      .navigationBarTitleDisplayMode(.inline)
       .navigationBarBackButtonHidden(true)
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
