@@ -8,21 +8,20 @@
 import SwiftUI
 
 struct CustomTextField: View {
-  let image: String
+  
+  let image: ImageResource
   let placeholder: String
   @Binding var inputData: String
   
   var body: some View {
     VStack {
-      HStack(spacing: 12) {
+      HStack(spacing: 10) {
         Image(image)
-          .resizable()
-          .frame(width: 21, height: 21)
           .foregroundStyle(.accent)
         TextField(text: $inputData) {
           Text(placeholder)
-            .font(.poppins(.medium, size: 12))
-            .foregroundStyle(.cstGray)
+            .font(.poppins(.medium, size: 13))
+            .foregroundStyle(.gray)
         }
       }
       CustomSeparator()
@@ -32,7 +31,7 @@ struct CustomTextField: View {
 
 #Preview {
   CustomTextField(
-    image: "user",
+    image: .man,
     placeholder: "Enter your password",
     inputData: .constant("")
   )

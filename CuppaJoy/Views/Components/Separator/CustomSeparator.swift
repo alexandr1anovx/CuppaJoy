@@ -11,7 +11,7 @@ struct CustomSeparator: View {
   var body: some View {
     Rectangle()
       .frame(height: 0.5)
-      .foregroundStyle(.cstGray)
+      .foregroundStyle(.gray)
       .opacity(0.6)
   }
 }

@@ -14,8 +14,8 @@ struct InnerShadowViewModifier: ViewModifier {
   func body(content: Content) -> some View {
     content
       .background(bgColor
-        .shadow(.inner(color: .cstBrown, radius: 3, y: 1))
-        .shadow(.inner(color: .cstDarkBrown, radius: 2))
+        .shadow(.inner(color: .csBrown, radius: 3, y: 1))
+        .shadow(.inner(color: .csDarkBrown, radius: 2))
       )
   }
 }
