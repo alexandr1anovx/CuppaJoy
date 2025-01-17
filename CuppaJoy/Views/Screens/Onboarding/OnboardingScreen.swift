@@ -42,7 +42,7 @@ struct OnboardingScreen: View {
   @State private var isAnimating = false
   @State private var isFinished = false
   
-  var lastIndex: Bool { pageIndex == pages.count - 1 }
+  var isIndexLast: Bool { pageIndex == pages.count - 1 }
   let pages = OnboardingPage.allCases
   
   // MARK: - body
@@ -75,7 +75,7 @@ struct OnboardingScreen: View {
         VStack(spacing: 10) {
           Text(page.title)
             .font(.poppins(.bold, size: 17))
-            .foregroundStyle(lastIndex ? .csYellow : .accent)
+            .foregroundStyle(isIndexLast ? .csYellow : .accent)
           Text(page.description)
             .font(.poppins(.medium, size: 12))
             .foregroundStyle(.gray)
@@ -121,14 +121,14 @@ struct OnboardingScreen: View {
         Group {
           Circle()
             .frame(width: 60, height: 60)
-            .foregroundStyle(lastIndex ? .csYellow : .accent)
+            .foregroundStyle(isIndexLast ? .csYellow : .accent)
             .scaleEffect(isAnimating ? 1 : 0, anchor: .leading)
           Circle()
             .frame(width: 54, height: 54)
-            .foregroundStyle(lastIndex ? .csYellow : .csBrown)
+            .foregroundStyle(isIndexLast ? .csYellow : .csBrown)
         }
         
-        if lastIndex {
+        if isIndexLast {
           Image(.rocket).foregroundStyle(.black)
         } else {
           Image(.paw).foregroundStyle(.accent)
