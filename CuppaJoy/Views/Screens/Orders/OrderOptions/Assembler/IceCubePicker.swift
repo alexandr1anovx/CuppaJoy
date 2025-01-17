@@ -8,10 +8,11 @@
 import SwiftUI
 
 enum IceCube: String, CaseIterable {
-  case none = "None"
-  case one = "One cube"
-  case two = "Two cubes"
-  case three = "Three cubes"
+  case none
+  case one
+  case two
+  
+  var title: String { self.rawValue.capitalized }
 }
 
 struct IceCubePicker: View {
@@ -19,15 +20,14 @@ struct IceCubePicker: View {
   
   var body: some View {
     Picker("Ice Cube", selection: $iceCubeCount) {
-      ForEach(IceCube.allCases, id: \.self) { iceCube in
-        Text(iceCube.rawValue)
-          .foregroundStyle(.accent)
+      ForEach(IceCube.allCases, id: \.self) { cube in
+        Text(cube.title)
       }
     }
     .pickerStyle(.menu)
-    .font(.poppins(.medium, size: 15))
-    .foregroundStyle(.cstWhite)
+    .font(.poppins(.medium, size: 14))
+    .foregroundStyle(.white)
     .tint(.accent)
-    .listRowBackground(Color.cstBrown)
+    .listRowBackground(Color.csDarkBrown)
   }
 }

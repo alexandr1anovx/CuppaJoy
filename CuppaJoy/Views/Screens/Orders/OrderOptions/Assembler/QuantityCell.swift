@@ -8,18 +8,16 @@
 import SwiftUI
 
 struct QuantityCell: View {
-  @State private var quantity: Int = 1
+  @State private var quantity = 1
   
   var body: some View {
     HStack {
       Text("Quantity")
-      
       Spacer()
-      
       Button("-") {
         withAnimation { quantity -= 1 }
       }
-      .tint(.cstBlack)
+      .tint(.black)
       .disabled(quantity == 1)
       .buttonStyle(.bordered)
       
@@ -30,13 +28,13 @@ struct QuantityCell: View {
       Button("+") {
         withAnimation { quantity += 1 }
       }
-      .tint(.cstBlack)
-      .disabled(quantity == 5)
+      .tint(.black)
+      .disabled(quantity == 3)
       .buttonStyle(.bordered)
     }
-    .font(.poppins(.medium, size: 15))
-    .foregroundStyle(.cstWhite)
-    .listRowBackground(Color.cstBrown)
+    .font(.poppins(.medium, size: 14))
+    .foregroundStyle(.white)
+    .listRowBackground(Color.csDarkBrown)
   }
 }
 
