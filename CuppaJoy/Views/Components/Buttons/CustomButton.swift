@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CustomButton: View {
+  
   let title: String
   let action: () -> Void
   
@@ -20,9 +21,9 @@ struct CustomButton: View {
     Button(title, action: action)
       .frame(minWidth: 50)
       .font(.poppins(.medium, size: 15))
-      .foregroundStyle(.cstDarkBrown)
-      .padding(13)
-      .background(Color.accent.shadow(.inner(radius: 3)))
+      .foregroundStyle(.white)
+      .padding(15)
+      .background(.csBlack)
       .clipShape(.buttonBorder)
   }
 }
