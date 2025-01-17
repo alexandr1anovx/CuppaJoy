@@ -77,7 +77,7 @@ private extension ApplePayView {
           .frame(width: 40, height: 40)
           .background(
             RoundedRectangle(cornerRadius: 10)
-              .fill(Color.cstBlack)
+              .fill(Color.csBlack)
               .frame(width: 50, height: 50)
           )
         VStack(alignment: .leading, spacing: 5) {
@@ -128,7 +128,7 @@ private extension ApplePayView {
           .resizable()
           .frame(width: 35, height: 35)
           .symbolRenderingMode(.hierarchical)
-          .foregroundStyle(.blue)
+          
         Text("Confirm with Side Button")
           .font(.callout)
           .foregroundStyle(.white)

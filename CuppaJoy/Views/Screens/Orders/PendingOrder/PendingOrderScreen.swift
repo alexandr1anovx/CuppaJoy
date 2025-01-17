@@ -31,6 +31,7 @@ struct PendingOrderScreen: View {
               .tint(.red)
             }
         }
+        .shadow(radius: 10)
         .listStyle(.insetGrouped)
         .listRowSpacing(20)
         .scrollContentBackground(.hidden)
@@ -41,10 +42,10 @@ struct PendingOrderScreen: View {
           VStack(alignment: .leading, spacing: 8) {
             Text("Total Price")
               .font(.poppins(.medium, size: 15))
-              .foregroundStyle(.cstGray)
+              .foregroundStyle(.gray)
             Text("UAH 35.00")
               .font(.poppins(.bold, size: 18))
-              .foregroundStyle(.cstWhite)
+              .foregroundStyle(.white)
           }
           
           Spacer()
@@ -55,11 +56,11 @@ struct PendingOrderScreen: View {
             isShownPaymentScreen.toggle()
           } label: {
             Label("Next", systemImage: "cart.badge.plus")
-              .font(.poppins(.medium, size: 16))
-              .foregroundStyle(.cstDarkBrown)
-              .padding(5)
+              .font(.poppins(.bold, size: 15))
+              .foregroundStyle(.white)
+              .padding(10)
           }
-          .tint(.accent)
+          .tint(.black)
           .buttonStyle(.borderedProminent)
         }
         .padding(25)

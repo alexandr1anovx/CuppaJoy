@@ -12,7 +12,7 @@ struct PaymentScreen: View {
     ZStack {
       Color.mainBackgroundGradient.ignoresSafeArea()
       
-      VStack(alignment: .leading, spacing: 50) {
+      VStack(spacing: 10) {
         PaymentScreenHeader()
         PaymentMethodsContainer()
           .shadow(radius: 5)
@@ -28,15 +28,17 @@ struct PaymentScreen: View {
 
 struct PaymentScreenHeader: View {
   @Environment(\.dismiss) var dismiss
+  
   var body: some View {
     HStack {
       Spacer()
       Image(systemName: "xmark.circle.fill")
         .font(.title)
-        .foregroundStyle(.cstGray)
+        .foregroundStyle(.gray)
         .onTapGesture {
           dismiss()
         }
-    }.padding(.horizontal)
+    }
+    .padding(.horizontal)
   }
 }

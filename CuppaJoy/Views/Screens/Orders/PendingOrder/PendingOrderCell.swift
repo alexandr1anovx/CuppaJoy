@@ -11,31 +11,27 @@ struct PendingOrderCell: View {
   
   var body: some View {
     HStack(spacing: 20) {
-      Image(systemName: "cup.and.saucer.fill")
-        .resizable()
-        .aspectRatio(contentMode: .fit)
-        .frame(width: 35, height: 35)
-        .foregroundStyle(.accent)
+      Image(.coffee).foregroundStyle(.accent)
       
       VStack(alignment: .leading, spacing: 5) {
         Text("Americano")
-          .font(.poppins(.medium, size: 15))
+          .font(.poppins(.bold, size: 14))
           .foregroundStyle(.accent)
         Text("Single, Iced, Medium")
-          .font(.poppins(.regular, size: 12))
-          .foregroundStyle(.cstGray)
+          .font(.poppins(.medium, size: 12))
+          .foregroundStyle(.gray)
         Text("x 2")
           .font(.poppins(.bold, size: 13))
-          .foregroundStyle(.cstGray)
+          .foregroundStyle(.gray)
       }
       
       Spacer()
       
       Text("₴ 35.00")
-      .font(.poppins(.bold, size: 16))
-      .foregroundStyle(.accent)
+        .font(.poppins(.bold, size: 16))
+        .foregroundStyle(.white)
     }
-    .listRowBackground(Color.cstBlack)
+    .listRowBackground(Color.black)
   }
 }
 
