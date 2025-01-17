@@ -7,48 +7,44 @@
 
 import SwiftUI
 
-struct ProfileDataCell: View {
-  let image: String
+struct ProfileScreenCell: View {
+  
+  let image: ImageResource
   let header: String
   let content: String
   
   var body: some View {
-    HStack(spacing: 15) {
-      
+    HStack(spacing: 12) {
       RoundedRectangle(cornerRadius: 10)
-        .fill(Color.cstBrown)
+        .fill(Color.csBrown)
         .frame(width: 35, height: 35)
         .overlay {
-          Image(image)
-            .resizable()
-            .frame(width: 20, height: 20)
-            .foregroundStyle(.cstWhite)
+          Image(image).foregroundStyle(.white).opacity(0.8)
         }
       
       VStack(alignment: .leading, spacing: 5) {
         Text(header)
           .font(.poppins(.medium, size: 12))
-          .foregroundStyle(.cstWhite)
+          .foregroundStyle(.gray)
         Text(content)
           .font(.poppins(.medium, size: 14))
           .foregroundStyle(.accent)
       }
       
       Spacer()
-      Image(systemName: "highlighter")
-        .font(.title3)
-        .foregroundStyle(.cstGray)
+      
+      Image(.edit)
+        .foregroundStyle(.gray)
         .onTapGesture {
-          // Modify selected text field
+          // action
         }
     }
-    .padding(.horizontal, 15)
   }
 }
 
 #Preview {
-  ProfileDataCell(
-    image: "user",
+  ProfileScreenCell(
+    image: .man,
     header: "Name",
     content: "Alexander"
   )

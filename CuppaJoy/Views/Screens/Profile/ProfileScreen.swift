@@ -12,30 +12,30 @@ struct ProfileScreen: View {
     ZStack {
       Color.mainBackgroundGradient.ignoresSafeArea()
       
-      VStack(spacing: 30) {
-        ProfileDataCell(
-          image: "user",
+      VStack(spacing: 25) {
+        ProfileScreenCell(
+          image: .man,
           header: "Name",
           content: "Alexander"
         )
-        ProfileDataCell(
-          image: "smartphone",
+        ProfileScreenCell(
+          image: .mobile,
           header: "Phone number",
           content: "+380955302040"
         )
-        ProfileDataCell(
-          image: "mailbox",
+        ProfileScreenCell(
+          image: .envelope,
           header: "Email",
           content: "myEmail@gmail.com"
         )
-        ProfileDataCell(
-          image: "map",
-          header: "Favourite location",
+        ProfileScreenCell(
+          image: .map,
+          header: "Selected coffee shop address",
           content: "3-rd Slobidska"
         )
         Spacer()
       }
-      .padding(.top, 25)
+      .padding(20)
     }
     .navigationTitle("Profile")
     .navigationBarTitleDisplayMode(.inline)
