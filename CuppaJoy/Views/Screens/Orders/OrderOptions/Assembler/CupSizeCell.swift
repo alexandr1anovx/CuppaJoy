@@ -10,21 +10,30 @@ import SwiftUI
 struct CupSizeCell: View {
   @State private var selectedSize: CoffeeCup = .small
   
+  init() {
+    UISegmentedControl.appearance().selectedSegmentTintColor = .accent
+    UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .selected)
+    UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.gray], for: .normal)
+    UISegmentedControl.appearance().backgroundColor = .csDarkBrown
+  }
+  
   var body: some View {
     VStack(alignment: .leading) {
-      
       Text("Size:")
         .font(.poppins(.medium, size: 15))
-        .foregroundStyle(.cstWhite)
-      
+        .foregroundStyle(.white)
       Picker("", selection: $selectedSize) {
         ForEach(CoffeeCup.allCases, id: \.self) { size in
-          Text(size.rawValue.capitalized)
+          Text(size.title)
         }
       }
       .pickerStyle(.segmented)
-      .colorMultiply(.accent)
+//      .colorMultiply(.accent)
     }
-    .listRowBackground(Color.cstBrown)
+    .listRowBackground(Color.csDarkBrown)
   }
+}
+
+#Preview {
+  CupSizeCell()
 }

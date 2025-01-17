@@ -9,17 +9,20 @@ import SwiftUI
 
 struct HomeHeaderView: View {
   var body: some View {
-    HStack(spacing: 23) {
-      VStack(alignment: .leading, spacing: 15) {
-        Text("Initials")
-          .font(.poppins(.medium, size: 18))
-          .foregroundStyle(.cstWhite)
-        Text("Phone number")
-          .font(.poppins(.medium, size: 13))
-          .foregroundStyle(.cstWhite)
-        Label("Address", systemImage: "mappin.and.ellipse")
-          .font(.poppins(.medium, size: 14))
-          .foregroundStyle(.cstWhite)
+    HStack(spacing: 25) {
+      VStack(alignment: .leading, spacing: 8) {
+        Text("Alexander Andrianov")
+          .font(.poppins(.bold, size: 15))
+          .foregroundStyle(.white)
+          .lineLimit(2)
+        HStack(spacing: 3) {
+          Text("Balance:")
+            .font(.poppins(.medium, size: 14))
+            .foregroundStyle(.gray)
+          Text("50 UAH")
+            .font(.poppins(.bold, size: 15))
+            .foregroundStyle(.accent)
+        }
       }
       
       Spacer()
@@ -27,23 +30,17 @@ struct HomeHeaderView: View {
       NavigationLink {
         QRCodeView()
       } label: {
-        Image(systemName: "qrcode")
-          .resizable()
-          .frame(width: 23, height: 23)
-          .foregroundStyle(.accent)
+        Image("qrcode").foregroundStyle(.accent)
       }
       
       NavigationLink {
         ProfileScreen()
       } label: {
-        Image("user")
-          .resizable()
-          .frame(width: 26, height: 26)
-          .foregroundStyle(.accent)
+        // add the ability to change gender in the future.
+        Image("man").foregroundStyle(.accent)
       }
     }
-    .padding(.horizontal, 25)
-    .padding(.top, 10)
+    .padding(25)
   }
 }
 

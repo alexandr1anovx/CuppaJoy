@@ -16,17 +16,28 @@ struct CoffeeSelectionView: View {
   
   var body: some View {
     ZStack {
-      TopRoundedRectangle(cornerRadius: 25)
-        .fill(Color.cstDarkBrown)
-        .ignoresSafeArea()
-      ScrollView {
-        LazyVGrid(columns: fixedColumns, spacing: 25) {
-          ForEach(Coffee.allCases, id: \.self) { coffee in
-            CoffeeCell(coffee: coffee)
+      
+      RoundedRectangle(cornerRadius: 25)
+        .fill(Color.mainBackgroundGradient)
+        .ignoresSafeArea(.all)
+      
+      VStack {
+        Label("Soborna Street, 50B", image: "map")
+          .font(.poppins(.medium, size: 14))
+          .foregroundStyle(.gray)
+        
+        ScrollView {
+          LazyVGrid(columns: fixedColumns, spacing: 20) {
+            ForEach(Coffee.allCases, id: \.self) { coffee in
+              CoffeeCell(coffee: coffee)
+            }
           }
         }
-        .padding(.top, UIScreen.current?.bounds.height == 667 ? 25 : 50)
+        .padding(
+          .top, UIScreen.current?.bounds.height == 667 ? 15 : 15
+        )
       }
+      .padding(.vertical, 30)
     }
   }
 }

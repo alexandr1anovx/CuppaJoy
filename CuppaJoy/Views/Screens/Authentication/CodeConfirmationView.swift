@@ -8,27 +8,28 @@
 import SwiftUI
 
 struct CodeConfirmationView: View {
-  @State private var confirmationCode = ""
+  
+  @State private var confirmationCode: String = ""
   
   var body: some View {
     ZStack {
       Color.mainBackgroundGradient.ignoresSafeArea()
       
-      VStack(alignment: .leading, spacing: 30) {
+      VStack(alignment: .leading, spacing: 20) {
         AuthHeaderView(
           title: "Verification", 
           subtitle: "Enter the code we sent to your phone number."
         )
         
         CustomTextField(
-          image: "mailbox",
+          image: .envelope,
           placeholder: "Confirmation code",
           inputData: $confirmationCode)
+        .padding(.top)
         
         Text("Resend in 00:30")
-          .font(.poppins(.medium, size: 14))
-          .foregroundStyle(.accent)
-          .opacity(0.7)
+          .font(.poppins(.medium, size: 13))
+          .foregroundStyle(.gray)
         HStack {
           Spacer()
           
@@ -37,10 +38,10 @@ struct CodeConfirmationView: View {
           } label: {
             Text("Confirm")
               .font(.poppins(.medium, size: 14))
-              .foregroundStyle(.cstDarkBrown)
-              .padding(5)
+              .foregroundStyle(.white)
+              .padding(6)
           }
-          .tint(.accent)
+          .tint(.black)
           .buttonStyle(.borderedProminent)
         }
       }

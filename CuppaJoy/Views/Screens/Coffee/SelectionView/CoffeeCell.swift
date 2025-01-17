@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CoffeeCell: View {
+  
   let coffee: Coffee
   
   var body: some View {
@@ -15,7 +16,7 @@ struct CoffeeCell: View {
       OrderOptionsScreen(selectedCoffee: coffee)
     } label: {
       RoundedRectangle(cornerRadius: 20)
-        .fill(Color.cstBrown)
+        .fill(Color.csDarkBrown)
         .aspectRatio(1.2, contentMode: .fit)
         .overlay {
           VStack(spacing: 15) {

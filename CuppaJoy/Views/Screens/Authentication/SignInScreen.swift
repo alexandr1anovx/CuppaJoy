@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct SignInScreen: View {
-  @State private var phoneNumber = ""
+  
+  @State private var phoneNumber: String = ""
   
   var body: some View {
     NavigationStack {
@@ -17,9 +18,9 @@ struct SignInScreen: View {
 
         VStack(alignment: .leading, spacing: 30) {
           AuthHeaderView(title: "Sign In", subtitle: "Welcome back.")
-          
+
           CustomTextField(
-            image: "phone",
+            image: .mobile,
             placeholder: "Phone Number",
             inputData: $phoneNumber
           )
@@ -42,7 +43,7 @@ struct SignInScreen: View {
           HStack(spacing: 5) {
             Text("New member?")
               .font(.poppins(.regular, size: 14))
-              .foregroundStyle(.cstGray)
+              .foregroundStyle(.gray)
             
             NavigationLink {
               SignUpScreen()

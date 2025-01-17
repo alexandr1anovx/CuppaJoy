@@ -12,10 +12,13 @@ struct HomeScreen: View {
     ZStack {
       Color.mainBackgroundGradient.ignoresSafeArea()
       
-      VStack(alignment: .leading, spacing: 25) {
+      VStack {
         HomeHeaderView()
+          .padding(.top,5)
         CoffeeSelectionView()
           .shadow(radius: 5)
+          .padding(.horizontal)
+          .padding(.bottom)
       }
     }
     .toolbar(.hidden, for: .navigationBar)

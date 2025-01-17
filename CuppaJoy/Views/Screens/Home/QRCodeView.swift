@@ -16,7 +16,7 @@ struct QRCodeView: View {
         .resizable()
         .scaledToFit()
         .frame(width: 120, height: 120)
-        .foregroundStyle(.cstGray)
+        .foregroundStyle(.gray)
     }
   }
 }

@@ -8,12 +8,14 @@
 import SwiftUI
 
 enum City: String, CaseIterable {
-  case mykolaiv = "Mykolaiv"
-  case kyiv = "Kyiv"
+  case mykolaiv
+  case kyiv
+  
+  var title: String { self.rawValue.capitalized }
 }
 
 struct SignUpScreen: View {
-  @State private var isShownCodeConfirmation = false
+  @State private var isShownCodeConfirmation: Bool = false
   @Environment(\.dismiss) var dismiss
   
   var body: some View {
@@ -29,12 +31,12 @@ struct SignUpScreen: View {
           VStack(spacing: 5) {
             Text("Already a member?")
               .font(.poppins(.regular, size: 12))
-              .foregroundStyle(.cstGray)
+              .foregroundStyle(.gray)
             Button("Sign In") {
               dismiss()
             }
-            .font(.poppins(.bold, size: 15))
-            .foregroundStyle(.accent)
+            .font(.poppins(.bold, size: 14))
+            .foregroundStyle(.white)
           }
           
           Spacer()
@@ -43,7 +45,7 @@ struct SignUpScreen: View {
             isShownCodeConfirmation.toggle()
           } label: {
             Text("Sign Up")
-              .font(.poppins(.bold, size: 15))
+              .font(.poppins(.bold, size: 14))
               .foregroundStyle(.accent)
               .padding(5)
           }
@@ -52,6 +54,7 @@ struct SignUpScreen: View {
         
         Spacer()
       }
+      .padding(.top)
       .padding(25)
       .sheet(isPresented: $isShownCodeConfirmation) {
         CodeConfirmationView()
@@ -69,35 +72,32 @@ struct SignUpScreen: View {
   }
 }
 
-// MARK: View Components
-private extension SignUpScreen {
+private struct SignUpForm: View {
   
-  struct SignUpForm: View {
-    @State private var initials = ""
-    @State private var phoneNumber = ""
-    @State private var email = ""
-    @State private var city: City = .mykolaiv
-    
-    var body: some View {
-      VStack(spacing: 25) {
-        CustomTextField(
-          image: "user",
-          placeholder: "Name and surname",
-          inputData: $initials
-        )
-        CustomTextField(
-          image: "phone",
-          placeholder: "Phone Number",
-          inputData: $phoneNumber
-        )
-        Picker("City", selection: $city) {
-          ForEach(City.allCases, id: \.self) { city in
-            Text(city.rawValue)
-          }
+  @State private var initials: String = ""
+  @State private var phoneNumber: String = ""
+  @State private var email: String = ""
+  @State private var city: City = .mykolaiv
+  
+  var body: some View {
+    VStack(spacing: 25) {
+      CustomTextField(
+        image: .man,
+        placeholder: "Name and surname",
+        inputData: $initials
+      )
+      CustomTextField(
+        image: .mobile,
+        placeholder: "Phone Number",
+        inputData: $phoneNumber
+      )
+      Picker("City", selection: $city) {
+        ForEach(City.allCases, id: \.self) { city in
+          Text(city.title)
         }
-        .pickerStyle(.segmented)
-        .colorMultiply(.accent)
       }
+      .pickerStyle(.segmented)
+      .colorMultiply(.white)
     }
   }
 }
