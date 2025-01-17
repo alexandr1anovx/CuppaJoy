@@ -20,25 +20,26 @@ struct OrderTabScreen: View {
       Color.mainBackgroundGradient.ignoresSafeArea()
       
       VStack {
-        HStack(spacing: 50) {
+        HStack(spacing: 10) {
           ForEach(OrderTab.allCases, id: \.self) { tab in
-            UnderlinedTabItem(
-              tabName: tab.rawValue,
+            IndicatedTabItem(
+              tab: tab.rawValue,
               isSelected: tab == selectedTab
             )
             .onTapGesture {
-              withAnimation { selectedTab = tab }
+              withAnimation(.linear(duration: 0.5)) {
+                selectedTab = tab
+              }
             }
           }
         }
-        .padding(.top)
-        
         if selectedTab == .onGoing {
           OrderOngoingView()
         } else {
           OrderHistoryView()
         }
       }
+      .padding(.top)
     }
   }
 }

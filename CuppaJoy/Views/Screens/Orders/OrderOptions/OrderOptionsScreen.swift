@@ -14,7 +14,7 @@ struct OrderOptionsScreen: View {
     ZStack {
       Color.mainBackgroundGradient.ignoresSafeArea()
       
-      VStack(alignment: .leading) {
+      VStack {
         
         List {
           QuantityCell()
@@ -27,20 +27,20 @@ struct OrderOptionsScreen: View {
           IceCubePicker()
         }
         .listStyle(.insetGrouped)
-        .listRowSpacing(20)
+        .listRowSpacing(18)
         .scrollContentBackground(.hidden)
         
-        VStack(spacing: 20) {
+        VStack(spacing: 15) {
           HStack {
             Text("Total Price:")
-              .font(.poppins(.medium, size: 15))
-              .foregroundStyle(.cstGray)
+              .font(.poppins(.medium, size: 14))
+              .foregroundStyle(.gray)
             Spacer()
             Text("₴ \(String(format: "%.2f", 50.00))")
-              .font(.poppins(.bold, size: 18))
-              .foregroundStyle(.cstWhite)
+              .font(.poppins(.bold, size: 16))
+              .foregroundStyle(.white)
           }
-          .padding(.top)
+          .padding(.top, 8)
           
           CustomSeparator()
           
@@ -50,10 +50,11 @@ struct OrderOptionsScreen: View {
             Text("Make an order")
               .frame(minWidth: 50)
               .font(.poppins(.medium, size: 14))
-              .foregroundStyle(.cstDarkBrown)
-              .padding(13)
-              .background(.accent)
+              .foregroundStyle(.white)
+              .padding(15)
+              .background(.black)
               .clipShape(.buttonBorder)
+              .shadow(radius: 8)
           }
         }
         .padding(.horizontal, 25)

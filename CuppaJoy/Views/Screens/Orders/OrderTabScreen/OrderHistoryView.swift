@@ -15,12 +15,11 @@ struct OrderHistoryView: View {
         address: "3rd Slobidska, 10",
         price: 39.50
       )
-      .listRowBackground(Color.cstBlack)
+      .listRowBackground(Color.black)
     }
     .listStyle(.insetGrouped)
     .listRowSpacing(20)
     .scrollContentBackground(.hidden)
-    .background(Color.mainBackgroundGradient)
   }
 }
 

@@ -11,23 +11,37 @@ struct OrderOngoingView: View {
   var body: some View {
     List {
       OrderReceiptCell(
-        coffee: Coffee.americano,
+        coffee: .americano,
         address: "3rd Slobidska",
         price: 35.00
       )
-      .listRowBackground(Color.cstBlack)
+      .listRowBackground(Color.black)
       
       OrderReceiptCell(
-        coffee: Coffee.latte,
+        coffee: .latte,
         address: "3rd Slobidska",
         price: 32.50
       )
-      .listRowBackground(Color.cstBlack)
+      .listRowBackground(Color.black)
+      
+      OrderReceiptCell(
+        coffee: .americano,
+        address: "3rd Slobidska",
+        price: 35.00
+      )
+      .listRowBackground(Color.black)
+      
+      OrderReceiptCell(
+        coffee: .latte,
+        address: "3rd Slobidska",
+        price: 32.50
+      )
+      .listRowBackground(Color.black)
     }
+    .padding(.bottom)
     .listStyle(.insetGrouped)
     .listRowSpacing(20)
     .scrollContentBackground(.hidden)
-    .background(Color.mainBackgroundGradient)
   }
 }
 

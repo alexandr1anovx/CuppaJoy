@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct OrderReceiptCell: View {
+  
   let coffee: Coffee
   let address: String
   let price: Double
   
-  private var date: String {
+  var date: String {
     return "24 June, 12:30, by 18:10"
   }
   
@@ -20,35 +21,23 @@ struct OrderReceiptCell: View {
     VStack(alignment: .leading, spacing: 15) {
       HStack {
         Text(date)
-          .font(.poppins(.regular, size: 12))
-          .foregroundStyle(.cstGray)
+          .font(.poppins(.medium, size: 12))
+          .foregroundStyle(.gray)
         Spacer()
         Text("₴ \(String(format: "%.2f", price))")
-          .font(.poppins(.bold, size: 17))
-          .foregroundStyle(.accent)
+          .font(.poppins(.bold, size: 16))
+          .foregroundStyle(.white)
       }
       
-      VStack(alignment: .leading, spacing: 15) {
-        HStack(spacing: 10) {
-          Image(systemName: "mug.fill")
-            .frame(width: 20, height: 20)
-            .foregroundStyle(.accent)
-          Text(coffee.rawValue)
-            .font(.poppins(.medium, size: 13))
-            .foregroundStyle(.accent)
-        }
-        
-        HStack(spacing: 10) {
-          Image(systemName: "mappin.and.ellipse")
-            .frame(width: 20, height: 20)
-            .foregroundStyle(.accent)
-          Text(address)
-            .font(.poppins(.medium, size: 13))
-            .foregroundStyle(.accent)
-        }
-      }
+      Label(coffee.rawValue, image: .coffee)
+        .font(.poppins(.medium, size: 13))
+        .foregroundStyle(.accent)
+      
+      Label(address, image: .map)
+        .font(.poppins(.medium, size: 13))
+        .foregroundStyle(.accent)
     }
-    .padding(.bottom,8)
+    .padding(.bottom, 5)
   }
 }
 
