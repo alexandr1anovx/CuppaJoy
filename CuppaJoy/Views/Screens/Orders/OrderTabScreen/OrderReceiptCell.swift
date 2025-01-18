@@ -37,6 +37,7 @@ struct OrderReceiptCell: View {
         .font(.poppins(.medium, size: 13))
         .foregroundStyle(.accent)
     }
+    .listRowBackground(Color.csBlack)
     .padding(.bottom, 5)
   }
 }

@@ -11,8 +11,8 @@ struct PendingOrderCell: View {
   
   var body: some View {
     HStack(spacing: 20) {
-      Image(.coffee).foregroundStyle(.accent)
-      
+      Image(.coffee)
+        .foregroundStyle(.accent)
       VStack(alignment: .leading, spacing: 5) {
         Text("Americano")
           .font(.poppins(.bold, size: 14))
@@ -24,14 +24,12 @@ struct PendingOrderCell: View {
           .font(.poppins(.bold, size: 13))
           .foregroundStyle(.gray)
       }
-      
       Spacer()
-      
       Text("₴ 35.00")
         .font(.poppins(.bold, size: 16))
         .foregroundStyle(.white)
     }
-    .listRowBackground(Color.black)
+    .listRowBackground(Color.csBlack)
   }
 }
 

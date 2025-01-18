@@ -15,32 +15,26 @@ struct OrderOngoingView: View {
         address: "3rd Slobidska",
         price: 35.00
       )
-      .listRowBackground(Color.black)
-      
       OrderReceiptCell(
         coffee: .latte,
         address: "3rd Slobidska",
         price: 32.50
       )
-      .listRowBackground(Color.black)
-      
       OrderReceiptCell(
         coffee: .americano,
         address: "3rd Slobidska",
         price: 35.00
       )
-      .listRowBackground(Color.black)
-      
       OrderReceiptCell(
         coffee: .latte,
         address: "3rd Slobidska",
         price: 32.50
       )
-      .listRowBackground(Color.black)
     }
     .padding(.bottom)
     .listStyle(.insetGrouped)
     .listRowSpacing(20)
+    .scrollIndicators(.hidden)
     .scrollContentBackground(.hidden)
   }
 }

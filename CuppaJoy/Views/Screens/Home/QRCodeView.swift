@@ -10,7 +10,7 @@ import SwiftUI
 struct QRCodeView: View {
   var body: some View {
     ZStack {
-      Color.mainBackgroundGradient.ignoresSafeArea()
+      Color.mainGradientBackground.ignoresSafeArea()
       
       Image(systemName: "qrcode.viewfinder")
         .resizable()

@@ -10,7 +10,7 @@ import SwiftUI
 struct RewardsScreen: View {
   var body: some View {
     ZStack {
-      Color.mainBackgroundGradient.ignoresSafeArea()
+      Color.mainGradientBackground.ignoresSafeArea()
       
       Text("Rewards Screen")
         .font(.poppins(.medium, size: 25))

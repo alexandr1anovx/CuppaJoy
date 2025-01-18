@@ -16,9 +16,8 @@ struct CoffeeSelectionView: View {
   
   var body: some View {
     ZStack {
-      
       RoundedRectangle(cornerRadius: 25)
-        .fill(Color.mainBackgroundGradient)
+        .fill(Color.mainGradientBackground)
         .ignoresSafeArea(.all)
       
       VStack {
@@ -37,7 +36,7 @@ struct CoffeeSelectionView: View {
           .top, UIScreen.current?.bounds.height == 667 ? 15 : 15
         )
       }
-      .padding(.vertical, 30)
+      .padding(.top, 20)
     }
   }
 }

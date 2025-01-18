@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct PendingOrderScreen: View {
-  @State private var isShownPaymentScreen: Bool = false
+  @State private var isShownPaymentScreen = false
   
   var body: some View {
     ZStack {
-      Color.mainBackgroundGradient.ignoresSafeArea()
+      Color.mainGradientBackground.ignoresSafeArea()
       
       VStack {
         List {
@@ -49,7 +49,6 @@ struct PendingOrderScreen: View {
           }
           
           Spacer()
-          
           
           Button {
             // action

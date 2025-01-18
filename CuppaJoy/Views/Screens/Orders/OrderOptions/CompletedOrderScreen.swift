@@ -10,10 +10,10 @@ import SwiftUI
 struct CompletedOrderScreen: View {
   var body: some View {
     ZStack {
-      Color.mainBackgroundGradient.ignoresSafeArea()
+      Color.mainGradientBackground.ignoresSafeArea()
       
       VStack(spacing: 20) {
-        Image(.coffee2)
+        Image(.takeaway)
           .resizable()
           .frame(width: 100, height: 100)
         
