@@ -8,8 +8,11 @@
 import SwiftUI
 
 extension Font {
+  
   enum PoppinsFont {
-    case regular, medium, bold
+    case regular
+    case medium
+    case bold
     
     var value: String {
       switch self {
@@ -19,7 +22,8 @@ extension Font {
       }
     }
   }
-  static func poppins(_ type: PoppinsFont, size: CGFloat = 20) -> Font {
+  
+  static func poppins(_ type: PoppinsFont, size: CGFloat = 16) -> Font {
     return .custom(type.value, size: size)
   }
 }
