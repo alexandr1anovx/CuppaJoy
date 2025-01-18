@@ -12,20 +12,39 @@ struct CompletedOrderScreen: View {
     ZStack {
       Color.mainBackgroundGradient.ignoresSafeArea()
       
-      VStack(spacing: 25) {
-        Image("takeaway")
+      VStack(spacing: 20) {
+        Image(.coffee2)
           .resizable()
-          .frame(width: 130, height: 130)
-          .foregroundStyle(.accent)
-        Text("Order received!")
-          .font(.poppins(.medium, size: 17))
-          .foregroundStyle(.accent)
+          .frame(width: 100, height: 100)
         
-        Text("The order will be ready today to 18:10 at the address Bradford BD1 1PR.")
-          .foregroundStyle(.cstGray)
-        .font(.poppins(.regular, size: 13))
-        .padding(.horizontal, 30)
-        .multilineTextAlignment(.center)
+        Text("Order received!")
+          .font(.poppins(.bold, size: 16))
+          .foregroundStyle(.white)
+        
+        VStack(spacing: 10) {
+            
+          HStack(spacing: 5) {
+            Text("Address:")
+              .font(.poppins(.medium, size: 13))
+              .foregroundStyle(.gray)
+              .fontWeight(.medium)
+            Text("Bradford BD1 1PR.")
+              .font(.poppins(.medium, size: 13))
+              .foregroundStyle(.accent)
+              .fontWeight(.bold)
+          }
+          
+          Text("We will call you as soon as the courier arrives at the specified location.")
+            .font(.poppins(.medium, size: 12))
+            .foregroundStyle(.gray)
+          
+            .foregroundStyle(.gray)
+          .font(.poppins(.regular, size: 12))
+          .padding(.horizontal, 30)
+          .multilineTextAlignment(.center)
+        }
+        
+        
       }
     }
     .navigationBarBackButtonHidden(true)
