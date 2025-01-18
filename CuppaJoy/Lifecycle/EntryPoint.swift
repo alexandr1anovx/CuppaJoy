@@ -12,9 +12,7 @@ enum Tab: String, Hashable {
   case rewards
   case history
   
-  var title: String {
-    rawValue.capitalized
-  }
+  var title: String { self.rawValue.capitalized }
 }
 
 struct EntryPoint: View {
@@ -26,24 +24,23 @@ struct EntryPoint: View {
         HomeScreen()
           .tag(Tab.home)
           .tabItem {
-            Image("house")
+            Image(.home)
             Text("Home")
           }
         RewardsScreen()
           .tag(Tab.rewards)
           .tabItem {
-            Image("gift")
+            Image(.gift)
             Text("Rewards")
           }
         OrderTabScreen()
           .tag(Tab.history)
           .tabItem {
-            Image("bill")
-            Text("History")
+            Image(.bookmark)
+            Text("Orders")
           }
       }
       .navigationTitle(selectedTab.title)
-      .navigationBarTitleDisplayMode(.inline)
     }
   }
 }
