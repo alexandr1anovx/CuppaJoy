@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct CupSizeCell: View {
-  @State private var selectedSize: CoffeeCup = .small
+  @State private var selectedSize = CoffeeCup.small
   
   init() {
-    UISegmentedControl.appearance().selectedSegmentTintColor = .accent
+    UISegmentedControl.appearance().selectedSegmentTintColor = .csYellow
     UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .selected)
-    UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.gray], for: .normal)
+    UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
     UISegmentedControl.appearance().backgroundColor = .csDarkBrown
   }
   
@@ -28,7 +28,6 @@ struct CupSizeCell: View {
         }
       }
       .pickerStyle(.segmented)
-//      .colorMultiply(.accent)
     }
     .listRowBackground(Color.csDarkBrown)
   }

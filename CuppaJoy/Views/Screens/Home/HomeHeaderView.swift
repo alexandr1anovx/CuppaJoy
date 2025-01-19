@@ -22,27 +22,27 @@ struct HomeHeaderView: View {
             .foregroundStyle(.gray)
           Text("50 UAH")
             .font(.poppins(.bold, size: 15))
-            .foregroundStyle(.accent)
+            .foregroundStyle(.csYellow)
         }
       }
       .padding()
-      .background(Color.csBlack)
+      .background(Color.csDarkBrown)
       .clipShape(.buttonBorder)
-      .shadow(radius: 5)
+      .shadow(radius: 10)
 
       Spacer()
       
       NavigationLink {
         QRCodeView()
       } label: {
-        Image(.qrcode).foregroundStyle(.accent)
+        Image(.qrcode).foregroundStyle(.csYellow)
       }
       
       NavigationLink {
         ProfileScreen()
       } label: {
         // add the ability to change gender in the future.
-        Image(.man).foregroundStyle(.accent)
+        Image(.man).foregroundStyle(.csYellow)
       }
     }
     .padding(25)

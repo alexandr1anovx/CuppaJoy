@@ -16,7 +16,7 @@ enum Tab: String, Hashable {
 }
 
 struct EntryPoint: View {
-  @State private var selectedTab: Tab = .home
+  @State private var selectedTab = Tab.home
   
   var body: some View {
     NavigationStack {

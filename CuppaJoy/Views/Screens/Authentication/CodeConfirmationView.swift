@@ -9,11 +9,11 @@ import SwiftUI
 
 struct CodeConfirmationView: View {
   
-  @State private var confirmationCode: String = ""
+  @State private var confirmationCode = ""
   
   var body: some View {
     ZStack {
-      Color.mainBackgroundGradient.ignoresSafeArea()
+      Color.mainGradientBackground.ignoresSafeArea()
       
       VStack(alignment: .leading, spacing: 20) {
         AuthHeaderView(

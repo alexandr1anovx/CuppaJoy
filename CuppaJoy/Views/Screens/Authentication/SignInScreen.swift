@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct SignInScreen: View {
+  // MARK: - Properties
+  @State private var phoneNumber = ""
   
-  @State private var phoneNumber: String = ""
-  
+  // MARK: - body
   var body: some View {
     NavigationStack {
       ZStack {
-        Color.mainBackgroundGradient.ignoresSafeArea()
+        Color.mainGradientBackground.ignoresSafeArea()
 
         VStack(alignment: .leading, spacing: 30) {
           AuthHeaderView(title: "Sign In", subtitle: "Welcome back.")

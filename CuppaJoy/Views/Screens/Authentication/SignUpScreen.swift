@@ -8,19 +8,18 @@
 import SwiftUI
 
 enum City: String, CaseIterable {
-  case mykolaiv
-  case kyiv
+  case mykolaiv, kyiv
   
   var title: String { self.rawValue.capitalized }
 }
 
 struct SignUpScreen: View {
-  @State private var isShownCodeConfirmation: Bool = false
+  @State private var isShownConfirmationSheet = false
   @Environment(\.dismiss) var dismiss
   
   var body: some View {
     ZStack {
-      Color.mainBackgroundGradient.ignoresSafeArea()
+      Color.mainGradientBackground.ignoresSafeArea()
       
       VStack(alignment: .leading, spacing: 40) {
         AuthHeaderView(title: "Sign Up", subtitle: "Create an account here.")
@@ -42,7 +41,7 @@ struct SignUpScreen: View {
           Spacer()
           
           Button {
-            isShownCodeConfirmation.toggle()
+            isShownConfirmationSheet.toggle()
           } label: {
             Text("Sign Up")
               .font(.poppins(.bold, size: 14))
@@ -56,7 +55,7 @@ struct SignUpScreen: View {
       }
       .padding(.top)
       .padding(25)
-      .sheet(isPresented: $isShownCodeConfirmation) {
+      .sheet(isPresented: $isShownConfirmationSheet) {
         CodeConfirmationView()
           .presentationDetents([.medium])
           .presentationCornerRadius(20)
@@ -74,10 +73,10 @@ struct SignUpScreen: View {
 
 private struct SignUpForm: View {
   
-  @State private var initials: String = ""
-  @State private var phoneNumber: String = ""
-  @State private var email: String = ""
-  @State private var city: City = .mykolaiv
+  @State private var initials = ""
+  @State private var phoneNumber = ""
+  @State private var email = ""
+  @State private var city = City.mykolaiv
   
   var body: some View {
     VStack(spacing: 25) {

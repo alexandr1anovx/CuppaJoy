@@ -9,8 +9,14 @@ import SwiftUI
 
 extension Color {
   
-  static let mainBackgroundGradient = LinearGradient(
+  static let mainGradientBackground = LinearGradient(
     colors: [.csDarkBrown, .csBlack],
+    startPoint: .topLeading,
+    endPoint: .bottomTrailing
+  )
+  
+  static let brownDarkBrownGradient = LinearGradient(
+    colors: [.csBrown, .csDarkBrown],
     startPoint: .topLeading,
     endPoint: .bottomTrailing
   )
