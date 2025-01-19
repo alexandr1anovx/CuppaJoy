@@ -19,7 +19,12 @@ struct ProfileScreenCell: View {
         .fill(Color.csBrown)
         .frame(width: 35, height: 35)
         .overlay {
-          Image(image).foregroundStyle(.white).opacity(0.8)
+          Image(image)
+            .resizable()
+            .scaledToFit()
+            .frame(width: 20, height: 20)
+            .foregroundStyle(.white).opacity(0.8)
+          
         }
       
       VStack(alignment: .leading, spacing: 5) {
