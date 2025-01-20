@@ -7,40 +7,76 @@
 
 import SwiftUI
 
-enum OrderTab: String, CaseIterable {
-  case onGoing = "On going"
-  case history = "History"
+enum OrderStatus: String, CaseIterable {
+  case onGoing, received
+  
+  var title: String {
+    switch self {
+    case .onGoing: "On going"
+    case .received: "Received"
+    }
+  }
 }
 
 struct OrderTabScreen: View {
-  @State private var selectedTab: OrderTab = .onGoing
+  @State private var selectedTab = OrderStatus.onGoing
   
   var body: some View {
     ZStack {
-      Color.mainBackgroundGradient.ignoresSafeArea()
+      Color.mainGradientBackground.ignoresSafeArea()
       
       VStack {
-        HStack(spacing: 10) {
-          ForEach(OrderTab.allCases, id: \.self) { tab in
-            IndicatedTabItem(
-              tab: tab.rawValue,
-              isSelected: tab == selectedTab
-            )
-            .onTapGesture {
-              withAnimation(.linear(duration: 0.5)) {
-                selectedTab = tab
-              }
-            }
-          }
-        }
+        orderStatusTabs
         if selectedTab == .onGoing {
-          OrderOngoingView()
+          onGoingOrders
         } else {
-          OrderHistoryView()
+          receivedOrders
+        }
+      }.padding(.top)
+    }
+  }
+  
+  private var orderStatusTabs: some View {
+    HStack(spacing: 10) {
+      ForEach(OrderStatus.allCases, id: \.self) { tab in
+        IndicatedTabItem(
+          tab: tab.title,
+          isSelected: tab == selectedTab
+        )
+        .onTapGesture {
+          withAnimation(.linear) { selectedTab = tab }
         }
       }
-      .padding(.top)
     }
+  }
+  
+  private var onGoingOrders: some View {
+    List {
+      OrderReceiptCell(
+        coffee: .americano,
+        address: "3rd Slobidska",
+        price: 35.00
+      )
+    }
+    .shadow(radius: 10)
+    .listStyle(.insetGrouped)
+    .listRowSpacing(20)
+    .scrollIndicators(.hidden)
+    .scrollContentBackground(.hidden)
+  }
+  
+  private var receivedOrders: some View {
+    List {
+      OrderReceiptCell(
+        coffee: Coffee.cappuccino,
+        address: "3rd Slobidska",
+        price: 39.50
+      )
+    }
+    .shadow(radius: 10)
+    .listStyle(.insetGrouped)
+    .listRowSpacing(20)
+    .scrollContentBackground(.hidden)
   }
 }
 

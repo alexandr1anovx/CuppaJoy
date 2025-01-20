@@ -12,40 +12,65 @@ struct OrderReceiptCell: View {
   let coffee: Coffee
   let address: String
   let price: Double
-  
   var date: String {
-    return "24 June, 12:30, by 18:10"
+    "24 June, 12:30, by 18:10"
   }
   
+  // MARK: - body
   var body: some View {
     VStack(alignment: .leading, spacing: 15) {
+      orderHeader(date: date, price: price)
+      orderRow(image: .coffee, content: coffee.title)
       HStack {
-        Text(date)
-          .font(.poppins(.medium, size: 12))
-          .foregroundStyle(.gray)
-        Spacer()
-        Text("₴ \(String(format: "%.2f", price))")
-          .font(.poppins(.bold, size: 16))
-          .foregroundStyle(.white)
+        orderRow(image: .map, content: address)
+        orderDetails
       }
-      
-      Label(coffee.rawValue, image: .coffee)
-        .font(.poppins(.medium, size: 13))
-        .foregroundStyle(.accent)
-      
-      Label(address, image: .map)
-        .font(.poppins(.medium, size: 13))
-        .foregroundStyle(.accent)
     }
-    .listRowBackground(Color.csBlack)
+    .listRowBackground(Color.black)
     .padding(.bottom, 5)
+  }
+  
+  private func orderHeader(date: String, price: Double) -> some View {
+    HStack {
+      Text(date)
+        .font(.poppins(.medium, size: 12))
+        .foregroundStyle(.gray)
+      Spacer()
+      Text("₴ \(String(format: "%.2f", price))")
+        .font(.poppins(.bold, size: 17))
+        .foregroundStyle(.csYellow)
+    }
+  }
+  
+  private func orderRow(image: ImageResource, content: String) -> some View {
+    HStack(spacing: 10) {
+      Image(image)
+        .resizable()
+        .frame(width: 18, height: 18)
+      Text(content)
+        .font(.poppins(.medium, size: 13))
+        .multilineTextAlignment(.leading)
+        .lineLimit(2)
+    }
+    .foregroundStyle(.accent)
+  }
+  
+  private var orderDetails: some View {
+    HStack(spacing: 5) {
+      Spacer()
+      Image(systemName: "info.circle")
+        .font(.footnote)
+      Text("Order Details")
+        .font(.poppins(.medium, size: 12))
+    }
+    .foregroundStyle(.gray)
   }
 }
 
 #Preview {
   OrderReceiptCell(
     coffee: Coffee.americano,
-    address: "Bradford St.1",
+    address: "Soborna Street, 50A",
     price: 35.00
   )
 }
