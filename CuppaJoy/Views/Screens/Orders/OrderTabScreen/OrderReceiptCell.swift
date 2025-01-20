@@ -16,7 +16,6 @@ struct OrderReceiptCell: View {
     "24 June, 12:30, by 18:10"
   }
   
-  // MARK: - body
   var body: some View {
     VStack(alignment: .leading, spacing: 15) {
       orderHeader(date: date, price: price)

@@ -16,15 +16,14 @@ struct ProfileScreenCell: View {
   var body: some View {
     HStack(spacing: 12) {
       RoundedRectangle(cornerRadius: 10)
-        .fill(Color.csBrown)
+        .fill(Color.brownDarkBrownGradient)
         .frame(width: 35, height: 35)
         .overlay {
           Image(image)
             .resizable()
             .scaledToFit()
             .frame(width: 20, height: 20)
-            .foregroundStyle(.white).opacity(0.8)
-          
+            .foregroundStyle(.white).opacity(0.7)
         }
       
       VStack(alignment: .leading, spacing: 5) {

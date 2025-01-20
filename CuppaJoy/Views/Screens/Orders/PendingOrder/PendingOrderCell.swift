@@ -29,7 +29,7 @@ struct PendingOrderCell: View {
         .font(.poppins(.bold, size: 16))
         .foregroundStyle(.white)
     }
-    .listRowBackground(Color.csBlack)
+    .listRowBackground(Color.black)
   }
 }
 

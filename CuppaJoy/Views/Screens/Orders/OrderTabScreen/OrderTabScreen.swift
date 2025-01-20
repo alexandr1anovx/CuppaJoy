@@ -8,18 +8,18 @@
 import SwiftUI
 
 enum OrderStatus: String, CaseIterable {
-  case onGoing, received
+  case ongoing, received
   
   var title: String {
     switch self {
-    case .onGoing: "On going"
+    case .ongoing: "Ongoing"
     case .received: "Received"
     }
   }
 }
 
 struct OrderTabScreen: View {
-  @State private var selectedTab = OrderStatus.onGoing
+  @State private var selectedTab = OrderStatus.ongoing
   
   var body: some View {
     ZStack {
@@ -27,8 +27,8 @@ struct OrderTabScreen: View {
       
       VStack {
         orderStatusTabs
-        if selectedTab == .onGoing {
-          onGoingOrders
+        if selectedTab == .ongoing {
+          ongoingOrders
         } else {
           receivedOrders
         }
@@ -36,13 +36,19 @@ struct OrderTabScreen: View {
     }
   }
   
+  private func indicatedTab(title: String, isSelected: Bool) -> some View {
+    Text(title)
+      .font(.poppins(.medium, size: 13))
+      .foregroundStyle(isSelected ? .csYellow : .gray)
+      .padding(10)
+      .background(isSelected ? .black : .clear)
+      .clipShape(.capsule)
+  }
+  
   private var orderStatusTabs: some View {
     HStack(spacing: 10) {
       ForEach(OrderStatus.allCases, id: \.self) { tab in
-        IndicatedTabItem(
-          tab: tab.title,
-          isSelected: tab == selectedTab
-        )
+        indicatedTab(title: tab.title, isSelected: tab == selectedTab)
         .onTapGesture {
           withAnimation(.linear) { selectedTab = tab }
         }
@@ -50,7 +56,7 @@ struct OrderTabScreen: View {
     }
   }
   
-  private var onGoingOrders: some View {
+  private var ongoingOrders: some View {
     List {
       OrderReceiptCell(
         coffee: .americano,

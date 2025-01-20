@@ -21,14 +21,7 @@ struct PendingOrderScreen: View {
               Button("", systemImage: "trash") {
                 // delete the order
               }
-              .tint(.red)
-            }
-          PendingOrderCell()
-            .swipeActions {
-              Button("", systemImage: "trash") {
-                // delete the order
-              }
-              .tint(.red)
+              .tint(.csYellow)
             }
         }
         .shadow(radius: 10)
