@@ -24,11 +24,11 @@ struct CoffeeCell: View {
               .resizable()
               .scaledToFit()
               .frame(maxHeight: 45)
-            Text(coffee.rawValue)
+            Text(coffee.title)
               .font(.poppins(.medium, size: 14))
           }
           .foregroundStyle(.accent)
-        }
+        } 
     }
   }
 }

@@ -8,14 +8,20 @@
 import Foundation
 
 enum Coffee: String, CaseIterable {
-  case americano = "Americano"
-  case espresso = "Espresso"
-  case latte = "Latte"
-  case cappuccino = "Cappuccino"
-  case flatWhite = "Flat White"
-  case mocha = "Mocha"
+  case americano
+  case espresso
+  case latte
+  case cappuccino
+  
+  var title: String {
+    switch self {
+    case .americano: "Americano"
+    case .espresso: "Espresso"
+    case .latte: "Latte"
+    case .cappuccino: "Cappucino"
+    }
+  }
 }
-
 enum CoffeeCup: String, CaseIterable {
   case small
   case medium

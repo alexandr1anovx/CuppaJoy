@@ -21,7 +21,7 @@ struct CoffeeSelectionView: View {
         .ignoresSafeArea(.all)
       
       VStack {
-        Label("Soborna Street, 50B", image: "map")
+        Label("Soborna Street, 50A", image: "map")
           .font(.poppins(.medium, size: 14))
           .foregroundStyle(.gray)
         
@@ -36,7 +36,8 @@ struct CoffeeSelectionView: View {
           .top, UIScreen.current?.bounds.height == 667 ? 15 : 15
         )
       }
-      .padding(.top, 20)
+      .shadow(radius: 10)
+      .padding(.vertical, 20)
     }
   }
 }
