@@ -11,7 +11,8 @@ struct ReturnButton: View {
   @Environment(\.dismiss) var dismiss
   
   var body: some View {
-    Image(.arrowLeft)
+    Image(systemName: "arrowshape.left.circle.fill")
+      .font(.title3)
       .foregroundStyle(.accent)
       .opacity(0.8)
       .onTapGesture {
