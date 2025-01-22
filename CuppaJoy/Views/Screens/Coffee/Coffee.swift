@@ -18,7 +18,7 @@ enum Coffee: String, CaseIterable {
     case .americano: "Americano"
     case .espresso: "Espresso"
     case .latte: "Latte"
-    case .cappuccino: "Cappucino"
+    case .cappuccino: "Cappuccino"
     }
   }
 }
