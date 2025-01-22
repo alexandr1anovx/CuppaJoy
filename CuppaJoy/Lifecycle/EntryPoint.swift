@@ -10,7 +10,7 @@ import SwiftUI
 enum Tab: String, Hashable {
   case home
   case rewards
-  case history
+  case orders
   
   var title: String { self.rawValue.capitalized }
 }
@@ -34,13 +34,13 @@ struct EntryPoint: View {
             Text("Rewards")
           }
         OrderTabScreen()
-          .tag(Tab.history)
+          .tag(Tab.orders)
           .tabItem {
             Image(.bookmark)
             Text("Orders")
           }
       }
-      .navigationTitle(selectedTab.title)
+      //.navigationTitle(selectedTab.title)
     }
   }
 }
