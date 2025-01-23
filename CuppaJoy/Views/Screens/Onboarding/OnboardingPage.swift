@@ -15,21 +15,21 @@ enum OnboardingPage: Int, CaseIterable {
   
   var title: String {
     switch self {
-    case .greeting: "Welcome to Cuppa Joy"
-    case .delivery: "Coffee Delivered to Your Doorstep"
-    case .payment: "Seamless Payments with Apple Pay"
-    case .welcome: "Discover Your Coffee Journey"
+    case .greeting: "Discover your coffee journey"
+    case .delivery: "Fast Delivery"
+    case .payment: "Apple Pay"
+    case .welcome: "Welcome to Cuppa Joy!"
     }
   }
   
   var description: String {
     switch self {
     case .greeting:
-      "Start your day with the perfect cup of coffee, crafted just the way you like it."
+      "Start your day with the perfect cup of coffee."
     case .delivery:
-      "Get your favorite brews delivered fast and fresh, wherever you are."
+      "Get your favorite brews delivered fast and fresh."
     case .payment:
-      "Enjoy quick and secure payments with just a tap."
+      "Enjoy quick and secure payments."
     case .welcome:
       "Join us and explore a world of rich aromas."
     }
@@ -37,10 +37,10 @@ enum OnboardingPage: Int, CaseIterable {
   
   var image: String {
     switch self {
-    case .greeting: "onboardingLogo"
+    case .greeting: "onboardingCup"
     case .delivery: "onboardingDelivery"
     case .payment: "onboardingPayment"
-    case .welcome: "onboardingCup"
+    case .welcome: "onboardingLogo"
     }
   }
 }
