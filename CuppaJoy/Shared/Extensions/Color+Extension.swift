@@ -16,8 +16,8 @@ extension Color {
   )
   
   static let brownDarkBrownGradient = LinearGradient(
-    colors: [.csBrown, .csDarkBrown],
-    startPoint: .topLeading,
-    endPoint: .bottomTrailing
+    colors: [.black, .csBrown],
+    startPoint: .bottomLeading,
+    endPoint: .topTrailing
   )
 }

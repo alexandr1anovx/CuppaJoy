@@ -50,7 +50,7 @@ struct OrderTabScreen: View {
       ForEach(OrderStatus.allCases, id: \.self) { tab in
         indicatedTab(title: tab.title, isSelected: tab == selectedTab)
         .onTapGesture {
-          withAnimation(.linear) { selectedTab = tab }
+          withAnimation(.easeIn(duration: 0.5)) { selectedTab = tab }
         }
       }
     }

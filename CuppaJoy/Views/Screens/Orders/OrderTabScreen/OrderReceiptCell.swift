@@ -51,7 +51,7 @@ struct OrderReceiptCell: View {
         .multilineTextAlignment(.leading)
         .lineLimit(2)
     }
-    .foregroundStyle(.accent)
+    .foregroundStyle(.csCreamy)
   }
   
   private var orderDetails: some View {

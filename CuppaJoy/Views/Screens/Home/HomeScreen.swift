@@ -11,7 +11,7 @@ struct HomeScreen: View {
   var body: some View {
     ZStack {
       Color.mainGradientBackground.ignoresSafeArea()
-      
+
       VStack {
         HomeHeaderView()
         CoffeeSelectionView()
@@ -20,7 +20,6 @@ struct HomeScreen: View {
           .padding(.bottom)
       }
     }
-    .toolbar(.hidden, for: .navigationBar)
   }
 }
 

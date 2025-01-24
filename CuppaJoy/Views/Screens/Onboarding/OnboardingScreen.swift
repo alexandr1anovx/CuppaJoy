@@ -11,14 +11,14 @@ struct OnboardingScreen: View {
   
   @State private var pageIndex = 0
   @State private var isAnimating = false
-  @State private var isOnboardingFinished = false
+  @State private var isFinishedOnboarding = false
   
   let pages = OnboardingPage.allCases
   var isIndexLast: Bool { pageIndex == pages.count - 1 }
   
   // MARK: - body
   var body: some View {
-    if isOnboardingFinished {
+    if isFinishedOnboarding {
       EntryPoint()
     } else {
       onboardingPage
@@ -29,12 +29,12 @@ struct OnboardingScreen: View {
   private var onboardingPage: some View {
     ZStack(alignment: .bottomTrailing) {
       LinearGradient(
-        colors: isIndexLast ? [.black, .csMint.opacity(0.5)] : [.csBrown,.black],
+        colors: isIndexLast ? [.csDarkBrown] : [.csBrown, .csBlack],
         startPoint: .bottom,
         endPoint: .center
       )
       .ignoresSafeArea(.all)
-      .animation(isIndexLast ? .spring(duration: 1) : .none, value: isIndexLast)
+      .animation(isIndexLast ? .easeInOut(duration: 1) : .none, value: isIndexLast)
       
       VStack(spacing: 20) {
         Spacer()
@@ -52,19 +52,19 @@ struct OnboardingScreen: View {
       Image(page.image)
         .resizable()
         .frame(width: 140, height: 140)
-        .foregroundStyle(isIndexLast ? .csMint : .csCreamy)
-        .shadow(color: isIndexLast ? .csMint : .csCreamy, radius: 3)
+        .foregroundStyle(.csCreamy)
+        .shadow(color: .csCreamy, radius: 3)
       VStack(spacing: 10) {
         Text(page.title)
           .font(.title2)
           .fontWeight(.bold)
           .fontDesign(.rounded)
-          .foregroundStyle(isIndexLast ? .csMint : .csCreamy)
+          .foregroundStyle(.csCreamy)
         Text(page.description)
           .font(.footnote)
           .fontWeight(.medium)
           .fontDesign(.rounded)
-          .foregroundStyle(isIndexLast ? .white.opacity(0.7) : .gray)
+          .foregroundStyle(.gray)
           .lineLimit(2)
       }
       .multilineTextAlignment(.center)
@@ -80,11 +80,7 @@ struct OnboardingScreen: View {
       ForEach(0..<pages.count, id: \.self) { index in
         Capsule()
           .frame(width: 20, height: 2)
-          .foregroundStyle(
-            // last page -> all capsules color == .mint
-            // !last page -> current page capsule color == .creamy, others == .gray
-            isIndexLast ? .csMint : (pageIndex >= index ? .csCreamy : .gray.opacity(0.1))
-          )
+          .foregroundStyle(pageIndex >= index ? .csCreamy : .gray.opacity(0.1))
           .animation(.easeInOut(duration: 0.5), value: pageIndex)
       }
     }
@@ -97,8 +93,8 @@ struct OnboardingScreen: View {
       if pageIndex < pages.count - 1 {
         pageIndex += 1
       } else {
-        withAnimation(.spring(duration: 1)) {
-          isOnboardingFinished = true
+        withAnimation(.easeInOut(duration: 1)) {
+          isFinishedOnboarding = true
         }
       }
     } label: {
@@ -106,15 +102,14 @@ struct OnboardingScreen: View {
         Group {
           Circle()
             .frame(width: 60, height: 60)
-            .foregroundStyle(isIndexLast ? .csMint.opacity(0.1) : .csCreamy)
+            .foregroundStyle(.csCreamy)
             .scaleEffect(isAnimating ? 1 : 0, anchor: .leading)
           Circle()
             .frame(width: 54, height: 54)
-            .foregroundStyle(isIndexLast ? .csMint : .csBrown)
-            .shadow(color: isIndexLast ? .csMint : .csBrown, radius: 3)
+            .foregroundStyle(isIndexLast ? .csCreamy : .csBrown)
         }
         if isIndexLast {
-          Image(.rocket).foregroundStyle(.black)
+          Image(.rocket).foregroundStyle(.csBrown)
         } else {
           Image(systemName: "arrowshape.right.fill").foregroundStyle(.csCreamy)
         }
@@ -127,7 +122,7 @@ struct OnboardingScreen: View {
         // the circle scale animation disappears
         // but it restores after 1.5 seconds.
         isAnimating = false
-        withAnimation(.spring(duration:0.5)) { isAnimating = true }
+        withAnimation(.easeInOut) { isAnimating = true }
       }
     }
   }

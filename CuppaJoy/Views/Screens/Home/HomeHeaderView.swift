@@ -10,42 +10,56 @@ import SwiftUI
 struct HomeHeaderView: View {
   
   var body: some View {
-    HStack(spacing: 25) {
-      VStack(alignment: .leading, spacing: 8) {
-        Text("Alexander Andrianov")
-          .font(.poppins(.bold, size: 15))
-          .foregroundStyle(.white)
-          .lineLimit(2)
-        HStack(spacing: 3) {
-          Text("Balance:")
-            .font(.poppins(.medium, size: 14))
-            .foregroundStyle(.gray)
-          Text("50 UAH")
-            .font(.poppins(.bold, size: 15))
-            .foregroundStyle(.csYellow)
-        }
-      }
-      .padding()
-      .background(Color.csDarkBrown)
-      .clipShape(.buttonBorder)
-      .shadow(radius: 10)
-
+    HStack(spacing: 23) {
+      userDataView
       Spacer()
-      
-      NavigationLink {
-        QRCodeView()
-      } label: {
-        Image(.qrcode).foregroundStyle(.csYellow)
-      }
-      
-      NavigationLink {
-        ProfileScreen()
-      } label: {
-        // add the ability to change gender in the future.
-        Image(.man).foregroundStyle(.csYellow)
-      }
+      qrcodeButton
+      profileButton
     }
     .padding(25)
+  }
+  
+  // MARK: - User Data
+  private var userDataView: some View {
+    VStack(alignment: .leading, spacing: 10) {
+      Text("Alexander Andrianov")
+        .font(.callout)
+        .fontWeight(.bold)
+        .fontDesign(.rounded)
+        .foregroundStyle(.csCreamy)
+        .lineLimit(2)
+      HStack(spacing: 3) {
+        Text("bonuses:")
+          .font(.callout)
+          .fontWeight(.medium)
+          .fontDesign(.rounded)
+          .foregroundStyle(.gray)
+        Text("50 UAH")
+          .font(.subheadline)
+          .fontWeight(.bold)
+          .fontDesign(.rounded)
+          .foregroundStyle(.csYellow)
+      }
+    }
+  }
+  
+  // MARK: - QR Code
+  private var qrcodeButton: some View {
+    NavigationLink {
+      QRCodeView()
+    } label: {
+      Image(.qrcode).foregroundStyle(.csCreamy)
+    }
+  }
+  
+  // MARK: - Profile Button
+  private var profileButton: some View {
+    NavigationLink {
+      ProfileScreen()
+    } label: {
+      // add the ability to change gender in the future.
+      Image(.man).foregroundStyle(.csCreamy)
+    }
   }
 }
 
