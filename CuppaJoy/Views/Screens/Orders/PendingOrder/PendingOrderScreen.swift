@@ -21,7 +21,7 @@ struct PendingOrderScreen: View {
               Button("", systemImage: "trash") {
                 // delete the order
               }
-              .tint(.csYellow)
+              .tint(.pink)
             }
         }
         .shadow(radius: 10)
@@ -44,8 +44,7 @@ struct PendingOrderScreen: View {
           Spacer()
           
           Button {
-            // action
-            isShownPaymentScreen.toggle()
+            isShownPaymentScreen = true
           } label: {
             Label("Next", systemImage: "cart.badge.plus")
               .font(.poppins(.bold, size: 15))
@@ -67,7 +66,7 @@ struct PendingOrderScreen: View {
       }
     }
     .fullScreenCover(isPresented: $isShownPaymentScreen) {
-      PaymentScreen()
+      PaymentOptionScreen()
     }
   }
 }
