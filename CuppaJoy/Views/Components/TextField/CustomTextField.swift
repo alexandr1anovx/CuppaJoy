@@ -15,12 +15,16 @@ struct CustomTextField: View {
   
   var body: some View {
     VStack {
-      HStack(spacing: 10) {
+      HStack(spacing: 15) {
         Image(image)
+          .resizable()
+          .frame(width: 20, height: 20)
           .foregroundStyle(.accent)
         TextField(text: $inputData) {
           Text(placeholder)
-            .font(.poppins(.medium, size: 13))
+            .font(.callout)
+            .fontWeight(.medium)
+            .fontDesign(.rounded)
             .foregroundStyle(.gray)
         }
       }

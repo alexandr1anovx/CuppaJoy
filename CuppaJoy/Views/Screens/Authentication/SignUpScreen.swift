@@ -8,12 +8,18 @@
 import SwiftUI
 
 enum City: String, CaseIterable {
-  case mykolaiv, kyiv
+  case mykolaiv
+  case kyiv
   
   var title: String { self.rawValue.capitalized }
 }
 
 struct SignUpScreen: View {
+  
+  @State private var initials = ""
+  @State private var phoneNumber = ""
+  @State private var email = ""
+  @State private var selectedCity = City.mykolaiv
   @State private var isShownConfirmationSheet = false
   @Environment(\.dismiss) var dismiss
   
@@ -21,40 +27,18 @@ struct SignUpScreen: View {
     ZStack {
       Color.mainGradientBackground.ignoresSafeArea()
       
-      VStack(alignment: .leading, spacing: 40) {
+      VStack(alignment: .leading, spacing: 35) {
         AuthHeaderView(title: "Sign Up", subtitle: "Create an account here.")
-        
-        SignUpForm()
-        
+        signUpForm
         HStack {
-          VStack(spacing: 5) {
-            Text("Already a member?")
-              .font(.poppins(.regular, size: 12))
-              .foregroundStyle(.gray)
-            Button("Sign In") {
-              dismiss()
-            }
-            .font(.poppins(.bold, size: 14))
-            .foregroundStyle(.white)
-          }
-          
+          signInButton
           Spacer()
-          
-          Button {
-            isShownConfirmationSheet.toggle()
-          } label: {
-            Text("Sign Up")
-              .font(.poppins(.bold, size: 14))
-              .foregroundStyle(.accent)
-              .padding(5)
-          }
-          .tint(.accent)
+          signUpButton
         }
-        
         Spacer()
       }
-      .padding(.top)
-      .padding(25)
+      .padding(.top, 20)
+      .padding(.horizontal, 20)
       .sheet(isPresented: $isShownConfirmationSheet) {
         CodeConfirmationView()
           .presentationDetents([.medium])
@@ -69,34 +53,61 @@ struct SignUpScreen: View {
       }
     }
   }
-}
-
-private struct SignUpForm: View {
   
-  @State private var initials = ""
-  @State private var phoneNumber = ""
-  @State private var email = ""
-  @State private var city = City.mykolaiv
-  
-  var body: some View {
-    VStack(spacing: 25) {
+  private var signUpForm: some View {
+    VStack(spacing: 30) {
       CustomTextField(
         image: .man,
-        placeholder: "Name and surname",
+        placeholder: "name and surname",
         inputData: $initials
       )
       CustomTextField(
         image: .mobile,
-        placeholder: "Phone Number",
+        placeholder: "phone number",
         inputData: $phoneNumber
       )
-      Picker("City", selection: $city) {
+      Picker("City", selection: $selectedCity) {
         ForEach(City.allCases, id: \.self) { city in
           Text(city.title)
         }
       }
       .pickerStyle(.segmented)
       .colorMultiply(.white)
+    }
+  }
+  
+  private var signInButton: some View {
+    Button {
+      dismiss()
+    } label: {
+      VStack(spacing: 8) {
+        Text("Already a member?")
+          .font(.footnote)
+          .foregroundStyle(.gray)
+        Text("Sign In")
+          .font(.callout)
+          .fontWeight(.medium)
+          .foregroundStyle(.white)
+      }
+      .fontDesign(.rounded)
+      .padding(12)
+      .background(Color.black)
+      .clipShape(.buttonBorder)
+    }
+  }
+  
+  private var signUpButton: some View {
+    Button {
+      isShownConfirmationSheet.toggle()
+    } label: {
+      Text("Sign Up")
+        .font(.callout)
+        .fontWeight(.medium)
+        .fontDesign(.rounded)
+        .foregroundStyle(.white)
+        .padding(15)
+        .background(.black)
+        .clipShape(.buttonBorder)
     }
   }
 }

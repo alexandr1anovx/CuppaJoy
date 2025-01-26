@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct SignInScreen: View {
-  // MARK: - Properties
+  
   @State private var phoneNumber = ""
   
-  // MARK: - body
   var body: some View {
     NavigationStack {
       ZStack {
@@ -22,40 +21,50 @@ struct SignInScreen: View {
 
           CustomTextField(
             image: .mobile,
-            placeholder: "Phone Number",
+            placeholder: "phone number",
             inputData: $phoneNumber
           )
           HStack {
+            signUpButton
             Spacer()
-            Button {
-              /*
-               + show the "Home" screen if credentials are correct
-               - show an alert with the error description
-               */
-            } label: {
-              Text("Next")
-                .font(.poppins(.bold, size: 15))
-                .foregroundStyle(.accent)
-                .padding(5)
-            }
-            .buttonStyle(.bordered)
-            .tint(.accent)
-          }
-          HStack(spacing: 5) {
-            Text("New member?")
-              .font(.poppins(.regular, size: 14))
-              .foregroundStyle(.gray)
-            
-            NavigationLink {
-              SignUpScreen()
-            } label: {
-              Text("Sign Up")
-                .font(.poppins(.bold, size: 15))
-                .foregroundStyle(.accent)
-            }
+            nextButton
           }
         }
-        .padding(.horizontal, 30)
+        .padding(.horizontal, 20)
+      }
+    }
+  }
+  
+  // MARK: - Next Button
+  private var nextButton: some View {
+    Button {
+      // action
+    } label: {
+      Text("Next")
+        .font(.poppins(.bold, size: 14))
+        .foregroundStyle(.white)
+        .padding(5)
+    }
+    .buttonStyle(.borderedProminent)
+    .tint(.black)
+  }
+  
+  // MARK: - Sign Up Option
+  private var signUpButton: some View {
+    HStack(spacing: 5) {
+      Text("New member?")
+        .font(.callout)
+        .fontDesign(.rounded)
+        .foregroundStyle(.gray)
+      
+      NavigationLink {
+        SignUpScreen()
+      } label: {
+        Text("Sign Up")
+          .font(.callout)
+          .fontWeight(.bold)
+          .fontDesign(.rounded)
+          .foregroundStyle(.accent)
       }
     }
   }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum Tab: String, Hashable {
+private enum Tab: String, Hashable {
   case home
   case rewards
   case orders
@@ -40,7 +40,6 @@ struct EntryPoint: View {
             Text("Orders")
           }
       }
-      //.navigationTitle(selectedTab.title)
     }
   }
 }

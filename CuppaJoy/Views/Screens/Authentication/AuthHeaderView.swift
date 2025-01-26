@@ -13,13 +13,17 @@ struct AuthHeaderView: View {
   let subtitle: String
   
   var body: some View {
-    VStack(alignment: .leading, spacing: 10) {
+    VStack(alignment: .leading, spacing: 15) {
       Text(title)
+        .font(.title2)
+        .fontWeight(.bold)
+        .fontDesign(.rounded)
         .foregroundStyle(.accent)
-        .font(.poppins(.medium, size: 17))
       Text(subtitle)
-        .font(.poppins(.regular, size: 13))
-        .foregroundStyle(.gray)
+        .font(.system(size: 14))
+        .fontDesign(.rounded)
+        .foregroundStyle(.white)
+        .opacity(0.6)
     }
   }
 }
