@@ -17,7 +17,7 @@ enum OnboardingPage: Int, CaseIterable {
     switch self {
     case .greeting: "Discover your coffee journey"
     case .delivery: "Fast Delivery"
-    case .payment: "Apple Pay"
+    case .payment: "Easy Payment"
     case .welcome: "Welcome to Cuppa Joy!"
     }
   }
@@ -29,7 +29,7 @@ enum OnboardingPage: Int, CaseIterable {
     case .delivery:
       "Get your favorite brews delivered fast and fresh."
     case .payment:
-      "Enjoy quick and secure payments."
+      "Enjoy quick and secure payments with Apple Pay."
     case .welcome:
       "Join us and explore a world of rich aromas."
     }
