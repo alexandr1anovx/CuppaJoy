@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum OrderStatus: String, CaseIterable {
+enum OrderTabStatus: String, CaseIterable {
   case ongoing, received
   
   var title: String {
@@ -19,7 +19,7 @@ enum OrderStatus: String, CaseIterable {
 }
 
 struct OrderTabScreen: View {
-  @State private var selectedTab = OrderStatus.ongoing
+  @State private var selectedTabStatus = OrderTabStatus.ongoing
   
   var body: some View {
     ZStack {
@@ -27,18 +27,21 @@ struct OrderTabScreen: View {
       
       VStack {
         orderStatusTabs
-        if selectedTab == .ongoing {
+        if selectedTabStatus == .ongoing {
           ongoingOrders
         } else {
           receivedOrders
         }
-      }.padding(.top)
+      }
+      .padding(.top)
     }
   }
   
   private func indicatedTab(title: String, isSelected: Bool) -> some View {
     Text(title)
-      .font(.poppins(.medium, size: 13))
+      .font(.subheadline)
+      .fontWeight(.medium)
+      .fontDesign(.rounded)
       .foregroundStyle(isSelected ? .csYellow : .gray)
       .padding(10)
       .background(isSelected ? .black : .clear)
@@ -47,10 +50,15 @@ struct OrderTabScreen: View {
   
   private var orderStatusTabs: some View {
     HStack(spacing: 10) {
-      ForEach(OrderStatus.allCases, id: \.self) { tab in
-        indicatedTab(title: tab.title, isSelected: tab == selectedTab)
+      ForEach(OrderTabStatus.allCases, id: \.self) { tabStatus in
+        indicatedTab(
+          title: tabStatus.title,
+          isSelected: tabStatus == selectedTabStatus
+        )
         .onTapGesture {
-          withAnimation(.easeIn(duration: 0.5)) { selectedTab = tab }
+          withAnimation(.easeInOut(duration: 0.7)) {
+            selectedTabStatus = tabStatus
+          }
         }
       }
     }

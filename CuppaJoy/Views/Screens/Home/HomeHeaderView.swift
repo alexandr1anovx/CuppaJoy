@@ -13,7 +13,7 @@ struct HomeHeaderView: View {
     HStack(spacing: 23) {
       userDataView
       Spacer()
-      qrcodeButton
+      mapButton
       profileButton
     }
     .padding(25)
@@ -44,11 +44,11 @@ struct HomeHeaderView: View {
   }
   
   // MARK: - QR Code
-  private var qrcodeButton: some View {
+  private var mapButton: some View {
     NavigationLink {
-      QRCodeView()
+      //
     } label: {
-      Image(.qrcode).foregroundStyle(.csCreamy)
+      Image(.map).foregroundStyle(.csCreamy)
     }
   }
   

@@ -21,7 +21,7 @@ struct ApplePaySheet: View {
       .scrollContentBackground(.hidden)
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
-          applePayLogo
+          applePayImage
         }
         ToolbarItem(placement: .topBarTrailing) {
           DismissButton()
@@ -33,15 +33,15 @@ struct ApplePaySheet: View {
       .alert(isPresented: $isShownAlert) {
         Alert(
           title: Text("Success 😎"),
-          message: Text("Payment has been successfully processed"),
+          message: Text("Payment has been successfully processed."),
           dismissButton: .default(Text("Got it!"))
         )
       }
     }
   }
   
-  // MARK: - Apple Pay Logo
-  private var applePayLogo: some View {
+  // MARK: - Apple Pay Image
+  private var applePayImage: some View {
     HStack {
       Image(systemName: "apple.logo")
       Text("Pay").font(.title2)
@@ -52,7 +52,6 @@ struct ApplePaySheet: View {
   private var orderTitleSection: some View {
     HStack(spacing: 20) {
       Image(.rocket)
-        
         .foregroundStyle(.csCreamy)
       VStack(alignment: .leading, spacing: 5) {
         Text("Medium Coffee Cup")
@@ -95,15 +94,16 @@ struct ApplePaySheet: View {
   // MARK: - Footer (confirmation action)
   private var footer: some View {
     Button {
-      isShownAlert = true
+      isShownAlert.toggle()
     } label: {
       Text("Confirm Payment")
-        .fontWeight(.medium)
+        .fontDesign(.rounded)
+        .bold()
         .foregroundStyle(.white)
-        .padding(13)
-        .background(Color.black)
-        .clipShape(.buttonBorder)
+        .padding(8)
     }
+    .tint(.blue)
+    .buttonStyle(.borderedProminent)
   }
 }
 

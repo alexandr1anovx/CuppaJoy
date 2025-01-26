@@ -11,8 +11,8 @@ struct CupSizeCell: View {
   @State private var selectedSize = CoffeeCup.small
   
   init() {
-    UISegmentedControl.appearance().selectedSegmentTintColor = .csYellow
-    UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .selected)
+    UISegmentedControl.appearance().selectedSegmentTintColor = .black
+    UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
     UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
     UISegmentedControl.appearance().backgroundColor = .csDarkBrown
   }
@@ -24,7 +24,7 @@ struct CupSizeCell: View {
         .foregroundStyle(.white)
       Picker("", selection: $selectedSize) {
         ForEach(CoffeeCup.allCases, id: \.self) { size in
-          Text(size.title)
+          Text(size.title)     
         }
       }
       .pickerStyle(.segmented)

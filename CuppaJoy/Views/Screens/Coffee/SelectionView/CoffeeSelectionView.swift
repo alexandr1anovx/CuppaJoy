@@ -18,7 +18,6 @@ struct CoffeeSelectionView: View {
     ZStack {
       RoundedRectangle(cornerRadius: 25)
         .fill(Color.mainGradientBackground)
-        .ignoresSafeArea(.all)
       
       VStack {
         Label("Soborna Street, 50A", image: "map")

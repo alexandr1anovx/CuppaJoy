@@ -22,7 +22,6 @@ struct QuantityCell: View {
       .buttonStyle(.bordered)
       
       Text("\(quantity)")
-        .foregroundStyle(.csYellow)
         .frame(minWidth: 20)
         .contentTransition(.numericText(value: Double(quantity)))
       

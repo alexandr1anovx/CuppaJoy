@@ -32,11 +32,11 @@ struct OrderReceiptCell: View {
   private func orderHeader(date: String, price: Double) -> some View {
     HStack {
       Text(date)
-        .font(.poppins(.medium, size: 12))
+        .font(.footnote)
         .foregroundStyle(.gray)
       Spacer()
       Text("₴ \(String(format: "%.2f", price))")
-        .font(.poppins(.bold, size: 17))
+        .font(.title3).bold()
         .foregroundStyle(.csYellow)
     }
   }
@@ -45,23 +45,23 @@ struct OrderReceiptCell: View {
     HStack(spacing: 10) {
       Image(image)
         .resizable()
-        .frame(width: 18, height: 18)
+        .frame(width: 16, height: 16)
       Text(content)
-        .font(.poppins(.medium, size: 13))
+        .font(.subheadline)
+        .fontWeight(.medium)
         .multilineTextAlignment(.leading)
         .lineLimit(2)
     }
-    .foregroundStyle(.csCreamy)
+    .foregroundStyle(.accent)
   }
   
   private var orderDetails: some View {
     HStack(spacing: 5) {
       Spacer()
       Image(systemName: "info.circle")
-        .font(.footnote)
       Text("Order Details")
-        .font(.poppins(.medium, size: 12))
     }
+    .font(.footnote)
     .foregroundStyle(.gray)
   }
 }

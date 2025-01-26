@@ -25,7 +25,9 @@ struct CoffeeCell: View {
               .scaledToFit()
               .frame(maxHeight: 45)
             Text(coffee.title)
-              .font(.poppins(.medium, size: 14))
+              .font(.callout)
+              .fontWeight(.medium)
+              .fontDesign(.rounded)
           }
           .foregroundStyle(.accent)
         } 
