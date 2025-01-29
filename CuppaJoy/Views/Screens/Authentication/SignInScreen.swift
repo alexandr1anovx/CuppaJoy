@@ -14,59 +14,67 @@ struct SignInScreen: View {
   var body: some View {
     NavigationStack {
       ZStack {
-        Color.mainGradientBackground.ignoresSafeArea()
-
-        VStack(alignment: .leading, spacing: 30) {
-          AuthHeaderView(title: "Sign In", subtitle: "Welcome back.")
-
-          CustomTextField(
-            image: .mobile,
-            placeholder: "phone number",
-            inputData: $phoneNumber
+        Color.appBackground.ignoresSafeArea(.all)
+        
+        VStack(alignment: .center, spacing:0) {
+          AuthHeaderView(
+            title: "Sign In.",
+            subtitle: "Welcome to Cuppa Joy."
           )
-          HStack {
-            signUpButton
-            Spacer()
-            nextButton
-          }
+          textFieldList
+          signInButton.padding(.top,30)
+          signUpOption.padding(23)
         }
-        .padding(.horizontal, 20)
       }
     }
   }
   
-  // MARK: - Next Button
-  private var nextButton: some View {
-    Button {
-      // action
-    } label: {
-      Text("Next")
-        .font(.poppins(.bold, size: 14))
-        .foregroundStyle(.white)
-        .padding(5)
+  // MARK: - Text Field list
+  private var textFieldList: some View {
+    List {
+      CustomTextField(
+        imageName: "phone",
+        placeholder: "Your phone number",
+        inputData: $phoneNumber
+      )
     }
-    .buttonStyle(.borderedProminent)
-    .tint(.black)
+    .frame(height: 85)
+    .scrollContentBackground(.hidden)
+    .scrollIndicators(.hidden)
+    .scrollDisabled(true)
   }
   
-  // MARK: - Sign Up Option
-  private var signUpButton: some View {
+  // MARK: - Sign In button
+  private var signInButton: some View {
+    Button {
+      // logic
+    } label: {
+      Text("Sign In")
+        .font(.poppins(.bold, size: 15))
+        .foregroundStyle(.white)
+        .padding(.vertical,8)
+        .padding(.horizontal,140)
+    }
+    .tint(Color.csBrown)
+    .buttonStyle(.borderedProminent)
+    .shadow(radius: 5)
+  }
+  
+  // MARK: - Sign Up option
+  private var signUpOption: some View {
     HStack(spacing: 5) {
       Text("New member?")
-        .font(.callout)
-        .fontDesign(.rounded)
+        .font(.poppins(.regular, size: 13))
         .foregroundStyle(.gray)
-      
       NavigationLink {
         SignUpScreen()
       } label: {
         Text("Sign Up")
-          .font(.callout)
-          .fontWeight(.bold)
-          .fontDesign(.rounded)
-          .foregroundStyle(.accent)
+          .font(.poppins(.bold, size: 15))
+          .foregroundStyle(.csDesert)
       }
     }
+    .shadow(radius: 5)
   }
 }
 
