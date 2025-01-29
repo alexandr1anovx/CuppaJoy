@@ -8,26 +8,24 @@
 import SwiftUI
 
 struct AuthHeaderView: View {
-  
   let title: String
   let subtitle: String
   
   var body: some View {
-    VStack(alignment: .leading, spacing: 15) {
+    HStack(alignment: .firstTextBaseline, spacing: 8) {
       Text(title)
-        .font(.title2)
-        .fontWeight(.bold)
-        .fontDesign(.rounded)
-        .foregroundStyle(.accent)
-      Text(subtitle)
-        .font(.system(size: 14))
-        .fontDesign(.rounded)
+        .font(.poppins(.bold, size: 20))
         .foregroundStyle(.white)
-        .opacity(0.6)
+      Text(subtitle)
+        .font(.poppins(.regular, size: 16))
+        .foregroundStyle(.gray)
     }
   }
 }
 
 #Preview {
-  AuthHeaderView(title: "Title", subtitle: "Subtitle with some text.")
+  AuthHeaderView(
+    title: "Title.",
+    subtitle: "Subtitle with some text."
+  )
 }
