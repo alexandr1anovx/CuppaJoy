@@ -44,7 +44,6 @@
 		D181356B2D4502BE00F77824 /* DismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D181356A2D4502BE00F77824 /* DismissButton.swift */; };
 		D182F4A72D325A8C00A113E8 /* OnboardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D182F4A62D325A8C00A113E8 /* OnboardingScreen.swift */; };
 		D1A24CBF2D26512800B1632E /* PaymentOptionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A24CBE2D26512800B1632E /* PaymentOptionScreen.swift */; };
-		D1A24CC62D265E8C00B1632E /* TotalPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A24CC52D265E8C00B1632E /* TotalPriceView.swift */; };
 		D1A2A9852D317D1200C9C17C /* AuthHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2A9842D317D1200C9C17C /* AuthHeaderView.swift */; };
 		D1BD90302D45746900F43A54 /* PaymentOptionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BD902F2D45746900F43A54 /* PaymentOptionContainer.swift */; };
 		D1C859B62D20A55000DDB941 /* CoffeeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C859B52D20A55000DDB941 /* CoffeeCell.swift */; };
@@ -96,7 +95,6 @@
 		D181356A2D4502BE00F77824 /* DismissButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissButton.swift; sourceTree = "<group>"; };
 		D182F4A62D325A8C00A113E8 /* OnboardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScreen.swift; sourceTree = "<group>"; };
 		D1A24CBE2D26512800B1632E /* PaymentOptionScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentOptionScreen.swift; sourceTree = "<group>"; };
-		D1A24CC52D265E8C00B1632E /* TotalPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPriceView.swift; sourceTree = "<group>"; };
 		D1A2A9842D317D1200C9C17C /* AuthHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHeaderView.swift; sourceTree = "<group>"; };
 		D1BD902F2D45746900F43A54 /* PaymentOptionContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentOptionContainer.swift; sourceTree = "<group>"; };
 		D1C859B52D20A55000DDB941 /* CoffeeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeCell.swift; sourceTree = "<group>"; };
@@ -285,14 +283,6 @@
 			path = Coffee;
 			sourceTree = "<group>";
 		};
-		D10952782D272E24003E876B /* TotalPrice */ = {
-			isa = PBXGroup;
-			children = (
-				D1A24CC52D265E8C00B1632E /* TotalPriceView.swift */,
-			);
-			path = TotalPrice;
-			sourceTree = "<group>";
-		};
 		D177E1A92D339DC10055658D /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -379,7 +369,6 @@
 		D1C859D22D20C00000DDB941 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				D10952782D272E24003E876B /* TotalPrice */,
 				32FF43B72CC6F98C001C0E0C /* Buttons */,
 				32FF43B42CC6F92A001C0E0C /* TextField */,
 				D1C859C92D20BACE00DDB941 /* Separator */,
@@ -505,7 +494,6 @@
 				32EA86CB2CB607A1003E774D /* CodeConfirmationView.swift in Sources */,
 				D181356B2D4502BE00F77824 /* DismissButton.swift in Sources */,
 				32325EE02CB2B9490048E557 /* CustomTextField.swift in Sources */,
-				D1A24CC62D265E8C00B1632E /* TotalPriceView.swift in Sources */,
 				D1C859C12D20B87400DDB941 /* PendingOrderCell.swift in Sources */,
 				50DFA8212D0476BD0058A4D4 /* IceCubePicker.swift in Sources */,
 				D11435302D2EB790007078D9 /* ApplePaySheet.swift in Sources */,
