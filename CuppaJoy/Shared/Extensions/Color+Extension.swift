@@ -8,16 +8,15 @@
 import SwiftUI
 
 extension Color {
-  
-  static let mainGradientBackground = LinearGradient(
-    colors: [.csDarkBrown, .csBlack],
-    startPoint: .topLeading,
-    endPoint: .bottomTrailing
-  )
-  
-  static let brownDarkBrownGradient = LinearGradient(
-    colors: [.black, .csBrown],
-    startPoint: .bottomLeading,
-    endPoint: .topTrailing
-  )
+  static let appBackground = Color.csBlack
+}
+
+fileprivate struct GradientBackgroundTest: View {
+  var body: some View {
+    Color.appBackground
+  }
+}
+
+#Preview {
+  GradientBackgroundTest()
 }
