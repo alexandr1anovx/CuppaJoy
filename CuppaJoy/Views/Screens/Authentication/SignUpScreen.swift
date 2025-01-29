@@ -8,10 +8,8 @@
 import SwiftUI
 
 enum City: String, CaseIterable {
-  case mykolaiv
-  case kyiv
-  
-  var title: String { self.rawValue.capitalized }
+  case mykolaiv = "Mykolaiv"
+  case odesa = "Odesa"
 }
 
 struct SignUpScreen: View {
@@ -23,91 +21,114 @@ struct SignUpScreen: View {
   @State private var isShownConfirmationSheet = false
   @Environment(\.dismiss) var dismiss
   
-  var body: some View {
-    ZStack {
-      Color.mainGradientBackground.ignoresSafeArea()
-      
-      VStack(alignment: .leading, spacing: 35) {
-        AuthHeaderView(title: "Sign Up", subtitle: "Create an account here.")
-        signUpForm
-        HStack {
-          signInButton
-          Spacer()
-          signUpButton
-        }
-        Spacer()
-      }
-      .padding(.top, 20)
-      .padding(.horizontal, 20)
-      .sheet(isPresented: $isShownConfirmationSheet) {
-        CodeConfirmationView()
-          .presentationDetents([.medium])
-          .presentationCornerRadius(20)
-          .presentationDragIndicator(.visible)
-      }
-      .navigationBarBackButtonHidden(true)
-      .toolbar {
-        ToolbarItem(placement: .topBarLeading) {
-          ReturnButton()
-        }
-      }
-    }
+  // Picker customization settings
+  init() {
+    UISegmentedControl.appearance().selectedSegmentTintColor = .csBrown
+    UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
+    UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
+    UISegmentedControl.appearance().backgroundColor = .black
   }
   
-  private var signUpForm: some View {
-    VStack(spacing: 30) {
+  var body: some View {
+    ZStack {
+      Color.appBackground.ignoresSafeArea(.all)
+      
+      ScrollView {
+        VStack(alignment: .center, spacing:0) {
+          AuthHeaderView(
+            title: "Sign Up.",
+            subtitle: "Let's create an account."
+          )
+          textFieldList
+          cityPicker
+            .padding(22)
+          signUpButton
+            .padding(.top,25)
+          signInOption
+            .padding(.top,20)
+          Spacer()
+        }
+        .padding(.top,20)
+        .sheet(isPresented: $isShownConfirmationSheet) {
+          CodeConfirmationView()
+            .presentationDetents([.large])
+            .presentationCornerRadius(25)
+            .presentationDragIndicator(.visible)
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+          ToolbarItem(placement: .topBarLeading) {
+            ReturnButton()
+          }
+        }
+      }
+      .scrollIndicators(.hidden)
+    }
+  }
+  // MARK: - Text Field list
+  private var textFieldList: some View {
+    List {
       CustomTextField(
-        image: .man,
-        placeholder: "name and surname",
+        imageName: "document",
+        placeholder: "Alexander Pushkin",
         inputData: $initials
       )
       CustomTextField(
-        image: .mobile,
-        placeholder: "phone number",
+        imageName: "phone",
+        placeholder: "Enter your phone number",
         inputData: $phoneNumber
       )
-      Picker("City", selection: $selectedCity) {
-        ForEach(City.allCases, id: \.self) { city in
-          Text(city.title)
-        }
-      }
-      .pickerStyle(.segmented)
-      .colorMultiply(.white)
+      CustomTextField(
+        imageName: "envelope",
+        placeholder: "user@example.com",
+        inputData: $email
+      )
     }
+    .frame(height: 185)
+    .scrollContentBackground(.hidden)
+    .scrollIndicators(.hidden)
+    .scrollDisabled(true)
+  }
+  // MARK: - City Picker
+  private var cityPicker: some View {
+    Picker("City", selection: $selectedCity) {
+      ForEach(City.allCases, id: \.self) { city in
+        Text(city.rawValue)
+      }
+    }
+    .pickerStyle(.segmented)
   }
   
-  private var signInButton: some View {
-    Button {
-      dismiss()
-    } label: {
-      VStack(spacing: 8) {
-        Text("Already a member?")
-          .font(.footnote)
-          .foregroundStyle(.gray)
-        Text("Sign In")
-          .font(.callout)
-          .fontWeight(.medium)
-          .foregroundStyle(.white)
-      }
-      .fontDesign(.rounded)
-      .padding(12)
-      .background(Color.black)
-      .clipShape(.buttonBorder)
-    }
-  }
-  
+  // MARK: - Sign Up button
   private var signUpButton: some View {
     Button {
       isShownConfirmationSheet.toggle()
     } label: {
       Text("Sign Up")
-        .font(.callout)
-        .fontWeight(.medium)
-        .fontDesign(.rounded)
+        .font(.poppins(.bold, size: 15))
         .foregroundStyle(.white)
-        .padding(15)
-        .background(.black)
-        .clipShape(.buttonBorder)
+        .padding(.vertical,8)
+        .padding(.horizontal,140)
+    }
+    .tint(Color.csBrown)
+    .buttonStyle(.borderedProminent)
+    .shadow(radius: 5)
+  }
+  
+  // MARK: - Sign In option
+  private var signInOption: some View {
+    Button {
+      dismiss()
+    } label: {
+      HStack(spacing: 5) {
+        Text("Already a member?")
+          .font(.poppins(.regular, size: 13))
+          .foregroundStyle(.gray)
+        Text("Sign In")
+          .font(.poppins(.bold, size: 15))
+          .foregroundStyle(.csDesert)
+      }
+      .shadow(radius: 5)
     }
   }
 }
