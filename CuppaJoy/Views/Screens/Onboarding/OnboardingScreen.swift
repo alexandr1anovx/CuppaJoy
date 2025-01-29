@@ -10,7 +10,6 @@ import SwiftUI
 struct OnboardingScreen: View {
   
   @State private var pageIndex = 0
-  @State private var isAnimating = false
   @State private var isFinishedOnboarding = false
   
   let pages = OnboardingPage.allCases
@@ -19,7 +18,7 @@ struct OnboardingScreen: View {
   // MARK: - body
   var body: some View {
     if isFinishedOnboarding {
-      EntryPoint()
+      SignInScreen()
     } else {
       onboardingPage
     }
@@ -27,22 +26,16 @@ struct OnboardingScreen: View {
   
   // MARK: - Onboarding Page
   private var onboardingPage: some View {
-    ZStack(alignment: .bottomTrailing) {
-      LinearGradient(
-        colors: isIndexLast ? [.csDarkBrown] : [.csBrown, .csBlack],
-        startPoint: .bottom,
-        endPoint: .center
-      )
-      .ignoresSafeArea(.all)
-      .animation(isIndexLast ? .easeInOut(duration: 1) : .none, value: isIndexLast)
+    ZStack(alignment: .bottom) {
+      Color.appBackground.ignoresSafeArea(.all)
       
-      VStack(spacing: 20) {
+      VStack(spacing:30) {
         Spacer()
         pageData(for: pages[pageIndex])
         pageIndicator
         Spacer()
       }
-      nextPageButton.padding(25)
+      nextPageButton.padding(.bottom)
     }
   }
   
@@ -51,27 +44,22 @@ struct OnboardingScreen: View {
     VStack(spacing: 20) {
       Image(page.image)
         .resizable()
-        .frame(width: 140, height: 140)
-        .foregroundStyle(.csCreamy)
-        .shadow(color: .csCreamy, radius: 3)
+        .scaledToFit()
+        .frame(width: 120, height: 120)
+        .foregroundStyle(.csDesert)
       VStack(spacing: 10) {
         Text(page.title)
-          .font(.title2)
-          .fontWeight(.bold)
-          .fontDesign(.rounded)
-          .foregroundStyle(.csCreamy)
+          .font(.poppins(.bold, size: 18))
+          .foregroundStyle(.csDesert)
         Text(page.description)
-          .font(.footnote)
-          .fontWeight(.medium)
-          .fontDesign(.rounded)
+          .font(.poppins(.medium, size: 13))
           .foregroundStyle(.gray)
           .lineLimit(2)
       }
       .multilineTextAlignment(.center)
     }
-    .padding(.horizontal, 20)
-    .animation(.easeInOut(duration: isIndexLast ? 1 : 0.6), value: pageIndex)
-    .frame(maxWidth: .infinity)
+    .padding(.horizontal,30)
+    .animation(.easeInOut, value: pageIndex)
   }
   
   // MARK: - Page Indicator
@@ -80,8 +68,10 @@ struct OnboardingScreen: View {
       ForEach(0..<pages.count, id: \.self) { index in
         Capsule()
           .frame(width: 20, height: 2)
-          .foregroundStyle(pageIndex >= index ? .csCreamy : .gray.opacity(0.1))
-          .animation(.easeInOut(duration: 0.5), value: pageIndex)
+          .foregroundStyle(
+            pageIndex >= index ? .csDesert : .gray.opacity(0.1)
+          )
+          .animation(.easeInOut(duration: 1), value: pageIndex)
       }
     }
     .frame(height: 6)
@@ -98,33 +88,14 @@ struct OnboardingScreen: View {
         }
       }
     } label: {
-      ZStack {
-        Group {
-          Circle()
-            .frame(width: 60, height: 60)
-            .foregroundStyle(.csCreamy)
-            .scaleEffect(isAnimating ? 1 : 0, anchor: .leading)
-          Circle()
-            .frame(width: 54, height: 54)
-            .foregroundStyle(isIndexLast ? .csCreamy : .csBrown)
-        }
-        if isIndexLast {
-          Image(.rocket).foregroundStyle(.csBrown)
-        } else {
-          Image(systemName: "arrowshape.right.fill").foregroundStyle(.csCreamy)
-        }
-      }
-      .onAppear {
-        isAnimating = true
-      }
-      .onChange(of: pageIndex) { oldValue, newValue in
-        // Every time the page index changes,
-        // the circle scale animation disappears
-        // but it restores after 1.5 seconds.
-        isAnimating = false
-        withAnimation(.easeInOut) { isAnimating = true }
-      }
+      Text(isIndexLast ? "Get Started!" : "Continue")
+        .font(.poppins(.bold, size: 15))
+        .foregroundStyle(isIndexLast ? .black : .white)
+        .padding(.vertical,8)
+        .padding(.horizontal,50)
     }
+    .tint(isIndexLast ? Color.csDesert : Color.csBrown)
+    .buttonStyle(.borderedProminent)
   }
 }
 
