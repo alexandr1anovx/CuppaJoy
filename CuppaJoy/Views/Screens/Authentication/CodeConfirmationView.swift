@@ -21,15 +21,13 @@ struct CodeConfirmationView: View {
           subtitle: "Enter the code from SMS."
         )
         textFieldList
-        Text("Resend in 00:30")
-          .font(.poppins(.medium, size: 13))
-          .foregroundStyle(Color.gray)
-          .padding(.top,20)
+        resendCodeButton.padding(.top,20)
         confirmButton.padding(.top,20)
       }
     }
   }
   
+  // MARK: - Text Field list
   private var textFieldList: some View {
     List {
       CustomTextField(
@@ -45,6 +43,16 @@ struct CodeConfirmationView: View {
     .scrollDisabled(true)
   }
   
+  // MARK: - Resend Code button
+  private var resendCodeButton: some View {
+    Button("Resend in 00:30") {
+      // action
+    }
+    .font(.poppins(.medium, size: 14))
+    .foregroundStyle(Color.csDesert)
+  }
+  
+  // MARK: - Confirm button
   private var confirmButton: some View {
     Button {
       // logic

@@ -14,10 +14,10 @@ struct AuthHeaderView: View {
   var body: some View {
     HStack(alignment: .firstTextBaseline, spacing: 8) {
       Text(title)
-        .font(.poppins(.bold, size: 20))
+        .font(.poppins(.bold, size: 19))
         .foregroundStyle(.white)
       Text(subtitle)
-        .font(.poppins(.regular, size: 16))
+        .font(.poppins(.regular, size: 15))
         .foregroundStyle(.gray)
     }
   }

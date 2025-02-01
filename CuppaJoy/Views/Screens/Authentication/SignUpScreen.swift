@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+
 enum City: String, CaseIterable {
   case mykolaiv = "Mykolaiv"
   case odesa = "Odesa"
@@ -40,12 +42,9 @@ struct SignUpScreen: View {
             subtitle: "Let's create an account."
           )
           textFieldList
-          cityPicker
-            .padding(22)
-          signUpButton
-            .padding(.top,25)
-          signInOption
-            .padding(.top,20)
+          cityPicker.padding(18)
+          signUpButton.padding(.top,25)
+          signInOption.padding(.top,20)
           Spacer()
         }
         .padding(.top,20)
@@ -69,7 +68,7 @@ struct SignUpScreen: View {
   private var textFieldList: some View {
     List {
       CustomTextField(
-        imageName: "document",
+        imageName: "person",
         placeholder: "Alexander Pushkin",
         inputData: $initials
       )
