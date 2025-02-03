@@ -17,46 +17,44 @@ struct OrderReceiptCell: View {
   }
   
   var body: some View {
-    VStack(alignment: .leading, spacing: 15) {
+    VStack(alignment: .leading, spacing:15) {
       orderHeader(date: date, price: price)
       orderRow(image: .coffee, content: coffee.title)
       HStack {
         orderRow(image: .map, content: address)
         orderDetails
       }
-    }
-    .listRowBackground(Color.black)
-    .padding(.bottom, 5)
+    }.padding(.bottom, 5)
   }
   
   private func orderHeader(date: String, price: Double) -> some View {
     HStack {
       Text(date)
-        .font(.footnote)
+        .font(.poppins(.regular, size: 13))
         .foregroundStyle(.gray)
       Spacer()
       Text("₴ \(String(format: "%.2f", price))")
-        .font(.title3).bold()
-        .foregroundStyle(.csYellow)
+        .font(.poppins(.bold, size: 19))
+        .foregroundStyle(.csDesert)
     }
   }
   
   private func orderRow(image: ImageResource, content: String) -> some View {
-    HStack(spacing: 10) {
+    HStack(spacing:13) {
       Image(image)
         .resizable()
-        .frame(width: 16, height: 16)
+        .frame(width: 18, height: 18)
+        .foregroundStyle(.csDesert)
       Text(content)
-        .font(.subheadline)
-        .fontWeight(.medium)
+        .font(.poppins(.medium, size: 14))
+        .foregroundStyle(.white)
         .multilineTextAlignment(.leading)
         .lineLimit(2)
     }
-    .foregroundStyle(.accent)
   }
   
   private var orderDetails: some View {
-    HStack(spacing: 5) {
+    HStack(spacing:5) {
       Spacer()
       Image(systemName: "info.circle")
       Text("Order Details")

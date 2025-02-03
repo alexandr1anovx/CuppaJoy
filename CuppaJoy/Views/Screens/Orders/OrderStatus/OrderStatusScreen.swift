@@ -7,57 +7,48 @@
 
 import SwiftUI
 
-enum OrderTabStatus: String, CaseIterable {
-  case ongoing, received
-  
-  var title: String {
-    switch self {
-    case .ongoing: "Ongoing"
-    case .received: "Received"
-    }
-  }
+enum OrderStatus: String, CaseIterable {
+  case ongoing = "Ongoing"
+  case received = "Received"
 }
 
-struct OrderTabScreen: View {
-  @State private var selectedTabStatus = OrderTabStatus.ongoing
+struct OrderStatusScreen: View {
+  @State private var selectedStatus = OrderStatus.ongoing
   
   var body: some View {
     ZStack {
-      Color.mainGradientBackground.ignoresSafeArea()
-      
+      Color.appBackground.ignoresSafeArea(.all)
       VStack {
         orderStatusTabs
-        if selectedTabStatus == .ongoing {
+        if selectedStatus == .ongoing {
           ongoingOrders
         } else {
           receivedOrders
         }
-      }
-      .padding(.top)
+      }.padding(.top)
     }
   }
   
   private func indicatedTab(title: String, isSelected: Bool) -> some View {
     Text(title)
-      .font(.subheadline)
-      .fontWeight(.medium)
-      .fontDesign(.rounded)
-      .foregroundStyle(isSelected ? .csYellow : .gray)
+      .font(.poppins(.medium, size: 14))
+      .foregroundStyle(isSelected ? .white : .gray)
       .padding(10)
-      .background(isSelected ? .black : .clear)
+      .background(isSelected ? .csDesert : .clear)
       .clipShape(.capsule)
+      .shadow(radius:8)
   }
   
   private var orderStatusTabs: some View {
-    HStack(spacing: 10) {
-      ForEach(OrderTabStatus.allCases, id: \.self) { tabStatus in
+    HStack(spacing:10) {
+      ForEach(OrderStatus.allCases, id: \.self) { status in
         indicatedTab(
-          title: tabStatus.title,
-          isSelected: tabStatus == selectedTabStatus
+          title: status.rawValue,
+          isSelected: status == selectedStatus
         )
         .onTapGesture {
-          withAnimation(.easeInOut(duration: 0.7)) {
-            selectedTabStatus = tabStatus
+          withAnimation(.spring) {
+            selectedStatus = status
           }
         }
       }
@@ -72,11 +63,11 @@ struct OrderTabScreen: View {
         price: 35.00
       )
     }
-    .shadow(radius: 10)
     .listStyle(.insetGrouped)
     .listRowSpacing(20)
     .scrollIndicators(.hidden)
     .scrollContentBackground(.hidden)
+    .shadow(radius:8)
   }
   
   private var receivedOrders: some View {
@@ -87,13 +78,13 @@ struct OrderTabScreen: View {
         price: 39.50
       )
     }
-    .shadow(radius: 10)
     .listStyle(.insetGrouped)
     .listRowSpacing(20)
+    .shadow(radius:8)
     .scrollContentBackground(.hidden)
   }
 }
 
 #Preview {
-  OrderTabScreen()
+  OrderStatusScreen()
 }
