@@ -10,12 +10,11 @@ import SwiftUI
 struct HomeScreen: View {
   var body: some View {
     ZStack {
-      Color.mainGradientBackground.ignoresSafeArea()
-
+      Color.appBackground.ignoresSafeArea(.all)
       VStack {
         HomeHeaderView()
         CoffeeSelectionView()
-          .shadow(radius: 5)
+          .shadow(radius: 8)
           .padding(.horizontal)
           .padding(.bottom)
       }

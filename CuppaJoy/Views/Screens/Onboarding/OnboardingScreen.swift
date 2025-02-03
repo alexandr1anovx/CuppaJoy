@@ -15,87 +15,73 @@ struct OnboardingScreen: View {
   let pages = OnboardingPage.allCases
   var isIndexLast: Bool { pageIndex == pages.count - 1 }
   
-  // MARK: - body
+  // MARK: body
   var body: some View {
     if isFinishedOnboarding {
       SignInScreen()
     } else {
-      onboardingPage
+      page
     }
   }
   
-  // MARK: - Onboarding Page
-  private var onboardingPage: some View {
+  // MARK: Page
+  private var page: some View {
     ZStack(alignment: .bottom) {
       Color.appBackground.ignoresSafeArea(.all)
-      
-      VStack(spacing:30) {
+      VStack(spacing: 50) {
         Spacer()
         pageData(for: pages[pageIndex])
         pageIndicator
         Spacer()
       }
-      nextPageButton.padding(.bottom)
+      skipButton
     }
   }
   
-  // MARK: - Page Data
+  // MARK: Page Data
   private func pageData(for page: OnboardingPage) -> some View {
     VStack(spacing: 20) {
       Image(page.image)
         .resizable()
-        .scaledToFit()
-        .frame(width: 120, height: 120)
-        .foregroundStyle(.csDesert)
+        .frame(width: 150, height: 150)
+        .foregroundStyle(.accent)
       VStack(spacing: 10) {
         Text(page.title)
           .font(.poppins(.bold, size: 18))
-          .foregroundStyle(.csDesert)
+          .foregroundStyle(.accent)
         Text(page.description)
-          .font(.poppins(.medium, size: 13))
+          .font(.poppins(.regular, size: 13))
           .foregroundStyle(.gray)
           .lineLimit(2)
       }
       .multilineTextAlignment(.center)
     }
-    .padding(.horizontal,30)
     .animation(.easeInOut, value: pageIndex)
   }
   
-  // MARK: - Page Indicator
+  // MARK: Page Indicator
   private var pageIndicator: some View {
     HStack(spacing: 15) {
       ForEach(0..<pages.count, id: \.self) { index in
         Capsule()
-          .frame(width: 20, height: 2)
-          .foregroundStyle(
-            pageIndex >= index ? .csDesert : .gray.opacity(0.1)
-          )
-          .animation(.easeInOut(duration: 1), value: pageIndex)
+          .frame(width: 20, height: 4)
+          .foregroundStyle(pageIndex >= index ? .csDesert : .csDarkGrey)
+          .animation(.spring, value: pageIndex)
       }
     }
-    .frame(height: 6)
   }
   
-  // MARK: - Next Page Button
-  private var nextPageButton: some View {
-    Button {
+  // MARK: Skip Button
+  private var skipButton: some View {
+    CSButton(isIndexLast ? "Get Started" : "Continue") {
       if pageIndex < pages.count - 1 {
         pageIndex += 1
       } else {
-        withAnimation(.easeInOut(duration: 1)) {
+        withAnimation(.spring) {
           isFinishedOnboarding = true
         }
       }
-    } label: {
-      Text(isIndexLast ? "Get Started!" : "Continue")
-        .font(.poppins(.bold, size: 15))
-        .foregroundStyle(isIndexLast ? .black : .white)
-        .padding(.vertical,8)
-        .padding(.horizontal,50)
     }
-    .tint(isIndexLast ? Color.csDesert : Color.csBrown)
-    .buttonStyle(.borderedProminent)
   }
 }
 

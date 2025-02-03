@@ -14,25 +14,21 @@ struct CodeConfirmationView: View {
   var body: some View {
     ZStack {
       Color.appBackground.ignoresSafeArea(.all)
-      
-      VStack(alignment: .center, spacing:0) {
-        AuthHeaderView(
-          title: "Verification.",
-          subtitle: "Enter the code from SMS."
-        )
+      VStack(alignment: .center, spacing: 0) {
+        AuthHeaderView(title: "Verification.", subtitle: "Enter the code from SMS.")
         textFieldList
-        resendCodeButton.padding(.top,20)
-        confirmButton.padding(.top,20)
+        resendCodeButton.padding(.top, 20)
+        confirmButton.padding(.top, 20)
       }
     }
   }
   
-  // MARK: - Text Field list
+  // MARK: Text Field list
   private var textFieldList: some View {
     List {
-      CustomTextField(
-        imageName: "numbers",
-        placeholder: "Confirmation code",
+      CSTextField(
+        icon: "numbers",
+        prompt: "Code",
         inputData: $confirmationCode
       )
     }
@@ -41,15 +37,17 @@ struct CodeConfirmationView: View {
     .scrollContentBackground(.hidden)
     .scrollIndicators(.hidden)
     .scrollDisabled(true)
+    .shadow(radius: 8)
   }
   
-  // MARK: - Resend Code button
+  // MARK: Resend code button
   private var resendCodeButton: some View {
     Button("Resend in 00:30") {
       // action
     }
     .font(.poppins(.medium, size: 14))
-    .foregroundStyle(Color.csDesert)
+    .foregroundStyle(.gray)
+    .shadow(radius: 8)
   }
   
   // MARK: - Confirm button
@@ -60,12 +58,12 @@ struct CodeConfirmationView: View {
       Text("Confirm")
         .font(.poppins(.bold, size: 15))
         .foregroundStyle(.white)
-        .padding(.vertical,8)
-        .padding(.horizontal,135)
+        .padding(.vertical, 8)
+        .padding(.horizontal, 130)
     }
-    .tint(Color.csBrown)
+    .tint(.csDesert)
     .buttonStyle(.borderedProminent)
-    .shadow(radius: 5)
+    .shadow(radius: 8)
   }
 }
 

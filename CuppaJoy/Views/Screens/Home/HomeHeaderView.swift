@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeHeaderView: View {
   
   var body: some View {
-    HStack(spacing: 23) {
+    HStack(spacing: 25) {
       userDataView
       Spacer()
       mapButton
@@ -19,46 +19,36 @@ struct HomeHeaderView: View {
     .padding(25)
   }
   
-  // MARK: - User Data
   private var userDataView: some View {
     VStack(alignment: .leading, spacing: 10) {
       Text("Alexander Andrianov")
-        .font(.callout)
-        .fontWeight(.bold)
-        .fontDesign(.rounded)
-        .foregroundStyle(.csCreamy)
+        .font(.poppins(.bold, size: 16))
+        .foregroundStyle(.white)
         .lineLimit(2)
-      HStack(spacing: 3) {
-        Text("bonuses:")
-          .font(.callout)
-          .fontWeight(.medium)
-          .fontDesign(.rounded)
+      HStack {
+        Text("Bonuses:")
+          .font(.poppins(.medium, size: 14))
           .foregroundStyle(.gray)
         Text("50 UAH")
-          .font(.subheadline)
-          .fontWeight(.bold)
-          .fontDesign(.rounded)
-          .foregroundStyle(.csYellow)
+          .font(.poppins(.bold, size: 15))
+          .foregroundStyle(.accent)
       }
     }
   }
   
-  // MARK: - QR Code
   private var mapButton: some View {
     NavigationLink {
-      //
+      // ...
     } label: {
-      Image(.map).foregroundStyle(.csCreamy)
+      Image(.map).foregroundStyle(.accent)
     }
   }
   
-  // MARK: - Profile Button
   private var profileButton: some View {
     NavigationLink {
       ProfileScreen()
     } label: {
-      // add the ability to change gender in the future.
-      Image(.man).foregroundStyle(.csCreamy)
+      Image(.man).foregroundStyle(.accent)
     }
   }
 }

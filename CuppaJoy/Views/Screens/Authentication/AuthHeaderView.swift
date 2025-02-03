@@ -20,6 +20,7 @@ struct AuthHeaderView: View {
         .font(.poppins(.regular, size: 15))
         .foregroundStyle(.gray)
     }
+    .shadow(radius: 8)
   }
 }
 

@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum AuthFieldContent: Hashable {
-  case initials
+  case username
   case phoneNumber
   case email
 }
@@ -20,7 +20,8 @@ enum City: String, CaseIterable {
 
 struct SignUpScreen: View {
   
-  @State private var initials = ""
+  // Stored Properties
+  @State private var username = ""
   @State private var phoneNumber = ""
   @State private var email = ""
   @State private var selectedCity = City.mykolaiv
@@ -28,11 +29,14 @@ struct SignUpScreen: View {
   @FocusState private var fieldContent: AuthFieldContent?
   @Environment(\.dismiss) var dismiss
   
-  private var isValidSignUpForm: Bool {
-    !initials.isEmpty && isValidEmail(email)
+  // Computed Properties
+  private var isValidForm: Bool {
+    isValidUsername(username)
+    && isValidPhoneNumber(phoneNumber)
+    && isValidEmail(email)
   }
   
-  // MARK: Picker style customizations
+  // Picker Style Customizations
   init() {
     UISegmentedControl.appearance().selectedSegmentTintColor = .csBrown
     UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
@@ -46,14 +50,17 @@ struct SignUpScreen: View {
       
       ScrollView {
         VStack(spacing: 0) {
-          AuthHeaderView(title: "Sign Up.", subtitle: "Let's create an account.")
+          AuthHeaderView(
+            title: "Sign Up.",
+            subtitle: "Let's create an account."
+          )
           textFieldList
           cityPicker.padding(20)
-          signUpButton.padding(.top,25)
-          signInOption.padding(.top,25)
+          signUpButton.padding(.top, 10)
+          signInOption.padding(.top, 20)
           Spacer()
         }
-        .padding(.top,20)
+        .padding(.top, 20)
         .navigationBarBackButtonHidden(true)
         .toolbar {
           ToolbarItem(placement: .topBarLeading) {
@@ -63,24 +70,23 @@ struct SignUpScreen: View {
       }
     }
     .scrollIndicators(.hidden)
-    .onAppear { fieldContent = .initials }
+    .onAppear { fieldContent = .username }
   }
   
   // MARK: Text Field list
   private var textFieldList: some View {
     List {
-      MyTextField(
+      CSTextField(
         icon: "person",
-        prompt: "Alexander Pushkin",
-        inputData: $initials
+        prompt: "Full name",
+        inputData: $username
       )
-      .focused($fieldContent, equals: .initials)
+      .focused($fieldContent, equals: .username)
       .textInputAutocapitalization(.words)
       .submitLabel(.next)
-      .textInputAutocapitalization(.words)
       .onSubmit { fieldContent = .phoneNumber }
       
-      MyTextField(
+      CSTextField(
         icon: "phone",
         prompt: "Phone number",
         inputData: $phoneNumber
@@ -89,7 +95,7 @@ struct SignUpScreen: View {
       .submitLabel(.next)
       .onSubmit { fieldContent = .email }
       
-      MyTextField(
+      CSTextField(
         icon: "envelope",
         prompt: "user@example.com",
         inputData: $email
@@ -105,6 +111,7 @@ struct SignUpScreen: View {
     .scrollContentBackground(.hidden)
     .scrollIndicators(.hidden)
     .scrollDisabled(true)
+    .shadow(radius: 8)
   }
   
   // MARK: City Picker
@@ -119,7 +126,7 @@ struct SignUpScreen: View {
           Text(city.rawValue)
         }
       }.pickerStyle(.segmented)
-    }
+    }.shadow(radius: 8)
   }
   
   // MARK: Sign Up button
@@ -130,13 +137,13 @@ struct SignUpScreen: View {
       Text("Sign Up")
         .font(.poppins(.bold, size: 15))
         .foregroundStyle(.white)
-        .padding(.vertical,8)
-        .padding(.horizontal,140)
+        .padding(.vertical, 8)
+        .padding(.horizontal, 130)
     }
-    .tint(Color.csDesert.opacity(0.8))
+    .tint(.csDesert)
     .buttonStyle(.borderedProminent)
-    .shadow(radius: 5)
-    .disabled(!isValidSignUpForm)
+    .shadow(radius: 8)
+    .disabled(!isValidForm)
     .sheet(isPresented: $isShownConfirmationSheet) {
       CodeConfirmationView()
         .presentationDetents([.large])
@@ -145,7 +152,7 @@ struct SignUpScreen: View {
     }
   }
   
-  // MARK: Sign In option
+  // MARK: Sign In Option
   private var signInOption: some View {
     Button {
       dismiss()
@@ -156,19 +163,31 @@ struct SignUpScreen: View {
           .foregroundStyle(.gray)
         Text("Sign In")
           .font(.poppins(.bold, size: 15))
-          .foregroundStyle(.csDesert)
+          .foregroundStyle(.white)
       }
-      .shadow(radius: 5)
+      .shadow(radius: 8)
     }
   }
   
-  // MARK: Data validation methods
-  // Should be moved to the authentication view model in the future.
+  // Data validation methods
+  
+  private func isValidUsername(_ username: String) -> Bool {
+    let regex = #"^[a-zA-Z-]+ ?.* [a-zA-Z-]+$"#
+    let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
+    return predicate.evaluate(with: username)
+  }
+  
+  private func isValidPhoneNumber(_ phone: String) -> Bool {
+    // works only for ukrainian format.
+    let regex = #"^(\+380|0)\d{9}$"#
+    let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
+    return predicate.evaluate(with: phoneNumber)
+  }
   
   private func isValidEmail(_ email: String) -> Bool {
-    let emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,64}$"
-    let emailPredicate = NSPredicate(format: "SELF MATCHES[c] %@", emailRegex)
-    return emailPredicate.evaluate(with: email)
+    let regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,64}$"
+    let predicate = NSPredicate(format: "SELF MATCHES[c] %@", regex)
+    return predicate.evaluate(with: email)
   }
 }
 

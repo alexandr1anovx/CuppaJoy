@@ -9,18 +9,25 @@ import SwiftUI
 
 struct SignInScreen: View {
   
+  // Stored Properties
   @State private var phoneNumber = ""
-  @FocusState private var fieldContent: AuthFieldContent?
   
-  // MARK: View
+  // Computed Properties
+  private var isValidForm: Bool {
+    isValidPhoneNumber(phoneNumber)
+  }
+  
   var body: some View {
     NavigationStack {
       ZStack {
         Color.appBackground.ignoresSafeArea(.all)
         VStack(spacing: 0) {
-          AuthHeaderView(title: "Sign In.", subtitle: "Welcome to Cuppa Joy.")
+          AuthHeaderView(
+            title: "Sign In.",
+            subtitle: "Welcome to Cuppa Joy."
+          )
           textFieldList
-          signInButton.padding(.top,30)
+          signInButton.padding(.top, 30)
           signUpOption.padding(25)
         }
       }
@@ -30,20 +37,18 @@ struct SignInScreen: View {
   // MARK: Text Field list
   private var textFieldList: some View {
     List {
-      MyTextField(
+      CSTextField(
         icon: "phone",
         prompt: "Your phone number",
         inputData: $phoneNumber
       )
       .submitLabel(.done)
-      .onSubmit {
-        // action
-      }
     }
     .frame(height: 85)
     .scrollContentBackground(.hidden)
     .scrollIndicators(.hidden)
     .scrollDisabled(true)
+    .shadow(radius: 8)
   }
   
   // MARK: Sign In button
@@ -54,12 +59,13 @@ struct SignInScreen: View {
       Text("Sign In")
         .font(.poppins(.bold, size: 15))
         .foregroundStyle(.white)
-        .padding(.vertical,8)
-        .padding(.horizontal,140)
+        .padding(.vertical, 8)
+        .padding(.horizontal, 130)
     }
-    .tint(Color.csDesert.opacity(0.8))
     .buttonStyle(.borderedProminent)
-    .shadow(radius: 5)
+    .tint(.csDesert)
+    .shadow(radius: 8)
+    .disabled(!isValidForm)
   }
   
   // MARK: Sign Up option
@@ -73,10 +79,16 @@ struct SignInScreen: View {
       } label: {
         Text("Sign Up")
           .font(.poppins(.bold, size: 15))
-          .foregroundStyle(.csDesert)
+          .foregroundStyle(.white)
       }
     }
-    .shadow(radius: 5)
+    .shadow(radius: 8)
+  }
+  
+  private func isValidPhoneNumber(_ phone: String) -> Bool {
+    let regex = #"^(\+380|0)\d{9}$"#
+    let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
+    return predicate.evaluate(with: phoneNumber)
   }
 }
 
