@@ -27,9 +27,10 @@ struct SignInScreen: View {
             subtitle: "Welcome to Cuppa Joy."
           )
           textFieldList
-          signInButton.padding(.top, 30)
-          signUpOption.padding(25)
+          signInButton.padding(.top, 25)
+          signUpOption.padding(.top, 20)
         }
+        .padding(.horizontal, 10)
       }
     }
   }
@@ -57,29 +58,34 @@ struct SignInScreen: View {
       // logic
     } label: {
       Text("Sign In")
-        .font(.poppins(.bold, size: 15))
+        .font(.callout).bold()
+        .fontDesign(.monospaced)
         .foregroundStyle(.white)
+        .frame(maxWidth: .infinity)
         .padding(.vertical, 8)
-        .padding(.horizontal, 130)
     }
     .buttonStyle(.borderedProminent)
-    .tint(.csDesert)
+    .tint(.csBrown)
+    .padding(.horizontal, 20)
     .shadow(radius: 8)
     .disabled(!isValidForm)
   }
   
   // MARK: Sign Up option
   private var signUpOption: some View {
-    HStack(spacing: 5) {
+    HStack(spacing: 8) {
       Text("New member?")
-        .font(.poppins(.regular, size: 13))
+        .font(.footnote)
+        .fontDesign(.monospaced)
         .foregroundStyle(.gray)
       NavigationLink {
         SignUpScreen()
       } label: {
-        Text("Sign Up")
+        Text("Sign Up.")
+          .font(.callout).bold()
+          .fontDesign(.monospaced)
           .font(.poppins(.bold, size: 15))
-          .foregroundStyle(.white)
+          .foregroundStyle(.csCream)
       }
     }
     .shadow(radius: 8)
