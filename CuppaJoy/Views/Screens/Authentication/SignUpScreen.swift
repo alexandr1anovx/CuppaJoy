@@ -25,7 +25,8 @@ struct SignUpScreen: View {
   @State private var phoneNumber = ""
   @State private var email = ""
   @State private var selectedCity = City.mykolaiv
-  @State private var isShownConfirmationSheet = false
+  @State private var confirmationCode = ""
+  @State private var isShownConfirmationAlert = false
   @FocusState private var fieldContent: AuthFieldContent?
   @Environment(\.dismiss) var dismiss
   
@@ -70,7 +71,8 @@ struct SignUpScreen: View {
       }
     }
     .scrollIndicators(.hidden)
-    .onAppear { fieldContent = .username }
+//    .onAppear { fieldContent = .username }
+//    .onTapGesture { UIApplication().hideKeyboard() }
   }
   
   // MARK: Text Field list
@@ -118,7 +120,8 @@ struct SignUpScreen: View {
   private var cityPicker: some View {
     VStack(alignment: .leading) {
       Text("Select your city:")
-        .font(.poppins(.regular, size: 13))
+        .font(.footnote)
+        .fontDesign(.monospaced)
         .foregroundStyle(.gray)
         .padding(.leading, 5)
       Picker("City", selection: $selectedCity) {
@@ -132,23 +135,29 @@ struct SignUpScreen: View {
   // MARK: Sign Up button
   private var signUpButton: some View {
     Button {
-      isShownConfirmationSheet.toggle()
+      isShownConfirmationAlert.toggle()
     } label: {
       Text("Sign Up")
-        .font(.poppins(.bold, size: 15))
+        .font(.callout).bold()
+        .fontDesign(.monospaced)
         .foregroundStyle(.white)
+        .frame(maxWidth: .infinity)
         .padding(.vertical, 8)
-        .padding(.horizontal, 130)
     }
-    .tint(.csDesert)
     .buttonStyle(.borderedProminent)
+    .tint(.csBrown)
+    .padding(.horizontal, 20)
     .shadow(radius: 8)
     .disabled(!isValidForm)
-    .sheet(isPresented: $isShownConfirmationSheet) {
-      CodeConfirmationView()
-        .presentationDetents([.large])
-        .presentationCornerRadius(25)
-        .presentationDragIndicator(.visible)
+    .alert("Code Confirmation", isPresented: $isShownConfirmationAlert) {
+      TextField("Code", text: $confirmationCode)
+      Button("Confirm", role: .destructive) {
+        // check if the code is correct:
+        // if not, show an alert with an error
+        // if true, show the home screen after loading 2 seconds.
+      }
+    } message: {
+      Text("Enter the code from SMS.")
     }
   }
   
@@ -157,13 +166,15 @@ struct SignUpScreen: View {
     Button {
       dismiss()
     } label: {
-      HStack(spacing: 5) {
+      HStack(spacing: 8) {
         Text("Already a member?")
-          .font(.poppins(.regular, size: 13))
+          .font(.footnote)
+          .fontDesign(.monospaced)
           .foregroundStyle(.gray)
-        Text("Sign In")
-          .font(.poppins(.bold, size: 15))
-          .foregroundStyle(.white)
+        Text("Sign In.")
+          .font(.callout).bold()
+          .fontDesign(.monospaced)
+          .foregroundStyle(.csCream)
       }
       .shadow(radius: 8)
     }
