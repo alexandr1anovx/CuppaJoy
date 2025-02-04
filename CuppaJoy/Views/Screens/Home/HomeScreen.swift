@@ -15,8 +15,6 @@ struct HomeScreen: View {
         HomeHeaderView()
         CoffeeSelectionView()
           .shadow(radius: 8)
-          .padding(.horizontal)
-          .padding(.bottom)
       }
     }
   }
