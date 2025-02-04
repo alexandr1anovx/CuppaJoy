@@ -11,39 +11,28 @@ import CoreImage.CIFilterBuiltins
 
 struct ProfileScreen: View {
   
-  // MARK: - Properties
-  @State private var isBlurred = true
+  // MARK: Properties
+  @State private var username = ""
+  @State private var phoneNumber = ""
+  @State private var email = ""
+  @FocusState private var fieldContent: AuthFieldContent?
+  @State private var selectedCity = City.mykolaiv
+  @State private var isShownData = false
+  
   let context = CIContext()
   let filter = CIFilter.qrCodeGenerator()
   
-  // MARK: - View
+  // MARK: View
   var body: some View {
     ZStack {
-      Color.mainGradientBackground.ignoresSafeArea()
-      
-      VStack(spacing: 25) {
-        cell(img: .man, header: "Initials", data: "name and surname")
-        cell(img: .mobile, header: "Phone number", data: "+380955302040")
-        cell(img: .envelope, header: "Email", data: "address@gmail.com")
-          .blur(radius: isBlurred ? 3:0)
-        cell(img: .map, header: "Selected address", data: "address")
-          .blur(radius: isBlurred ? 3:0)
-        
-        Button {
-          isBlurred.toggle()
-        } label: {
-          Text(isBlurred ? "Show Data" : "Hide Data")
-            .bold()
-            .foregroundStyle(.blue)
-        }
-        .padding(.top)
-        
+      Color.csBlack.ignoresSafeArea(.all)
+      VStack(spacing: 20) {
+        textFieldList
+        selectedCityPicker.padding(.horizontal,25)
         Spacer()
         qrcodeImage
         Spacer()
       }
-      .padding(.top, 20)
-      .padding(.horizontal)
     }
     .navigationTitle("My Profile")
     .navigationBarTitleDisplayMode(.inline)
@@ -55,45 +44,92 @@ struct ProfileScreen: View {
     }
   }
   
-  // MARK: - QRcode Image
+  // MARK: Text Field
+  private var textFieldList: some View {
+    List {
+      CSTextField(
+        icon: "person",
+        prompt: "Alexander Pushkin",
+        inputData: $username
+      )
+      .focused($fieldContent, equals: .username)
+      .textInputAutocapitalization(.words)
+      .submitLabel(.next)
+      .textInputAutocapitalization(.words)
+      .onSubmit { fieldContent = .phoneNumber }
+      
+      CSTextField(
+        icon: "phone",
+        prompt: "Phone number",
+        inputData: $phoneNumber
+      )
+      .focused($fieldContent, equals: .phoneNumber)
+      .submitLabel(.next)
+      .onSubmit { fieldContent = .email }
+      .blur(radius: isShownData ? 0:2)
+      
+      CSTextField(
+        icon: "envelope",
+        prompt: "user@example.com",
+        inputData: $email
+      )
+      .focused($fieldContent, equals: .email)
+      .keyboardType(.emailAddress)
+      .textInputAutocapitalization(.never)
+      .autocorrectionDisabled(true)
+      .submitLabel(.done)
+      .onSubmit { fieldContent = nil }
+      .blur(radius: isShownData ? 0:2)
+    }
+    .frame(height: 185)
+    .scrollContentBackground(.hidden)
+    .scrollIndicators(.hidden)
+    .scrollDisabled(true)
+  }
+  
+  // MARK: City Picker
+  private var selectedCityPicker: some View {
+    HStack(spacing: 0) {
+      Text("City:")
+        .font(.callout)
+        .fontDesign(.monospaced)
+        .foregroundStyle(.gray)
+      Picker("City", selection: $selectedCity) {
+        ForEach(City.allCases, id: \.self) { city in
+          Text(city.rawValue)
+        }
+      }
+      .pickerStyle(.menu)
+      Spacer()
+      showDataButton
+    }
+  }
+  
+  // MARK: Blur Button
+  private var showDataButton: some View {
+    Button {
+      isShownData.toggle()
+    } label: {
+      Text(isShownData ? "Hide Data" : "Show Data")
+        .font(.callout)
+        .fontDesign(.monospaced)
+        .foregroundStyle(.csCream)
+        .padding(.horizontal, 13)
+        .padding(.vertical, 12)
+        .background(.csDarkGrey)
+        .clipShape(.capsule)
+    }
+  }
+  
+  // MARK: QR code
   private var qrcodeImage: some View {
-    Image(uiImage: generateQRCode(from: "Alexander Andrianov"))
+    Image(uiImage: generateQRCode(from: username))
       .resizable()
       .interpolation(.none)
       .frame(width: 200, height: 200)
   }
   
-  // MARK: - Cell
-  private func cell(img: ImageResource, header: String, data: String) -> some View {
-    HStack(spacing: 15) {
-      Image(img)
-        .resizable()
-        .aspectRatio(contentMode: .fit)
-        .frame(width: 20, height: 20)
-        .foregroundStyle(.white.opacity(0.7))
-        .padding(10)
-        .background(Color.csBrown)
-        .clipShape(.capsule)
-        .shadow(radius: 5)
-      VStack(alignment: .leading, spacing: 5) {
-        Text(header)
-          .font(.poppins(.medium, size: 13))
-          .foregroundStyle(.gray)
-        Text(data)
-          .font(.poppins(.bold, size: 14))
-          .foregroundStyle(.csCreamy)
-      }
-      Spacer()
-      Image(systemName: "square.and.pencil")
-        .font(.title3)
-        .foregroundStyle(.gray)
-        .onTapGesture {
-          // changing selected cell data logic
-        }
-    }
-  }
-  
-  // MARK: - QRcode generation method
+  // MARK: QR code generation method
   private func generateQRCode(from string: String) -> UIImage {
     filter.message = Data(string.utf8)
     if let outputImage = filter.outputImage,
