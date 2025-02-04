@@ -18,18 +18,17 @@ enum Syrup: String, CaseIterable {
 }
 
 struct SyrupPicker: View {
-  @State private var syrup: Syrup = .none
+  @State private var selectedSyrup = Syrup.none
   
   var body: some View {
-    Picker("Syrup", selection: $syrup) {
+    Picker("Syrup", selection: $selectedSyrup) {
       ForEach(Syrup.allCases, id: \.self) { syrup in
         Text(syrup.title)
       }
     }
     .pickerStyle(.menu)
-    .font(.poppins(.medium, size: 14))
-    .foregroundStyle(.white)
     .tint(.accent)
-    .listRowBackground(Color.csDarkBrown)
+    .font(.subheadline)
+    .fontDesign(.monospaced)
   }
 }

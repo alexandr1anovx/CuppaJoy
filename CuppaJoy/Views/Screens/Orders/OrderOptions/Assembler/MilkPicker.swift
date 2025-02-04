@@ -8,36 +8,23 @@
 import SwiftUI
 
 enum Milk: String, CaseIterable {
-  case none
-  case cows
-  case lactose
-  case skimmed
-  case vegetable
-  
-  var title: String {
-    switch self {
-    case .none: "None"
-    case .cows: "Cow's"
-    case .lactose: "Lactose"
-    case .skimmed: "Simmed"
-    case .vegetable: "Vegetable"
-    }
-  }
+  case none = "None"
+  case cows = "Cow's"
+  case lactose = "Lactose"
 }
 
 struct MilkPicker: View {
-  @State private var milk: Milk = .none
+  @State private var selectedMilk = Milk.none
   
   var body: some View {
-    Picker("Milk", selection: $milk) {
+    Picker("Milk", selection: $selectedMilk) {
       ForEach(Milk.allCases, id: \.self) { milk in
-        Text(milk.title)
+        Text(milk.rawValue)
       }
     }
     .pickerStyle(.menu)
-    .font(.poppins(.medium, size: 14))
-    .foregroundStyle(.white)
     .tint(.accent)
-    .listRowBackground(Color.csDarkBrown)
+    .font(.subheadline)
+    .fontDesign(.monospaced)
   }
 }

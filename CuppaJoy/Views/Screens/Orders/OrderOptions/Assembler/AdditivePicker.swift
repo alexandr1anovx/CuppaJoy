@@ -8,37 +8,24 @@
 import SwiftUI
 
 enum Additive: String, CaseIterable {
-  case none
-  case gratedChocolate
-  case liquidChocolate
-  case marshmallow
-  case cream
-  
-  var title: String {
-    switch self {
-    case .none: "None"
-    case .gratedChocolate: "Grated Chocolate"
-    case .liquidChocolate: "Liquid Chocolate"
-    case .marshmallow: "Marshmallow"
-    case .cream: "Cream"
-    }
-  }
+  case none = "None"
+  case darkChocolate = "Dark Chocolate"
+  case milkChocolate = "Milk Chocolate"
 }
 
 struct AdditivePicker: View {
-  @State private var additive: Additive = .none
+  @State private var selectedAdditive = Additive.none
   
   var body: some View {
-    Picker("Additive", selection: $additive) {
+    Picker("Additive", selection: $selectedAdditive) {
       ForEach(Additive.allCases, id: \.self) { additive in
-        Text(additive.title)
+        Text(additive.rawValue)
       }
     }
     .pickerStyle(.menu)
-    .font(.poppins(.medium, size: 14))
-    .foregroundStyle(.white)
     .tint(.accent)
-    .listRowBackground(Color.csDarkBrown)
+    .font(.subheadline)
+    .fontDesign(.monospaced)
   }
 }
 

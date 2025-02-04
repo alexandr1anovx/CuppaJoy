@@ -17,19 +17,18 @@ enum CoffeeType: String, CaseIterable {
 }
 
 struct CoffeeTypePicker: View {
-  @State private var coffeeType: CoffeeType = .arabica
+  @State private var selectedType = CoffeeType.arabica
   
   var body: some View {
-    Picker("Type", selection: $coffeeType) {
-      ForEach(CoffeeType.allCases, id: \.self) { coffeeType in
-        Text(coffeeType.title)
+    Picker("Type", selection: $selectedType) {
+      ForEach(CoffeeType.allCases, id: \.self) { type in
+        Text(type.title)
       }
     }
     .pickerStyle(.menu)
-    .font(.poppins(.medium, size: 14))
-    .foregroundStyle(.white)
     .tint(.accent)
-    .listRowBackground(Color.csDarkBrown)
+    .font(.subheadline)
+    .fontDesign(.monospaced)
   }
 }
 

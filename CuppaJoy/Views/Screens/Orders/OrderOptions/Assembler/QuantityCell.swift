@@ -17,7 +17,6 @@ struct QuantityCell: View {
       Button("-") {
         withAnimation { quantity -= 1 }
       }
-      .tint(.black)
       .disabled(quantity == 1)
       .buttonStyle(.bordered)
       
@@ -28,13 +27,12 @@ struct QuantityCell: View {
       Button("+") {
         withAnimation { quantity += 1 }
       }
-      .tint(.black)
       .disabled(quantity == 3)
       .buttonStyle(.bordered)
     }
-    .font(.poppins(.medium, size: 14))
+    .font(.subheadline)
+    .fontDesign(.monospaced)
     .foregroundStyle(.white)
-    .listRowBackground(Color.csDarkBrown)
   }
 }
 

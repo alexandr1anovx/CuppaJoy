@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum IceCube: String, CaseIterable {
+enum IceCubeCount: String, CaseIterable {
   case none
   case one
   case two
@@ -16,18 +16,17 @@ enum IceCube: String, CaseIterable {
 }
 
 struct IceCubePicker: View {
-  @State private var iceCubeCount: IceCube = .none
+  @State private var iceCubeCount = IceCubeCount.none
   
   var body: some View {
     Picker("Ice Cube", selection: $iceCubeCount) {
-      ForEach(IceCube.allCases, id: \.self) { cube in
-        Text(cube.title)
+      ForEach(IceCubeCount.allCases, id: \.self) { cubeCount in
+        Text(cubeCount.title)
       }
     }
     .pickerStyle(.menu)
-    .font(.poppins(.medium, size: 14))
-    .foregroundStyle(.white)
     .tint(.accent)
-    .listRowBackground(Color.csDarkBrown)
+    .font(.subheadline)
+    .fontDesign(.monospaced)
   }
 }
