@@ -8,7 +8,11 @@
 import SwiftUI
 
 extension Color {
-  static let appBackground = Color.csBlack
+  static let appBackground = LinearGradient(
+    colors: [.csBlack, .csBrown],
+    startPoint: .topLeading,
+    endPoint: .bottomTrailing
+  )
 }
 
 fileprivate struct GradientBackgroundTest: View {
