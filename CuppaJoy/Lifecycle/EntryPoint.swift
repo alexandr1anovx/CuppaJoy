@@ -7,12 +7,8 @@
 
 import SwiftUI
 
-private enum Tab: String, Hashable {
-  case home
-  case rewards
-  case orders
-  
-  var title: String { self.rawValue.capitalized }
+enum Tab: String, Hashable {
+  case home, rewards, orders
 }
 
 struct EntryPoint: View {
@@ -33,7 +29,7 @@ struct EntryPoint: View {
             Image(.gift)
             Text("Rewards")
           }
-        OrderTabScreen()
+        OrderStatusScreen()
           .tag(Tab.orders)
           .tabItem {
             Image(.bookmark)
