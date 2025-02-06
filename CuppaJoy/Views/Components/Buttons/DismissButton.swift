@@ -15,7 +15,6 @@ struct DismissButton: View {
       .font(.title3)
       .foregroundStyle(.gray)
       .symbolRenderingMode(.monochrome)
-      .opacity(0.8)
       .onTapGesture {
         dismiss()
       }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MyTextField: View {
+struct CSTextField: View {
   
   let icon: String
   let prompt: String
@@ -17,10 +17,10 @@ struct MyTextField: View {
     HStack(spacing: 15) {
       Image(systemName: icon)
         .font(.headline)
-        .foregroundStyle(.white)
-        .opacity(0.7)
+        .foregroundStyle(.csDesert)
       TextField(prompt, text: $inputData)
-        .font(.poppins(.regular, size: 14))
+        .font(.subheadline)
+        .fontDesign(.monospaced)
     }
     .listRowInsets(
       EdgeInsets(top: 28, leading: 15, bottom: 22, trailing: 15)
@@ -29,7 +29,7 @@ struct MyTextField: View {
 }
 
 #Preview {
-  MyTextField(
+  CSTextField(
     icon: "swift",
     prompt: "Enter your password",
     inputData: .constant("")
