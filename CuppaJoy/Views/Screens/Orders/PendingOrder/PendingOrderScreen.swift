@@ -12,47 +12,13 @@ struct PendingOrderScreen: View {
   
   var body: some View {
     ZStack {
-      Color.mainGradientBackground.ignoresSafeArea()
-      
+      Color.appBackground.ignoresSafeArea(.all)
       VStack {
-        List {
-          PendingOrderCell()
-            .swipeActions {
-              Button("", systemImage: "trash") {
-                // delete the order
-              }
-              .tint(.pink)
-            }
-        }
-        .shadow(radius: 10)
-        .listStyle(.insetGrouped)
-        .listRowSpacing(20)
-        .scrollContentBackground(.hidden)
-        
-        Spacer()
-        
+        pendingOrderList
         HStack {
-          VStack(alignment: .leading, spacing: 8) {
-            Text("Total Price")
-              .font(.poppins(.medium, size: 15))
-              .foregroundStyle(.gray)
-            Text("UAH 35.00")
-              .font(.poppins(.bold, size: 18))
-              .foregroundStyle(.white)
-          }
-          
+          totalPriceLabel
           Spacer()
-          
-          Button {
-            isShownPaymentScreen = true
-          } label: {
-            Label("Next", systemImage: "cart.badge.plus")
-              .font(.poppins(.bold, size: 15))
-              .foregroundStyle(.white)
-              .padding(10)
-          }
-          .tint(.black)
-          .buttonStyle(.borderedProminent)
+          paymentButton
         }
         .padding(25)
       }
@@ -68,6 +34,49 @@ struct PendingOrderScreen: View {
     .fullScreenCover(isPresented: $isShownPaymentScreen) {
       PaymentOptionScreen()
     }
+  }
+  
+  private var pendingOrderList: some View {
+    List {
+      PendingOrderCell()
+        .swipeActions {
+          Button("", systemImage: "trash") {
+            // delete order
+          }
+          .tint(.pink)
+        }
+    }
+    .shadow(radius: 10)
+    .listStyle(.insetGrouped)
+    .listRowSpacing(20)
+    .scrollContentBackground(.hidden)
+  }
+  
+  private var totalPriceLabel: some View {
+    VStack(alignment: .center, spacing: 10) {
+      Text("Total Price:")
+        .font(.subheadline)
+        .fontDesign(.monospaced)
+        .foregroundStyle(.gray)
+      Text("₴ 35.00")
+        .font(.title2).bold()
+        .foregroundStyle(.white)
+    }
+  }
+  
+  private var paymentButton: some View {
+    Button {
+      isShownPaymentScreen.toggle()
+    } label: {
+      Text("Go to Payment")
+        .font(.callout).bold()
+        .fontDesign(.monospaced)
+        .foregroundStyle(.accent)
+        .padding(10)
+    }
+    .buttonStyle(.borderedProminent)
+    .tint(.black)
+    .shadow(radius: 8)
   }
 }
 

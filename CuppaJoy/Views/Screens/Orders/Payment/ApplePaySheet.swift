@@ -51,8 +51,8 @@ struct ApplePaySheet: View {
   // MARK: - Order Title
   private var orderTitleSection: some View {
     HStack(spacing: 20) {
-      Image(.rocket)
-        .foregroundStyle(.csCreamy)
+      Image(.coffee)
+        .foregroundStyle(.accent)
       VStack(alignment: .leading, spacing: 5) {
         Text("Medium Coffee Cup")
           .font(.callout)
@@ -66,7 +66,6 @@ struct ApplePaySheet: View {
           .foregroundStyle(.gray)
       }
     }
-    .listRowBackground(Color.gray.opacity(0.1))
   }
   
   // MARK: - Order Price
@@ -79,7 +78,6 @@ struct ApplePaySheet: View {
         .font(.footnote)
         .foregroundStyle(.gray)
     }
-    .listRowBackground(Color.gray.opacity(0.1))
   }
   
   // MARK: - Account Name
@@ -88,7 +86,6 @@ struct ApplePaySheet: View {
       .font(.callout)
       .foregroundStyle(.gray)
       .tint(.gray)
-      .listRowBackground(Color.gray.opacity(0.1))
   }
   
   // MARK: - Footer (confirmation action)
@@ -97,7 +94,6 @@ struct ApplePaySheet: View {
       isShownAlert.toggle()
     } label: {
       Text("Confirm Payment")
-        .fontDesign(.rounded)
         .bold()
         .foregroundStyle(.white)
         .padding(8)

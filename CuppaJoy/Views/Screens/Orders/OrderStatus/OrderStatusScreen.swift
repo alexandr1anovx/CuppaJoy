@@ -31,12 +31,13 @@ struct OrderStatusScreen: View {
   
   private func indicatedTab(title: String, isSelected: Bool) -> some View {
     Text(title)
-      .font(.poppins(.medium, size: 14))
-      .foregroundStyle(isSelected ? .white : .gray)
-      .padding(10)
-      .background(isSelected ? .csDesert : .clear)
+      .font(.subheadline)
+      .fontDesign(.monospaced)
+      .foregroundStyle(isSelected ? .csCream : .gray)
+      .padding(8)
+      .background(isSelected ? .black : .clear)
       .clipShape(.capsule)
-      .shadow(radius:8)
+      .shadow(radius: 5)
   }
   
   private var orderStatusTabs: some View {
@@ -47,7 +48,7 @@ struct OrderStatusScreen: View {
           isSelected: status == selectedStatus
         )
         .onTapGesture {
-          withAnimation(.spring) {
+          withAnimation {
             selectedStatus = status
           }
         }
@@ -67,7 +68,7 @@ struct OrderStatusScreen: View {
     .listRowSpacing(20)
     .scrollIndicators(.hidden)
     .scrollContentBackground(.hidden)
-    .shadow(radius:8)
+    .shadow(radius: 8)
   }
   
   private var receivedOrders: some View {
@@ -80,7 +81,7 @@ struct OrderStatusScreen: View {
     }
     .listStyle(.insetGrouped)
     .listRowSpacing(20)
-    .shadow(radius:8)
+    .shadow(radius: 8)
     .scrollContentBackground(.hidden)
   }
 }

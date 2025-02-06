@@ -12,52 +12,49 @@ struct OrderOptionsScreen: View {
   
   var body: some View {
     ZStack {
-      Color.mainGradientBackground.ignoresSafeArea()
-      
+      Color.appBackground.ignoresSafeArea(.all)
       VStack {
-        
         List {
           QuantityCell()
           CupSizeCell()
           CoffeeTypePicker()
-          SortPicker()
           MilkPicker()
           SyrupPicker()
           AdditivePicker()
           IceCubePicker()
         }
         .listStyle(.insetGrouped)
-        .listRowSpacing(18)
+        .listRowSpacing(20)
         .scrollContentBackground(.hidden)
+        .scrollIndicators(.hidden)
+        .shadow(radius: 8)
         
-        VStack(spacing: 15) {
-          HStack {
+        HStack {
+          VStack(alignment: .center, spacing: 8) {
             Text("Total Price:")
-              .font(.poppins(.medium, size: 14))
+              .font(.subheadline)
+              .fontDesign(.monospaced)
               .foregroundStyle(.gray)
-            Spacer()
-            Text("₴ \(String(format: "%.2f", 50.00))")
-              .font(.poppins(.bold, size: 16))
+            Text("₴ 35.00")
+              .font(.title2).bold()
               .foregroundStyle(.white)
           }
-          .padding(.top, 8)
-          
-          CustomSeparator()
-          
+          Spacer()
           NavigationLink {
             PendingOrderScreen()
           } label: {
-            Text("Make an order")
-              .frame(minWidth: 50)
-              .font(.poppins(.medium, size: 14))
-              .foregroundStyle(.white)
-              .padding(15)
+            Text("Confirm")
+              .font(.callout).bold()
+              .fontDesign(.monospaced)
+              .foregroundStyle(.accent)
+              .padding(16)
               .background(.black)
               .clipShape(.buttonBorder)
-              .shadow(radius: 8)
           }
         }
-        .padding(.horizontal, 25)
+        .shadow(radius: 8)
+        .padding(20)
+        
         // 20px bottom padding for iPhone SE 3rd generation.
         .padding(.bottom, UIScreen.current?.bounds.height == 667 ? 20 : 0)
       }

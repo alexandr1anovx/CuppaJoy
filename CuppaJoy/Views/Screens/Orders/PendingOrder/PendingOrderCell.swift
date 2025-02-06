@@ -10,24 +10,27 @@ import SwiftUI
 struct PendingOrderCell: View {
   
   var body: some View {
-    VStack(alignment: .leading, spacing: 12) {
+    VStack(alignment: .leading, spacing: 10) {
       HStack {
         Text("Coffee Title")
           .font(.callout).bold()
+          .fontDesign(.monospaced)
         Spacer()
-        Text("₴ Price")
-          .font(.system(size: 18)).bold()
-          .foregroundStyle(.csYellow)
+        Text("₴ 35.00")
+          .font(.title3).bold()
+          .foregroundStyle(.csCream)
       }
       Text("Coffee Additives")
         .font(.footnote)
         .fontWeight(.medium)
+        .fontDesign(.monospaced)
         .foregroundStyle(.gray)
       Text("Coffee Cup Count")
-        .font(.footnote).bold()
+        .font(.footnote)
+        .fontWeight(.medium)
+        .fontDesign(.monospaced)
         .foregroundStyle(.gray)
     }
-    .listRowBackground(Color.black)
   }
 }
 

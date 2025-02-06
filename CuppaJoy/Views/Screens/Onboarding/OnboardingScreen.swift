@@ -34,27 +34,26 @@ struct OnboardingScreen: View {
         pageIndicator
         Spacer()
       }
-      skipButton
+      skipButton.padding(.bottom)
     }
   }
   
   // MARK: Page Data
   private func pageData(for page: OnboardingPage) -> some View {
     VStack(spacing: 20) {
-      Image(page.image)
-        .resizable()
-        .frame(width: 150, height: 150)
-        .foregroundStyle(.accent)
-      VStack(spacing: 10) {
+      
+      VStack(spacing: 15) {
         Text(page.title)
-          .font(.poppins(.bold, size: 18))
-          .foregroundStyle(.accent)
+          .font(.system(size: 18, weight: .bold, design: .monospaced))
+          .foregroundStyle(.white)
         Text(page.description)
-          .font(.poppins(.regular, size: 13))
+          .font(.footnote)
+          .fontDesign(.monospaced)
           .foregroundStyle(.gray)
           .lineLimit(2)
       }
       .multilineTextAlignment(.center)
+      .padding(.horizontal, 30)
     }
     .animation(.easeInOut, value: pageIndex)
   }
@@ -64,8 +63,8 @@ struct OnboardingScreen: View {
     HStack(spacing: 15) {
       ForEach(0..<pages.count, id: \.self) { index in
         Capsule()
-          .frame(width: 20, height: 4)
-          .foregroundStyle(pageIndex >= index ? .csDesert : .csDarkGrey)
+          .frame(width: 20, height: 3)
+          .foregroundStyle(pageIndex >= index ? .accent : .csDarkGrey)
           .animation(.spring, value: pageIndex)
       }
     }
@@ -73,7 +72,7 @@ struct OnboardingScreen: View {
   
   // MARK: Skip Button
   private var skipButton: some View {
-    CSButton(isIndexLast ? "Get Started" : "Continue") {
+    CSButton(isIndexLast ? "Get Started!" : "Continue") {
       if pageIndex < pages.count - 1 {
         pageIndex += 1
       } else {

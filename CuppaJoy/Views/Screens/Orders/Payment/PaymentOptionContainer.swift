@@ -12,25 +12,19 @@ struct PaymentOptionContainer: View {
   @State private var isShownApplePay = false
   
   var body: some View {
-    ZStack {
-      Color.mainGradientBackground
-        .clipShape(.rect(cornerRadius: 30))
-        .ignoresSafeArea(.all)
-      
-      VStack {
-        userDataView
-        PaymentOptionList()
-        Spacer()
-        footerView
-      }
-      .padding(.vertical, 25)
+    VStack {
+      userDataView
+      PaymentOptionList()
+      Spacer()
+      footerView
     }
+    .padding(.vertical, 25)
     .sheet(isPresented: $isShownApplePay) {
       ApplePaySheet()
         .presentationDetents([.height(380)])
         .presentationBackgroundInteraction(.disabled)
     }
-    .shadow(radius: 5)
+    .shadow(radius: 8)
   }
   
   // MARK: - User Data
@@ -39,16 +33,18 @@ struct PaymentOptionContainer: View {
       Image(.man)
         .resizable()
         .frame(width: 23, height: 23)
-        .foregroundStyle(.csYellow)
+        .foregroundStyle(.accent)
         .padding(12)
-        .background(Color.csBrown)
+        .background(Color.black)
         .clipShape(.capsule)
       VStack(alignment: .leading, spacing: 8) {
         Text("Username")
           .font(.headline)
+          .fontDesign(.monospaced)
           .foregroundStyle(.white)
         Text("Coffee Store Address")
           .font(.footnote)
+          .fontDesign(.monospaced)
           .foregroundStyle(.gray)
           .lineLimit(2)
           .multilineTextAlignment(.leading)
@@ -62,24 +58,26 @@ struct PaymentOptionContainer: View {
   // MARK: - Footer
   private var footerView: some View {
     HStack {
-      VStack {
+      VStack(spacing: 10) {
         Text("Total Amount:")
-          .font(.poppins(.medium, size: 16))
+          .font(.callout).bold()
+          .fontDesign(.monospaced)
           .foregroundStyle(.gray)
         Text("₴ 35.00")
-          .font(.poppins(.bold, size: 20))
-          .foregroundStyle(.csCreamy)
+          .font(.title2).bold()
+          .foregroundStyle(.white)
       }
       Spacer()
       Button {
-        isShownApplePay = true
+        isShownApplePay.toggle()
       } label: {
         Text("Confirm")
-          .font(.poppins(.bold, size: 15))
-          .foregroundStyle(.white)
+          .font(.callout).bold()
+          .fontDesign(.monospaced)
+          .foregroundStyle(.accent)
           .padding(10)
       }
-      .tint(.csDarkBrown)
+      .tint(.black)
       .buttonStyle(.borderedProminent)
     }
     .padding(.horizontal, 20)

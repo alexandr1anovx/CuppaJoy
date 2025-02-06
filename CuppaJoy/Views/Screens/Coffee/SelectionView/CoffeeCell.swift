@@ -8,29 +8,28 @@
 import SwiftUI
 
 struct CoffeeCell: View {
-  
   let coffee: Coffee
   
   var body: some View {
     NavigationLink {
       OrderOptionsScreen(selectedCoffee: coffee)
     } label: {
-      RoundedRectangle(cornerRadius: 20)
-        .fill(Color.csDarkBrown)
-        .aspectRatio(1.2, contentMode: .fit)
+      RoundedRectangle(cornerRadius: 23)
+        .foregroundStyle(.csBlack)
+        .shadow(radius: 8)
+        .aspectRatio(1.1, contentMode: .fit)
         .overlay {
           VStack(spacing: 15) {
             Image(systemName: "cup.and.saucer.fill")
-              .resizable()
-              .scaledToFit()
-              .frame(maxHeight: 45)
+              .font(.largeTitle)
+              .foregroundStyle(.csDesert)
             Text(coffee.title)
-              .font(.callout)
-              .fontWeight(.medium)
-              .fontDesign(.rounded)
+              .font(.headline)
+              .fontDesign(.monospaced)
+              .foregroundStyle(.csDesert)
           }
-          .foregroundStyle(.accent)
-        } 
+          .foregroundStyle(.csDesert)
+        }
     }
   }
 }

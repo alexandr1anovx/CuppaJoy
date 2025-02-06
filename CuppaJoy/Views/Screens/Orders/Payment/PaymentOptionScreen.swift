@@ -12,8 +12,8 @@ struct PaymentOptionScreen: View {
   var body: some View {
     NavigationStack {
       ZStack {
-        Color.mainGradientBackground.ignoresSafeArea()
-        PaymentOptionContainer().padding()
+        Color.csBlack.ignoresSafeArea(.all)
+        PaymentOptionContainer()
       }
       .navigationTitle("Payment Options")
       .navigationBarTitleDisplayMode(.inline)

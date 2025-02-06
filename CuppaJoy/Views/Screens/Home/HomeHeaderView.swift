@@ -22,16 +22,19 @@ struct HomeHeaderView: View {
   private var userDataView: some View {
     VStack(alignment: .leading, spacing: 10) {
       Text("Alexander Andrianov")
-        .font(.poppins(.bold, size: 16))
+        .font(.headline)
+        .fontDesign(.monospaced)
         .foregroundStyle(.white)
         .lineLimit(2)
-      HStack {
+      HStack(spacing: 5) {
         Text("Bonuses:")
-          .font(.poppins(.medium, size: 14))
+          .font(.callout)
+          .fontDesign(.monospaced)
+          .fontWeight(.medium)
           .foregroundStyle(.gray)
-        Text("50 UAH")
-          .font(.poppins(.bold, size: 15))
-          .foregroundStyle(.accent)
+        Text("₴₴")
+          .font(.callout).bold()
+          .foregroundStyle(.csCream)
       }
     }
   }
@@ -40,7 +43,7 @@ struct HomeHeaderView: View {
     NavigationLink {
       // ...
     } label: {
-      Image(.map).foregroundStyle(.accent)
+      Image(.map).foregroundStyle(.csCream)
     }
   }
   
@@ -48,7 +51,7 @@ struct HomeHeaderView: View {
     NavigationLink {
       ProfileScreen()
     } label: {
-      Image(.man).foregroundStyle(.accent)
+      Image(.man).foregroundStyle(.csCream)
     }
   }
 }

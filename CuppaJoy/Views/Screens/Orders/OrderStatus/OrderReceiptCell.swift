@@ -28,25 +28,27 @@ struct OrderReceiptCell: View {
   }
   
   private func orderHeader(date: String, price: Double) -> some View {
-    HStack {
+    HStack(spacing: 10) {
       Text(date)
-        .font(.poppins(.regular, size: 13))
+        .font(.footnote)
+        .fontDesign(.monospaced)
         .foregroundStyle(.gray)
+        .lineLimit(1)
       Spacer()
       Text("₴ \(String(format: "%.2f", price))")
-        .font(.poppins(.bold, size: 19))
-        .foregroundStyle(.csDesert)
+        .font(.title3).bold()
+        .foregroundStyle(.csCream)
     }
   }
   
   private func orderRow(image: ImageResource, content: String) -> some View {
-    HStack(spacing:13) {
+    HStack(spacing: 13) {
       Image(image)
         .resizable()
-        .frame(width: 18, height: 18)
-        .foregroundStyle(.csDesert)
+        .frame(width: 17, height: 17)
+        .foregroundStyle(.accent)
       Text(content)
-        .font(.poppins(.medium, size: 14))
+        .font(.system(size: 14, weight: .medium, design: .monospaced))
         .foregroundStyle(.white)
         .multilineTextAlignment(.leading)
         .lineLimit(2)

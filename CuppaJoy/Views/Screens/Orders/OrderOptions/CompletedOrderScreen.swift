@@ -10,32 +10,36 @@ import SwiftUI
 struct CompletedOrderScreen: View {
   var body: some View {
     ZStack {
-      Color.mainGradientBackground.ignoresSafeArea()
-      
+      Color.appBackground.ignoresSafeArea(.all)
       VStack(spacing: 15) {
         Image(.onboardingDelivery)
           .resizable()
-          .frame(width: 100, height: 100)
-          .foregroundStyle(.csCreamy)
+          .frame(width: 130, height: 130)
+          .foregroundStyle(.accent)
         
         Text("Order received!")
-          .font(.poppins(.bold, size: 16))
-          .foregroundStyle(.csCreamy)
+          .font(.headline)
+          .fontDesign(.monospaced)
+          .foregroundStyle(.white)
         
         VStack(alignment: .center, spacing: 10) {
           HStack(spacing: 5) {
             Text("Address:")
-              .font(.poppins(.medium, size: 13))
+              .font(.footnote)
+              .fontDesign(.monospaced)
               .foregroundStyle(.gray)
-            Text("Bradford BD1 1PR.")
-              .font(.poppins(.bold, size: 13))
-              .foregroundStyle(.csYellow)
+            Text("Soborna Street, 50A.")
+              .font(.footnote).bold()
+              .fontDesign(.monospaced)
+              .foregroundStyle(.accent)
           }
           
           Text("We will call you as soon as the courier arrives at the specified location.")
-            .font(.poppins(.medium, size: 12))
+            .font(.caption)
+            .fontDesign(.monospaced)
             .foregroundStyle(.gray)
             .multilineTextAlignment(.center)
+            .padding(25)
         }
       }
     }

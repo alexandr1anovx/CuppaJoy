@@ -16,13 +16,19 @@ struct CoffeeSelectionView: View {
   
   var body: some View {
     ZStack {
-      RoundedRectangle(cornerRadius: 25)
-        .fill(Color.mainGradientBackground)
+      Color.appBackground
+        .clipShape(.rect(cornerRadius: 30))
+        .ignoresSafeArea(.all)
       
       VStack {
-        Label("Soborna Street, 50A", image: "map")
-          .font(.poppins(.medium, size: 14))
-          .foregroundStyle(.gray)
+        Label("Soborna Street, 50A", systemImage: "mappin")
+          .font(.footnote)
+          .fontDesign(.monospaced)
+          .foregroundStyle(.accent)
+          .padding(.horizontal, 10)
+          .padding(.vertical, 12)
+          .background(.csDarkGrey)
+          .clipShape(.capsule)
         
         ScrollView {
           LazyVGrid(columns: fixedColumns, spacing: 20) {
@@ -30,12 +36,12 @@ struct CoffeeSelectionView: View {
               CoffeeCell(coffee: coffee)
             }
           }
+          .padding(
+            .top, UIScreen.current?.bounds.height == 667 ? 15 : 20
+          )
         }
-        .padding(
-          .top, UIScreen.current?.bounds.height == 667 ? 15 : 15
-        )
       }
-      .shadow(radius: 10)
+      .padding(.horizontal)
       .padding(.vertical, 20)
     }
   }

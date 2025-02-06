@@ -42,13 +42,12 @@ struct PaymentOptionList: View {
   private func paymentCell(option: PaymentOption, isDisabled: Bool) -> some View {
     HStack {
       Image(systemName: option.iconName)
-        .resizable()
-        .aspectRatio(contentMode: .fit)
-        .frame(width: 30, height: 30)
+        .font(.title2)
         .foregroundColor(.white)
         .padding(.trailing, 8)
       Text(option.title)
         .font(.headline)
+        .fontDesign(.monospaced)
       Spacer()
       
       if isDisabled {
