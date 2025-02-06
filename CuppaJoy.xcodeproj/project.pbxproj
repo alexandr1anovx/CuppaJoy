@@ -14,10 +14,6 @@
 		321D481B2CAF6099007A0B20 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 321D481A2CAF6099007A0B20 /* Preview Assets.xcassets */; };
 		32325EE02CB2B9490048E557 /* CSTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32325EDF2CB2B9490048E557 /* CSTextField.swift */; };
 		32325EE22CB2C3EB0048E557 /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32325EE12CB2C3EB0048E557 /* SignUpScreen.swift */; };
-		3239D8F92CB221800094D38B /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3239D8F82CB221800094D38B /* Font+Extension.swift */; };
-		324A9FDD2CB0BD63007F6998 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 324A9FDA2CB0BD63007F6998 /* Poppins-Bold.ttf */; };
-		324A9FDE2CB0BD63007F6998 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 324A9FDB2CB0BD63007F6998 /* Poppins-Medium.ttf */; };
-		324A9FDF2CB0BD63007F6998 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 324A9FDC2CB0BD63007F6998 /* Poppins-Regular.ttf */; };
 		326108402CBAD3B10072D238 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3261083F2CBAD3B10072D238 /* HomeScreen.swift */; };
 		3293AC952CC7166A00A9A9B5 /* OrderReceiptCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3293AC942CC7166A00A9A9B5 /* OrderReceiptCell.swift */; };
 		32E73B242CBB091700730A1A /* CSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E73B232CBB091700730A1A /* CSButton.swift */; };
@@ -62,11 +58,7 @@
 		321D481A2CAF6099007A0B20 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		32325EDF2CB2B9490048E557 /* CSTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSTextField.swift; sourceTree = "<group>"; };
 		32325EE12CB2C3EB0048E557 /* SignUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreen.swift; sourceTree = "<group>"; };
-		3239D8F82CB221800094D38B /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
 		324A9FD22CB0BB56007F6998 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		324A9FDA2CB0BD63007F6998 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
-		324A9FDB2CB0BD63007F6998 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
-		324A9FDC2CB0BD63007F6998 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		3261083F2CBAD3B10072D238 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		3293AC942CC7166A00A9A9B5 /* OrderReceiptCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderReceiptCell.swift; sourceTree = "<group>"; };
 		32E73B232CBB091700730A1A /* CSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSButton.swift; sourceTree = "<group>"; };
@@ -159,22 +151,11 @@
 		3239D8FA2CB22BE50094D38B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				3239D8F82CB221800094D38B /* Font+Extension.swift */,
 				50DFA8122D046D840058A4D4 /* UIWindow+Extension.swift */,
 				D1EC2FFB2D2637FA008E8265 /* Color+Extension.swift */,
 				D1426EE62D4E5D5D00C78FE0 /* UIApplication+Extension.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		324A9FD32CB0BB83007F6998 /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-				324A9FDA2CB0BD63007F6998 /* Poppins-Bold.ttf */,
-				324A9FDB2CB0BD63007F6998 /* Poppins-Medium.ttf */,
-				324A9FDC2CB0BD63007F6998 /* Poppins-Regular.ttf */,
-			);
-			path = Fonts;
 			sourceTree = "<group>";
 		};
 		32FF43A72CC6C742001C0E0C /* Authentication */ = {
@@ -338,7 +319,6 @@
 			isa = PBXGroup;
 			children = (
 				3239D8FA2CB22BE50094D38B /* Extensions */,
-				324A9FD32CB0BB83007F6998 /* Fonts */,
 				D1C859D12D20BEEC00DDB941 /* Assets */,
 			);
 			path = Shared;
@@ -432,10 +412,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				321D481B2CAF6099007A0B20 /* Preview Assets.xcassets in Resources */,
-				324A9FDE2CB0BD63007F6998 /* Poppins-Medium.ttf in Resources */,
-				324A9FDD2CB0BD63007F6998 /* Poppins-Bold.ttf in Resources */,
 				321D48182CAF6099007A0B20 /* Assets.xcassets in Resources */,
-				324A9FDF2CB0BD63007F6998 /* Poppins-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,7 +430,6 @@
 				50DFA81B2D04768D0058A4D4 /* MilkPicker.swift in Sources */,
 				321D48142CAF6098007A0B20 /* CuppaJoyApp.swift in Sources */,
 				D182F4A72D325A8C00A113E8 /* OnboardingScreen.swift in Sources */,
-				3239D8F92CB221800094D38B /* Font+Extension.swift in Sources */,
 				D1E497D72D2BE36900ACBB56 /* CupSizeCell.swift in Sources */,
 				50DFA8132D046D840058A4D4 /* UIWindow+Extension.swift in Sources */,
 				D174204A2D3D532D00FE1E2B /* OnboardingPage.swift in Sources */,

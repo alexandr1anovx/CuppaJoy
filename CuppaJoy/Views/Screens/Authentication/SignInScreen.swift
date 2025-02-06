@@ -84,7 +84,6 @@ struct SignInScreen: View {
         Text("Sign Up.")
           .font(.callout).bold()
           .fontDesign(.monospaced)
-          .font(.poppins(.bold, size: 15))
           .foregroundStyle(.csCream)
       }
     }
