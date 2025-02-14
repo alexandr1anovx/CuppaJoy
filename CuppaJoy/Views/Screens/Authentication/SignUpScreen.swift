@@ -80,7 +80,7 @@ struct SignUpScreen: View {
     List {
       CSTextField(
         icon: "person",
-        prompt: "Full name",
+        hint: "Full name",
         inputData: $username
       )
       .focused($fieldContent, equals: .username)
@@ -90,7 +90,7 @@ struct SignUpScreen: View {
       
       CSTextField(
         icon: "phone",
-        prompt: "Phone number",
+        hint: "Phone number",
         inputData: $phoneNumber
       )
       .focused($fieldContent, equals: .phoneNumber)
@@ -99,7 +99,7 @@ struct SignUpScreen: View {
       
       CSTextField(
         icon: "envelope",
-        prompt: "user@example.com",
+        hint: "user@example.com",
         inputData: $email
       )
       .focused($fieldContent, equals: .email)

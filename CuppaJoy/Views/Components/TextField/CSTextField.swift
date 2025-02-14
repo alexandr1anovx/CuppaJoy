@@ -10,7 +10,7 @@ import SwiftUI
 struct CSTextField: View {
   
   let icon: String
-  let prompt: String
+  let hint: String
   @Binding var inputData: String
   
   var body: some View {
@@ -18,7 +18,7 @@ struct CSTextField: View {
       Image(systemName: icon)
         .font(.headline)
         .foregroundStyle(.csDesert)
-      TextField(prompt, text: $inputData)
+      TextField(hint, text: $inputData)
         .font(.subheadline)
         .fontDesign(.monospaced)
     }
@@ -31,7 +31,7 @@ struct CSTextField: View {
 #Preview {
   CSTextField(
     icon: "swift",
-    prompt: "Enter your password",
+    hint: "Enter your password",
     inputData: .constant("")
   )
 }

@@ -49,7 +49,7 @@ struct ProfileScreen: View {
     List {
       CSTextField(
         icon: "person",
-        prompt: "Alexander Pushkin",
+        hint: "Alexander Pushkin",
         inputData: $username
       )
       .focused($fieldContent, equals: .username)
@@ -60,7 +60,7 @@ struct ProfileScreen: View {
       
       CSTextField(
         icon: "phone",
-        prompt: "Phone number",
+        hint: "Phone number",
         inputData: $phoneNumber
       )
       .focused($fieldContent, equals: .phoneNumber)
@@ -70,7 +70,7 @@ struct ProfileScreen: View {
       
       CSTextField(
         icon: "envelope",
-        prompt: "user@example.com",
+        hint: "user@example.com",
         inputData: $email
       )
       .focused($fieldContent, equals: .email)

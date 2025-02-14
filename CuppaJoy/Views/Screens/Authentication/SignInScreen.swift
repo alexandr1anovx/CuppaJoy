@@ -9,10 +9,8 @@ import SwiftUI
 
 struct SignInScreen: View {
   
-  // Stored Properties
   @State private var phoneNumber = ""
   
-  // Computed Properties
   private var isValidForm: Bool {
     isValidPhoneNumber(phoneNumber)
   }
@@ -40,7 +38,7 @@ struct SignInScreen: View {
     List {
       CSTextField(
         icon: "phone",
-        prompt: "Your phone number",
+        hint: "Your phone number",
         inputData: $phoneNumber
       )
       .submitLabel(.done)
@@ -90,6 +88,7 @@ struct SignInScreen: View {
     .shadow(radius: 8)
   }
   
+  // MARK: - Logic Methods
   private func isValidPhoneNumber(_ phone: String) -> Bool {
     let regex = #"^(\+380|0)\d{9}$"#
     let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
