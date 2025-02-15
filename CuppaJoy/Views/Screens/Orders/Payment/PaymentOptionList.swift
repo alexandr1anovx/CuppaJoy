@@ -38,15 +38,15 @@ struct PaymentOptionList: View {
     .scrollContentBackground(.hidden)
   }
   
-  // MARK: - Payment Cell
+  // MARK: Payment Cell
   private func paymentCell(option: PaymentOption, isDisabled: Bool) -> some View {
     HStack {
       Image(systemName: option.iconName)
-        .font(.title2)
+        .imageScale(.large)
         .foregroundColor(.white)
         .padding(.trailing, 8)
       Text(option.title)
-        .font(.headline)
+        .font(.subheadline)
         .fontDesign(.monospaced)
       Spacer()
       

@@ -16,7 +16,7 @@ struct CSTextField: View {
   var body: some View {
     HStack(spacing: 15) {
       Image(systemName: icon)
-        .font(.headline)
+        .imageScale(.medium)
         .foregroundStyle(.csDesert)
       TextField(hint, text: $inputData)
         .font(.subheadline)

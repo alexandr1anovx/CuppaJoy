@@ -12,7 +12,7 @@ struct ReturnButton: View {
   
   var body: some View {
     Image(systemName: "arrowshape.left.circle.fill")
-      .font(.headline)
+      .imageScale(.large)
       .foregroundStyle(.accent)
       .onTapGesture {
         dismiss()
