@@ -58,7 +58,7 @@ struct SignUpScreen: View {
           textFieldList
           cityPicker.padding(20)
           signUpButton.padding(.top, 10)
-          signInOption.padding(.top, 20)
+          signInOption.padding(.top, 15)
           Spacer()
         }
         .padding(.top, 20)
@@ -71,8 +71,6 @@ struct SignUpScreen: View {
       }
     }
     .scrollIndicators(.hidden)
-//    .onAppear { fieldContent = .username }
-//    .onTapGesture { UIApplication().hideKeyboard() }
   }
   
   // MARK: Text Field list
@@ -145,7 +143,7 @@ struct SignUpScreen: View {
         .padding(.vertical, 8)
     }
     .buttonStyle(.borderedProminent)
-    .tint(.csBrown)
+    .tint(.csDesert)
     .padding(.horizontal, 20)
     .shadow(radius: 8)
     .disabled(!isValidForm)

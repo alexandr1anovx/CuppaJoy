@@ -63,7 +63,7 @@ struct SignInScreen: View {
         .padding(.vertical, 8)
     }
     .buttonStyle(.borderedProminent)
-    .tint(.csBrown)
+    .tint(.csDesert)
     .padding(.horizontal, 20)
     .shadow(radius: 8)
     .disabled(!isValidForm)

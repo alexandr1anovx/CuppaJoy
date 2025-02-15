@@ -40,7 +40,7 @@ struct ApplePaySheet: View {
     }
   }
   
-  // MARK: - Apple Pay Image
+  // MARK: Apple Pay Image
   private var applePayImage: some View {
     HStack {
       Image(systemName: "apple.logo")
@@ -48,7 +48,7 @@ struct ApplePaySheet: View {
     }
   }
   
-  // MARK: - Order Title
+  // MARK: Order Title
   private var orderTitleSection: some View {
     HStack(spacing: 20) {
       Image(.coffee)
@@ -68,7 +68,7 @@ struct ApplePaySheet: View {
     }
   }
   
-  // MARK: - Order Price
+  // MARK: Order Price
   private var orderPriceSection: some View {
     VStack {
       Text("35.00 UAH")
@@ -80,7 +80,7 @@ struct ApplePaySheet: View {
     }
   }
   
-  // MARK: - Account Name
+  // MARK: Account Name
   private var accountNameSection: some View {
     Text("Account: sashaandrianov@icloud.com")
       .font(.callout)
@@ -88,7 +88,7 @@ struct ApplePaySheet: View {
       .tint(.gray)
   }
   
-  // MARK: - Footer (confirmation action)
+  // MARK: Footer (confirmation action)
   private var footer: some View {
     Button {
       isShownAlert.toggle()
