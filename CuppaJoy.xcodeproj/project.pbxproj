@@ -124,7 +124,7 @@
 		321D48122CAF6098007A0B20 /* CuppaJoy */ = {
 			isa = PBXGroup;
 			children = (
-				D1C859CE2D20BD3C00DDB941 /* Lifecycle */,
+				D1C859CE2D20BD3C00DDB941 /* App */,
 				32325EDE2CB2B7350048E557 /* Views */,
 				D1C859CF2D20BE2400DDB941 /* Shared */,
 			);
@@ -305,14 +305,14 @@
 			path = OrderStatus;
 			sourceTree = "<group>";
 		};
-		D1C859CE2D20BD3C00DDB941 /* Lifecycle */ = {
+		D1C859CE2D20BD3C00DDB941 /* App */ = {
 			isa = PBXGroup;
 			children = (
 				32FF43BA2CC6FA35001C0E0C /* EntryPoint.swift */,
 				321D48132CAF6098007A0B20 /* CuppaJoyApp.swift */,
 				324A9FD22CB0BB56007F6998 /* Info.plist */,
 			);
-			path = Lifecycle;
+			path = App;
 			sourceTree = "<group>";
 		};
 		D1C859CF2D20BE2400DDB941 /* Shared */ = {
