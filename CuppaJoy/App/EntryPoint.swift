@@ -7,12 +7,14 @@
 
 import SwiftUI
 
-enum Tab: String, Hashable {
-  case home, rewards, orders
+enum Tab {
+  case home
+  case rewards
+  case orders
 }
 
 struct EntryPoint: View {
-  @State private var selectedTab = Tab.home
+  @State private var selectedTab: Tab = .home
   
   var body: some View {
     NavigationStack {
