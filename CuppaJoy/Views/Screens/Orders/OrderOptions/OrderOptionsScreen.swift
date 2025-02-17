@@ -8,26 +8,45 @@
 import SwiftUI
 
 struct OrderOptionsScreen: View {
-  let selectedCoffee: Coffee
   
+  // MARK: Stored Properties
+  let selectedCoffee: Coffee
+  @State private var cupQuantity: Int = 1
+  @State private var cupSize: CupSize = .small
+  @State private var coffeeType: CoffeeType = .arabica
+  @State private var milk: Milk = .none
+  @State private var syrup: Syrup = .none
+  @State private var additive: Additive = .none
+  @State private var iceCubeCount: IceCube = .none
+  @State private var totalPrice: Double = 0.0
+  
+  // MARK: Computed Properties
+  var calculatedTotalPrice: Double {
+    let basePrice = selectedCoffee.price
+    let assemblerPrice = cupSize.price + milk.price + syrup.price + additive.price
+    let finalPrice = (basePrice + assemblerPrice) * Double(cupQuantity)
+    return finalPrice
+  }
+  
+  // MARK: body
   var body: some View {
     ZStack {
       Color.appBackground.ignoresSafeArea(.all)
       VStack {
         List {
-          QuantityCell()
-          CupSizeCell()
-          CoffeeTypePicker()
-          MilkPicker()
-          SyrupPicker()
-          AdditivePicker()
-          IceCubePicker()
+          QuantityCell(cupQuantity: $cupQuantity)
+          CupSizeCell(cupSize: $cupSize)
+          CoffeeTypePicker(coffeeType: $coffeeType)
+          MilkPicker(milk: $milk)
+          SyrupPicker(syrup: $syrup)
+          AdditivePicker(additive: $additive)
+          IceCubePicker(iceCubeCount: $iceCubeCount)
         }
         .listStyle(.insetGrouped)
         .listRowSpacing(20)
         .scrollContentBackground(.hidden)
         .scrollIndicators(.hidden)
-        .shadow(radius: 8)
+        .shadow(radius: 5)
         
         HStack {
           VStack(alignment: .center, spacing: 8) {
@@ -35,13 +54,15 @@ struct OrderOptionsScreen: View {
               .font(.subheadline)
               .fontDesign(.monospaced)
               .foregroundStyle(.gray)
-            Text("₴ 35.00")
+            Text("₴ \(calculatedTotalPrice, specifier: "%.2f")")
               .font(.title2).bold()
               .foregroundStyle(.white)
+              .contentTransition(.numericText(value: calculatedTotalPrice))
+              .animation(.spring, value: calculatedTotalPrice)
           }
           Spacer()
           NavigationLink {
-            PendingOrderScreen()
+            PendingOrderScreen(calculatedTotalPrice: calculatedTotalPrice)
           } label: {
             Text("Confirm")
               .font(.callout).bold()
@@ -52,7 +73,7 @@ struct OrderOptionsScreen: View {
               .clipShape(.buttonBorder)
           }
         }
-        .shadow(radius: 8)
+        .shadow(radius: 5)
         .padding(20)
         
         // 20px bottom padding for iPhone SE 3rd generation.
