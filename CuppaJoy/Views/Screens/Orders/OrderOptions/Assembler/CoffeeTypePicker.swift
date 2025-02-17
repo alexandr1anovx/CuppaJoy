@@ -17,10 +17,10 @@ enum CoffeeType: String, CaseIterable {
 }
 
 struct CoffeeTypePicker: View {
-  @State private var selectedType = CoffeeType.arabica
+  @Binding var coffeeType: CoffeeType
   
   var body: some View {
-    Picker("Type", selection: $selectedType) {
+    Picker("Type", selection: $coffeeType) {
       ForEach(CoffeeType.allCases, id: \.self) { type in
         Text(type.title)
       }
@@ -33,5 +33,5 @@ struct CoffeeTypePicker: View {
 }
 
 #Preview {
-  CoffeeTypePicker()
+  CoffeeTypePicker(coffeeType: .constant(.robusta))
 }

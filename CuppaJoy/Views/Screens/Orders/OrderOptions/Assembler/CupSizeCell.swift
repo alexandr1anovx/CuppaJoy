@@ -7,11 +7,29 @@
 
 import SwiftUI
 
-struct CupSizeCell: View {
-  @State private var selectedSize = CoffeeCup.small
+enum CupSize: String, CaseIterable {
+  case small
+  case medium
+  case large
   
-  // Picker Style Customization
-  init() {
+  var title: String { self.rawValue.capitalized }
+  
+  var price: Double {
+    switch self {
+    case .small: 0.0
+    case .medium: 1.5
+    case .large: 3.0
+    }
+  }
+}
+
+struct CupSizeCell: View {
+  @Binding var cupSize: CupSize
+  
+  init(cupSize: Binding<CupSize>) {
+    self._cupSize = cupSize
+    
+    // Custom Picker Style
     UISegmentedControl.appearance().selectedSegmentTintColor = .csBrown
     UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
     UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
@@ -23,9 +41,9 @@ struct CupSizeCell: View {
       Text("Size:")
         .font(.subheadline)
         .fontDesign(.monospaced)
-      Picker("", selection: $selectedSize) {
-        ForEach(CoffeeCup.allCases, id: \.self) { size in
-          Text(size.title)     
+      Picker("", selection: $cupSize) {
+        ForEach(CupSize.allCases, id: \.self) { size in
+          Text(size.title)
         }
       }.pickerStyle(.segmented)
     }
@@ -33,5 +51,5 @@ struct CupSizeCell: View {
 }
 
 #Preview {
-  CupSizeCell()
+  CupSizeCell(cupSize: .constant(.medium))
 }

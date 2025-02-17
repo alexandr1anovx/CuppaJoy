@@ -15,13 +15,23 @@ enum Syrup: String, CaseIterable {
   case caramel
   
   var title: String { self.rawValue.capitalized }
+  
+  var price: Double {
+    switch self {
+    case .none: 0.0
+    case .amaretto: 1.0
+    case .coconut: 1.5
+    case .vanilla: 1.0
+    case .caramel: 2.0
+    }
+  }
 }
 
 struct SyrupPicker: View {
-  @State private var selectedSyrup = Syrup.none
+  @Binding var syrup: Syrup
   
   var body: some View {
-    Picker("Syrup", selection: $selectedSyrup) {
+    Picker("Syrup", selection: $syrup) {
       ForEach(Syrup.allCases, id: \.self) { syrup in
         Text(syrup.title)
       }
