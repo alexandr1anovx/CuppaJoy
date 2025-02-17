@@ -21,27 +21,13 @@ enum Coffee: String, CaseIterable {
     case .cappuccino: "Cappuccino"
     }
   }
-}
-enum CoffeeCup: String, CaseIterable {
-  case small
-  case medium
-  case large
-  
-  var title: String { self.rawValue.capitalized }
-  
-  var ml: String {
-    switch self {
-    case .small: "250"
-    case .medium: "350"
-    case .large: "450"
-    }
-  }
   
   var price: Double {
     switch self {
-    case .small: 30.50
-    case .medium: 32.50
-    case .large: 35.50
+    case .americano: 20.5
+    case .espresso: 25.0
+    case .latte: 23.0
+    case .cappuccino: 28.0
     }
   }
 }
