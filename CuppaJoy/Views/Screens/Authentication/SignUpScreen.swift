@@ -7,12 +7,14 @@
 
 import SwiftUI
 
+// Should be moved to the view model in the future.
 enum AuthFieldContent: Hashable {
   case username
   case phoneNumber
   case email
 }
 
+// Should be moved to the view model in the future.
 enum City: String, CaseIterable {
   case mykolaiv = "Mykolaiv"
   case odesa = "Odesa"
@@ -20,24 +22,24 @@ enum City: String, CaseIterable {
 
 struct SignUpScreen: View {
   
-  // Stored Properties
+  // MARK: Stored Properties
   @State private var username = ""
   @State private var phoneNumber = ""
   @State private var email = ""
-  @State private var selectedCity = City.mykolaiv
+  @State private var selectedCity: City = .mykolaiv
   @State private var confirmationCode = ""
   @State private var isShownConfirmationAlert = false
   @FocusState private var fieldContent: AuthFieldContent?
   @Environment(\.dismiss) var dismiss
   
-  // Computed Properties
+  // MARK: Computed Properties
   private var isValidForm: Bool {
     isValidUsername(username)
     && isValidPhoneNumber(phoneNumber)
     && isValidEmail(email)
   }
   
-  // Picker Style Customizations
+  // Custom Picker Style
   init() {
     UISegmentedControl.appearance().selectedSegmentTintColor = .csBrown
     UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
@@ -51,10 +53,8 @@ struct SignUpScreen: View {
       
       ScrollView {
         VStack(spacing: 0) {
-          AuthHeaderView(
-            title: "Sign Up.",
-            subtitle: "Let's create an account."
-          )
+          AuthHeaderView(authAction: .signUp)
+          
           textFieldList
           cityPicker.padding(20)
           signUpButton.padding(.top, 10)
@@ -73,7 +73,7 @@ struct SignUpScreen: View {
     .scrollIndicators(.hidden)
   }
   
-  // MARK: Text Field list
+  // MARK: Text Field List
   private var textFieldList: some View {
     List {
       CSTextField(
@@ -111,7 +111,6 @@ struct SignUpScreen: View {
     .scrollContentBackground(.hidden)
     .scrollIndicators(.hidden)
     .scrollDisabled(true)
-    .shadow(radius: 8)
   }
   
   // MARK: City Picker
@@ -119,7 +118,6 @@ struct SignUpScreen: View {
     VStack(alignment: .leading) {
       Text("Select your city:")
         .font(.footnote)
-        .fontDesign(.monospaced)
         .foregroundStyle(.gray)
         .padding(.leading, 5)
       Picker("City", selection: $selectedCity) {
@@ -127,25 +125,14 @@ struct SignUpScreen: View {
           Text(city.rawValue)
         }
       }.pickerStyle(.segmented)
-    }.shadow(radius: 8)
+    }
   }
   
   // MARK: Sign Up button
   private var signUpButton: some View {
-    Button {
+    CSButton("Sign Up", bgColor: .csDesert) {
       isShownConfirmationAlert.toggle()
-    } label: {
-      Text("Sign Up")
-        .font(.callout).bold()
-        .fontDesign(.monospaced)
-        .foregroundStyle(.white)
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 8)
     }
-    .buttonStyle(.borderedProminent)
-    .tint(.csDesert)
-    .padding(.horizontal, 20)
-    .shadow(radius: 8)
     .disabled(!isValidForm)
     .alert("Code Confirmation", isPresented: $isShownConfirmationAlert) {
       TextField("Code", text: $confirmationCode)
@@ -164,21 +151,18 @@ struct SignUpScreen: View {
     Button {
       dismiss()
     } label: {
-      HStack(spacing: 8) {
+      HStack(spacing: 5) {
         Text("Already a member?")
           .font(.footnote)
-          .fontDesign(.monospaced)
           .foregroundStyle(.gray)
         Text("Sign In.")
           .font(.callout).bold()
-          .fontDesign(.monospaced)
           .foregroundStyle(.csCream)
       }
-      .shadow(radius: 8)
     }
   }
   
-  // Data validation methods
+  // Data validation methods. Should be moved to the view model in the future.
   
   private func isValidUsername(_ username: String) -> Bool {
     let regex = #"^[a-zA-Z-]+ ?.* [a-zA-Z-]+$"#

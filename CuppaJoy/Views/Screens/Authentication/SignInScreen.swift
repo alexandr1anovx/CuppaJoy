@@ -7,10 +7,18 @@
 
 import SwiftUI
 
+enum SignInMethod {
+  case email, phone
+}
+
 struct SignInScreen: View {
   
+  // MARK: Stored Properties
   @State private var phoneNumber = ""
+  @State private var emailAddress = ""
+  @State private var selectedMethod: SignInMethod?
   
+  // MARK: Computed Properties
   private var isValidForm: Bool {
     isValidPhoneNumber(phoneNumber)
   }
@@ -20,17 +28,31 @@ struct SignInScreen: View {
       ZStack {
         Color.appBackground.ignoresSafeArea(.all)
         VStack(spacing: 0) {
-          AuthHeaderView(
-            title: "Sign In.",
-            subtitle: "Welcome to Cuppa Joy."
-          )
-          textFieldList
-          signInButton.padding(.top, 25)
-          signUpOption.padding(.top, 20)
+          AuthHeaderView(authAction: .signIn)
+          content
         }
-        .padding(.horizontal, 10)
       }
     }
+  }
+  
+  @ViewBuilder
+  private var content: some View {
+    if selectedMethod == nil {
+      authMethodButtons
+    } else if selectedMethod == .email {
+      emailForm
+    } else {
+      phoneNumberForm
+    }
+  }
+  
+  private var authMethodButtons: some View {
+    VStack(spacing: 15) {
+      signInWithEmailButton
+      signInWithPhoneNumberButton
+      signUpOption
+    }
+    .padding(.top, 47)
   }
   
   // MARK: Text Field list
@@ -47,45 +69,122 @@ struct SignInScreen: View {
     .scrollContentBackground(.hidden)
     .scrollIndicators(.hidden)
     .scrollDisabled(true)
-    .shadow(radius: 8)
+  }
+  
+  private var emailForm: some View {
+    VStack(spacing: 20) {
+      List {
+        CSTextField(
+          icon: "envelope",
+          hint: "Email address",
+          inputData: $emailAddress
+        )
+        .keyboardType(.emailAddress)
+        .autocorrectionDisabled(true)
+        .submitLabel(.done)
+      }
+      .frame(height: 85)
+      .scrollContentBackground(.hidden)
+      .scrollIndicators(.hidden)
+      .scrollDisabled(true)
+      
+      signInButton
+      
+      Label("Other methods", systemImage: "arrow.backward.circle")
+        .fontWeight(.medium)
+        .fontDesign(.rounded)
+        .foregroundStyle(.orange)
+        .onTapGesture { selectedMethod = .none }
+    }
+  }
+  
+  private var phoneNumberForm: some View {
+    VStack(spacing: 20) {
+      List {
+        CSTextField(
+          icon: "phone",
+          hint: "Phone number",
+          inputData: $phoneNumber
+        )
+        .submitLabel(.done)
+      }
+      .frame(height: 85)
+      .scrollContentBackground(.hidden)
+      .scrollIndicators(.hidden)
+      .scrollDisabled(true)
+      
+      signInButton
+      
+      Label("Other methods", systemImage: "arrow.backward.circle")
+        .fontWeight(.medium)
+        .fontDesign(.rounded)
+        .foregroundStyle(.orange)
+        .onTapGesture { selectedMethod = .none }
+    }
+  }
+  
+  // MARK: Sign In With Email
+  private var signInWithEmailButton: some View {
+    Button {
+      selectedMethod = .email
+    } label: {
+      Label {
+        Text("Continue with Email")
+          .font(.callout).bold()
+      } icon: {
+        Image(systemName: "envelope")
+          .foregroundStyle(.csCream)
+      }
+      .frame(maxWidth: .infinity)
+      .padding(.vertical, 8)
+    }
+    .buttonStyle(.borderedProminent)
+    .tint(.black)
+    .padding(.horizontal, 20)
+  }
+  
+  // MARK: Sign In With Phone Number
+  private var signInWithPhoneNumberButton: some View {
+    Button {
+      selectedMethod = .phone
+    } label: {
+      Label {
+        Text("Continue with Phone")
+          .font(.callout).bold()
+      } icon: {
+        Image(systemName: "phone")
+          .foregroundStyle(.csCream)
+      }
+      .frame(maxWidth: .infinity)
+      .padding(.vertical, 8)
+    }
+    .buttonStyle(.borderedProminent)
+    .tint(.black)
+    .padding(.horizontal, 20)
   }
   
   // MARK: Sign In button
   private var signInButton: some View {
-    Button {
-      // logic
-    } label: {
-      Text("Sign In")
-        .font(.callout).bold()
-        .fontDesign(.monospaced)
-        .foregroundStyle(.white)
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 8)
+    CSButton("Sign In", bgColor: .csDesert) {
+      // action
     }
-    .buttonStyle(.borderedProminent)
-    .tint(.csDesert)
-    .padding(.horizontal, 20)
-    .shadow(radius: 8)
     .disabled(!isValidForm)
   }
   
   // MARK: Sign Up option
   private var signUpOption: some View {
-    HStack(spacing: 8) {
+    HStack(spacing: 5) {
       Text("New member?")
         .font(.footnote)
-        .fontDesign(.monospaced)
         .foregroundStyle(.gray)
       NavigationLink {
         SignUpScreen()
       } label: {
         Text("Sign Up.")
           .font(.callout).bold()
-          .fontDesign(.monospaced)
           .foregroundStyle(.csCream)
       }
     }
-    .shadow(radius: 8)
   }
   
   // MARK: - Logic Methods
