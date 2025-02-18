@@ -7,28 +7,42 @@
 
 import SwiftUI
 
+enum AuthAction {
+  case signIn
+  case signUp
+  
+  var title: String {
+    switch self {
+    case .signIn: "Sign in."
+    case .signUp: "Sign up."
+    }
+  }
+  
+  var subtitle: String {
+    switch self {
+    case .signIn: "Select a convenient way."
+    case .signUp: "Create a new account."
+    }
+  }
+}
+
 struct AuthHeaderView: View {
-  let title: String
-  let subtitle: String
+  
+  let authAction: AuthAction
   
   var body: some View {
-    HStack(alignment: .firstTextBaseline, spacing: 8) {
-      Text(title)
-        .font(.headline)
-        .fontDesign(.monospaced)
+    HStack(alignment: .firstTextBaseline) {
+      Text(authAction.title)
+        .font(.title2)
+        .fontWeight(.bold)
         .foregroundStyle(.white)
-      Text(subtitle)
-        .font(.subheadline)
-        .fontDesign(.monospaced)
+      Text(authAction.subtitle)
+        .font(.title3)
         .foregroundStyle(.gray)
     }
-    .shadow(radius: 8)
   }
 }
 
 #Preview {
-  AuthHeaderView(
-    title: "Title.",
-    subtitle: "Subtitle with some text."
-  )
+  AuthHeaderView(authAction: .signIn)
 }
