@@ -8,12 +8,14 @@
 import SwiftUI
 
 enum OrderStatus: String, CaseIterable {
-  case ongoing = "Ongoing"
-  case received = "Received"
+  case ongoing
+  case received
+  
+  var title: String { self.rawValue.capitalized }
 }
 
 struct OrderStatusScreen: View {
-  @State private var selectedStatus = OrderStatus.ongoing
+  @State private var selectedStatus: OrderStatus = .ongoing
   
   var body: some View {
     ZStack {
@@ -29,29 +31,26 @@ struct OrderStatusScreen: View {
     }
   }
   
-  private func indicatedTab(title: String, isSelected: Bool) -> some View {
-    Text(title)
+  private func indicatedTab(for status: OrderStatus, isSelected: Bool) -> some View {
+    Text(status.title)
       .font(.subheadline)
       .fontDesign(.monospaced)
       .foregroundStyle(isSelected ? .csCream : .gray)
-      .padding(8)
+      .padding(10)
       .background(isSelected ? .black : .clear)
       .clipShape(.capsule)
       .shadow(radius: 5)
   }
   
   private var orderStatusTabs: some View {
-    HStack(spacing:10) {
+    HStack(spacing: 10) {
       ForEach(OrderStatus.allCases, id: \.self) { status in
-        indicatedTab(
-          title: status.rawValue,
-          isSelected: status == selectedStatus
-        )
-        .onTapGesture {
-          withAnimation {
-            selectedStatus = status
+        indicatedTab(for: status, isSelected: status == selectedStatus)
+          .onTapGesture {
+            withAnimation {
+              selectedStatus = status
+            }
           }
-        }
       }
     }
   }
