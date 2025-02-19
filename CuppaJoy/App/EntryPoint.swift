@@ -8,9 +8,7 @@
 import SwiftUI
 
 enum Tab {
-  case home
-  case rewards
-  case orders
+  case home, rewards, orders
 }
 
 struct EntryPoint: View {
@@ -37,6 +35,11 @@ struct EntryPoint: View {
             Image(.bookmark)
             Text("Orders")
           }
+      }
+      // Enables haptic feedback when selecting a tab.
+      .onChange(of: selectedTab) {
+        let generator = UISelectionFeedbackGenerator()
+        generator.selectionChanged()
       }
     }
   }
