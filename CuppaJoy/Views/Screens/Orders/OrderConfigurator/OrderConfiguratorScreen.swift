@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OrderOptionsScreen: View {
+struct OrderConfiguratorScreen: View {
   
   // MARK: Stored Properties
   let selectedCoffee: Coffee
@@ -16,14 +16,13 @@ struct OrderOptionsScreen: View {
   @State private var coffeeType: CoffeeType = .arabica
   @State private var milk: Milk = .none
   @State private var syrup: Syrup = .none
-  @State private var additive: Additive = .none
   @State private var iceCubeCount: IceCube = .none
   @State private var totalPrice: Double = 0.0
   
   // MARK: Computed Properties
   var calculatedTotalPrice: Double {
     let basePrice = selectedCoffee.price
-    let assemblerPrice = cupSize.price + milk.price + syrup.price + additive.price
+    let assemblerPrice = cupSize.price + milk.price + syrup.price
     let finalPrice = (basePrice + assemblerPrice) * Double(cupQuantity)
     return finalPrice
   }
@@ -39,7 +38,6 @@ struct OrderOptionsScreen: View {
           CoffeeTypePicker(coffeeType: $coffeeType)
           MilkPicker(milk: $milk)
           SyrupPicker(syrup: $syrup)
-          AdditivePicker(additive: $additive)
           IceCubePicker(iceCubeCount: $iceCubeCount)
         }
         .listStyle(.insetGrouped)
@@ -92,5 +90,5 @@ struct OrderOptionsScreen: View {
 }
 
 #Preview {
-  OrderOptionsScreen(selectedCoffee: .espresso)
+  OrderConfiguratorScreen(selectedCoffee: .espresso)
 }
