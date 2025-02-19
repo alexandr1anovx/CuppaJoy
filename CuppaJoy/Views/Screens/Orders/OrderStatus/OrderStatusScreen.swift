@@ -70,7 +70,7 @@ struct OrderStatusScreen: View {
   private var receivedOrders: some View {
     List {
       OrderReceiptCell(
-        coffee: Coffee.cappuccino,
+        coffee: .cappuccino,
         address: "3rd Slobidska",
         price: 39.50
       )

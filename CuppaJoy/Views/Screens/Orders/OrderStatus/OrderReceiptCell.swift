@@ -68,7 +68,7 @@ struct OrderReceiptCell: View {
 
 #Preview {
   OrderReceiptCell(
-    coffee: Coffee.americano,
+    coffee: .americano,
     address: "Soborna Street, 50A",
     price: 35.00
   )

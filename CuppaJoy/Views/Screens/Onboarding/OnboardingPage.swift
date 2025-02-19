@@ -24,14 +24,10 @@ enum OnboardingPage: Int, CaseIterable {
   
   var description: String {
     switch self {
-    case .greeting:
-      "Start your day with the perfect cup of coffee."
-    case .delivery:
-      "Get your favorite brews delivered fast and fresh."
-    case .payment:
-      "Enjoy quick and secure payments with Apple Pay."
-    case .welcome:
-      "Join us and explore a world of rich aromas."
+    case .greeting: "Start your day with the perfect cup of coffee."
+    case .delivery: "Get your favorite brews delivered fast and fresh."
+    case .payment: "Enjoy quick and secure payments with Apple Pay."
+    case .welcome: "Join us and explore a world of rich aromas."
     }
   }
   

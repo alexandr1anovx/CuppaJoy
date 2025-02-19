@@ -32,5 +32,5 @@ struct CoffeeCell: View {
 }
 
 #Preview {
-  CoffeeCell(coffee: Coffee.americano)
+  CoffeeCell(coffee: .americano)
 }
