@@ -14,7 +14,6 @@ struct HomeScreen: View {
       VStack {
         HomeHeaderView()
         CoffeeSelectionView()
-          .shadow(radius: 8)
       }
     }
   }

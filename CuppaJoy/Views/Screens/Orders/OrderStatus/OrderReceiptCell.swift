@@ -17,7 +17,7 @@ struct OrderReceiptCell: View {
   }
   
   var body: some View {
-    VStack(alignment: .leading, spacing:15) {
+    VStack(alignment: .leading, spacing: 15) {
       orderHeader(date: date, price: price)
       orderRow(image: .coffee, content: coffee.title)
       HStack {
@@ -31,24 +31,24 @@ struct OrderReceiptCell: View {
     HStack(spacing: 10) {
       Text(date)
         .font(.footnote)
-        .fontDesign(.monospaced)
         .foregroundStyle(.gray)
         .lineLimit(1)
       Spacer()
-      Text("₴ \(String(format: "%.2f", price))")
+      Text("₴ \(price, specifier: "%.2f")")
         .font(.title3).bold()
         .foregroundStyle(.csCream)
     }
   }
   
   private func orderRow(image: ImageResource, content: String) -> some View {
-    HStack(spacing: 13) {
+    HStack(spacing: 15) {
       Image(image)
         .resizable()
         .frame(width: 17, height: 17)
         .foregroundStyle(.accent)
       Text(content)
-        .font(.system(size: 14, weight: .medium, design: .monospaced))
+        .font(.callout)
+        .fontWeight(.medium)
         .foregroundStyle(.white)
         .multilineTextAlignment(.leading)
         .lineLimit(2)

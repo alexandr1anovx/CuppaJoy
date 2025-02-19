@@ -10,29 +10,29 @@ import SwiftUI
 struct CSButton: View {
   
   let title: String
+  let bgColor: Color
   let action: () -> Void
   
-  init(_ title: String, action: @escaping () -> Void) {
+  init(_ title: String, bgColor: Color, action: @escaping () -> Void) {
     self.title = title
+    self.bgColor = bgColor
     self.action = action
   }
   
   var body: some View {
-    Button {
-      action()
-    } label: {
+    Button(action: action) {
       Text(title)
         .font(.callout).bold()
-        .fontDesign(.monospaced)
         .foregroundStyle(.white)
+        .frame(maxWidth: .infinity)
         .padding(.vertical, 8)
-        .padding(.horizontal, 20)
     }
-    .tint(.black)
     .buttonStyle(.borderedProminent)
+    .tint(bgColor)
+    .padding(.horizontal, 20)
   }
 }
 
 #Preview {
-  CSButton("Get Started", action: {})
+  CSButton("Get Started", bgColor: .csDesert, action: {})
 }

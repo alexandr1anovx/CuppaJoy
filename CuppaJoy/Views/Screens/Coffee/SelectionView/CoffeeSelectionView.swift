@@ -23,11 +23,10 @@ struct CoffeeSelectionView: View {
       VStack {
         Label("Soborna Street, 50A", systemImage: "mappin")
           .font(.footnote)
-          .fontDesign(.monospaced)
           .foregroundStyle(.accent)
-          .padding(.horizontal, 10)
-          .padding(.vertical, 12)
-          .background(.csDarkGrey)
+          .padding(.horizontal, 12)
+          .padding(.vertical, 13)
+          .background(.csBlack)
           .clipShape(.capsule)
         
         ScrollView {

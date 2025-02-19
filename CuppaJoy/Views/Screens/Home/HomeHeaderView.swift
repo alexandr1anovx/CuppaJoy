@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeHeaderView: View {
   
   var body: some View {
-    HStack(spacing: 25) {
+    HStack(spacing: 20) {
       userDataView
       Spacer()
       mapButton
@@ -23,13 +23,11 @@ struct HomeHeaderView: View {
     VStack(alignment: .leading, spacing: 10) {
       Text("Alexander Andrianov")
         .font(.headline)
-        .fontDesign(.monospaced)
         .foregroundStyle(.white)
         .lineLimit(2)
       HStack(spacing: 5) {
         Text("Bonuses:")
           .font(.callout)
-          .fontDesign(.monospaced)
           .fontWeight(.medium)
           .foregroundStyle(.gray)
         Text("₴₴")

@@ -14,7 +14,7 @@ struct CoffeeCell: View {
     NavigationLink {
       OrderOptionsScreen(selectedCoffee: coffee)
     } label: {
-      RoundedRectangle(cornerRadius: 23)
+      RoundedRectangle(cornerRadius: 20)
         .foregroundStyle(.csBlack)
         .shadow(radius: 8)
         .aspectRatio(1.1, contentMode: .fit)
@@ -22,11 +22,8 @@ struct CoffeeCell: View {
           VStack(spacing: 15) {
             Image(systemName: "cup.and.saucer.fill")
               .font(.largeTitle)
-              .foregroundStyle(.csDesert)
             Text(coffee.title)
               .font(.headline)
-              .fontDesign(.monospaced)
-              .foregroundStyle(.csDesert)
           }
           .foregroundStyle(.csDesert)
         }

@@ -20,7 +20,6 @@ struct CSTextField: View {
         .foregroundStyle(.csDesert)
       TextField(hint, text: $inputData)
         .font(.subheadline)
-        .fontDesign(.monospaced)
     }
     .listRowInsets(
       EdgeInsets(top: 28, leading: 15, bottom: 22, trailing: 15)

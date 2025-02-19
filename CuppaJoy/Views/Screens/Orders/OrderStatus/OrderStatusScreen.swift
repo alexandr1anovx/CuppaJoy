@@ -33,13 +33,11 @@ struct OrderStatusScreen: View {
   
   private func indicatedTab(for status: OrderStatus, isSelected: Bool) -> some View {
     Text(status.title)
-      .font(.subheadline)
-      .fontDesign(.monospaced)
+      .font(.headline)
       .foregroundStyle(isSelected ? .csCream : .gray)
       .padding(10)
       .background(isSelected ? .black : .clear)
       .clipShape(.capsule)
-      .shadow(radius: 5)
   }
   
   private var orderStatusTabs: some View {
@@ -67,7 +65,6 @@ struct OrderStatusScreen: View {
     .listRowSpacing(20)
     .scrollIndicators(.hidden)
     .scrollContentBackground(.hidden)
-    .shadow(radius: 8)
   }
   
   private var receivedOrders: some View {
@@ -80,7 +77,6 @@ struct OrderStatusScreen: View {
     }
     .listStyle(.insetGrouped)
     .listRowSpacing(20)
-    .shadow(radius: 8)
     .scrollContentBackground(.hidden)
   }
 }
