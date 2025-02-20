@@ -7,13 +7,15 @@
 
 import SwiftUI
 
-struct PaymentOptionScreen: View {
+struct PaymentScreen: View {
+  
+  let order: Order
   
   var body: some View {
     NavigationStack {
       ZStack {
         Color.csBlack.ignoresSafeArea(.all)
-        PaymentOptionContainer()
+        PaymentOptionContainer(order: order)
       }
       .navigationTitle("Payment Options")
       .navigationBarTitleDisplayMode(.inline)
@@ -28,5 +30,5 @@ struct PaymentOptionScreen: View {
 }
 
 #Preview {
-  PaymentOptionScreen()
+  PaymentScreen(order: MockData.order)
 }
