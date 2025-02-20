@@ -12,7 +12,7 @@ struct CoffeeCell: View {
   
   var body: some View {
     NavigationLink {
-      OrderOptionsScreen(selectedCoffee: coffee)
+      OrderConfiguratorScreen(selectedCoffee: coffee)
     } label: {
       RoundedRectangle(cornerRadius: 20)
         .foregroundStyle(.csBlack)
