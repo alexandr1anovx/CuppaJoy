@@ -10,27 +10,32 @@ import Foundation
 struct Order: Identifiable {
   let id: String
   let coffee: Coffee
-  let cupQuantity: Int
-  let sugarSticks: Int
   let cupSize: CupSize
-  let coffeeType: CoffeeType
+  let cupCount: Int
+  let sugarCount: Int
+  let iceCount: Int
+  let variety: Variety
   let milk: Milk
-  let syrup: Syrup
-  let iceCubeCount: IceCube
-  let totalPrice: Double
+  let flavor: Flavor
+  
+  var totalPrice: Double {
+    let basePrice = coffee.price
+    let configurations = cupSize.price + milk.price + flavor.price
+    let total = (basePrice + configurations) * Double(cupCount)
+    return total
+  }
 }
 
 struct MockData {
   static let order: Order = Order(
     id: "123",
     coffee: .americano,
-    cupQuantity: 1,
-    sugarSticks: 2,
     cupSize: .medium,
-    coffeeType: .arabica,
+    cupCount: 1,
+    sugarCount: 2,
+    iceCount: 1,
+    variety: .arabica,
     milk: .none,
-    syrup: .vanilla,
-    iceCubeCount: .none,
-    totalPrice: 50.3
+    flavor: .vanilla
   )
 }
