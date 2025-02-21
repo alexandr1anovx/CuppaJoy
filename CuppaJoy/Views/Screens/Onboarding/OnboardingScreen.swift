@@ -34,7 +34,7 @@ struct OnboardingScreen: View {
         pageIndicator
         Spacer()
       }
-      skipButton.padding(.bottom)
+      continueButton.padding(.bottom)
     }
   }
   
@@ -43,12 +43,16 @@ struct OnboardingScreen: View {
     VStack(spacing: 20) {
       
       VStack(spacing: 15) {
+        Image(page.image)
+          .resizable()
+          .frame(width: 150, height: 150)
+          .foregroundStyle(.csDesert)
         Text(page.title)
-          .font(.system(size: 18, weight: .bold, design: .monospaced))
+          .font(.title2).bold()
           .foregroundStyle(.white)
         Text(page.description)
           .font(.footnote)
-          .fontDesign(.monospaced)
+          .fontWeight(.medium)
           .foregroundStyle(.gray)
           .lineLimit(2)
       }
@@ -70,15 +74,14 @@ struct OnboardingScreen: View {
     }
   }
   
-  // MARK: Skip Button
-  private var skipButton: some View {
-    CSButton(isIndexLast ? "Get Started!" : "Continue") {
+  // MARK: Continue Button
+  private var continueButton: some View {
+    CSButton(isIndexLast ? "Get Started!" : "Continue",
+             bgColor: isIndexLast ? .csDesert : .black) {
       if pageIndex < pages.count - 1 {
         pageIndex += 1
       } else {
-        withAnimation(.spring) {
-          isFinishedOnboarding = true
-        }
+        withAnimation { isFinishedOnboarding = true }
       }
     }
   }
