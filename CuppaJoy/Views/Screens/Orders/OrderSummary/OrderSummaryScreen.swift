@@ -9,7 +9,6 @@ import SwiftUI
 
 struct OrderSummaryScreen: View {
   
-  // MARK: Properties
   let order: Order
   @State private var isShownPaymentScreen = false
   
@@ -19,27 +18,14 @@ struct OrderSummaryScreen: View {
         .font(.largeTitle)
         .padding()
       
-//      struct Order: Identifiable {
-//        let id: String
-//        let coffee: Coffee
-//        let cupQuantity: Int
-//        let sugarSticks: Int
-//        let cupSize: CupSize
-//        let coffeeType: CoffeeType
-//        let milk: Milk
-//        let syrup: Syrup
-//        let iceCubeCount: IceCube
-//        let totalPrice: Double
-//      }
-      
       Text("Coffee: \(order.coffee.title)")
-      Text("Cup quantity: \(order.cupQuantity)")
-      Text("Sugar sticks: \(order.sugarSticks)")
       Text("Cup size: \(order.cupSize)")
-      Text("Coffee type: \(order.coffeeType)")
+      Text("Count: \(order.cupCount)")
+      Text("Sugar sticks: \(order.sugarCount)")
+      Text("Ice cubes: \(order.iceCount)")
+      Text("Variety: \(order.variety)")
       Text("Milk: \(order.milk.title)")
-      Text("Syrup: \(order.syrup.title)")
-      Text("Ice cube count: \(order.iceCubeCount)")
+      Text("Flavor: \(order.flavor.title)")
       Text("Total: $\(order.totalPrice, specifier: "%.2f")")
       
       Button {
