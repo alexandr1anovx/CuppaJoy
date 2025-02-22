@@ -17,9 +17,10 @@ struct CSTextField: View {
     HStack(spacing: 15) {
       Image(systemName: icon)
         .imageScale(.medium)
-        .foregroundStyle(.csDesert)
+        .foregroundStyle(.csCream)
       TextField(hint, text: $inputData)
-        .font(.subheadline)
+        .font(.system(size: 15))
+        .fontWeight(.medium)
     }
     .listRowInsets(
       EdgeInsets(top: 28, leading: 15, bottom: 22, trailing: 15)
