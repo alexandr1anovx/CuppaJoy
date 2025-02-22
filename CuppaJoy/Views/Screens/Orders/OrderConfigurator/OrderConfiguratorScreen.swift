@@ -9,83 +9,99 @@ import SwiftUI
 
 struct OrderConfiguratorScreen: View {
   
-  // MARK: Stored Properties
-  let selectedCoffee: Coffee
-  @State private var cupQuantity: Int = 1
-  @State private var cupSize: CupSize = .small
-  @State private var coffeeType: CoffeeType = .arabica
-  @State private var milk: Milk = .none
-  @State private var syrup: Syrup = .none
-  @State private var iceCubeCount: IceCube = .none
-  @State private var totalPrice: Double = 0.0
+  let selectedCoffee: CoffeeType
+  @State private var cupCount = 1
+  @State private var sugarCount = 0
+  @State private var iceCount = 0
+  @State private var totalPrice = 0.0
   
-  // MARK: Computed Properties
-  var calculatedTotalPrice: Double {
-    let basePrice = selectedCoffee.price
-    let assemblerPrice = cupSize.price + milk.price + syrup.price
-    let finalPrice = (basePrice + assemblerPrice) * Double(cupQuantity)
-    return finalPrice
+  @State private var cupSize: CupSize = .small
+  @State private var variety: Variety = .arabica
+  @State private var milk: Milk = .none
+  @State private var flavor: Flavor = .none
+  
+  var order: Order {
+    Order(
+      id: "123",
+      coffee: selectedCoffee,
+      cupSize: cupSize,
+      cupCount: cupCount,
+      sugarCount: sugarCount,
+      iceCount: iceCount,
+      variety: variety,
+      milk: milk,
+      flavor: flavor)
   }
   
-  // MARK: body
   var body: some View {
     ZStack {
       Color.appBackground.ignoresSafeArea(.all)
       VStack {
         List {
-          QuantityCell(cupQuantity: $cupQuantity)
-          CupSizeCell(cupSize: $cupSize)
-          CoffeeTypePicker(coffeeType: $coffeeType)
-          MilkPicker(milk: $milk)
-          SyrupPicker(syrup: $syrup)
-          IceCubePicker(iceCubeCount: $iceCubeCount)
+          Section("Cup Configurations") {
+            OrderItemPickerView("Size", selectedItem: $cupSize)
+              .pickerStyle(.segmented)
+            OrderItemCountView("Count:", min: 1, max: 4, count: $cupCount)
+          }
+          Section("Additives") {
+            OrderItemCountView("Sugar sticks:", min: 0, max: 2, count: $sugarCount)
+            OrderItemCountView("Ice cubes:", min: 0, max: 2, count: $iceCount)
+            OrderItemPickerView("Variety:", selectedItem: $variety)
+            OrderItemPickerView("Milk:", selectedItem: $milk)
+            OrderItemPickerView("Flavor:", selectedItem: $flavor)
+          }
         }
         .listStyle(.insetGrouped)
-        .listRowSpacing(20)
+        .listSectionSpacing(10)
+        .listRowSpacing(15)
         .scrollContentBackground(.hidden)
         .scrollIndicators(.hidden)
         .shadow(radius: 5)
         
-        HStack {
-          VStack(alignment: .center, spacing: 8) {
-            Text("Total Price:")
-              .font(.subheadline)
-              .fontDesign(.monospaced)
-              .foregroundStyle(.gray)
-            Text("₴ \(calculatedTotalPrice, specifier: "%.2f")")
-              .font(.title2).bold()
-              .foregroundStyle(.white)
-              .contentTransition(.numericText(value: calculatedTotalPrice))
-              .animation(.spring, value: calculatedTotalPrice)
-          }
-          Spacer()
-          NavigationLink {
-            PendingOrderScreen(calculatedTotalPrice: calculatedTotalPrice)
-          } label: {
-            Text("Confirm")
-              .font(.callout).bold()
-              .fontDesign(.monospaced)
-              .foregroundStyle(.accent)
-              .padding(16)
-              .background(.black)
-              .clipShape(.buttonBorder)
-          }
-        }
-        .shadow(radius: 5)
-        .padding(20)
+        totalAmountFooter
         
-        // 20px bottom padding for iPhone SE 3rd generation.
-        .padding(.bottom, UIScreen.current?.bounds.height == 667 ? 20 : 0)
-      }
-      .navigationTitle("Order Options")
-      .navigationBarTitleDisplayMode(.inline)
-      .navigationBarBackButtonHidden(true)
-      .toolbar {
-        ToolbarItem(placement: .topBarLeading) {
-          ReturnButton()
-        }
+        // 25px padding for iPhone SE 3rd generation
+        // 20px padding for other models.
+        .padding(.all, UIScreen.current?.bounds.height == 667 ? 25 : 0)
       }
     }
+    .navigationTitle("Order Configurator")
+    .navigationBarTitleDisplayMode(.inline)
+    .navigationBarBackButtonHidden(true)
+    .toolbar {
+      ToolbarItem(placement: .topBarLeading) {
+        ReturnButton()
+      }
+    }
+  }
+  
+  private var totalAmountFooter: some View {
+    VStack(spacing: 25) {
+      HStack(spacing: 10) {
+        Text("Total Price:")
+          .font(.system(size: 18))
+          .fontWeight(.bold)
+          .foregroundStyle(.white)
+        Text("₴\(order.totalPrice, specifier: "%.2f")")
+          .font(.system(size: 22))
+          .fontWeight(.bold)
+          .foregroundStyle(.csCream)
+          .contentTransition(.numericText())
+          .animation(.bouncy, value: order.totalPrice)
+      }
+      NavigationLink {
+        OrderSummaryScreen(order: order)
+      } label: {
+        ButtonLabel("Summorize", textColor: .white, pouring: .csBrown)
+      }
+    }
+    .background(
+      RoundedRectangle(cornerRadius: 35)
+        .fill(Color.csBlack)
+        .ignoresSafeArea(.all)
+        .frame(height: 150)
+        .shadow(radius: 5)
+    )
   }
 }
 
