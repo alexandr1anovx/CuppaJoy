@@ -80,8 +80,12 @@ struct SignInScreen: View {
           inputData: $emailAddress
         )
         .keyboardType(.emailAddress)
+        .textInputAutocapitalization(.never)
         .autocorrectionDisabled(true)
-        .submitLabel(.done)
+        .submitLabel(.send)
+        .onSubmit {
+          // call a "signInWithEmailLink" method
+        }
       }
       .frame(height: 85)
       .scrollContentBackground(.hidden)
@@ -117,7 +121,6 @@ struct SignInScreen: View {
       
       Label("Other methods", systemImage: "arrow.backward.circle")
         .fontWeight(.medium)
-        .fontDesign(.rounded)
         .foregroundStyle(.orange)
         .onTapGesture { selectedMethod = .none }
     }
@@ -128,19 +131,13 @@ struct SignInScreen: View {
     Button {
       selectedMethod = .email
     } label: {
-      Label {
-        Text("Continue with Email")
-          .font(.callout).bold()
-      } icon: {
-        Image(systemName: "envelope")
-          .foregroundStyle(.csCream)
-      }
-      .frame(maxWidth: .infinity)
-      .padding(.vertical, 8)
+      ButtonLabelWithIcon(
+        "Continue with Email",
+        icon: "envelope",
+        textColor: .csCream,
+        pouring: .black
+      )
     }
-    .buttonStyle(.borderedProminent)
-    .tint(.black)
-    .padding(.horizontal, 20)
   }
   
   // MARK: Sign In With Phone Number
@@ -148,25 +145,21 @@ struct SignInScreen: View {
     Button {
       selectedMethod = .phone
     } label: {
-      Label {
-        Text("Continue with Phone")
-          .font(.callout).bold()
-      } icon: {
-        Image(systemName: "phone")
-          .foregroundStyle(.csCream)
-      }
-      .frame(maxWidth: .infinity)
-      .padding(.vertical, 8)
+      ButtonLabelWithIcon(
+        "Continue with Phone",
+        icon: "phone",
+        textColor: .csCream,
+        pouring: .black
+      )
     }
-    .buttonStyle(.borderedProminent)
-    .tint(.black)
-    .padding(.horizontal, 20)
   }
   
   // MARK: Sign In button
   private var signInButton: some View {
-    CSButton("Sign In", bgColor: .csDesert) {
-      // action
+    Button {
+      // sign in action
+    } label: {
+      ButtonLabel("Sign In", textColor: .white, pouring: .black)
     }
     .disabled(!isValidForm)
   }
@@ -176,13 +169,15 @@ struct SignInScreen: View {
     HStack(spacing: 5) {
       Text("New member?")
         .font(.footnote)
+        .fontWeight(.semibold)
         .foregroundStyle(.gray)
       NavigationLink {
         SignUpScreen()
       } label: {
         Text("Sign Up.")
-          .font(.callout).bold()
-          .foregroundStyle(.csCream)
+          .font(.callout)
+          .fontWeight(.bold)
+          .foregroundStyle(.orange)
       }
     }
   }

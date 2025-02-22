@@ -8,8 +8,7 @@
 import SwiftUI
 
 enum AuthAction {
-  case signIn
-  case signUp
+  case signIn, signUp
   
   var title: String {
     switch self {
@@ -38,6 +37,7 @@ struct AuthHeaderView: View {
         .foregroundStyle(.white)
       Text(authAction.subtitle)
         .font(.title3)
+        .fontWeight(.semibold)
         .foregroundStyle(.gray)
     }
   }

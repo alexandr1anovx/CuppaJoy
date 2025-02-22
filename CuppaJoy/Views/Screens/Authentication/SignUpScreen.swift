@@ -108,6 +108,7 @@ struct SignUpScreen: View {
       .onSubmit { fieldContent = nil }
     }
     .frame(height: 185)
+    .shadow(radius: 5)
     .scrollContentBackground(.hidden)
     .scrollIndicators(.hidden)
     .scrollDisabled(true)
@@ -118,6 +119,7 @@ struct SignUpScreen: View {
     VStack(alignment: .leading) {
       Text("Select your city:")
         .font(.footnote)
+        .fontWeight(.semibold)
         .foregroundStyle(.gray)
         .padding(.leading, 5)
       Picker("City", selection: $selectedCity) {
@@ -130,10 +132,13 @@ struct SignUpScreen: View {
   
   // MARK: Sign Up button
   private var signUpButton: some View {
-    CSButton("Sign Up", bgColor: .csDesert) {
+    Button {
       isShownConfirmationAlert.toggle()
+    } label: {
+      ButtonLabel("Sign Up", textColor: .white, pouring: .black)
     }
     .disabled(!isValidForm)
+    
     .alert("Code Confirmation", isPresented: $isShownConfirmationAlert) {
       TextField("Code", text: $confirmationCode)
       Button("Confirm", role: .destructive) {
@@ -154,9 +159,11 @@ struct SignUpScreen: View {
       HStack(spacing: 5) {
         Text("Already a member?")
           .font(.footnote)
+          .fontWeight(.semibold)
           .foregroundStyle(.gray)
         Text("Sign In.")
-          .font(.callout).bold()
+          .font(.callout)
+          .fontWeight(.bold)
           .foregroundStyle(.csCream)
       }
     }
