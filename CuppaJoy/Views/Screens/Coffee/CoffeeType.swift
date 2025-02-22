@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Coffee: String, CaseIterable {
+enum CoffeeType: String, CaseIterable {
   case americano
   case espresso
   case latte
@@ -30,4 +30,10 @@ enum Coffee: String, CaseIterable {
     case .cappuccino: 28.0
     }
   }
+}
+
+struct Coffee: Identifiable {
+  let id: String
+  let name: String
+  let imageName: String
 }
