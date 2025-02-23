@@ -16,21 +16,34 @@ struct OrderConfiguratorScreen: View {
   @State private var totalPrice = 0.0
   
   @State private var cupSize: CupSize = .small
-  @State private var variety: Variety = .arabica
+  @State private var variety: Variety = .standart
   @State private var milk: Milk = .none
   @State private var flavor: Flavor = .none
   
   var order: Order {
     Order(
-      id: "123",
+      id: "123", // the item ID creation will be changed in the future.
       coffee: selectedCoffee,
       cupSize: cupSize,
       cupCount: cupCount,
-      sugarCount: sugarCount,
+      sugarSticks: sugarCount,
       iceCount: iceCount,
       variety: variety,
       milk: milk,
-      flavor: flavor)
+      flavor: flavor,
+      timestamp: .now // save the order data to firebase in the future
+    )
+  }
+  
+  // MARK: Initializer
+  init(selectedCoffee: CoffeeType) {
+    self.selectedCoffee = selectedCoffee
+    
+    // Custom Picker Style
+    UISegmentedControl.appearance().selectedSegmentTintColor = .csBrown
+    UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
+    UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
+    UISegmentedControl.appearance().backgroundColor = .black
   }
   
   var body: some View {
@@ -39,16 +52,16 @@ struct OrderConfiguratorScreen: View {
       VStack {
         List {
           Section("Cup Configurations") {
-            OrderItemPickerView("Size", selectedItem: $cupSize)
+            OrderItemPicker("Size", selectedItem: $cupSize)
               .pickerStyle(.segmented)
-            OrderItemCountView("Count:", min: 1, max: 4, count: $cupCount)
+            OrderItemCounter("Count:", min: 1, max: 4, count: $cupCount)
           }
           Section("Additives") {
-            OrderItemCountView("Sugar sticks:", min: 0, max: 2, count: $sugarCount)
-            OrderItemCountView("Ice cubes:", min: 0, max: 2, count: $iceCount)
-            OrderItemPickerView("Variety:", selectedItem: $variety)
-            OrderItemPickerView("Milk:", selectedItem: $milk)
-            OrderItemPickerView("Flavor:", selectedItem: $flavor)
+            OrderItemCounter("Sugar sticks:", min: 0, max: 2, count: $sugarCount)
+            OrderItemCounter("Ice cubes:", min: 0, max: 2, count: $iceCount)
+            OrderItemPicker("Variety:", selectedItem: $variety)
+            OrderItemPicker("Milk:", selectedItem: $milk)
+            OrderItemPicker("Flavor:", selectedItem: $flavor)
           }
         }
         .listStyle(.insetGrouped)
@@ -59,10 +72,6 @@ struct OrderConfiguratorScreen: View {
         .shadow(radius: 5)
         
         totalAmountFooter
-        
-        // 25px padding for iPhone SE 3rd generation
-        // 20px padding for other models.
-        .padding(.all, UIScreen.current?.bounds.height == 667 ? 25 : 0)
       }
     }
     .navigationTitle("Order Configurator")
@@ -78,7 +87,7 @@ struct OrderConfiguratorScreen: View {
   private var totalAmountFooter: some View {
     VStack(spacing: 25) {
       HStack(spacing: 10) {
-        Text("Total Price:")
+        Text("Total amount:")
           .font(.system(size: 18))
           .fontWeight(.bold)
           .foregroundStyle(.white)
@@ -96,7 +105,7 @@ struct OrderConfiguratorScreen: View {
       }
     }
     .background(
-      RoundedRectangle(cornerRadius: 35)
+      RoundedRectangle(cornerRadius: 30)
         .fill(Color.csBlack)
         .ignoresSafeArea(.all)
         .frame(height: 150)
