@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OrderItemPickerView<T: OrderItemType>: View {
+struct OrderItemPicker<T: OrderItemType>: View {
   
   let name: String
   @Binding var selectedItem: T
@@ -29,19 +29,14 @@ struct OrderItemPickerView<T: OrderItemType>: View {
     .font(.callout)
     .fontWeight(.medium)
     .listRowInsets(
-      EdgeInsets(
-        top: 28,
-        leading: 18,
-        bottom: 22,
-        trailing: 18
-      )
+      EdgeInsets(top: 28, leading: 18, bottom: 22, trailing: 18)
     )
   }
 }
 
 #Preview {
-  OrderItemPickerView(
+  OrderItemPicker(
     "Milk",
-    selectedItem: .constant(Milk.cow)
+    selectedItem: .constant(Milk.lactose)
   )
 }

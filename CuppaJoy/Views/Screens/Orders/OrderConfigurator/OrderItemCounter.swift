@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OrderItemCountView: View {
+struct OrderItemCounter: View {
   
   // MARK: Properties
   let itemName: String
@@ -20,12 +20,13 @@ struct OrderItemCountView: View {
     _ itemName: String,
     min: Int,
     max: Int,
-    count: Binding<Int>) {
-      self.itemName = itemName
-      self.minValue = min
-      self.maxValue = max
-      self._count = count
-    }
+    count: Binding<Int>
+  ) {
+    self.itemName = itemName
+    self.minValue = min
+    self.maxValue = max
+    self._count = count
+  }
   
   var body: some View {
     HStack {
@@ -55,18 +56,13 @@ struct OrderItemCountView: View {
     .fontWeight(.medium)
     .foregroundStyle(.white)
     .listRowInsets(
-      EdgeInsets(
-        top: 28,
-        leading: 18,
-        bottom: 22,
-        trailing: 18
-      )
+      EdgeInsets(top: 28, leading: 18, bottom: 22, trailing: 18)
     )
   }
 }
 
 #Preview {
-  OrderItemCountView(
+  OrderItemCounter(
     "Sugar Sticks:",
     min: 0,
     max: 2,
