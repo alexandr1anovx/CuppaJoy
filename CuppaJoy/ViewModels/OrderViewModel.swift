@@ -8,10 +8,17 @@
 import Foundation
 
 final class OrderViewModel: ObservableObject {
-  @Published var orders: [Order] = []
+  
+  @Published var ongoingOrders: [Order] = []
+  @Published var receivedOrders: [Order] = []
   
   func addOrder(_ order: Order) {
-    orders.append(order)
+    ongoingOrders.append(order)
+  }
+  
+  func cancelOrder(_ order: Order) {
+    // the item ID creation will be changed in the future.
+    ongoingOrders.removeAll { $0.id == order.id }
   }
   
   func retrieveOrders() {
