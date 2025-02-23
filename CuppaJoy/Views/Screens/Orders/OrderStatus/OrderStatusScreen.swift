@@ -8,14 +8,15 @@
 import SwiftUI
 
 enum OrderStatus: String, CaseIterable {
-  case ongoing
-  case received
+  case ongoing, received
   
-  var title: String { self.rawValue.capitalized }
+  var title: String { rawValue.capitalized }
 }
 
 struct OrderStatusScreen: View {
+  
   @State private var selectedStatus: OrderStatus = .ongoing
+  @EnvironmentObject var orderViewModel: OrderViewModel
   
   var body: some View {
     ZStack {
@@ -29,11 +30,13 @@ struct OrderStatusScreen: View {
         }
       }.padding(.top)
     }
+    .onAppear { selectedStatus = .ongoing }
   }
   
   private func indicatedTab(for status: OrderStatus, isSelected: Bool) -> some View {
     Text(status.title)
-      .font(.headline)
+      .font(.subheadline)
+      .fontWeight(.medium)
       .foregroundStyle(isSelected ? .csCream : .gray)
       .padding(10)
       .background(isSelected ? .black : .clear)
@@ -45,42 +48,36 @@ struct OrderStatusScreen: View {
       ForEach(OrderStatus.allCases, id: \.self) { status in
         indicatedTab(for: status, isSelected: status == selectedStatus)
           .onTapGesture {
-            withAnimation {
-              selectedStatus = status
-            }
+            withAnimation { selectedStatus = status }
           }
       }
     }
   }
   
   private var ongoingOrders: some View {
-    List {
-      OrderReceiptCell(
-        coffee: .americano,
-        address: "3rd Slobidska",
-        price: 35.00
-      )
+    List(orderViewModel.ongoingOrders, id: \.id) { order in
+      OngoingOrderCell(order: order)
     }
     .listStyle(.insetGrouped)
-    .listRowSpacing(20)
+    .listRowSpacing(15)
     .scrollIndicators(.hidden)
     .scrollContentBackground(.hidden)
+    .shadow(radius: 5)
   }
   
   private var receivedOrders: some View {
-    List {
-      OrderReceiptCell(
-        coffee: .cappuccino,
-        address: "3rd Slobidska",
-        price: 39.50
-      )
+    List(orderViewModel.receivedOrders, id: \.id) { order in
+      ReceivedOrderCell(order: order)
     }
     .listStyle(.insetGrouped)
-    .listRowSpacing(20)
+    .listRowSpacing(15)
+    .scrollIndicators(.hidden)
     .scrollContentBackground(.hidden)
+    .shadow(radius: 5)
   }
 }
 
 #Preview {
   OrderStatusScreen()
+    .environmentObject(OrderViewModel())
 }
