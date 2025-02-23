@@ -7,22 +7,9 @@
 
 import SwiftUI
 
-// Should be moved to the view model in the future.
-enum AuthFieldContent: Hashable {
-  case username
-  case phoneNumber
-  case email
-}
-
-// Should be moved to the view model in the future.
-enum City: String, CaseIterable {
-  case mykolaiv = "Mykolaiv"
-  case odesa = "Odesa"
-}
-
 struct SignUpScreen: View {
   
-  // MARK: Stored Properties
+  // MARK: Properties
   @State private var username = ""
   @State private var phoneNumber = ""
   @State private var email = ""
@@ -31,15 +18,15 @@ struct SignUpScreen: View {
   @State private var isShownConfirmationAlert = false
   @FocusState private var fieldContent: AuthFieldContent?
   @Environment(\.dismiss) var dismiss
+  @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
   
-  // MARK: Computed Properties
   private var isValidForm: Bool {
-    isValidUsername(username)
-    && isValidPhoneNumber(phoneNumber)
-    && isValidEmail(email)
+    authenticationViewModel.isValidUsername(username)
+    && authenticationViewModel.isValidPhoneNumber(phoneNumber)
+    && authenticationViewModel.isValidEmail(email)
   }
   
-  // Custom Picker Style
+  // MARK: Custom Picker Style Initializer
   init() {
     UISegmentedControl.appearance().selectedSegmentTintColor = .csBrown
     UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
@@ -47,6 +34,7 @@ struct SignUpScreen: View {
     UISegmentedControl.appearance().backgroundColor = .black
   }
   
+  // MARK: body
   var body: some View {
     ZStack {
       Color.appBackground.ignoresSafeArea(.all)
@@ -54,7 +42,6 @@ struct SignUpScreen: View {
       ScrollView {
         VStack(spacing: 0) {
           AuthHeaderView(authAction: .signUp)
-          
           textFieldList
           cityPicker.padding(20)
           signUpButton.padding(.top, 10)
@@ -124,7 +111,7 @@ struct SignUpScreen: View {
         .padding(.leading, 5)
       Picker("City", selection: $selectedCity) {
         ForEach(City.allCases, id: \.self) { city in
-          Text(city.rawValue)
+          Text(city.title)
         }
       }.pickerStyle(.segmented)
     }
@@ -167,27 +154,6 @@ struct SignUpScreen: View {
           .foregroundStyle(.csCream)
       }
     }
-  }
-  
-  // Data validation methods. Should be moved to the view model in the future.
-  
-  private func isValidUsername(_ username: String) -> Bool {
-    let regex = #"^[a-zA-Z-]+ ?.* [a-zA-Z-]+$"#
-    let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
-    return predicate.evaluate(with: username)
-  }
-  
-  private func isValidPhoneNumber(_ phone: String) -> Bool {
-    // works only for ukrainian format.
-    let regex = #"^(\+380|0)\d{9}$"#
-    let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
-    return predicate.evaluate(with: phoneNumber)
-  }
-  
-  private func isValidEmail(_ email: String) -> Bool {
-    let regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,64}$"
-    let predicate = NSPredicate(format: "SELF MATCHES[c] %@", regex)
-    return predicate.evaluate(with: email)
   }
 }
 

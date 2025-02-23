@@ -13,14 +13,14 @@ enum SignInMethod {
 
 struct SignInScreen: View {
   
-  // MARK: Stored Properties
+  // MARK: Properties
   @State private var phoneNumber = ""
   @State private var emailAddress = ""
   @State private var selectedMethod: SignInMethod?
+  @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
   
-  // MARK: Computed Properties
   private var isValidForm: Bool {
-    isValidPhoneNumber(phoneNumber)
+    authenticationViewModel.isValidPhoneNumber(phoneNumber)
   }
   
   var body: some View {
@@ -35,10 +35,11 @@ struct SignInScreen: View {
     }
   }
   
+  // MARK: Shown Content
   @ViewBuilder
   private var content: some View {
     if selectedMethod == nil {
-      authMethodButtons
+      authMethodsView
     } else if selectedMethod == .email {
       emailForm
     } else {
@@ -46,29 +47,13 @@ struct SignInScreen: View {
     }
   }
   
-  private var authMethodButtons: some View {
+  private var authMethodsView: some View {
     VStack(spacing: 15) {
       signInWithEmailButton
       signInWithPhoneNumberButton
       signUpOption
     }
-    .padding(.top, 47)
-  }
-  
-  // MARK: Text Field list
-  private var textFieldList: some View {
-    List {
-      CSTextField(
-        icon: "phone",
-        hint: "Your phone number",
-        inputData: $phoneNumber
-      )
-      .submitLabel(.done)
-    }
-    .frame(height: 85)
-    .scrollContentBackground(.hidden)
-    .scrollIndicators(.hidden)
-    .scrollDisabled(true)
+    .padding(.top, 30)
   }
   
   private var emailForm: some View {
@@ -96,7 +81,6 @@ struct SignInScreen: View {
       
       Label("Other methods", systemImage: "arrow.backward.circle")
         .fontWeight(.medium)
-        .fontDesign(.rounded)
         .foregroundStyle(.orange)
         .onTapGesture { selectedMethod = .none }
     }
@@ -126,7 +110,7 @@ struct SignInScreen: View {
     }
   }
   
-  // MARK: Sign In With Email
+  // MARK: "Sign In with email" button
   private var signInWithEmailButton: some View {
     Button {
       selectedMethod = .email
@@ -140,7 +124,7 @@ struct SignInScreen: View {
     }
   }
   
-  // MARK: Sign In With Phone Number
+  // MARK: "Sign In with phone number" button
   private var signInWithPhoneNumberButton: some View {
     Button {
       selectedMethod = .phone
@@ -154,7 +138,7 @@ struct SignInScreen: View {
     }
   }
   
-  // MARK: Sign In button
+  // MARK: General "Sign In" button
   private var signInButton: some View {
     Button {
       // sign in action
@@ -164,7 +148,7 @@ struct SignInScreen: View {
     .disabled(!isValidForm)
   }
   
-  // MARK: Sign Up option
+  // MARK: "Sign Up" option
   private var signUpOption: some View {
     HStack(spacing: 5) {
       Text("New member?")
@@ -181,15 +165,9 @@ struct SignInScreen: View {
       }
     }
   }
-  
-  // MARK: - Logic Methods
-  private func isValidPhoneNumber(_ phone: String) -> Bool {
-    let regex = #"^(\+380|0)\d{9}$"#
-    let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
-    return predicate.evaluate(with: phoneNumber)
-  }
 }
 
 #Preview {
   SignInScreen()
+    .environmentObject(AuthenticationViewModel())
 }
