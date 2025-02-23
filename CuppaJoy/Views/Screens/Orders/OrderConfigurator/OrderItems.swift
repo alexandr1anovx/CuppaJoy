@@ -26,13 +26,14 @@ enum CupSize: String, OrderItemType {
 }
 
 enum Variety: String, OrderItemType {
-  case arabica, robusta, excelsa, liberica
+  case standart, arabica, robusta, excelsa, liberica
   
   var title: String { rawValue.capitalized }
   var price: Double {
     switch self {
-    case .arabica: 0.0
-    case .robusta: 0.0
+    case .standart: 0.0
+    case .arabica: 1.0
+    case .robusta: 1.0
     case .excelsa: 2.0
     case .liberica: 2.0
     }
@@ -40,19 +41,17 @@ enum Variety: String, OrderItemType {
 }
 
 enum Milk: String, OrderItemType {
-  case none, cow, lactose
+  case none, lactose
   
   var title: String {
     switch self {
     case .none: "None"
-    case .cow: "Cow's"
     case .lactose: "Lactose"
     }
   }
   var price: Double {
     switch self {
     case .none: 0.0
-    case .cow: 1.0
     case .lactose: 3.0
     }
   }
@@ -61,7 +60,14 @@ enum Milk: String, OrderItemType {
 enum Flavor: String, OrderItemType {
   case none, vanilla, caramel, coconut
   
-  var title: String { rawValue.capitalized }
+  var title: String {
+    switch self {
+    case .none: "None"
+    case .vanilla: "Vanilla"
+    case .caramel: "Caramel"
+    case .coconut: "Coconut"
+    }
+  }
   var price: Double {
     switch self {
     case .none: 0.0
