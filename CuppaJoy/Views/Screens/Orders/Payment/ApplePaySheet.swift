@@ -8,7 +8,12 @@
 import SwiftUI
 
 struct ApplePaySheet: View {
+  
+  let order: Order
   @State private var isShownAlert = false
+  @Environment(\.dismiss) var dismiss
+//  @StateObject private var orderViewModel = OrderViewModel()
+  @EnvironmentObject var orderViewModel: OrderViewModel
   
   var body: some View {
     NavigationStack {
@@ -19,6 +24,7 @@ struct ApplePaySheet: View {
       }
       .listStyle(.insetGrouped)
       .scrollContentBackground(.hidden)
+      .shadow(radius: 1)
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
           applePayImage
@@ -34,7 +40,9 @@ struct ApplePaySheet: View {
         Alert(
           title: Text("Success 😎"),
           message: Text("Payment has been successfully processed."),
-          dismissButton: .default(Text("Got it!"))
+          dismissButton: .default(Text("Got it")) {
+            dismiss()
+          }
         )
       }
     }
@@ -54,10 +62,9 @@ struct ApplePaySheet: View {
       Image(.coffee)
         .foregroundStyle(.accent)
       VStack(alignment: .leading, spacing: 5) {
-        Text("Medium Coffee Cup")
+        Text("Medium Cup")
           .font(.callout)
           .fontWeight(.medium)
-          .foregroundStyle(.white)
         Text("Cuppa Joy")
           .font(.footnote)
           .foregroundStyle(.gray)
@@ -70,10 +77,9 @@ struct ApplePaySheet: View {
   
   // MARK: Order Price
   private var orderPriceSection: some View {
-    VStack {
-      Text("35.00 UAH")
+    VStack(alignment: .leading, spacing: 5) {
+      Text("$\(order.totalPrice, specifier: "%.2f")")
         .font(.title3).bold()
-        .foregroundStyle(.white)
       Text("One-time charge")
         .font(.footnote)
         .foregroundStyle(.gray)
@@ -84,7 +90,6 @@ struct ApplePaySheet: View {
   private var accountNameSection: some View {
     Text("Account: sashaandrianov@icloud.com")
       .font(.callout)
-      .foregroundStyle(.gray)
       .tint(.gray)
   }
   
@@ -92,6 +97,7 @@ struct ApplePaySheet: View {
   private var footer: some View {
     Button {
       isShownAlert.toggle()
+      orderViewModel.addOrder(order)
     } label: {
       Text("Confirm Payment")
         .bold()
@@ -104,5 +110,5 @@ struct ApplePaySheet: View {
 }
 
 #Preview {
-  ApplePaySheet()
+  ApplePaySheet(order: MockData.order)
 }
