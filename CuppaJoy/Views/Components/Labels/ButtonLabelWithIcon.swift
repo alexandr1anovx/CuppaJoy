@@ -28,7 +28,7 @@ struct ButtonLabelWithIcon: View {
   
   var body: some View {
     Label(title, systemImage: icon)
-      .font(.headline)
+      .font(.subheadline)
       .fontWeight(.bold)
       .foregroundStyle(textColor)
       .frame(maxWidth: .infinity)
