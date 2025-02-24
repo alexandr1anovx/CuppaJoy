@@ -14,21 +14,21 @@ struct ProfileScreen: View {
   // MARK: Properties
   @State private var username = ""
   @State private var phoneNumber = ""
-  @State private var email = ""
-  @FocusState private var fieldContent: AuthFieldContent?
-  @State private var selectedCity = City.mykolaiv
+  @State private var emailAddress = ""
+  @State private var selectedCity: City = .mykolaiv
   @State private var isShownData = false
+  @FocusState private var fieldContent: TextFieldContentType?
   
   let context = CIContext()
   let filter = CIFilter.qrCodeGenerator()
   
-  // MARK: View
+  // MARK: Main Body
   var body: some View {
     ZStack {
       Color.csBlack.ignoresSafeArea(.all)
       VStack(spacing: 20) {
         textFieldList
-        selectedCityPicker.padding(.horizontal,25)
+        cityPicker.padding(.horizontal, 25)
         Spacer()
         qrcodeImage
         Spacer()
@@ -44,42 +44,29 @@ struct ProfileScreen: View {
     }
   }
   
-  // MARK: Text Field
+  // MARK: TextFields
   private var textFieldList: some View {
     List {
-      CSTextField(
-        icon: "person",
-        hint: "Alexander Pushkin",
-        inputData: $username
-      )
-      .focused($fieldContent, equals: .username)
-      .textInputAutocapitalization(.words)
-      .submitLabel(.next)
-      .textInputAutocapitalization(.words)
-      .onSubmit { fieldContent = .phoneNumber }
+      CSTextField(for: .username, inputData: $username)
+        .focused($fieldContent, equals: .username)
+        .textInputAutocapitalization(.words)
+        .submitLabel(.next)
+        .textInputAutocapitalization(.words)
+        .onSubmit { fieldContent = .phoneNumber }
+      CSTextField(for: .phoneNumber, inputData: $phoneNumber)
+        .focused($fieldContent, equals: .phoneNumber)
+        .blur(radius: isShownData ? 0 : 2)
+        .submitLabel(.next)
+        .onSubmit { fieldContent = .emailAddress }
       
-      CSTextField(
-        icon: "phone",
-        hint: "Phone number",
-        inputData: $phoneNumber
-      )
-      .focused($fieldContent, equals: .phoneNumber)
-      .submitLabel(.next)
-      .onSubmit { fieldContent = .email }
-      .blur(radius: isShownData ? 0:2)
-      
-      CSTextField(
-        icon: "envelope",
-        hint: "user@example.com",
-        inputData: $email
-      )
-      .focused($fieldContent, equals: .email)
-      .keyboardType(.emailAddress)
-      .textInputAutocapitalization(.never)
-      .autocorrectionDisabled(true)
-      .submitLabel(.done)
-      .onSubmit { fieldContent = nil }
-      .blur(radius: isShownData ? 0:2)
+      CSTextField(for: .emailAddress, inputData: $emailAddress)
+        .focused($fieldContent, equals: .emailAddress)
+        .keyboardType(.emailAddress)
+        .textInputAutocapitalization(.never)
+        .autocorrectionDisabled(true)
+        .blur(radius: isShownData ? 0 : 2)
+        .submitLabel(.done)
+        .onSubmit { fieldContent = nil }
     }
     .frame(height: 185)
     .scrollContentBackground(.hidden)
@@ -88,40 +75,39 @@ struct ProfileScreen: View {
   }
   
   // MARK: City Picker
-  private var selectedCityPicker: some View {
+  private var cityPicker: some View {
     HStack(spacing: 0) {
       Text("City:")
         .font(.callout)
-        .fontDesign(.monospaced)
+        .fontWeight(.semibold)
         .foregroundStyle(.gray)
       Picker("City", selection: $selectedCity) {
         ForEach(City.allCases, id: \.self) { city in
-          Text(city.rawValue)
+          Text(city.title)
         }
       }
-      .pickerStyle(.menu)
       Spacer()
       showDataButton
     }
   }
   
-  // MARK: Blur Button
+  // MARK: Button "Show/Hide Data"
   private var showDataButton: some View {
     Button {
       isShownData.toggle()
     } label: {
       Text(isShownData ? "Hide Data" : "Show Data")
         .font(.callout)
-        .fontDesign(.monospaced)
-        .foregroundStyle(.csCream)
+        .fontWeight(.semibold)
+        .foregroundStyle(.white)
         .padding(.horizontal, 13)
         .padding(.vertical, 12)
-        .background(.csDarkGrey)
+        .background(.black)
         .clipShape(.capsule)
     }
   }
   
-  // MARK: QR code
+  // MARK: QRCode
   private var qrcodeImage: some View {
     Image(uiImage: generateQRCode(from: username))
       .resizable()
@@ -129,7 +115,7 @@ struct ProfileScreen: View {
       .frame(width: 200, height: 200)
   }
   
-  // MARK: QR code generation method
+  
   private func generateQRCode(from string: String) -> UIImage {
     filter.message = Data(string.utf8)
     if let outputImage = filter.outputImage,
