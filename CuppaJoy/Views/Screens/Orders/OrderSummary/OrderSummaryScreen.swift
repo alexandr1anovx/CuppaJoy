@@ -49,12 +49,6 @@ struct OrderSummaryScreen: View {
       }
     }
     .navigationTitle("Order Summary")
-    .navigationBarBackButtonHidden(true)
-    .toolbar {
-      ToolbarItem(placement: .topBarLeading) {
-        ReturnButton()
-      }
-    }
     .fullScreenCover(isPresented: $isShownPaymentScreen) {
       PaymentScreen(order: order)
     }

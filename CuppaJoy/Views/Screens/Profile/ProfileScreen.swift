@@ -34,14 +34,8 @@ struct ProfileScreen: View {
         Spacer()
       }
     }
-    .navigationTitle("My Profile")
+    .navigationTitle("Profile")
     .navigationBarTitleDisplayMode(.inline)
-    .navigationBarBackButtonHidden(true)
-    .toolbar {
-      ToolbarItem(placement: .topBarLeading) {
-        ReturnButton()
-      }
-    }
   }
   
   // MARK: TextFields

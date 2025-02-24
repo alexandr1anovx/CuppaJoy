@@ -49,12 +49,6 @@ struct SignUpScreen: View {
           Spacer()
         }
         .padding(.top, 20)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-          ToolbarItem(placement: .topBarLeading) {
-            ReturnButton()
-          }
-        }
       }
     }
     .scrollIndicators(.hidden)

@@ -76,12 +76,6 @@ struct OrderConfiguratorScreen: View {
     }
     .navigationTitle("Order Configurator")
     .navigationBarTitleDisplayMode(.inline)
-    .navigationBarBackButtonHidden(true)
-    .toolbar {
-      ToolbarItem(placement: .topBarLeading) {
-        ReturnButton()
-      }
-    }
   }
   
   private var totalAmountFooter: some View {
