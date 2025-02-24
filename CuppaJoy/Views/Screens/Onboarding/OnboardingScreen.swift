@@ -9,57 +9,59 @@ import SwiftUI
 
 struct OnboardingScreen: View {
   
+  // MARK: Properties
   @State private var pageIndex = 0
   @State private var isFinishedOnboarding = false
-  
   let pages = OnboardingPage.allCases
-  var isIndexLast: Bool { pageIndex == pages.count - 1 }
+  
+  var isIndexLast: Bool {
+    pageIndex == pages.count - 1
+  }
   
   // MARK: body
   var body: some View {
     if isFinishedOnboarding {
       SignInScreen()
     } else {
-      page
+      onboardingPage
     }
   }
   
-  // MARK: Page
-  private var page: some View {
+  // MARK: Onboarding Page
+  private var onboardingPage: some View {
     ZStack(alignment: .bottom) {
       Color.appBackground.ignoresSafeArea(.all)
-      VStack(spacing: 50) {
+      VStack(spacing: 35) {
         Spacer()
-        pageData(for: pages[pageIndex])
+        onboardingData(for: pages[pageIndex])
         pageIndicator
         Spacer()
       }
-      continueButton.padding(.bottom)
+      continueButton.padding(.bottom, 10)
     }
   }
   
   // MARK: Page Data
-  private func pageData(for page: OnboardingPage) -> some View {
-    VStack(spacing: 20) {
-      
-      VStack(spacing: 15) {
-        Image(page.image)
-          .resizable()
-          .frame(width: 150, height: 150)
-          .foregroundStyle(.csDesert)
-        Text(page.title)
-          .font(.title2).bold()
-          .foregroundStyle(.white)
-        Text(page.description)
-          .font(.footnote)
-          .fontWeight(.medium)
-          .foregroundStyle(.gray)
-          .lineLimit(2)
-      }
-      .multilineTextAlignment(.center)
-      .padding(.horizontal, 30)
+  private func onboardingData(for page: OnboardingPage) -> some View {
+    VStack(spacing: 12) {
+      Image(page.image)
+        .resizable()
+        .frame(width: 150, height: 150)
+        .foregroundStyle(.csCream)
+        .padding(.bottom)
+      Text(page.title)
+        .font(.title3)
+        .fontWeight(.bold)
+        .foregroundStyle(.white)
+      Text(page.description)
+        .font(.footnote)
+        .fontWeight(.semibold)
+        .foregroundStyle(.gray)
+        .multilineTextAlignment(.center)
+        .lineLimit(2)
     }
-    .animation(.easeInOut, value: pageIndex)
+    .padding(.horizontal, 20)
+    .animation(.spring, value: pageIndex)
   }
   
   // MARK: Page Indicator
@@ -67,22 +69,29 @@ struct OnboardingScreen: View {
     HStack(spacing: 15) {
       ForEach(0..<pages.count, id: \.self) { index in
         Capsule()
-          .frame(width: 20, height: 3)
-          .foregroundStyle(pageIndex >= index ? .accent : .csDarkGrey)
+          .frame(width: 20, height: 2.5)
+          .foregroundStyle(
+            pageIndex >= index ? .csCream : .csDarkGrey
+          )
           .animation(.spring, value: pageIndex)
       }
     }
   }
   
-  // MARK: Continue Button
+  // MARK: "Continue" button
   private var continueButton: some View {
-    CSButton(isIndexLast ? "Get Started!" : "Continue",
-             bgColor: isIndexLast ? .csDesert : .black) {
-      if pageIndex < pages.count - 1 {
+    Button {
+      if !isIndexLast {
         pageIndex += 1
       } else {
         withAnimation { isFinishedOnboarding = true }
       }
+    } label: {
+      ButtonLabel(
+        isIndexLast ? "Get Started!": "Continue",
+        textColor: .white,
+        pouring: .black
+      )
     }
   }
 }
