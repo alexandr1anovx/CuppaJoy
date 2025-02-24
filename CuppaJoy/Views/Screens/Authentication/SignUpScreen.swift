@@ -12,18 +12,18 @@ struct SignUpScreen: View {
   // MARK: Properties
   @State private var username = ""
   @State private var phoneNumber = ""
-  @State private var email = ""
+  @State private var emailAddress = ""
   @State private var selectedCity: City = .mykolaiv
   @State private var confirmationCode = ""
   @State private var isShownConfirmationAlert = false
-  @FocusState private var fieldContent: AuthFieldContent?
+  @FocusState private var fieldContent: TextFieldContentType?
   @Environment(\.dismiss) var dismiss
   @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
   
   private var isValidForm: Bool {
     authenticationViewModel.isValidUsername(username)
     && authenticationViewModel.isValidPhoneNumber(phoneNumber)
-    && authenticationViewModel.isValidEmail(email)
+    && authenticationViewModel.isValidEmail(emailAddress)
   }
   
   // MARK: Custom Picker Style Initializer
@@ -41,7 +41,7 @@ struct SignUpScreen: View {
       
       ScrollView {
         VStack(spacing: 0) {
-          AuthHeaderView(authAction: .signUp)
+          AuthHeaderView(for: .signUp)
           textFieldList
           cityPicker.padding(20)
           signUpButton.padding(.top, 10)
@@ -60,39 +60,27 @@ struct SignUpScreen: View {
     .scrollIndicators(.hidden)
   }
   
-  // MARK: Text Field List
+  // MARK: Text Fields
   private var textFieldList: some View {
     List {
-      CSTextField(
-        icon: "person",
-        hint: "Full name",
-        inputData: $username
-      )
-      .focused($fieldContent, equals: .username)
-      .textInputAutocapitalization(.words)
-      .submitLabel(.next)
-      .onSubmit { fieldContent = .phoneNumber }
+      CSTextField(for: .username, inputData: $username)
+        .focused($fieldContent, equals: .username)
+        .textInputAutocapitalization(.words)
+        .submitLabel(.next)
+        .onSubmit { fieldContent = .phoneNumber }
       
-      CSTextField(
-        icon: "phone",
-        hint: "Phone number",
-        inputData: $phoneNumber
-      )
-      .focused($fieldContent, equals: .phoneNumber)
-      .submitLabel(.next)
-      .onSubmit { fieldContent = .email }
+      CSTextField(for: .phoneNumber, inputData: $phoneNumber)
+        .focused($fieldContent, equals: .phoneNumber)
+        .submitLabel(.next)
+        .onSubmit { fieldContent = .emailAddress }
       
-      CSTextField(
-        icon: "envelope",
-        hint: "user@example.com",
-        inputData: $email
-      )
-      .focused($fieldContent, equals: .email)
-      .keyboardType(.emailAddress)
-      .textInputAutocapitalization(.never)
-      .autocorrectionDisabled(true)
-      .submitLabel(.done)
-      .onSubmit { fieldContent = nil }
+      CSTextField(for: .emailAddress, inputData: $emailAddress)
+        .focused($fieldContent, equals: .emailAddress)
+        .keyboardType(.emailAddress)
+        .textInputAutocapitalization(.never)
+        .autocorrectionDisabled(true)
+        .submitLabel(.done)
+        .onSubmit { fieldContent = nil }
     }
     .frame(height: 185)
     .shadow(radius: 5)
@@ -117,7 +105,7 @@ struct SignUpScreen: View {
     }
   }
   
-  // MARK: Sign Up button
+  // MARK: Button "Sign Up"
   private var signUpButton: some View {
     Button {
       isShownConfirmationAlert.toggle()
@@ -125,6 +113,7 @@ struct SignUpScreen: View {
       ButtonLabel("Sign Up", textColor: .white, pouring: .black)
     }
     .disabled(!isValidForm)
+    .opacity(isValidForm ? 1 : 0.5)
     
     .alert("Code Confirmation", isPresented: $isShownConfirmationAlert) {
       TextField("Code", text: $confirmationCode)
@@ -138,7 +127,7 @@ struct SignUpScreen: View {
     }
   }
   
-  // MARK: Sign In Option
+  // MARK: Option "Already a member? SignIn"
   private var signInOption: some View {
     Button {
       dismiss()
@@ -159,4 +148,5 @@ struct SignUpScreen: View {
 
 #Preview {
   SignUpScreen()
+    .environmentObject(AuthenticationViewModel())
 }
