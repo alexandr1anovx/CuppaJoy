@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CoffeeCell: View {
-  let coffee: Coffee
+  let coffee: CoffeeType
   
   var body: some View {
     NavigationLink {

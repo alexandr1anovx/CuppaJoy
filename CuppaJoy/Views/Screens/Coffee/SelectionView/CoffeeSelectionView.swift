@@ -31,7 +31,7 @@ struct CoffeeSelectionView: View {
         
         ScrollView {
           LazyVGrid(columns: fixedColumns, spacing: 20) {
-            ForEach(Coffee.allCases, id: \.self) { coffee in
+            ForEach(CoffeeType.allCases, id: \.self) { coffee in
               CoffeeCell(coffee: coffee)
             }
           }
