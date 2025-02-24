@@ -26,8 +26,11 @@ enum AuthAction {
 }
 
 struct AuthHeaderView: View {
-  
   let authAction: AuthAction
+  
+  init(for authAction: AuthAction) {
+    self.authAction = authAction
+  }
   
   var body: some View {
     HStack(alignment: .firstTextBaseline) {
@@ -37,12 +40,12 @@ struct AuthHeaderView: View {
         .foregroundStyle(.white)
       Text(authAction.subtitle)
         .font(.title3)
-        .fontWeight(.semibold)
+        .fontWeight(.medium)
         .foregroundStyle(.gray)
     }
   }
 }
 
 #Preview {
-  AuthHeaderView(authAction: .signIn)
+  AuthHeaderView(for: .signIn)
 }
