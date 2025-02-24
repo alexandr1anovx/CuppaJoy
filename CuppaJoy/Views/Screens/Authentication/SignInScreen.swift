@@ -8,7 +8,9 @@
 import SwiftUI
 
 enum SignInMethod {
-  case email, phone
+  case emailWithLink
+  case emailWithPassword
+  case phoneNumber
 }
 
 struct SignInScreen: View {
@@ -16,61 +18,88 @@ struct SignInScreen: View {
   // MARK: Properties
   @State private var phoneNumber = ""
   @State private var emailAddress = ""
-  @State private var selectedMethod: SignInMethod?
-  @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
-  
-  private var isValidForm: Bool {
-    authenticationViewModel.isValidPhoneNumber(phoneNumber)
-  }
+  @State private var password = ""
+  @State private var selectedSignInMethod: SignInMethod?
+  @EnvironmentObject var authViewModel: AuthenticationViewModel
   
   var body: some View {
     NavigationStack {
       ZStack {
         Color.appBackground.ignoresSafeArea(.all)
         VStack(spacing: 0) {
-          AuthHeaderView(authAction: .signIn)
-          content
+          AuthHeaderView(for: .signIn)
+          pageContent
         }
       }
     }
   }
   
-  // MARK: Shown Content
+  // MARK: Page Content
   @ViewBuilder
-  private var content: some View {
-    if selectedMethod == nil {
+  private var pageContent: some View {
+    if selectedSignInMethod == nil {
       authMethodsView
-    } else if selectedMethod == .email {
-      emailForm
+    } else if selectedSignInMethod == .emailWithLink {
+      emailLinkForm
+    } else if selectedSignInMethod == .emailWithPassword {
+      emailPasswordForm
     } else {
       phoneNumberForm
     }
   }
   
+  // MARK: View "Authentication Methods"
   private var authMethodsView: some View {
     VStack(spacing: 15) {
-      signInWithEmailButton
-      signInWithPhoneNumberButton
+      emailWithLinkButton
+      emailWithPasswordButton
+      phoneNumberButton
       signUpOption
-    }
-    .padding(.top, 30)
+    }.padding(.top, 30)
   }
   
-  private var emailForm: some View {
+  // MARK: - Form "SignIn with email and password"
+  private var emailPasswordForm: some View {
     VStack(spacing: 20) {
       List {
-        CSTextField(
-          icon: "envelope",
-          hint: "Email address",
-          inputData: $emailAddress
-        )
-        .keyboardType(.emailAddress)
-        .textInputAutocapitalization(.never)
-        .autocorrectionDisabled(true)
-        .submitLabel(.send)
-        .onSubmit {
-          // call a "signInWithEmailLink" method
-        }
+        CSTextField(for: .emailAddress, inputData: $emailAddress)
+          .keyboardType(.emailAddress)
+          .textInputAutocapitalization(.never)
+          .autocorrectionDisabled(true)
+          .submitLabel(.send)
+          .onSubmit {
+            // action
+          }
+        CSTextField(for: .password, inputData: $password, isSecure: true)
+          .textContentType(.password)
+      }
+      .frame(height: 135)
+      .scrollContentBackground(.hidden)
+      .scrollIndicators(.hidden)
+      .scrollDisabled(true)
+      
+      signInButton
+        .disabled(!authViewModel.isValidEmail(emailAddress) && password.count >= 8)
+      
+      Label("Other methods", systemImage: "arrow.backward.circle")
+        .fontWeight(.medium)
+        .foregroundStyle(.orange)
+        .onTapGesture { selectedSignInMethod = .none }
+    }
+  }
+  
+  // MARK: - Form "SignIn with email link"
+  private var emailLinkForm: some View {
+    VStack(spacing: 20) {
+      List {
+        CSTextField(for: .emailAddress, inputData: $emailAddress)
+          .keyboardType(.emailAddress)
+          .textInputAutocapitalization(.never)
+          .autocorrectionDisabled(true)
+          .submitLabel(.send)
+          .onSubmit {
+            // action
+          }
       }
       .frame(height: 85)
       .scrollContentBackground(.hidden)
@@ -78,23 +107,21 @@ struct SignInScreen: View {
       .scrollDisabled(true)
       
       signInButton
+        .disabled(!authViewModel.isValidEmail(emailAddress))
       
       Label("Other methods", systemImage: "arrow.backward.circle")
         .fontWeight(.medium)
         .foregroundStyle(.orange)
-        .onTapGesture { selectedMethod = .none }
+        .onTapGesture { selectedSignInMethod = .none }
     }
   }
   
+  // MARK: - Form "SignIn with phone number"
   private var phoneNumberForm: some View {
     VStack(spacing: 20) {
       List {
-        CSTextField(
-          icon: "phone",
-          hint: "Phone number",
-          inputData: $phoneNumber
-        )
-        .submitLabel(.done)
+        CSTextField(for: .phoneNumber, inputData: $phoneNumber)
+          .submitLabel(.done)
       }
       .frame(height: 85)
       .scrollContentBackground(.hidden)
@@ -102,21 +129,22 @@ struct SignInScreen: View {
       .scrollDisabled(true)
       
       signInButton
+        .disabled(!authViewModel.isValidPhoneNumber(phoneNumber))
       
       Label("Other methods", systemImage: "arrow.backward.circle")
         .fontWeight(.medium)
         .foregroundStyle(.orange)
-        .onTapGesture { selectedMethod = .none }
+        .onTapGesture { selectedSignInMethod = .none }
     }
   }
   
-  // MARK: "Sign In with email" button
-  private var signInWithEmailButton: some View {
+  // MARK: - Button "SignIn with email link"
+  private var emailWithLinkButton: some View {
     Button {
-      selectedMethod = .email
+      selectedSignInMethod = .emailWithLink
     } label: {
       ButtonLabelWithIcon(
-        "Continue with Email",
+        "Continue with Email (link)",
         icon: "envelope",
         textColor: .csCream,
         pouring: .black
@@ -124,10 +152,24 @@ struct SignInScreen: View {
     }
   }
   
-  // MARK: "Sign In with phone number" button
-  private var signInWithPhoneNumberButton: some View {
+  // MARK: - Button "SignIn with email and password"
+  private var emailWithPasswordButton: some View {
     Button {
-      selectedMethod = .phone
+      selectedSignInMethod = .emailWithPassword
+    } label: {
+      ButtonLabelWithIcon(
+        "Continue with Email (password)",
+        icon: "envelope",
+        textColor: .csCream,
+        pouring: .black
+      )
+    }
+  }
+  
+  // MARK: Button "SignIn with phone number"
+  private var phoneNumberButton: some View {
+    Button {
+      selectedSignInMethod = .phoneNumber
     } label: {
       ButtonLabelWithIcon(
         "Continue with Phone",
@@ -138,17 +180,16 @@ struct SignInScreen: View {
     }
   }
   
-  // MARK: General "Sign In" button
+  // MARK: Default Button "SignIn"
   private var signInButton: some View {
     Button {
       // sign in action
     } label: {
       ButtonLabel("Sign In", textColor: .white, pouring: .black)
     }
-    .disabled(!isValidForm)
   }
   
-  // MARK: "Sign Up" option
+  // MARK: Option "New member? SignUp"
   private var signUpOption: some View {
     HStack(spacing: 5) {
       Text("New member?")
