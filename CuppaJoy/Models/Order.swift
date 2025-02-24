@@ -9,20 +9,27 @@ import Foundation
 
 struct Order: Identifiable {
   let id: String
-  let coffee: Coffee
+  let coffee: CoffeeType
   let cupSize: CupSize
   let cupCount: Int
-  let sugarCount: Int
+  let sugarSticks: Int
   let iceCount: Int
   let variety: Variety
   let milk: Milk
   let flavor: Flavor
+  let timestamp: Date
   
   var totalPrice: Double {
     let basePrice = coffee.price
     let configurations = cupSize.price + milk.price + flavor.price
     let total = (basePrice + configurations) * Double(cupCount)
     return total
+  }
+  
+  var formattedDate: String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "dd.MM.yyyy, HH:mm"
+    return formatter.string(from: timestamp)
   }
 }
 
@@ -32,10 +39,11 @@ struct MockData {
     coffee: .americano,
     cupSize: .medium,
     cupCount: 1,
-    sugarCount: 2,
+    sugarSticks: 2,
     iceCount: 1,
     variety: .arabica,
     milk: .none,
-    flavor: .vanilla
+    flavor: .vanilla,
+    timestamp: Date()
   )
 }
