@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-private enum PaymentOption {
+private enum PaymentMethod {
   case applePay, creditCard
   
   var iconName: String {
@@ -26,12 +26,12 @@ private enum PaymentOption {
 }
 
 struct PaymentOptionList: View {
-  @State private var selectedOption = PaymentOption.applePay
+  @State private var selectedMethod: PaymentMethod = .applePay
   
   var body: some View {
     List {
-      paymentCell(option: .applePay, isDisabled: false)
-      paymentCell(option: .creditCard, isDisabled: true)
+      cell(for: .applePay, isAvailable: true)
+      cell(for: .creditCard, isAvailable: false)
     }
     .listStyle(.insetGrouped)
     .listRowSpacing(20)
@@ -39,33 +39,35 @@ struct PaymentOptionList: View {
   }
   
   // MARK: Payment Cell
-  private func paymentCell(option: PaymentOption, isDisabled: Bool) -> some View {
-    HStack {
-      Image(systemName: option.iconName)
+  private func cell(for method: PaymentMethod, isAvailable: Bool) -> some View {
+    HStack(spacing: 12) {
+      
+      Image(systemName: method.iconName)
         .imageScale(.large)
         .foregroundColor(.white)
-        .padding(.trailing, 8)
-      Text(option.title)
+      Text(method.title)
         .font(.subheadline)
-        .fontDesign(.monospaced)
+        .fontWeight(.bold)
+      
       Spacer()
       
-      if isDisabled {
-        Text("unavailable now")
-          .foregroundStyle(.red)
-      } else {
-        Image(systemName: "checkmark")
-          .bold()
+      if isAvailable {
+        Image(systemName: "checkmark.circle.fill")
+          .imageScale(.large)
+          .symbolRenderingMode(.hierarchical)
           .foregroundStyle(
-            selectedOption == option ? .accent : .clear
+            selectedMethod == method ? .csCream : .clear
           )
+      } else {
+        Text("Unavailable now")
+          .foregroundStyle(.red)
       }
     }
-    .opacity(isDisabled ? 0.3 : 1)
-    .padding(.vertical, 10)
+    .opacity(isAvailable ? 1 : 0.5)
+    .padding(.vertical, 8)
     .onTapGesture {
-      if !isDisabled {
-        selectedOption = option
+      if isAvailable {
+        selectedMethod = method
       }
     }
   }
