@@ -22,20 +22,20 @@ struct DetailedOrderView: View {
           .fontWeight(.bold)
           .foregroundStyle(.accent)
         VStack(alignment: .leading, spacing: 6) {
-          if order.milk != .none {
-            row("Milk:", content: order.milk.title)
+          if order.milk != "" {
+            row("Milk:", content: order.milk)
           }
-          if order.flavor != .none {
-            row("Flavor:", content: order.flavor.title)
+          if order.flavor != "" {
+            row("Flavor:", content: order.flavor)
           }
           
-          row("Variety:", content: order.variety.title)
+          row("Variety:", content: order.variety)
           
           if order.sugarSticks > 0 {
             row("Sugar sticks:", content: "\(order.sugarSticks)")
           }
-          if order.iceCount > 0 {
-            row("Ice cubes:", content: "\(order.iceCount)")
+          if order.iceCubes > 0 {
+            row("Ice cubes:", content: "\(order.iceCubes)")
           }
         }
         Button {
