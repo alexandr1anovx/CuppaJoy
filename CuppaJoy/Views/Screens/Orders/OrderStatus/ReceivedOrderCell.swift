@@ -15,8 +15,8 @@ struct ReceivedOrderCell: View {
   var body: some View {
     VStack(alignment: .leading, spacing: 12) {
       header
-      row("Type:", content: order.coffee.title, icon: .coffeeBeans)
-      row("Size:", content: order.cupSize.title, icon: .coffee)
+      row("Type:", content: order.coffee, icon: .coffeeBeans)
+      row("Size:", content: order.cupSize, icon: .coffee)
       HStack {
         Spacer()
         orderDetailsButton

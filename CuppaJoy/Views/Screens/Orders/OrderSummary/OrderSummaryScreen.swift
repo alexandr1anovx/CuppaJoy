@@ -18,8 +18,8 @@ struct OrderSummaryScreen: View {
       Color.csBlack.ignoresSafeArea(.all)
       VStack {
         List {
-          orderItemRow("Coffee:", data: order.coffee.title)
-          orderItemRow("Size:", data: order.cupSize.title)
+          orderItemRow("Coffee:", data: order.coffee)
+          orderItemRow("Size:", data: order.cupSize)
           orderItemRow("Count:", data: "\(order.cupCount)")
           
           // Only selected additives are shown
@@ -27,17 +27,17 @@ struct OrderSummaryScreen: View {
           if order.sugarSticks > 0 {
             orderItemRow("Sugar sticks:", data: "\(order.sugarSticks)")
           }
-          if order.iceCount > 0 {
-            orderItemRow("Ice cubes:", data: "\(order.iceCount)")
+          if order.iceCubes > 0 {
+            orderItemRow("Ice cubes:", data: "\(order.iceCubes)")
           }
           
-          orderItemRow("Variety:", data: order.variety.title)
+          orderItemRow("Variety:", data: order.variety)
           
-          if order.milk != .none {
-            orderItemRow("Milk:", data: order.milk.title)
+          if order.milk != "" {
+            orderItemRow("Milk:", data: order.milk)
           }
-          if order.flavor != .none {
-            orderItemRow("Flavor:", data: order.flavor.title)
+          if order.flavor != "" {
+            orderItemRow("Flavor:", data: order.flavor)
           }
           orderItemRow("Total:", data: String(format: "$%.2f", order.totalPrice))
         }
