@@ -12,7 +12,9 @@ enum Tab {
 }
 
 struct EntryPoint: View {
+  
   @State private var selectedTab: Tab = .home
+  let generator = UIImpactFeedbackGenerator(style: .light)
   
   var body: some View {
     NavigationStack {
@@ -38,8 +40,7 @@ struct EntryPoint: View {
       }
       // Enables haptic feedback when selecting a tab.
       .onChange(of: selectedTab) {
-        let generator = UISelectionFeedbackGenerator()
-        generator.selectionChanged()
+        generator.impactOccurred()
       }
     }
   }
@@ -47,4 +48,6 @@ struct EntryPoint: View {
 
 #Preview {
   EntryPoint()
+    .environmentObject( OrderViewModel() )
+    .environmentObject( CoffeeViewModel() )
 }
