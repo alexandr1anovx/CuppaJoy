@@ -12,59 +12,55 @@ struct ApplePaySheet: View {
   let order: Order
   @State private var isShownAlert = false
   @Environment(\.dismiss) var dismiss
-//  @StateObject private var orderViewModel = OrderViewModel()
   @EnvironmentObject var orderViewModel: OrderViewModel
   
   var body: some View {
-    NavigationStack {
-      List {
-        orderTitleSection
-        orderPriceSection
-        accountNameSection
+    VStack(spacing: 0) {
+      HStack {
+        applePayLabel
+        Spacer()
+        DismissButton()
       }
-      .listStyle(.insetGrouped)
-      .scrollContentBackground(.hidden)
-      .shadow(radius: 1)
-      .toolbar {
-        ToolbarItem(placement: .topBarLeading) {
-          applePayImage
+      .padding(.top)
+      .padding(.horizontal)
+      orderList
+      confirmPaymentButton
+    }
+    .alert(isPresented: $isShownAlert) {
+      Alert(
+        title: Text("Congratulations!🔥"),
+        message: Text("Payment has been successfully processed."),
+        dismissButton: .default(Text("Done")) {
+          dismiss()
         }
-        ToolbarItem(placement: .topBarTrailing) {
-          DismissButton()
-        }
-        ToolbarItem(placement: .bottomBar) {
-          footer
-        }
-      }
-      .alert(isPresented: $isShownAlert) {
-        Alert(
-          title: Text("Success 😎"),
-          message: Text("Payment has been successfully processed."),
-          dismissButton: .default(Text("Got it")) {
-            dismiss()
-          }
-        )
-      }
+      )
     }
   }
   
-  // MARK: Apple Pay Image
-  private var applePayImage: some View {
-    HStack {
-      Image(systemName: "apple.logo")
-      Text("Pay").font(.title2)
+  private var orderList: some View {
+    List {
+      productDataLabel
+      productPriceLabel
+      accountLabel
     }
+    .listStyle(.insetGrouped)
+    .scrollContentBackground(.hidden)
+    .shadow(radius: 1)
   }
   
-  // MARK: Order Title
-  private var orderTitleSection: some View {
+  private var applePayLabel: some View {
+    Label("Pay", systemImage: "apple.logo")
+      .font(.title2)
+  }
+  
+  private var productDataLabel: some View {
     HStack(spacing: 20) {
-      Image(.coffee)
+      Image(.marker)
         .foregroundStyle(.accent)
       VStack(alignment: .leading, spacing: 5) {
-        Text("Medium Cup")
+        Text("\(order.cupSize) Cup")
           .font(.callout)
-          .fontWeight(.medium)
+          .fontWeight(.semibold)
         Text("Cuppa Joy")
           .font(.footnote)
           .foregroundStyle(.gray)
@@ -75,37 +71,39 @@ struct ApplePaySheet: View {
     }
   }
   
-  // MARK: Order Price
-  private var orderPriceSection: some View {
+  private var productPriceLabel: some View {
     VStack(alignment: .leading, spacing: 5) {
-      Text("$\(order.totalPrice, specifier: "%.2f")")
-        .font(.title3).bold()
-      Text("One-time charge")
+      Text(order.stringPrice)
+        .font(.headline)
+        .fontWeight(.semibold)
+      Text("One-time purchase")
         .font(.footnote)
         .foregroundStyle(.gray)
     }
   }
   
-  // MARK: Account Name
-  private var accountNameSection: some View {
-    Text("Account: sashaandrianov@icloud.com")
-      .font(.callout)
-      .tint(.gray)
+  private var accountLabel: some View {
+    HStack {
+      Text("Account:")
+      Text("icloudname@icloud.com")
+        .tint(.gray)
+    }
+    .font(.subheadline)
+    .fontWeight(.medium)
   }
   
-  // MARK: Footer (confirmation action)
-  private var footer: some View {
+  private var confirmPaymentButton: some View {
     Button {
+      orderViewModel.setOngoingOrders(order)
       isShownAlert.toggle()
-      orderViewModel.addOrder(order)
     } label: {
-      Text("Confirm Payment")
-        .bold()
-        .foregroundStyle(.white)
-        .padding(8)
+      ButtonLabelWithIcon(
+        "Confirm Payment",
+        icon: "checkmark.circle.fill",
+        textColor: .white,
+        pouring: .blue
+      )
     }
-    .tint(.blue)
-    .buttonStyle(.borderedProminent)
   }
 }
 

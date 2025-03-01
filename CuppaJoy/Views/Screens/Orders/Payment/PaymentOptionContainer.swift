@@ -13,34 +13,38 @@ struct PaymentOptionContainer: View {
   @State private var isShownApplePay = false
   
   var body: some View {
-    VStack {
-      userDataView
+    VStack(spacing:30) {
+      userDataStack
+      checkDetailsButton
       PaymentOptionList()
-        .shadow(radius: 2)
       Spacer()
-      footerView
+      paymentStack
     }
-    .padding(.vertical, 25)
+    .padding(.top, 25)
     .sheet(isPresented: $isShownApplePay) {
       ApplePaySheet(order: order)
-        .presentationDetents([.height(380)])
+        .presentationDetents([.height(340)])
         .presentationBackgroundInteraction(.disabled)
+        .presentationCornerRadius(20)
     }
   }
   
-  // MARK: - User Data
-  private var userDataView: some View {
-    HStack {
-      Image(.man)
-        .foregroundStyle(.accent)
-        .padding(12)
-        .background(.black)
-        .clipShape(.capsule)
+  private var userDataStack: some View {
+    HStack(spacing:10) {
+      Image(systemName: "person.fill")
+        .imageScale(.large)
+        .foregroundStyle(.white)
+        .padding(10)
+        .background(.csDarkGrey)
+        .clipShape(.circle)
       VStack(alignment: .leading, spacing: 8) {
-        Text("Username")
+        Text("Alexander Andrianov")
           .font(.headline)
-        Text("Coffee Store Address")
+          .fontDesign(.rounded)
+          .fontWeight(.bold)
+        Text("+380669732145")
           .font(.footnote)
+          .fontWeight(.bold)
           .foregroundStyle(.gray)
           .lineLimit(2)
           .multilineTextAlignment(.leading)
@@ -51,29 +55,45 @@ struct PaymentOptionContainer: View {
     .padding(.leading, 20)
   }
   
-  // MARK: - Footer
-  private var footerView: some View {
-    HStack {
-      VStack(spacing: 10) {
+  private var checkDetailsButton: some View {
+    Button {
+      // ...
+    } label: {
+      ButtonLabelWithIcon(
+        "Check Order Details",
+        icon: "receipt.fill",
+        textColor: .white,
+        pouring: .black
+      )
+    }
+  }
+  
+  private var paymentStack: some View {
+    VStack(spacing: 20) {
+      HStack(spacing: 5) {
         Text("Total Amount:")
-          .font(.callout).bold()
-          .foregroundStyle(.gray)
-        Text("$\(order.totalPrice, specifier: "%.2f")")
-          .font(.title2).bold()
+          .font(.headline)
+          .fontWeight(.bold)
+          .foregroundStyle(.white)
+        Text(order.stringPrice)
+          .font(.title3)
+          .fontWeight(.bold)
+          .foregroundStyle(.pink)
+          .frame(minWidth: 75)
       }
-      Spacer()
       Button {
         isShownApplePay.toggle()
       } label: {
-        Text("Confirm")
-          .font(.callout).bold()
-          .foregroundStyle(.accent)
-          .padding(10)
+        ButtonLabelAnimated("Confirm Payment", textColor: .white)
       }
-      .buttonStyle(.borderedProminent)
-      .tint(.black)
     }
-    .padding(.horizontal, 20)
+    .background(
+      RoundedRectangle(cornerRadius: 30)
+        .fill(Color.csBlack)
+        .ignoresSafeArea(.all)
+        .frame(height: 140)
+        .shadow(radius: 5)
+    )
   }
 }
 

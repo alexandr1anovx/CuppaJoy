@@ -30,15 +30,16 @@ struct PaymentOptionList: View {
   
   var body: some View {
     List {
-      cell(for: .applePay, isAvailable: true)
-      cell(for: .creditCard, isAvailable: false)
+      Section("Select a convenient payment method") {
+        cell(for: .applePay, isAvailable: true)
+        cell(for: .creditCard, isAvailable: false)
+      }
     }
     .listStyle(.insetGrouped)
-    .listRowSpacing(20)
+    .listRowSpacing(15)
     .scrollContentBackground(.hidden)
   }
   
-  // MARK: Payment Cell
   private func cell(for method: PaymentMethod, isAvailable: Bool) -> some View {
     HStack(spacing: 12) {
       
@@ -56,10 +57,10 @@ struct PaymentOptionList: View {
           .imageScale(.large)
           .symbolRenderingMode(.hierarchical)
           .foregroundStyle(
-            selectedMethod == method ? .csCream : .clear
+            selectedMethod == method ? .orange : .clear
           )
       } else {
-        Text("Unavailable now")
+        Text("unavailable now")
           .foregroundStyle(.red)
       }
     }
@@ -73,5 +74,5 @@ struct PaymentOptionList: View {
   }
 }
 #Preview {
-    PaymentOptionList()
+  PaymentOptionList()
 }

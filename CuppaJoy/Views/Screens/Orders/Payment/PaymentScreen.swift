@@ -17,8 +17,7 @@ struct PaymentScreen: View {
         Color.csBlack.ignoresSafeArea(.all)
         PaymentOptionContainer(order: order)
       }
-      .navigationTitle("Payment Options")
-      .navigationBarTitleDisplayMode(.inline)
+      .navigationTitle("Payment")
       .navigationBarBackButtonHidden(true)
       .toolbar {
         ToolbarItem(placement: .topBarTrailing) {
