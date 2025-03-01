@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum Tab {
-  case home, rewards, orders
+  case home, orders, settings
 }
 
 struct EntryPoint: View {
@@ -22,20 +22,20 @@ struct EntryPoint: View {
         HomeScreen()
           .tag(Tab.home)
           .tabItem {
-            Image(.home)
+            Image(systemName: "house")
             Text("Home")
-          }
-        RewardsScreen()
-          .tag(Tab.rewards)
-          .tabItem {
-            Image(.gift)
-            Text("Rewards")
           }
         OrderStatusScreen()
           .tag(Tab.orders)
           .tabItem {
-            Image(.bookmark)
+            Image(systemName: "list.bullet")
             Text("Orders")
+          }
+        ProfileScreen()
+          .tag(Tab.settings)
+          .tabItem {
+            Image(systemName: "gearshape")
+            Text("Settings")
           }
       }
       // Enables haptic feedback when selecting a tab.
