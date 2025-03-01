@@ -8,17 +8,20 @@
 import Foundation
 
 struct Coffee {
-  let id: String // Firestore document ID
+  let id: String
   let title: String
   let description: String
   let rating: Double
+  let points: Int
   let price: Double
   
-  var formattedRating: String {
+  var stringPoints: String {
+    "\(points)"
+  }
+  var stringRating: String {
     "\(String(format: "%.1f", rating))"
   }
-  
-  var formattedPrice: String {
-    "$\(String(format: "%.1f", price))"
+  var stringPrice: String {
+    "$\(String(format: "%.2f", price))"
   }
 }
