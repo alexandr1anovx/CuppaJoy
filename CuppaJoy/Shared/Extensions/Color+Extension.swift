@@ -13,14 +13,9 @@ extension Color {
     startPoint: .topLeading,
     endPoint: .bottomTrailing
   )
-}
-
-fileprivate struct GradientBackgroundTest: View {
-  var body: some View {
-    Color.appBackground
-  }
-}
-
-#Preview {
-  GradientBackgroundTest()
+  static let mainGradient = LinearGradient(
+    colors: [.pink, .purple],
+    startPoint: .leading,
+    endPoint: .trailing
+  )
 }
