@@ -8,14 +8,13 @@
 import Foundation
 
 struct User: Identifiable, Codable {
-  
   let id: String
-  let firstName: String
-  let lastName: String
+  let fullName: String
   let emailAddress: String
-  let phoneNumber: String
+  let city: String
+  let coins: Int
   
-  var initians: String {
-    "\(firstName) \(lastName)"
+  var stringCoins: String {
+    "\(coins)"
   }
 }
