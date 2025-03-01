@@ -21,15 +21,13 @@ enum City: String, CaseIterable {
 final class AuthenticationViewModel: ObservableObject {
   
   // MARK: Properties
-  
-  // @AppStorage("email-link") var emailLink: String?
   @Published var userSession: FirebaseAuth.User?
   @Published var currentUser: User?
   @Published var selectedCity: City = .mykolaiv
   
   let userCollection = Firestore.firestore().collection("users")
   
-  // MARK: - Initializer
+  // MARK: - Init
   init() {
     self.userSession = Auth.auth().currentUser
     Task {
@@ -44,45 +42,30 @@ final class AuthenticationViewModel: ObservableObject {
     let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
     return predicate.evaluate(with: fullName)
   }
-  
   func isValidPhoneNumber(_ phoneNumber: String) -> Bool {
     // works only for ukrainian format.
     let regex = #"^(\+380|0)\d{9}$"#
     let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
     return predicate.evaluate(with: phoneNumber)
   }
-  
   func isValidEmail(_ emailAddress: String) -> Bool {
     let regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,64}$"
     let predicate = NSPredicate(format: "SELF MATCHES[c] %@", regex)
     return predicate.evaluate(with: emailAddress)
   }
-  
   func isValidPassword(_ password: String) -> Bool {
     let regex = #"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"#
     let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
     return predicate.evaluate(with: password)
   }
   
-  // MARK: - Entry Methods
-  
-  private func fetchUser() async {
-    guard let uid = userSession?.uid else {
-      print("Error when getting user uid")
-      return
-    }
-    guard let snapshot = try? await userCollection.document(uid).getDocument() else {
-      print("Error when getting user document")
-      return
-    }
-    // decode the fetched document into a User object
-    self.currentUser = try? snapshot.data(as: User.self)
-  }
-  
-  
-  func signIn(email: String, password: String) async {
+  // MARK: - Public Methods
+  func signIn(with email: String, and password: String) async {
     do {
-      let result = try await Auth.auth().signIn(withEmail: email, password: password)
+      let result = try await Auth.auth().signIn(
+        withEmail: email,
+        password: password
+      )
       self.userSession = result.user
       await fetchUser()
     } catch {
@@ -107,7 +90,8 @@ final class AuthenticationViewModel: ObservableObject {
         id: result.user.uid,
         fullName: fullName,
         emailAddress: email,
-        city: city.title
+        city: city.title,
+        coins: Int.random(in: 0...8)
       )
       let encodedUser = try Firestore.Encoder().encode(user)
       let document = userCollection.document(user.id)
@@ -118,7 +102,6 @@ final class AuthenticationViewModel: ObservableObject {
     }
   }
   
-  /*
   func signOut() {
     do {
       try Auth.auth().signOut()
@@ -127,21 +110,17 @@ final class AuthenticationViewModel: ObservableObject {
     }
   }
   
-   
-  func sendSignInLink() async {
-    let actionCodeSettings = ActionCodeSettings()
-    actionCodeSettings.url = URL(string: "https://www.example.com")
-    // The sign-in operation has to always be completed in the app.
-    actionCodeSettings.handleCodeInApp = true
-    actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
-    
-    do {
-      try await Auth.auth().sendSignInLink(toEmail: email, actionCodeSettings: actionCodeSettings)
-    } catch {
-      print(error.localizedDescription)
-      emailLink = email
+  // MARK: Private Methods
+  private func fetchUser() async {
+    guard let uid = userSession?.uid else {
+      print("Error when getting user uid")
+      return
     }
+    guard let snapshot = try? await userCollection.document(uid).getDocument() else {
+      print("Error when getting user document")
+      return
+    }
+    // Decode the fetched document into a User object.
+    self.currentUser = try? snapshot.data(as: User.self)
   }
-  */
-  
 }
