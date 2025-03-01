@@ -10,20 +10,21 @@ import SwiftUI
 struct SignUpScreen: View {
   
   // MARK: Properties
-  @State private var username = ""
-  @State private var phoneNumber = ""
+  @State private var fullName = ""
   @State private var emailAddress = ""
+  @State private var password = ""
   @State private var selectedCity: City = .mykolaiv
-  @State private var confirmationCode = ""
   @State private var isShownConfirmationAlert = false
   @FocusState private var fieldContent: TextFieldContentType?
   @Environment(\.dismiss) var dismiss
-  @EnvironmentObject var authenticationViewModel: AuthenticationViewModel
+  @EnvironmentObject var authViewModel: AuthenticationViewModel
+  
+  @State private var isShown = false
   
   private var isValidForm: Bool {
-    authenticationViewModel.isValidUsername(username)
-    && authenticationViewModel.isValidPhoneNumber(phoneNumber)
-    && authenticationViewModel.isValidEmail(emailAddress)
+    authViewModel.isValidFullName(fullName)
+    && authViewModel.isValidEmail(emailAddress)
+    && authViewModel.isValidPassword(password)
   }
   
   // MARK: Custom Picker Style Initializer
@@ -38,39 +39,41 @@ struct SignUpScreen: View {
   var body: some View {
     ZStack {
       Color.appBackground.ignoresSafeArea(.all)
-      
       ScrollView {
         VStack(spacing: 0) {
           AuthHeaderView(for: .signUp)
-          textFieldList
+          textFields
           cityPicker.padding(20)
-          signUpButton.padding(.top, 10)
+          signUpButton.padding(.top, 5)
           signInOption.padding(.top, 15)
           Spacer()
-        }
-        .padding(.top, 20)
+        }.padding(.top, 20)
       }
     }
-    .scrollIndicators(.hidden)
+    .fullScreenCover(isPresented: $isShown) {
+      EntryPoint()
+    }
   }
   
   // MARK: Text Fields
-  private var textFieldList: some View {
+  private var textFields: some View {
     List {
-      CSTextField(for: .username, inputData: $username)
+      CSTextField(for: .username, inputData: $fullName)
         .focused($fieldContent, equals: .username)
         .textInputAutocapitalization(.words)
-        .submitLabel(.next)
-        .onSubmit { fieldContent = .phoneNumber }
-      
-      CSTextField(for: .phoneNumber, inputData: $phoneNumber)
-        .focused($fieldContent, equals: .phoneNumber)
         .submitLabel(.next)
         .onSubmit { fieldContent = .emailAddress }
       
       CSTextField(for: .emailAddress, inputData: $emailAddress)
         .focused($fieldContent, equals: .emailAddress)
         .keyboardType(.emailAddress)
+        .textInputAutocapitalization(.never)
+        .autocorrectionDisabled(true)
+        .submitLabel(.next)
+        .onSubmit { fieldContent = .password }
+      
+      PasswordTextField(password: $password)
+        .focused($fieldContent, equals: .password)
         .textInputAutocapitalization(.never)
         .autocorrectionDisabled(true)
         .submitLabel(.done)
@@ -102,26 +105,25 @@ struct SignUpScreen: View {
   // MARK: Button "Sign Up"
   private var signUpButton: some View {
     Button {
-      isShownConfirmationAlert.toggle()
+      
+      Task {
+        await authViewModel.signUp(
+          fullName: fullName,
+          email: emailAddress,
+          password: password,
+          city: selectedCity
+        )
+        isShown.toggle()
+      }
+      
     } label: {
       ButtonLabel("Sign Up", textColor: .white, pouring: .black)
     }
     .disabled(!isValidForm)
     .opacity(isValidForm ? 1 : 0.5)
-    
-    .alert("Code Confirmation", isPresented: $isShownConfirmationAlert) {
-      TextField("Code", text: $confirmationCode)
-      Button("Confirm", role: .destructive) {
-        // check if the code is correct:
-        // if not, show an alert with an error
-        // if true, show the home screen after loading 2 seconds.
-      }
-    } message: {
-      Text("Enter the code from SMS.")
-    }
   }
   
-  // MARK: Option "Already a member? SignIn"
+  // MARK: Option "Already a member? Sign In"
   private var signInOption: some View {
     Button {
       dismiss()
