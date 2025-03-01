@@ -17,47 +17,64 @@ struct CoffeeSelectionCell: View {
     } label: {
       RoundedRectangle(cornerRadius: 20)
         .foregroundStyle(.csBlack)
-        .shadow(radius: 8)
+        .shadow(radius: 5)
         .aspectRatio(1.1, contentMode: .fit)
-        .overlay(alignment: .top) {
-          ratingAndPriceView
-        }
-        .overlay(alignment: .center) {
-          coffeeDataView
-        }
+      
+        .overlay(alignment: .topLeading) { bonuseLabel }
+        .overlay(alignment: .topTrailing) { priceLabel }
+        .overlay(alignment: .center) { coffeeDataLabel }
     }
   }
   
-  private var ratingAndPriceView: some View {
-    HStack(spacing: 0) {
-      Label(coffee.formattedRating, image: "star")
+  private var bonuseLabel: some View {
+    Label {
+      Text(coffee.stringPoints)
         .font(.caption)
-        .foregroundStyle(.brown)
-      Spacer()
-      Text(coffee.formattedPrice)
-        .font(.subheadline)
-        .foregroundStyle(.orange)
-        .padding(5)
-        .background(.csDarkGrey)
-        .clipShape(.capsule)
+        .fontWeight(.bold)
+    } icon: {
+      Image(.star)
+        .resizable()
+        .frame(width: 13, height: 13)
     }
-    .padding(12)
-    .fontWeight(.bold)
-    .shadow(radius: 5)
+    .foregroundStyle(.white)
+    .padding(8)
+    .background(
+      Color.mainGradient.opacity(0.2)
+    )
+    .clipShape(.capsule)
+    .padding(.leading, 10)
+    .padding(.top, 10)
   }
   
-  private var coffeeDataView: some View {
+  private var priceLabel: some View {
+    Text(coffee.stringPrice)
+      .font(.subheadline)
+      .fontWeight(.bold)
+      .foregroundStyle(.csCream)
+      .padding(5)
+      .background(.csDarkGrey)
+      .clipShape(.capsule)
+      .padding(.top, 10)
+      .padding(.trailing, 10)
+      .shadow(radius: 5)
+  }
+  
+  private var coffeeDataLabel: some View {
     VStack(spacing: 8) {
       Text(coffee.title)
         .font(.headline)
         .fontWeight(.bold)
-        .foregroundStyle(.csCream)
+        .foregroundStyle(.white)
       Text(coffee.description)
         .font(.caption2)
         .fontWeight(.medium)
         .foregroundStyle(.gray)
         .multilineTextAlignment(.center)
+        .padding(.horizontal)
     }
-    .padding(10)
   }
+}
+
+#Preview {
+  CoffeeSelectionCell(coffee: MockData.coffee)
 }

@@ -12,23 +12,24 @@ struct CoffeeSelectionContainer: View {
   @EnvironmentObject var coffeeViewModel: CoffeeViewModel
   
   let fixedColumns = [
-    GridItem(.fixed(UIScreen.current?.bounds.height == 667 ? 160 : 170), spacing: 25),
-    GridItem(.fixed(UIScreen.current?.bounds.height == 667 ? 160 : 170))
+    GridItem(
+      .fixed(UIScreen.current?.bounds.height == 667 ? 160 : 175), spacing: 20),
+    GridItem(
+      .fixed(UIScreen.current?.bounds.height == 667 ? 160 : 175))
   ]
   
   var body: some View {
     ZStack {
       Color.appBackground
-        .clipShape(.rect(cornerRadius: 30))
+        .clipShape(.rect(cornerRadius: 35))
         .ignoresSafeArea(.all)
       
       VStack {
         Label("Mykolaiv", image: "marker")
           .font(.footnote)
           .fontWeight(.semibold)
-          .foregroundStyle(.white)
-          .opacity(0.7)
-          .padding(13)
+          .foregroundStyle(.accent)
+          .padding(12)
           .background(.csDarkGrey)
           .clipShape(.capsule)
         
@@ -37,10 +38,10 @@ struct CoffeeSelectionContainer: View {
             ForEach(coffeeViewModel.coffees, id: \.id) { coffee in
               CoffeeSelectionCell(coffee: coffee)
             }
-          }.padding(.top, 15)
+          }.padding(.top, 20)
         }
       }.padding(.vertical, 20)
-    }
+    }.shadow(radius: 8)
   }
 }
 
