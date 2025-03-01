@@ -18,35 +18,19 @@ struct Order: Identifiable, Codable {
   let milk: String
   let flavor: String
   let timestamp: Date
-  var totalPrice: Double
+  let points: Int
+  let totalPrice: Double
   
-  var formattedDate: String {
+  var stringPoints: String {
+    "\(points)"
+  }
+  var stringDate: String {
     let formatter = DateFormatter()
     formatter.dateFormat = "dd.MM.yyyy, HH:mm"
     return formatter.string(from: timestamp)
   }
-}
-
-struct MockData {
-  static let order: Order = Order(
-    id: "123",
-    coffee: "Americano",
-    cupSize: "Medium",
-    cupCount: 1,
-    sugarSticks: 2,
-    iceCubes: 0,
-    variety: "Arabica",
-    milk: "Lactose",
-    flavor: "Caramel",
-    timestamp: .now,
-    totalPrice: 35.20
-  )
+  var stringPrice: String {
+    "$\(String(format: "%.2f", totalPrice))"
+  }
   
-  static let coffee: Coffee = Coffee(
-    id: "10",
-    title: "Americano",
-    description: "Americano's description",
-    rating: 4.5,
-    price: 28.0
-  )
 }
