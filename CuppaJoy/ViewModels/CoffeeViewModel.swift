@@ -8,19 +8,15 @@
 import Foundation
 import FirebaseFirestore
 
+@MainActor
 final class CoffeeViewModel: ObservableObject {
   
-  // MARK: Properties
-  @Published var coffees: [Coffee] = [
-    Coffee(id: "1", title: "Americano", description: "Americano description", rating: 4.5, price: 30),
-    Coffee(id: "2", title: "Espresso", description: "Espresso description", rating: 4.0, price: 25),
-    Coffee(id: "3", title: "Lattee", description: "Latte description", rating: 4.2, price: 29),
-    Coffee(id: "4", title: "Cappuccino", description: "Cappuccino description", rating: 5, price: 20)
-  ]
+  @Published var coffees: [Coffee] = []
+  
   private let coffeeCollection = Firestore.firestore().collection("coffees")
   
   // MARK: Public Methods
-  func retrieveCoffees() {
+  func getCoffees() {
     coffeeCollection.addSnapshotListener { snapshot, error in
       if let error {
         print(error.localizedDescription)
@@ -37,6 +33,7 @@ final class CoffeeViewModel: ObservableObject {
         let title = data["title"] as? String ?? ""
         let description = data["description"] as? String ?? ""
         let rating = data["rating"] as? Double ?? 0.0
+        let points = data["points"] as? Int ?? 0
         let price = data["price"] as? Double ?? 0.0
         
         return Coffee(
@@ -44,6 +41,7 @@ final class CoffeeViewModel: ObservableObject {
           title: title,
           description: description,
           rating: rating,
+          points: points,
           price: price
         )
       }
