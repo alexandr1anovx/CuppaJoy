@@ -9,51 +9,61 @@ import SwiftUI
 
 struct HomeHeaderView: View {
   
+  @EnvironmentObject var authViewModel: AuthenticationViewModel
+  
   var body: some View {
-    HStack(spacing: 20) {
-      userDataView
-      Spacer()
-      mapButton
-      profileButton
-    }
-    .padding(25)
+    userDataStack
+      .padding(.vertical, 30)
+      .padding(.horizontal, 15)
   }
   
-  private var userDataView: some View {
-    VStack(alignment: .leading, spacing: 10) {
-      Text("Alexander Andrianov")
-        .font(.headline)
-        .foregroundStyle(.white)
-        .lineLimit(2)
-      HStack(spacing: 5) {
-        Text("Bonuses:")
-          .font(.callout)
-          .fontWeight(.medium)
-          .foregroundStyle(.gray)
-        Text("₴₴")
-          .font(.callout).bold()
-          .foregroundStyle(.csCream)
+  private var userDataStack: some View {
+    HStack(spacing: 10) {
+      if let user = authViewModel.currentUser {
+        Image(systemName: "person.fill")
+          .imageScale(.large)
+          .foregroundStyle(.white)
+          .padding(10)
+          .background(.csDarkGrey)
+          .clipShape(.circle)
+        VStack(alignment: .leading, spacing: 10) {
+          Text(user.fullName)
+            .font(.headline)
+            .fontWeight(.semibold)
+            .foregroundStyle(.white)
+            .lineLimit(2)
+          Text(user.emailAddress)
+            .font(.footnote)
+            .fontWeight(.semibold)
+            .foregroundStyle(.gray)
+            .lineLimit(2)
+            .multilineTextAlignment(.leading)
+        }
+        Spacer()
+        pointsLabel(user.stringCoins)
+      } else {
+        ProgressView()
       }
     }
   }
   
-  private var mapButton: some View {
-    NavigationLink {
-      // ...
-    } label: {
-      Image(.map).foregroundStyle(.csCream)
+  private func pointsLabel(_ points: String) -> some View {
+    HStack(spacing: 6){
+      Image(.star)
+        .resizable()
+        .frame(width: 15, height: 15)
+      Text(points)
+        .font(.footnote)
+        .fontWeight(.bold)
     }
-  }
-  
-  private var profileButton: some View {
-    NavigationLink {
-      ProfileScreen()
-    } label: {
-      Image(.man).foregroundStyle(.csCream)
-    }
+    .foregroundStyle(.white)
+    .padding(10)
+    .background(Color.csBrown.gradient)
+    .clipShape(.capsule)
   }
 }
 
 #Preview {
   HomeHeaderView()
+    .environmentObject( AuthenticationViewModel() )
 }
