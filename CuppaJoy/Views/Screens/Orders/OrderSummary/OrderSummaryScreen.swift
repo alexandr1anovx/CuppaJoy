@@ -13,39 +13,41 @@ struct OrderSummaryScreen: View {
   @State private var isShownPaymentScreen = false
   @Environment(\.dismiss) var dismiss
   
+  @State private var visibleIndices: Set<Int> = []
+  
+  var orderDetails: [(String, String)] {
+    [
+      ("Coffee", order.coffee),
+      ("Size", order.cupSize),
+      ("Count", "\(order.cupCount)"),
+      ("Sugar sticks", "\(order.sugarSticks)"),
+      ("Ice cubes", "\(order.iceCubes)"),
+      ("Variety", order.variety),
+      ("Milk", order.milk),
+      ("Flavor", order.flavor)
+    ]
+  }
+
   var body: some View {
     ZStack {
-      Color.csBlack.ignoresSafeArea(.all)
+      Color.appBackground.ignoresSafeArea(.all)
       VStack {
-        List {
-          orderItemRow("Coffee:", data: order.coffee)
-          orderItemRow("Size:", data: order.cupSize)
-          orderItemRow("Count:", data: "\(order.cupCount)")
-          
-          // Only selected additives are shown
-          
-          if order.sugarSticks > 0 {
-            orderItemRow("Sugar sticks:", data: "\(order.sugarSticks)")
-          }
-          if order.iceCubes > 0 {
-            orderItemRow("Ice cubes:", data: "\(order.iceCubes)")
-          }
-          
-          orderItemRow("Variety:", data: order.variety)
-          
-          if order.milk != "" {
-            orderItemRow("Milk:", data: order.milk)
-          }
-          if order.flavor != "" {
-            orderItemRow("Flavor:", data: order.flavor)
-          }
-          orderItemRow("Total:", data: String(format: "$%.2f", order.totalPrice))
+        List(Array(orderDetails.enumerated()), id: \.offset) { index, item in
+          orderItemRow(item.0, data: item.1)
+            .opacity(visibleIndices.contains(index) ? 1:0)
+            .offset(y: visibleIndices.contains(index) ? 0:5)
+            .animation(.easeInOut.delay(Double(index) * 0.15), value: visibleIndices)
+            .onAppear {
+              visibleIndices.insert(index)
+            }
         }
         .listStyle(.insetGrouped)
         .listRowSpacing(10)
+        .environment(\.defaultMinListRowHeight, 46)
         .scrollContentBackground(.hidden)
+        .shadow(radius: 5)
         
-        confirmationFooterView
+        confirmationStack
       }
     }
     .navigationTitle("Order Summary")
@@ -56,22 +58,19 @@ struct OrderSummaryScreen: View {
   
   private func orderItemRow(_ title: String, data: String) -> some View {
     HStack {
-      Text(title)
-        .font(.callout)
+      Text("\(title):")
+        .font(.subheadline)
         .fontWeight(.semibold)
         .foregroundStyle(.white)
-        .opacity(0.8)
+        .opacity(0.9)
       Text(data)
         .font(.callout)
         .fontWeight(.bold)
         .foregroundStyle(.csCream)
     }
-    .listRowInsets(
-      EdgeInsets(top: 25, leading: 15, bottom: 22, trailing: 15)
-    )
   }
   
-  private var confirmationFooterView: some View {
+  private var confirmationStack: some View {
     VStack(spacing: 10) {
       Button {
         dismiss()
@@ -79,18 +78,17 @@ struct OrderSummaryScreen: View {
         ButtonLabelWithIcon(
           "Edit",
           icon: "slider.horizontal.3",
-          textColor: .csCream,
+          textColor: .white,
           pouring: .black
         )
       }
       Button {
         isShownPaymentScreen.toggle()
       } label: {
-        ButtonLabelWithIcon(
-          "Confirm",
-          icon: "checkmark.circle.fill",
+        ButtonLabelAnimated(
+          "Confirm for \(order.stringPrice)",
           textColor: .white,
-          pouring: .csGreen
+          bgColor: Color.buttonGradient
         )
       }
     }
