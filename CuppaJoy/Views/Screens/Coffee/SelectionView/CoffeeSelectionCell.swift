@@ -20,27 +20,24 @@ struct CoffeeSelectionCell: View {
         .shadow(radius: 5)
         .aspectRatio(1.1, contentMode: .fit)
       
-        .overlay(alignment: .topLeading) { bonuseLabel }
+        .overlay(alignment: .topLeading) { coinsLabel }
         .overlay(alignment: .topTrailing) { priceLabel }
         .overlay(alignment: .center) { coffeeDataLabel }
     }
   }
   
-  private var bonuseLabel: some View {
-    Label {
-      Text(coffee.stringPoints)
-        .font(.caption)
-        .fontWeight(.bold)
-    } icon: {
+  private var coinsLabel: some View {
+    HStack(spacing: 6){
       Image(.star)
         .resizable()
-        .frame(width: 13, height: 13)
+        .frame(width: 12, height: 12)
+      Text(coffee.stringPoints)
+        .font(.caption2)
+        .fontWeight(.bold)
     }
     .foregroundStyle(.white)
-    .padding(8)
-    .background(
-      Color.mainGradient.opacity(0.2)
-    )
+    .padding(7)
+    .background(Color.csBrown.gradient)
     .clipShape(.capsule)
     .padding(.leading, 10)
     .padding(.top, 10)

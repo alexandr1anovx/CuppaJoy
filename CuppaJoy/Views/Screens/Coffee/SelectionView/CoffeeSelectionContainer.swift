@@ -10,6 +10,7 @@ import SwiftUI
 struct CoffeeSelectionContainer: View {
   
   @EnvironmentObject var coffeeViewModel: CoffeeViewModel
+  @EnvironmentObject var authViewModel: AuthenticationViewModel
   
   let fixedColumns = [
     GridItem(
@@ -25,13 +26,17 @@ struct CoffeeSelectionContainer: View {
         .ignoresSafeArea(.all)
       
       VStack {
-        Label("Mykolaiv", image: "marker")
-          .font(.footnote)
-          .fontWeight(.semibold)
-          .foregroundStyle(.accent)
-          .padding(12)
-          .background(.csDarkGrey)
-          .clipShape(.capsule)
+        if let user = authViewModel.currentUser {
+          Label(user.city, image: "marker")
+            .font(.footnote)
+            .fontWeight(.semibold)
+            .foregroundStyle(.accent)
+            .padding(12)
+            .background(.csDarkGrey)
+            .clipShape(.capsule)
+        } else {
+          ProgressView()
+        }
         
         ScrollView {
           LazyVGrid(columns: fixedColumns, spacing: 20) {
@@ -48,4 +53,5 @@ struct CoffeeSelectionContainer: View {
 #Preview {
   CoffeeSelectionContainer()
     .environmentObject( CoffeeViewModel() )
+    .environmentObject( AuthenticationViewModel() )
 }
