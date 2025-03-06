@@ -9,42 +9,42 @@ import SwiftUI
 
 struct ButtonLabelAnimated: View {
   
-  @State private var isEnable = false
+  @State private var isAnimating = false
   
   let title: String
   let textColor: Color
+  let bgColor: LinearGradient
   
-  init(_ title: String, textColor: Color) {
+  init(_ title: String, textColor: Color, bgColor: LinearGradient) {
     self.title = title
     self.textColor = textColor
+    self.bgColor = bgColor
   }
   
   var body: some View {
     Text(title)
       .font(.subheadline)
       .fontWeight(.bold)
-      .foregroundStyle(.white)
+      .foregroundStyle(textColor)
       .frame(maxWidth: .infinity)
       .padding(.vertical, 16)
-      
-      .background(Color.mainGradient)
-      .hueRotation(.degrees(isEnable ? 40 : 0))
-      .onAppear {
-        withAnimation(.easeInOut(duration: 2).repeatForever()) {
-          isEnable.toggle()
-        }
-      }
-      
+      .background(bgColor)
       .clipShape(.rect(cornerRadius: 15))
       .padding(.horizontal, 20)
       .shadow(radius: 5)
-      .scaleEffect(isEnable ? 0.95 : 1)
+      .scaleEffect(isAnimating ? 0.95 : 1)
+      .onAppear {
+        withAnimation(.easeInOut(duration: 2).repeatForever()) {
+          isAnimating.toggle()
+        }
+      }
   }
 }
 
 #Preview {
   ButtonLabelAnimated(
     "Check Order Details",
-    textColor: .white
+    textColor: .white,
+    bgColor: Color.brownGradient
   )
 }
