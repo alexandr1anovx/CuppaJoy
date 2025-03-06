@@ -13,7 +13,7 @@ struct HomeScreen: View {
       Color.appBackground.ignoresSafeArea(.all)
       VStack {
         HomeHeaderView()
-        CoffeeSelectionView()
+        CoffeeSelectionContainer()
       }
     }
   }
@@ -21,4 +21,6 @@ struct HomeScreen: View {
 
 #Preview {
   HomeScreen()
+    .environmentObject( AuthenticationViewModel() )
+    .environmentObject( CoffeeViewModel() )
 }
