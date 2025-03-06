@@ -32,9 +32,6 @@ struct PasswordTextField: View {
         }
         .animation(.default, value: isShownPassword)
     }
-    .listRowInsets(
-      EdgeInsets(top: 28, leading: 15, bottom: 22, trailing: 15)
-    )
   }
 }
 

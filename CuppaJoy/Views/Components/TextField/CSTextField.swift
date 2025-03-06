@@ -50,13 +50,11 @@ struct CSTextField: View {
       Image(systemName: fieldContentType.icon)
         .imageScale(.medium)
         .foregroundStyle(.csCream)
+        .opacity(0.8)
       TextField(fieldContentType.hint, text: $inputData)
         .font(.callout)
         .fontWeight(.medium)
     }
-    .listRowInsets(
-      EdgeInsets(top: 28, leading: 15, bottom: 22, trailing: 15)
-    )
   }
 }
 
