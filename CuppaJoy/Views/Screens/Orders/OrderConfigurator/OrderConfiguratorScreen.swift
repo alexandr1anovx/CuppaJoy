@@ -13,7 +13,6 @@ struct OrderConfiguratorScreen: View {
   @State private var cupCount = 1
   @State private var sugarSticks = 0
   @State private var iceCubes = 0
-  
   @State private var cupSize: CupSize = .small
   @State private var variety: Variety = .standart
   @State private var milk: Milk = .none
@@ -28,7 +27,7 @@ struct OrderConfiguratorScreen: View {
   
   var order: Order {
     Order(
-      id: UUID().uuidString, // the item ID creation will be changed in the future.
+      id: UUID().uuidString,
       coffee: selectedCoffee.title,
       cupSize: cupSize.title,
       cupCount: cupCount,
@@ -38,13 +37,12 @@ struct OrderConfiguratorScreen: View {
       milk: milk.title,
       flavor: flavor.title,
       timestamp: .now,
+      points: selectedCoffee.points,
       totalPrice: totalPrice
     )
   }
   
-  // MARK: Initializer
-  
-  
+  // MARK: Body
   var body: some View {
     ZStack {
       Color.appBackground.ignoresSafeArea(.all)
@@ -64,13 +62,13 @@ struct OrderConfiguratorScreen: View {
           }
         }
         .listStyle(.insetGrouped)
-        .listSectionSpacing(10)
-        .listRowSpacing(15)
+        .listSectionSpacing(8)
+        .listRowSpacing(13)
         .scrollContentBackground(.hidden)
         .scrollIndicators(.hidden)
         .shadow(radius: 5)
         
-        totalAmountFooter
+        totalAmountLabel
       }
     }
     .navigationTitle("Order Configurator")
@@ -80,14 +78,14 @@ struct OrderConfiguratorScreen: View {
     }
   }
   
-  private var totalAmountFooter: some View {
+  private var totalAmountLabel: some View {
     VStack(spacing: 20) {
       HStack(spacing: 5) {
-        Text("Total amount:")
+        Text("Total Amount:")
           .font(.headline)
           .fontWeight(.bold)
           .foregroundStyle(.white)
-        Text("₴\(totalPrice, specifier: "%.2f")")
+        Text(order.stringPrice)
           .font(.title3)
           .fontWeight(.bold)
           .foregroundStyle(.csCream)
@@ -98,7 +96,11 @@ struct OrderConfiguratorScreen: View {
       NavigationLink {
         OrderSummaryScreen(order: order)
       } label: {
-        ButtonLabel("Summorize", textColor: .white, pouring: .csBrown)
+        ButtonLabelAnimated(
+          "Summorize",
+          textColor: .white,
+          bgColor: Color.buttonGradient
+        )
       }
     }
     .background(
@@ -121,5 +123,5 @@ struct OrderConfiguratorScreen: View {
 
 #Preview {
   OrderConfiguratorScreen(selectedCoffee: MockData.coffee)
-    .environmentObject( CoffeeViewModel() )
+    .environmentObject(CoffeeViewModel())
 }
