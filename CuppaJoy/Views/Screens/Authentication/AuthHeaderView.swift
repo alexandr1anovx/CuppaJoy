@@ -35,11 +35,11 @@ struct AuthHeaderView: View {
   var body: some View {
     HStack(alignment: .firstTextBaseline) {
       Text(authAction.title)
-        .font(.title2)
-        .fontWeight(.bold)
-        .foregroundStyle(.white)
-      Text(authAction.subtitle)
         .font(.title3)
+        .fontWeight(.bold)
+        .foregroundStyle(.csCream)
+      Text(authAction.subtitle)
+        .font(.headline)
         .fontWeight(.medium)
         .foregroundStyle(.gray)
     }

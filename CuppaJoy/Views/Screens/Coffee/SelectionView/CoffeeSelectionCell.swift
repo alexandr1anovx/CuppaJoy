@@ -35,9 +35,9 @@ struct CoffeeSelectionCell: View {
         .font(.caption2)
         .fontWeight(.bold)
     }
-    .foregroundStyle(.white)
-    .padding(7)
-    .background(Color.csBrown.gradient)
+    .foregroundStyle(.orange)
+    .padding(8)
+    .background(.csDarkGrey)
     .clipShape(.capsule)
     .padding(.leading, 10)
     .padding(.top, 10)

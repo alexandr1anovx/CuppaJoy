@@ -16,7 +16,7 @@ struct PasswordTextField: View {
     HStack(spacing: 15) {
       
       Image(systemName: "lock")
-        .imageScale(.medium)
+        .frame(width: 18, height: 18)
         .foregroundStyle(.csCream)
       
       if isShownPassword {
