@@ -48,7 +48,7 @@ struct CSTextField: View {
   var body: some View {
     HStack(spacing: 15) {
       Image(systemName: fieldContentType.icon)
-        .imageScale(.medium)
+        .frame(width: 18, height: 18)
         .foregroundStyle(.csCream)
         .opacity(0.8)
       TextField(fieldContentType.hint, text: $inputData)
@@ -60,4 +60,6 @@ struct CSTextField: View {
 
 #Preview {
   CSTextField(for: .password, inputData: .constant(""))
+  CSTextField(for: .emailAddress, inputData: .constant(""))
+  CSTextField(for: .phoneNumber, inputData: .constant(""))
 }
