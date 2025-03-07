@@ -12,9 +12,8 @@ struct DismissButton: View {
   
   var body: some View {
     Image(systemName: "xmark.circle.fill")
-      .imageScale(.large)
+      .font(.title3)
       .foregroundStyle(.gray)
-      .symbolRenderingMode(.monochrome)
       .onTapGesture {
         dismiss()
       }
