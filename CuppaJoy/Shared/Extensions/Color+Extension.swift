@@ -13,8 +13,18 @@ extension Color {
     startPoint: .topLeading,
     endPoint: .bottomTrailing
   )
-  static let mainGradient = LinearGradient(
-    colors: [.pink, .purple],
+  static let creamGradient = LinearGradient(
+    colors: [.csCream],
+    startPoint: .topTrailing,
+    endPoint: .bottomLeading
+  )
+  static let brownGradient = LinearGradient(
+    colors: [.csBrown],
+    startPoint: .leading,
+    endPoint: .trailing
+  )
+  static let pointsGradient = LinearGradient(
+    colors: [.csBrown, .csBlack],
     startPoint: .leading,
     endPoint: .trailing
   )
