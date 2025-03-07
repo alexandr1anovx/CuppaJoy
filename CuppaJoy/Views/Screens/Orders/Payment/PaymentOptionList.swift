@@ -8,19 +8,19 @@
 import SwiftUI
 
 private enum PaymentMethod {
-  case applePay, creditCard
-  
-  var iconName: String {
-    switch self {
-    case .applePay: "apple.logo"
-    case .creditCard: "creditcard.fill"
-    }
-  }
+  case applePay
+  case creditCard
   
   var title: String {
     switch self {
     case .applePay: "Apple Pay"
     case .creditCard: "Credit Card"
+    }
+  }
+  var iconName: String {
+    switch self {
+    case .applePay: "apple.logo"
+    case .creditCard: "creditcard.fill"
     }
   }
 }
@@ -36,32 +36,30 @@ struct PaymentOptionList: View {
       }
     }
     .listStyle(.insetGrouped)
+    .environment(\.defaultMinListRowHeight, 55)
     .listRowSpacing(15)
     .scrollContentBackground(.hidden)
   }
   
+  @ViewBuilder
   private func cell(for method: PaymentMethod, isAvailable: Bool) -> some View {
-    HStack(spacing: 12) {
-      
+    HStack(spacing: 13) {
       Image(systemName: method.iconName)
         .imageScale(.large)
         .foregroundColor(.white)
       Text(method.title)
         .font(.subheadline)
-        .fontWeight(.bold)
-      
+        .fontWeight(.semibold)
       Spacer()
-      
       if isAvailable {
-        Image(systemName: "checkmark.circle.fill")
-          .imageScale(.large)
-          .symbolRenderingMode(.hierarchical)
+        Image(systemName: "checkmark")
+          .imageScale(.medium)
+          .fontWeight(.medium)
           .foregroundStyle(
-            selectedMethod == method ? .orange : .clear
+            selectedMethod == method ? .csCream : .clear
           )
       } else {
-        Text("unavailable now")
-          .foregroundStyle(.red)
+        Text("unavailable now").foregroundStyle(.red)
       }
     }
     .opacity(isAvailable ? 1 : 0.5)

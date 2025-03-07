@@ -10,10 +10,10 @@ import SwiftUI
 struct PaymentOptionContainer: View {
   
   let order: Order
-  @State private var isShownApplePay = false
+  @State private var isShownPaymentSheet = false
   
   var body: some View {
-    VStack(spacing:30) {
+    VStack(spacing:25) {
       userDataStack
       checkDetailsButton
       PaymentOptionList()
@@ -21,11 +21,11 @@ struct PaymentOptionContainer: View {
       paymentStack
     }
     .padding(.top, 25)
-    .sheet(isPresented: $isShownApplePay) {
+    .sheet(isPresented: $isShownPaymentSheet) {
       ApplePaySheet(order: order)
         .presentationDetents([.height(340)])
         .presentationBackgroundInteraction(.disabled)
-        .presentationCornerRadius(20)
+        .presentationCornerRadius(30)
     }
   }
   
@@ -60,31 +60,37 @@ struct PaymentOptionContainer: View {
       // ...
     } label: {
       ButtonLabelWithIcon(
-        "Check Order Details",
-        icon: "receipt.fill",
-        textColor: .white,
-        pouring: .black
+        "Check order configurations",
+        icon: "list.bullet",
+        textColor: .orange,
+        pouring: .csDarkGrey
       )
     }
   }
   
   private var paymentStack: some View {
     VStack(spacing: 20) {
-      HStack(spacing: 5) {
+      HStack(spacing: 0) {
         Text("Total Amount:")
-          .font(.headline)
+          .font(.subheadline)
           .fontWeight(.bold)
           .foregroundStyle(.white)
         Text(order.stringPrice)
-          .font(.title3)
+          .font(.system(size: 17))
           .fontWeight(.bold)
-          .foregroundStyle(.pink)
+          .foregroundStyle(.csCream)
+          .contentTransition(.numericText())
           .frame(minWidth: 75)
       }
       Button {
-        isShownApplePay.toggle()
+        isShownPaymentSheet.toggle()
       } label: {
-        ButtonLabelAnimated("Confirm Payment", textColor: .white)
+        ButtonLabelWithIconAnimated(
+          "Confirm Payment",
+          icon: "checkmark.circle.fill",
+          textColor: .white,
+          bgColor: Color.pointsGradient
+        )
       }
     }
     .background(
