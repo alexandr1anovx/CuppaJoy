@@ -13,6 +13,7 @@ struct ApplePaySheet: View {
   @State private var isShownAlert = false
   @Environment(\.dismiss) var dismiss
   @EnvironmentObject var orderViewModel: OrderViewModel
+  @EnvironmentObject var authViewModel: AuthenticationViewModel
   
   var body: some View {
     VStack(spacing: 0) {
@@ -94,6 +95,9 @@ struct ApplePaySheet: View {
   
   private var confirmPaymentButton: some View {
     Button {
+      Task {
+        await authViewModel.addCoinsToUser(order.points)
+      }
       orderViewModel.setOngoingOrders(order)
       isShownAlert.toggle()
     } label: {

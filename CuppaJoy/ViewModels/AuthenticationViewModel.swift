@@ -10,7 +10,6 @@ import FirebaseAuth
 import FirebaseFirestore
 import SwiftUI
 
-// MARK: Enums
 
 enum City: String, CaseIterable {
   case mykolaiv, odesa
@@ -99,6 +98,29 @@ final class AuthenticationViewModel: ObservableObject {
       await fetchUser()
     } catch {
       print("This user already exists.")
+    }
+  }
+  
+  func addCoinsToUser(_ coins: Int) async {
+    guard let uid = userSession?.uid else {
+      print("Error when getting user uid")
+      return
+    }
+    let userRef = userCollection.document(uid)
+    
+    do {
+      let snapshot = try await userRef.getDocument()
+      if let userData = snapshot.data(), let currentCoins = userData["coins"] as? Int {
+        let updatedCoins = currentCoins + coins
+        try await userRef.updateData(["coins": updatedCoins])
+        print("Coins updated successfully! New balance: \(updatedCoins)")
+        
+        DispatchQueue.main.async {
+          self.currentUser?.coins = updatedCoins
+        }
+      }
+    } catch {
+      print("Error updating coins: \(error)")
     }
   }
   
