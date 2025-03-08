@@ -8,9 +8,16 @@
 import SwiftUI
 
 enum OrderStatus: String, CaseIterable {
-  case ongoing, received
+  case ongoing
+  case received
   
   var title: String { rawValue.capitalized }
+  var iconName: String {
+    switch self {
+    case .ongoing: "cart.badge.clock"
+    case .received: "cart.fill"
+    }
+  }
 }
 
 struct OrderStatusScreen: View {
@@ -30,54 +37,86 @@ struct OrderStatusScreen: View {
         }
       }.padding(.top)
     }
-    .onAppear { selectedStatus = .ongoing }
+    .onAppear {
+      selectedStatus = .ongoing
+      orderViewModel.getOngoingOrders()
+      orderViewModel.getReceivedOrders()
+    }
   }
   
   private func indicatedTab(for status: OrderStatus, isSelected: Bool) -> some View {
-    Text(status.title)
+    Label(status.title, systemImage: status.iconName)
       .font(.subheadline)
-      .fontWeight(.medium)
-      .foregroundStyle(isSelected ? .csCream : .gray)
+      .fontWeight(.semibold)
+      .foregroundStyle(isSelected ? .orange : .gray)
       .padding(10)
-      .background(isSelected ? .black : .clear)
+      .background(isSelected ? .csDarkGrey : .clear)
       .clipShape(.capsule)
   }
   
   private var orderStatusTabs: some View {
-    HStack(spacing: 10) {
+    HStack(spacing: 8) {
       ForEach(OrderStatus.allCases, id: \.self) { status in
         indicatedTab(for: status, isSelected: status == selectedStatus)
-          .onTapGesture {
-            withAnimation { selectedStatus = status }
-          }
+          .onTapGesture { selectedStatus = status }
       }
     }
   }
   
+  @ViewBuilder
   private var ongoingOrders: some View {
-    List(orderViewModel.ongoingOrders, id: \.id) { order in
-      OngoingOrderCell(order: order)
+    if orderViewModel.ongoingOrders.count == 0 {
+      ContentUnavailableView {
+        Label("Ongoing Orders", systemImage: "text.badge.xmark")
+      } description: {
+        Text("You don't have any ongoing orders yet.")
+      } actions: {
+        Button {
+          // navigate to the Home screen...
+        } label: {
+          Label("Add", systemImage: "plus.circle.fill")
+            .foregroundStyle(.orange)
+            .font(.subheadline)
+            .fontWeight(.semibold)
+            .padding(13)
+            .background(.csDarkGrey)
+            .clipShape(.buttonBorder)
+        }
+      }
+    } else {
+      List(orderViewModel.ongoingOrders, id: \.id) { order in
+        OngoingOrderCell(order: order)
+      }
+      .listStyle(.insetGrouped)
+      .listRowSpacing(15)
+      .scrollIndicators(.hidden)
+      .scrollContentBackground(.hidden)
+      .shadow(radius: 5)
     }
-    .listStyle(.insetGrouped)
-    .listRowSpacing(15)
-    .scrollIndicators(.hidden)
-    .scrollContentBackground(.hidden)
-    .shadow(radius: 5)
   }
   
+  @ViewBuilder
   private var receivedOrders: some View {
-    List(orderViewModel.receivedOrders, id: \.id) { order in
-      ReceivedOrderCell(order: order)
+    if orderViewModel.receivedOrders.count == 0 {
+      ContentUnavailableView(
+        "Received Orders",
+        systemImage: "text.badge.xmark" ,
+        description: Text("You don't have any received orders yet.")
+      )
+    } else {
+      List(orderViewModel.receivedOrders, id: \.id) { order in
+        ReceivedOrderCell(order: order)
+      }
+      .listStyle(.insetGrouped)
+      .listRowSpacing(15)
+      .scrollIndicators(.hidden)
+      .scrollContentBackground(.hidden)
+      .shadow(radius: 5)
     }
-    .listStyle(.insetGrouped)
-    .listRowSpacing(15)
-    .scrollIndicators(.hidden)
-    .scrollContentBackground(.hidden)
-    .shadow(radius: 5)
   }
 }
 
 #Preview {
   OrderStatusScreen()
-    .environmentObject(OrderViewModel())
+    .environmentObject( OrderViewModel() )
 }
