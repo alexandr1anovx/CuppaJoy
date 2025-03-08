@@ -22,15 +22,11 @@ struct OrderItemPicker<T: OrderItemType>: View {
     Picker(name, selection: $selectedItem) {
       ForEach(items, id: \.self) { item in
         Text(item.title)
-          .tag(item)
       }
     }
     .tint(.csCream)
-    .font(.callout)
-    .fontWeight(.medium)
-    .listRowInsets(
-      EdgeInsets(top: 28, leading: 18, bottom: 22, trailing: 18)
-    )
+    .font(.subheadline)
+    .fontWeight(.semibold)
   }
 }
 

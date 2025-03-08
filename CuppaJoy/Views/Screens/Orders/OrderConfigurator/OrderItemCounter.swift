@@ -9,20 +9,18 @@ import SwiftUI
 
 struct OrderItemCounter: View {
   
-  // MARK: Properties
-  let itemName: String
+  let title: String
   let minValue: Int
   let maxValue: Int
   @Binding var count: Int
   
-  // MARK: Initializer
   init(
-    _ itemName: String,
+    _ title: String,
     min: Int,
     max: Int,
     count: Binding<Int>
   ) {
-    self.itemName = itemName
+    self.title = title
     self.minValue = min
     self.maxValue = max
     self._count = count
@@ -30,34 +28,26 @@ struct OrderItemCounter: View {
   
   var body: some View {
     HStack {
-      Text(itemName).font(.callout)
-      
+      Text(title).font(.subheadline)
       Spacer()
-      
-      Button("-") {
-        withAnimation { count -= 1 }
-      }
-      .font(.footnote)
-      .buttonStyle(.bordered)
-      .disabled(count == minValue)
-      
+      Button("-") { count -= 1 }
+        .font(.footnote)
+        .buttonStyle(.bordered)
+        .clipShape(.circle)
+        .disabled(count == minValue)
       Text("\(count)")
-        .font(.callout)
-        .frame(minWidth: 25)
+        .font(.subheadline)
+        .frame(minWidth: 20)
+        .animation(.bouncy, value: count)
         .contentTransition(.numericText())
-      
-      Button("+") {
-        withAnimation { count += 1 }
-      }
-      .font(.footnote)
-      .buttonStyle(.bordered)
-      .disabled(count == maxValue)
+      Button("+") { count += 1 }
+        .font(.footnote)
+        .buttonStyle(.bordered)
+        .clipShape(.circle)
+        .disabled(count == maxValue)
     }
-    .fontWeight(.medium)
+    .fontWeight(.semibold)
     .foregroundStyle(.white)
-    .listRowInsets(
-      EdgeInsets(top: 28, leading: 18, bottom: 22, trailing: 18)
-    )
   }
 }
 
