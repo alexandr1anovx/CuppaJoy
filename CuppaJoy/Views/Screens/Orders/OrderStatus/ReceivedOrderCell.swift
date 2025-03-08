@@ -10,76 +10,83 @@ import SwiftUI
 struct ReceivedOrderCell: View {
   
   let order: Order
-  @State private var isShownDetailedOrderView = false
+  @State private var isShownConfigurationSheet = false
   
   var body: some View {
-    VStack(alignment: .leading, spacing: 12) {
-      header
-      row("Type:", content: order.coffee, icon: .coffeeBeans)
-      row("Size:", content: order.cupSize, icon: .coffee)
+    VStack(alignment: .leading, spacing:12) {
+      // Header
+      HStack(spacing:0) {
+        dateLabel
+        Spacer()
+        priceAndPointsLabel
+      }
+      row("Coffee:", content: order.coffee)
+      row("Size:", content: order.cupSize)
+      // Footer
       HStack {
         Spacer()
-        orderDetailsButton
+        configurationsButton
       }
-      .padding(.top, 5)
     }
-    .sheet(isPresented: $isShownDetailedOrderView) {
+    .sheet(isPresented: $isShownConfigurationSheet) {
       DetailedOrderView(order: order)
-        .presentationDetents([.height(250)])
-        .presentationDragIndicator(.hidden)
+        .presentationDetents([.large])
         .presentationCornerRadius(30)
-        .presentationCompactAdaptation(.sheet)
     }
   }
   
-  private var header: some View {
-    HStack {
-      Text(order.formattedDate)
-        .font(.caption)
-        .fontWeight(.medium)
-        .fontDesign(.monospaced)
-        .foregroundStyle(.gray)
-      Spacer()
-      Text("₴\(order.totalPrice, specifier: "%.2f")")
-        .font(.headline)
-        .fontWeight(.bold)
-        .padding(9)
+  private var dateLabel: some View {
+    Text(order.stringDate)
+      .font(.footnote)
+      .fontWeight(.semibold)
+      .fontDesign(.monospaced)
+      .foregroundStyle(.gray)
+  }
+  
+  private var priceAndPointsLabel: some View {
+    HStack(spacing:2) {
+      HStack(spacing:6) {
+        Image(.star)
+          .resizable()
+          .frame(width: 15, height: 15)
+        Text(order.stringPoints)
+      }
+      .font(.caption)
+      .foregroundStyle(.orange)
+      .padding(8)
+      .background(.csDarkGrey)
+      .clipShape(.capsule)
+      Text(order.stringPrice)
+        .font(.subheadline)
+        .foregroundStyle(.csCream)
+        .padding(8)
         .background(.csDarkGrey)
         .clipShape(.capsule)
-        .shadow(radius: 5)
     }
-  }
-  
-  private func row(
-    _ title: String,
-    content: String,
-    icon: ImageResource
-  ) -> some View {
-    HStack(spacing: 6) {
-      Image(icon).foregroundStyle(.accent)
-      Text(title).foregroundStyle(.accent)
-      Text(content)
-    }
-    .font(.footnote)
     .fontWeight(.bold)
   }
   
-  private var orderDetailsButton: some View {
-    Button {
-      isShownDetailedOrderView.toggle()
-    } label: {
-      HStack(spacing: 5) {
-        Image(systemName: "info.circle")
-        Text("Order details")
-      }
-      .font(.caption)
-      .fontWeight(.bold)
-      .foregroundStyle(.white)
-      .padding(10)
-      .background(.csDarkGrey)
-      .clipShape(.capsule)
+  private func row(_ title: String, content: String) -> some View {
+    HStack(spacing:5) {
+      Text(title).foregroundStyle(.white)
+      Text(content).foregroundStyle(.csCream)
     }
-    .buttonStyle(.plain)
+    .font(.footnote)
+    .fontWeight(.semibold)
+  }
+  
+  private var configurationsButton: some View {
+    Button {
+      isShownConfigurationSheet.toggle()
+    } label: {
+      Text("Configurations")
+        .font(.caption)
+        .fontWeight(.bold)
+        .foregroundStyle(.white)
+        .padding(10)
+        .background(.csDarkGrey)
+        .clipShape(.capsule)
+    }.buttonStyle(.plain)
   }
 }
 
