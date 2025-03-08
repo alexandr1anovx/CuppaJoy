@@ -33,7 +33,7 @@ struct OrderSummaryScreen: View {
       Color.appBackground.ignoresSafeArea(.all)
       VStack {
         List(Array(orderDetails.enumerated()), id: \.offset) { index, item in
-          orderItemRow(item.0, data: item.1)
+          row(title: item.0, content: item.1)
             .opacity(visibleIndices.contains(index) ? 1:0)
             .offset(y: visibleIndices.contains(index) ? 0:5)
             .animation(.easeInOut.delay(Double(index) * 0.15), value: visibleIndices)
@@ -43,7 +43,7 @@ struct OrderSummaryScreen: View {
         }
         .listStyle(.insetGrouped)
         .listRowSpacing(10)
-        .environment(\.defaultMinListRowHeight, 46)
+        .environment(\.defaultMinListRowHeight, 45)
         .scrollContentBackground(.hidden)
         .shadow(radius: 5)
         
@@ -56,18 +56,13 @@ struct OrderSummaryScreen: View {
     }
   }
   
-  private func orderItemRow(_ title: String, data: String) -> some View {
+  private func row(title: String, content: String) -> some View {
     HStack {
-      Text("\(title):")
-        .font(.subheadline)
-        .fontWeight(.semibold)
-        .foregroundStyle(.white)
-        .opacity(0.9)
-      Text(data)
-        .font(.callout)
-        .fontWeight(.bold)
-        .foregroundStyle(.csCream)
+      Text("\(title):").foregroundStyle(.white)
+      Text(content).foregroundStyle(.csCream)
     }
+    .font(.subheadline)
+    .fontWeight(.semibold)
   }
   
   private var confirmationStack: some View {
@@ -78,17 +73,18 @@ struct OrderSummaryScreen: View {
         ButtonLabelWithIcon(
           "Edit",
           icon: "slider.horizontal.3",
-          textColor: .white,
+          textColor: .orange,
           pouring: .black
         )
       }
       Button {
         isShownPaymentScreen.toggle()
       } label: {
-        ButtonLabelAnimated(
+        ButtonLabelWithIconAnimated(
           "Confirm for \(order.stringPrice)",
+          icon: "checkmark.circle.fill",
           textColor: .white,
-          bgColor: Color.buttonGradient
+          bgColor: Color.pointsGradient
         )
       }
     }
