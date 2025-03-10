@@ -64,6 +64,7 @@ struct OrderConfiguratorScreen: View {
         .listStyle(.insetGrouped)
         .listSectionSpacing(8)
         .listRowSpacing(13)
+        .environment(\.defaultMinListRowHeight, 45)
         .scrollContentBackground(.hidden)
         .scrollIndicators(.hidden)
         .shadow(radius: 5)
@@ -80,13 +81,13 @@ struct OrderConfiguratorScreen: View {
   
   private var totalAmountLabel: some View {
     VStack(spacing: 20) {
-      HStack(spacing: 5) {
+      HStack(spacing: 0) {
         Text("Total Amount:")
-          .font(.headline)
+          .font(.subheadline)
           .fontWeight(.bold)
           .foregroundStyle(.white)
         Text(order.stringPrice)
-          .font(.title3)
+          .font(.system(size: 17))
           .fontWeight(.bold)
           .foregroundStyle(.csCream)
           .contentTransition(.numericText())
@@ -96,10 +97,11 @@ struct OrderConfiguratorScreen: View {
       NavigationLink {
         OrderSummaryScreen(order: order)
       } label: {
-        ButtonLabelAnimated(
+        ButtonLabelWithIconAnimated(
           "Summorize",
+          icon: "plus.circle.fill",
           textColor: .white,
-          bgColor: Color.buttonGradient
+          bgColor: Color.pointsGradient
         )
       }
     }
