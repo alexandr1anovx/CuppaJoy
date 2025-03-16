@@ -32,7 +32,7 @@ enum TextFieldContentType {
   }
 }
 
-struct CSTextField: View {
+struct DefaultTextField: View {
   
   let fieldContentType: TextFieldContentType
   @Binding var inputData: String
@@ -52,14 +52,12 @@ struct CSTextField: View {
         .foregroundStyle(.csCream)
         .opacity(0.8)
       TextField(fieldContentType.hint, text: $inputData)
-        .font(.callout)
+        .font(.subheadline)
         .fontWeight(.medium)
     }
   }
 }
 
 #Preview {
-  CSTextField(for: .password, inputData: .constant(""))
-  CSTextField(for: .emailAddress, inputData: .constant(""))
-  CSTextField(for: .phoneNumber, inputData: .constant(""))
+  DefaultTextField(for: .password, inputData: .constant(""))
 }
