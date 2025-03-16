@@ -9,6 +9,7 @@ import SwiftUI
 
 struct EmailAndPasswordForm: View {
   
+  @State private var isShownHome = false
   @State private var emailAddress = ""
   @State private var password = ""
   @Binding var selectedMethod: SignInMethod?
@@ -27,7 +28,7 @@ struct EmailAndPasswordForm: View {
   var body: some View {
     VStack(spacing: 20) {
       List {
-        CSTextField(for: .emailAddress, inputData: $emailAddress)
+        DefaultTextField(for: .emailAddress, inputData: $emailAddress)
           .focused($fieldContent, equals: .emailAddress)
           .keyboardType(.emailAddress)
           .textInputAutocapitalization(.never)
@@ -35,51 +36,44 @@ struct EmailAndPasswordForm: View {
           .submitLabel(.next)
           .onSubmit { fieldContent = .password }
         
-        PasswordTextField(password: $password)
+        SecuredTextField(password: $password)
           .focused($fieldContent, equals: .password)
-          .textInputAutocapitalization(.never)
-          .autocorrectionDisabled(true)
           .submitLabel(.done)
           .onSubmit { fieldContent = nil }
       }
-      .frame(height: 135)
+      .frame(height: 140)
+      .environment(\.defaultMinListRowHeight, 50)
       .scrollContentBackground(.hidden)
       .scrollIndicators(.hidden)
       .scrollDisabled(true)
       
-      SignInButton(with: $emailAddress, and: $password)
-        .disabled(!isValidForm)
-        .opacity(!isValidForm ? 0.5 : 1)
+      signInButton
       
-      Label("Other methods", systemImage: "arrow.backward.circle.fill")
+      Label("Other methods", systemImage: "arrow.backward.circle")
         .fontWeight(.medium)
         .foregroundStyle(.csCream)
         .onTapGesture { selectedMethod = .none }
     }
-  }
-}
-
-private struct SignInButton: View {
-  
-  @Binding var emailAddress: String
-  @Binding var password: String
-  @EnvironmentObject var authViewModel: AuthenticationViewModel
-  
-  init(
-    with emailAddress: Binding<String>,
-    and password: Binding<String>
-  ) {
-    self._emailAddress = emailAddress
-    self._password = password
+    .fullScreenCover(isPresented: $isShownHome) {
+      EntryPoint()
+    }
   }
   
-  var body: some View {
+  private var signInButton: some View {
     Button {
       Task {
         await authViewModel.signIn(with: emailAddress, and: password)
+        isShownHome.toggle()
       }
     } label: {
       ButtonLabel("Sign In", textColor: .white, pouring: .black)
     }
+    .disabled(!isValidForm)
+    .opacity(!isValidForm ? 0.5 : 1)
   }
+}
+
+#Preview {
+  EmailAndPasswordForm(.constant(.emailAndPassword))
+    .environmentObject(AuthenticationViewModel())
 }
