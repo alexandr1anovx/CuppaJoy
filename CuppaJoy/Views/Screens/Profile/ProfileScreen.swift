@@ -22,7 +22,7 @@ struct ProfileScreen: View {
   let context = CIContext()
   let filter = CIFilter.qrCodeGenerator()
   
-  // MARK: Main Body
+  // MARK: Body
   var body: some View {
     ZStack {
       Color.csBlack.ignoresSafeArea(.all)
@@ -41,19 +41,20 @@ struct ProfileScreen: View {
   // MARK: TextFields
   private var textFieldList: some View {
     List {
-      CSTextField(for: .username, inputData: $username)
+      DefaultTextField(for: .username, inputData: $username)
         .focused($fieldContent, equals: .username)
         .textInputAutocapitalization(.words)
         .submitLabel(.next)
         .textInputAutocapitalization(.words)
         .onSubmit { fieldContent = .phoneNumber }
-      CSTextField(for: .phoneNumber, inputData: $phoneNumber)
+      
+      DefaultTextField(for: .phoneNumber, inputData: $phoneNumber)
         .focused($fieldContent, equals: .phoneNumber)
         .blur(radius: isShownData ? 0 : 2)
         .submitLabel(.next)
         .onSubmit { fieldContent = .emailAddress }
       
-      CSTextField(for: .emailAddress, inputData: $emailAddress)
+      DefaultTextField(for: .emailAddress, inputData: $emailAddress)
         .focused($fieldContent, equals: .emailAddress)
         .keyboardType(.emailAddress)
         .textInputAutocapitalization(.never)
@@ -108,7 +109,6 @@ struct ProfileScreen: View {
       .interpolation(.none)
       .frame(width: 200, height: 200)
   }
-  
   
   private func generateQRCode(from string: String) -> UIImage {
     filter.message = Data(string.utf8)
