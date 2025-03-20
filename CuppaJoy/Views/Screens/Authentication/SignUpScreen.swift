@@ -9,17 +9,15 @@ import SwiftUI
 
 struct SignUpScreen: View {
   
-  // MARK: Properties
   @State private var fullName = ""
   @State private var emailAddress = ""
   @State private var password = ""
   @State private var selectedCity: City = .mykolaiv
-  @State private var isShownConfirmationAlert = false
-  @FocusState private var fieldContent: TextFieldContentType?
-  @Environment(\.dismiss) var dismiss
-  @EnvironmentObject var authViewModel: AuthenticationViewModel
+  @State private var isShownHome = false
   
-  @State private var isShown = false
+  @FocusState private var fieldContent: TextFieldContentType?
+  @EnvironmentObject var authViewModel: AuthenticationViewModel
+  @Environment(\.dismiss) var dismiss
   
   private var isValidForm: Bool {
     authViewModel.isValidFullName(fullName)
@@ -27,18 +25,9 @@ struct SignUpScreen: View {
     && authViewModel.isValidPassword(password)
   }
   
-  // MARK: Custom Picker Style Initializer
-  init() {
-    UISegmentedControl.appearance().selectedSegmentTintColor = .csBrown
-    UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
-    UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
-    UISegmentedControl.appearance().backgroundColor = .black
-  }
-  
-  // MARK: body
   var body: some View {
     ZStack {
-      Color.appBackground.ignoresSafeArea(.all)
+      Color.csBlack.ignoresSafeArea(.all)
       ScrollView {
         VStack(spacing: 0) {
           AuthHeaderView(for: .signUp)
@@ -50,21 +39,23 @@ struct SignUpScreen: View {
         }.padding(.top, 20)
       }
     }
-    .fullScreenCover(isPresented: $isShown) {
+    .onAppear {
+      setupSegmentedControlAppearance()
+    }
+    .fullScreenCover(isPresented: $isShownHome) {
       EntryPoint()
     }
   }
   
-  // MARK: Text Fields
   private var textFields: some View {
     List {
-      CSTextField(for: .username, inputData: $fullName)
+      DefaultTextField(for: .username, inputData: $fullName)
         .focused($fieldContent, equals: .username)
         .textInputAutocapitalization(.words)
         .submitLabel(.next)
         .onSubmit { fieldContent = .emailAddress }
       
-      CSTextField(for: .emailAddress, inputData: $emailAddress)
+      DefaultTextField(for: .emailAddress, inputData: $emailAddress)
         .focused($fieldContent, equals: .emailAddress)
         .keyboardType(.emailAddress)
         .textInputAutocapitalization(.never)
@@ -72,21 +63,21 @@ struct SignUpScreen: View {
         .submitLabel(.next)
         .onSubmit { fieldContent = .password }
       
-      PasswordTextField(password: $password)
+      SecuredTextField(password: $password)
         .focused($fieldContent, equals: .password)
         .textInputAutocapitalization(.never)
         .autocorrectionDisabled(true)
         .submitLabel(.done)
         .onSubmit { fieldContent = nil }
     }
-    .frame(height: 185)
-    .shadow(radius: 5)
+    .frame(height: 190)
+    .environment(\.defaultMinListRowHeight, 50)
     .scrollContentBackground(.hidden)
     .scrollIndicators(.hidden)
     .scrollDisabled(true)
+    .shadow(radius: 5)
   }
   
-  // MARK: City Picker
   private var cityPicker: some View {
     VStack(alignment: .leading) {
       Text("Select your city:")
@@ -102,10 +93,8 @@ struct SignUpScreen: View {
     }
   }
   
-  // MARK: Button "Sign Up"
   private var signUpButton: some View {
     Button {
-      
       Task {
         await authViewModel.signUp(
           fullName: fullName,
@@ -113,17 +102,15 @@ struct SignUpScreen: View {
           password: password,
           city: selectedCity
         )
-        isShown.toggle()
+        isShownHome.toggle()
       }
-      
     } label: {
       ButtonLabel("Sign Up", textColor: .white, pouring: .black)
     }
     .disabled(!isValidForm)
-    .opacity(isValidForm ? 1 : 0.5)
+    .opacity(!isValidForm ? 0.5 : 1)
   }
   
-  // MARK: Option "Already a member? Sign In"
   private var signInOption: some View {
     Button {
       dismiss()
@@ -131,7 +118,7 @@ struct SignUpScreen: View {
       HStack(spacing: 5) {
         Text("Already a member?")
           .font(.footnote)
-          .fontWeight(.semibold)
+          .fontWeight(.medium)
           .foregroundStyle(.gray)
         Text("Sign In.")
           .font(.callout)
@@ -140,9 +127,17 @@ struct SignUpScreen: View {
       }
     }
   }
+  
+  private func setupSegmentedControlAppearance() {
+    let appearance = UISegmentedControl.appearance()
+    appearance.selectedSegmentTintColor = .csBrown
+    appearance.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
+    appearance.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
+    appearance.backgroundColor = .black
+  }
 }
 
 #Preview {
   SignUpScreen()
-    .environmentObject(AuthenticationViewModel())
+    .environmentObject( AuthenticationViewModel() )
 }
