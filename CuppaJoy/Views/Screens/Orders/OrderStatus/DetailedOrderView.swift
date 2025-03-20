@@ -9,55 +9,59 @@ import SwiftUI
 
 struct DetailedOrderView: View {
   
+  var orderDetails: [(String, String)] {
+    [
+      ("Coffee", order.coffee),
+      ("Size", order.cupSize),
+      ("Count", "\(order.cupCount)"),
+      ("Sugar sticks", "\(order.sugarSticks)"),
+      ("Ice cubes", "\(order.iceCubes)"),
+      ("Variety", order.variety),
+      ("Milk", order.milk),
+      ("Flavor", order.flavor)
+    ]
+  }
+  
   let order: Order
   @Environment(\.dismiss) var dismiss
   
   var body: some View {
-    ZStack {
+    ZStack{
       Color.csBlack.ignoresSafeArea(.all)
-      VStack(spacing: 20) {
-        Spacer()
-        Label("Detailed Order Information", systemImage: "list.bullet.rectangle.fill")
+      VStack(spacing:0) {
+        Label("Configurations", systemImage: "list.bullet")
           .font(.headline)
-          .fontWeight(.bold)
-          .foregroundStyle(.accent)
-        VStack(alignment: .leading, spacing: 6) {
-          if order.milk != "" {
-            row("Milk:", content: order.milk)
-          }
-          if order.flavor != "" {
-            row("Flavor:", content: order.flavor)
-          }
-          
-          row("Variety:", content: order.variety)
-          
-          if order.sugarSticks > 0 {
-            row("Sugar sticks:", content: "\(order.sugarSticks)")
-          }
-          if order.iceCubes > 0 {
-            row("Ice cubes:", content: "\(order.iceCubes)")
-          }
+          .fontWeight(.semibold)
+          .foregroundStyle(.orange)
+        
+        List(Array(orderDetails.enumerated()), id: \.offset) { index, item in
+          row(title: item.0, content: item.1)
         }
+        .listStyle(.insetGrouped)
+        .listRowSpacing(10)
+        .environment(\.defaultMinListRowHeight, 45)
+        .scrollContentBackground(.hidden)
+        .shadow(radius:5)
         Button {
           dismiss()
         } label: {
-          ButtonLabel("Close", textColor: .white, pouring: .black)
+          ButtonLabel("Close", textColor: .red, pouring: .black)
         }
-      }
+      }.padding(.top)
     }
   }
   
-  private func row(_ title: String, content: String) -> some View {
-    HStack(spacing: 5) {
-      Text(title)
+  private func row(title: String, content: String) -> some View {
+    HStack {
+      Text("\(title):")
         .font(.subheadline)
-        .fontWeight(.bold)
+        .fontWeight(.semibold)
         .foregroundStyle(.white)
-        .opacity(0.8)
+        .opacity(0.9)
       Text(content)
         .font(.callout)
         .fontWeight(.bold)
-        .foregroundStyle(.orange)
+        .foregroundStyle(.csCream)
     }
   }
 }
