@@ -16,7 +16,6 @@ enum AuthAction {
     case .signUp: "Sign up."
     }
   }
-  
   var subtitle: String {
     switch self {
     case .signIn: "Select a convenient way."

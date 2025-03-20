@@ -50,4 +50,5 @@ struct EntryPoint: View {
   EntryPoint()
     .environmentObject( OrderViewModel() )
     .environmentObject( CoffeeViewModel() )
+    .environmentObject( AuthenticationViewModel() )
 }

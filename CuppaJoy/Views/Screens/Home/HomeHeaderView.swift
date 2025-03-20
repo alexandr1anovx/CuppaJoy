@@ -56,9 +56,9 @@ struct HomeHeaderView: View {
         .font(.footnote)
         .fontWeight(.bold)
     }
-    .foregroundStyle(.white)
+    .foregroundStyle(.orange)
     .padding(10)
-    .background(Color.csBrown.gradient)
+    .background(.csDarkGrey)
     .clipShape(.capsule)
   }
 }

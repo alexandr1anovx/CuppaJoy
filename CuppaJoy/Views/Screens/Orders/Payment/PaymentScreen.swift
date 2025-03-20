@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct PaymentScreen: View {
-  
   let order: Order
   
   var body: some View {

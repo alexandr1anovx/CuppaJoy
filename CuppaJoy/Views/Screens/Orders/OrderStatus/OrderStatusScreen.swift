@@ -71,8 +71,8 @@ struct OrderStatusScreen: View {
       } description: {
         Text("You don't have any ongoing orders yet.")
       } actions: {
-        Button {
-          // navigate to the Home screen...
+        NavigationLink {
+          HomeScreen()
         } label: {
           Label("Add", systemImage: "plus.circle.fill")
             .foregroundStyle(.orange)
@@ -82,6 +82,7 @@ struct OrderStatusScreen: View {
             .background(.csDarkGrey)
             .clipShape(.buttonBorder)
         }
+
       }
     } else {
       List(orderViewModel.ongoingOrders, id: \.id) { order in

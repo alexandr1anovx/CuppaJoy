@@ -24,7 +24,6 @@ struct SecuredTextField: View {
   var body: some View {
     HStack {
       secureTextField
-        
       Image(systemName: isShownPassword ? "eye" : "eye.slash")
         .opacity(password.count >= 1 ? 1 : 0)
         .disabled(password.count < 1)

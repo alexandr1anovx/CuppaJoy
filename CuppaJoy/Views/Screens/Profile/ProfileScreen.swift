@@ -19,6 +19,8 @@ struct ProfileScreen: View {
   @State private var isShownData = false
   @FocusState private var fieldContent: TextFieldContentType?
   
+  @EnvironmentObject var authViewModel: AuthenticationViewModel
+  
   let context = CIContext()
   let filter = CIFilter.qrCodeGenerator()
   
@@ -63,6 +65,7 @@ struct ProfileScreen: View {
         .submitLabel(.done)
         .onSubmit { fieldContent = nil }
     }
+    .environment(\.defaultMinListRowHeight, 50)
     .frame(height: 185)
     .scrollContentBackground(.hidden)
     .scrollIndicators(.hidden)
@@ -104,6 +107,9 @@ struct ProfileScreen: View {
   
   // MARK: QRCode
   private var qrcodeImage: some View {
+//    VStack {
+//      
+//    }
     Image(uiImage: generateQRCode(from: username))
       .resizable()
       .interpolation(.none)

@@ -17,13 +17,21 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct CuppaJoyApp: App {
-  // register app delegate for Firebase setup
+  @StateObject private var orderViewModel = OrderViewModel()
+  @StateObject private var authViewModel = AuthenticationViewModel()
+  @StateObject private var coffeeViewModel = CoffeeViewModel()
   @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
   
   var body: some Scene {
     WindowGroup {
       OnboardingScreen()
         .preferredColorScheme(.dark)
+        .environmentObject(orderViewModel)
+        .environmentObject(authViewModel)
+        .environmentObject(coffeeViewModel)
+        .onAppear {
+          coffeeViewModel.getCoffees()
+        }
     }
   }
 }
