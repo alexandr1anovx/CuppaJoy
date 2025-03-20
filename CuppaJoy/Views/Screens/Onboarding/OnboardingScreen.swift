@@ -9,16 +9,15 @@ import SwiftUI
 
 struct OnboardingScreen: View {
   
-  // MARK: Properties
   @State private var pageIndex = 0
   @State private var isFinishedOnboarding = false
+  @State private var isAnimating = false
   let pages = OnboardingPage.allCases
   
   var isIndexLast: Bool {
     pageIndex == pages.count - 1
   }
   
-  // MARK: body
   var body: some View {
     if isFinishedOnboarding {
       SignInScreen()
@@ -27,7 +26,6 @@ struct OnboardingScreen: View {
     }
   }
   
-  // MARK: Onboarding Page
   private var onboardingPage: some View {
     ZStack(alignment: .bottom) {
       Color.appBackground.ignoresSafeArea(.all)
@@ -41,12 +39,11 @@ struct OnboardingScreen: View {
     }
   }
   
-  // MARK: Page Data
   private func onboardingData(for page: OnboardingPage) -> some View {
     VStack(spacing: 12) {
       Image(page.image)
         .resizable()
-        .frame(width: 150, height: 150)
+        .frame(width: 130, height: 130)
         .foregroundStyle(.csCream)
         .padding(.bottom)
       Text(page.title)
@@ -64,7 +61,6 @@ struct OnboardingScreen: View {
     .animation(.spring, value: pageIndex)
   }
   
-  // MARK: Page Indicator
   private var pageIndicator: some View {
     HStack(spacing: 15) {
       ForEach(0..<pages.count, id: \.self) { index in
@@ -78,7 +74,6 @@ struct OnboardingScreen: View {
     }
   }
   
-  // MARK: "Continue" button
   private var continueButton: some View {
     Button {
       if !isIndexLast {
@@ -87,10 +82,11 @@ struct OnboardingScreen: View {
         withAnimation { isFinishedOnboarding = true }
       }
     } label: {
-      ButtonLabel(
+      ButtonLabelWithIconAnimated(
         isIndexLast ? "Get Started!": "Continue",
-        textColor: .white,
-        pouring: .black
+        icon: isIndexLast ? "checkmark.seal.fill": "arrow.right.circle.fill",
+        textColor: isIndexLast ? .black : .white,
+        bgColor: isIndexLast ? Color.creamGradient : Color.pointsGradient
       )
     }
   }
