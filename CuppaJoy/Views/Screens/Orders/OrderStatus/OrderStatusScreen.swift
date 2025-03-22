@@ -22,6 +22,8 @@ enum OrderStatus: String, CaseIterable {
 
 struct OrderStatusScreen: View {
   
+  @Binding var selectedTab: Tab
+  
   @State private var selectedStatus: OrderStatus = .ongoing
   @EnvironmentObject var orderViewModel: OrderViewModel
   
@@ -71,8 +73,8 @@ struct OrderStatusScreen: View {
       } description: {
         Text("You don't have any ongoing orders yet.")
       } actions: {
-        NavigationLink {
-          HomeScreen()
+        Button {
+          selectedTab = .home
         } label: {
           Label("Add", systemImage: "plus.circle.fill")
             .foregroundStyle(.orange)
@@ -82,7 +84,6 @@ struct OrderStatusScreen: View {
             .background(.csDarkGrey)
             .clipShape(.buttonBorder)
         }
-
       }
     } else {
       List(orderViewModel.ongoingOrders, id: \.id) { order in
@@ -117,7 +118,7 @@ struct OrderStatusScreen: View {
   }
 }
 
-#Preview {
-  OrderStatusScreen()
-    .environmentObject( OrderViewModel() )
-}
+//#Preview {
+//  OrderStatusScreen()
+//    .environmentObject( OrderViewModel() )
+//}

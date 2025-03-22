@@ -25,7 +25,7 @@ struct EntryPoint: View {
             Image(systemName: "house")
             Text("Home")
           }
-        OrderStatusScreen()
+        OrderStatusScreen(selectedTab: $selectedTab)
           .tag(Tab.orders)
           .tabItem {
             Image(systemName: "list.bullet")
