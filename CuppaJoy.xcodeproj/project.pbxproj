@@ -17,7 +17,6 @@
 		326108402CBAD3B10072D238 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3261083F2CBAD3B10072D238 /* HomeScreen.swift */; };
 		32EA86CF2CB62588003E774D /* ReturnButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EA86CE2CB62588003E774D /* ReturnButton.swift */; };
 		32FF43AB2CC6CC9E001C0E0C /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF43AA2CC6CC9E001C0E0C /* ProfileScreen.swift */; };
-		32FF43AF2CC6CDF3001C0E0C /* RewardsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF43AE2CC6CDF3001C0E0C /* RewardsScreen.swift */; };
 		32FF43BB2CC6FA35001C0E0C /* EntryPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF43BA2CC6FA35001C0E0C /* EntryPoint.swift */; };
 		50288ACA2CF7E73300DA7304 /* CoffeeSelectionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50288AC92CF7E73300DA7304 /* CoffeeSelectionContainer.swift */; };
 		50DFA8132D046D840058A4D4 /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DFA8122D046D840058A4D4 /* UIWindow+Extension.swift */; };
@@ -35,6 +34,7 @@
 		D15A87D12D66659300259382 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15A87D02D66659300259382 /* Order.swift */; };
 		D15A87D42D6669D900259382 /* OrderSummaryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15A87D32D6669D900259382 /* OrderSummaryScreen.swift */; };
 		D16275232D90345D0001D88C /* PasswordRecoveryForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16275222D90345C0001D88C /* PasswordRecoveryForm.swift */; };
+		D16275252D903D4E0001D88C /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16275242D903D4E0001D88C /* AlertManager.swift */; };
 		D17172782D6689A800B538F6 /* ButtonLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17172772D6689A800B538F6 /* ButtonLabel.swift */; };
 		D1721E042D6F573F00A0CBF1 /* Coffee.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1721E032D6F573F00A0CBF1 /* Coffee.swift */; };
 		D1721E062D6F595500A0CBF1 /* CoffeeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1721E052D6F595500A0CBF1 /* CoffeeViewModel.swift */; };
@@ -75,7 +75,6 @@
 		3261083F2CBAD3B10072D238 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		32EA86CE2CB62588003E774D /* ReturnButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnButton.swift; sourceTree = "<group>"; };
 		32FF43AA2CC6CC9E001C0E0C /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
-		32FF43AE2CC6CDF3001C0E0C /* RewardsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardsScreen.swift; sourceTree = "<group>"; };
 		32FF43BA2CC6FA35001C0E0C /* EntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryPoint.swift; sourceTree = "<group>"; };
 		50288AC92CF7E73300DA7304 /* CoffeeSelectionContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeSelectionContainer.swift; sourceTree = "<group>"; };
 		50DFA8122D046D840058A4D4 /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
@@ -93,6 +92,7 @@
 		D15A87D02D66659300259382 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		D15A87D32D6669D900259382 /* OrderSummaryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSummaryScreen.swift; sourceTree = "<group>"; };
 		D16275222D90345C0001D88C /* PasswordRecoveryForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordRecoveryForm.swift; sourceTree = "<group>"; };
+		D16275242D903D4E0001D88C /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		D17172772D6689A800B538F6 /* ButtonLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLabel.swift; sourceTree = "<group>"; };
 		D1721E032D6F573F00A0CBF1 /* Coffee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coffee.swift; sourceTree = "<group>"; };
 		D1721E052D6F595500A0CBF1 /* CoffeeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeViewModel.swift; sourceTree = "<group>"; };
@@ -152,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				D1C859CE2D20BD3C00DDB941 /* App */,
+				D16275262D90410E0001D88C /* Utilities */,
 				D1CE7A2A2D64A45D00542AC5 /* ViewModels */,
 				D1CE7A292D64A43F00542AC5 /* Models */,
 				32325EDE2CB2B7350048E557 /* Views */,
@@ -207,14 +208,6 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		32FF43AD2CC6CDB4001C0E0C /* Rewards */ = {
-			isa = PBXGroup;
-			children = (
-				32FF43AE2CC6CDF3001C0E0C /* RewardsScreen.swift */,
-			);
-			path = Rewards;
-			sourceTree = "<group>";
-		};
 		32FF43B42CC6F92A001C0E0C /* TextField */ = {
 			isa = PBXGroup;
 			children = (
@@ -230,7 +223,6 @@
 				D177E1A92D339DC10055658D /* Onboarding */,
 				32FF43A72CC6C742001C0E0C /* Authentication */,
 				32FF43AC2CC6CDA3001C0E0C /* Home */,
-				32FF43AD2CC6CDB4001C0E0C /* Rewards */,
 				32FF43C22CC6FB05001C0E0C /* Orders */,
 				50482B2D2D00D7A2006AE77A /* Profile */,
 				50DFA82F2D0509260058A4D4 /* Coffee */,
@@ -272,6 +264,14 @@
 				D1C859B72D20A56900DDB941 /* SelectionView */,
 			);
 			path = Coffee;
+			sourceTree = "<group>";
+		};
+		D16275262D90410E0001D88C /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				D16275242D903D4E0001D88C /* AlertManager.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		D17172762D66895800B538F6 /* Labels */ = {
@@ -354,7 +354,6 @@
 		D1C859CF2D20BE2400DDB941 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				D1FEA5332D66283900B082D8 /* Alerts */,
 				3239D8FA2CB22BE50094D38B /* Extensions */,
 				D1C859D12D20BEEC00DDB941 /* Assets */,
 			);
@@ -419,13 +418,6 @@
 				D16275222D90345C0001D88C /* PasswordRecoveryForm.swift */,
 			);
 			path = SignInMethods;
-			sourceTree = "<group>";
-		};
-		D1FEA5332D66283900B082D8 /* Alerts */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Alerts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -510,10 +502,10 @@
 				D15A87D42D6669D900259382 /* OrderSummaryScreen.swift in Sources */,
 				D138A9492D6A85BB00AB1257 /* ReceivedOrderCell.swift in Sources */,
 				D1D1F1BB2D7474D800B7D035 /* EmailAndPasswordForm.swift in Sources */,
-				32FF43AF2CC6CDF3001C0E0C /* RewardsScreen.swift in Sources */,
 				D1D58DDB2D731F4000BD54EE /* ButtonLabelWithIconAnimated.swift in Sources */,
 				50DFA8232D04AC660058A4D4 /* HomeHeaderView.swift in Sources */,
 				321D48142CAF6098007A0B20 /* CuppaJoyApp.swift in Sources */,
+				D16275252D903D4E0001D88C /* AlertManager.swift in Sources */,
 				D182F4A72D325A8C00A113E8 /* OnboardingScreen.swift in Sources */,
 				50DFA8132D046D840058A4D4 /* UIWindow+Extension.swift in Sources */,
 				D174204A2D3D532D00FE1E2B /* OnboardingPage.swift in Sources */,
