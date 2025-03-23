@@ -12,7 +12,7 @@ struct User: Identifiable, Codable {
   let fullName: String
   let emailAddress: String
   let city: String
-  let coins: Int
+  var coins: Int
   
   var stringCoins: String {
     "\(coins)"
