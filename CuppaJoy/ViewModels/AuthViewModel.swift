@@ -10,14 +10,13 @@ import FirebaseAuth
 import FirebaseFirestore
 import SwiftUI
 
-
 enum City: String, CaseIterable {
   case mykolaiv, odesa
   var title: String { rawValue.capitalized }
 }
 
 @MainActor
-final class AuthenticationViewModel: ObservableObject {
+final class AuthViewModel: ObservableObject {
   
   // MARK: Properties
   @Published var userSession: FirebaseAuth.User?
@@ -129,6 +128,16 @@ final class AuthenticationViewModel: ObservableObject {
       try Auth.auth().signOut()
     } catch let signOutError as NSError {
       print("Error signing out: \(signOutError)")
+    }
+  }
+  
+  func resetPassword(for email: String) async throws {
+    do {
+      try await Auth.auth().sendPasswordReset(withEmail: email)
+      print("Password reset email sent successfully to \(email)")
+    } catch {
+      print("Error sending password reset email: \(error.localizedDescription)")
+      throw error
     }
   }
   
