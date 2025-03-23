@@ -105,11 +105,8 @@ struct ProfileScreen: View {
     }
   }
   
-  // MARK: QRCode
+  // MARK: QR code
   private var qrcodeImage: some View {
-//    VStack {
-//      
-//    }
     Image(uiImage: generateQRCode(from: username))
       .resizable()
       .interpolation(.none)

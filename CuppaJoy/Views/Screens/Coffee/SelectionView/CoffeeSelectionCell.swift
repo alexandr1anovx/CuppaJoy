@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CoffeeSelectionCell: View {
-  
   let coffee: Coffee
   
   var body: some View {
@@ -19,7 +18,6 @@ struct CoffeeSelectionCell: View {
         .foregroundStyle(.csBlack)
         .shadow(radius: 5)
         .aspectRatio(1.1, contentMode: .fit)
-      
         .overlay(alignment: .topLeading) { coinsLabel }
         .overlay(alignment: .topTrailing) { priceLabel }
         .overlay(alignment: .center) { coffeeDataLabel }
