@@ -15,7 +15,8 @@ final class CoffeeViewModel: ObservableObject {
   
   private let coffeeCollection = Firestore.firestore().collection("coffees")
   
-  // MARK: Public Methods
+  // MARK: - Public Methods
+  
   func getCoffees() {
     coffeeCollection.addSnapshotListener { snapshot, error in
       if let error {
@@ -23,10 +24,9 @@ final class CoffeeViewModel: ObservableObject {
         return
       }
       guard let documents = snapshot?.documents else {
-        print("Cannnot retrieve documents from firestore")
+        print("Cannnot retrieve documents from firestore when calling 'getCoffees' method.")
         return
       }
-      // Fill in the coffee's array
       self.coffees = documents.map { snapshot -> Coffee in
         let data = snapshot.data()
         let id = snapshot.documentID
