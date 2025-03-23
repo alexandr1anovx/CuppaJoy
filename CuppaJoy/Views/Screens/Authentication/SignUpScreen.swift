@@ -13,7 +13,6 @@ struct SignUpScreen: View {
   @State private var emailAddress = ""
   @State private var password = ""
   @State private var selectedCity: City = .mykolaiv
-  @State private var isShownHome = false
   
   @FocusState private var fieldContent: TextFieldContentType?
   @EnvironmentObject var authViewModel: AuthViewModel
@@ -41,9 +40,6 @@ struct SignUpScreen: View {
     }
     .onAppear {
       setupSegmentedControlAppearance()
-    }
-    .fullScreenCover(isPresented: $isShownHome) {
-      EntryPoint()
     }
   }
   
@@ -102,7 +98,6 @@ struct SignUpScreen: View {
           password: password,
           city: selectedCity
         )
-        isShownHome.toggle()
       }
     } label: {
       ButtonLabel("Sign Up", textColor: .white, pouring: .black)
@@ -116,12 +111,12 @@ struct SignUpScreen: View {
       dismiss()
     } label: {
       HStack(spacing: 5) {
-        Text("Already a member?")
+        Text("Already have an account?")
           .font(.footnote)
           .fontWeight(.medium)
           .foregroundStyle(.gray)
         Text("Sign In.")
-          .font(.callout)
+          .font(.subheadline)
           .fontWeight(.bold)
           .foregroundStyle(.csCream)
       }

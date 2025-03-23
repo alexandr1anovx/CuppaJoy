@@ -9,13 +9,12 @@ import SwiftUI
 
 enum SignInMethod {
   case emailAndPassword
-  case emailLink
-  case phoneNumber
+  // Add more in the future
 }
 
 struct SignInScreen: View {
   
-  @State private var selectedMethod: SignInMethod?
+  @State private var signInMethod: SignInMethod?
   @EnvironmentObject var authViewModel: AuthViewModel
   
   var body: some View {
@@ -32,10 +31,10 @@ struct SignInScreen: View {
   
   @ViewBuilder
   private var pageContent: some View {
-    if selectedMethod == nil {
+    if signInMethod == nil {
       authMethodsView
-    } else if selectedMethod == .emailAndPassword {
-      EmailAndPasswordForm($selectedMethod)
+    } else if signInMethod == .emailAndPassword {
+      EmailAndPasswordForm(signInMethod: $signInMethod)
     }
   }
   
@@ -48,7 +47,7 @@ struct SignInScreen: View {
   
   private var continueWithEmailAndPasswordButton: some View {
     Button {
-      selectedMethod = .emailAndPassword
+      signInMethod = .emailAndPassword
     } label: {
       ButtonLabelWithIcon(
         "Continue with Email & Password",
@@ -61,7 +60,7 @@ struct SignInScreen: View {
   
   private var signUpButton: some View {
     HStack(spacing: 5) {
-      Text("New member?")
+      Text("Don't have an account yet?")
         .font(.footnote)
         .fontWeight(.medium)
         .foregroundStyle(.gray)
@@ -69,7 +68,7 @@ struct SignInScreen: View {
         SignUpScreen()
       } label: {
         Text("Sign Up.")
-          .font(.callout)
+          .font(.subheadline)
           .fontWeight(.bold)
           .foregroundStyle(.csCream)
       }
