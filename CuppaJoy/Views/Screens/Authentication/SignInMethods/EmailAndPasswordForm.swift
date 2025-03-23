@@ -14,7 +14,7 @@ struct EmailAndPasswordForm: View {
   @State private var password = ""
   @Binding var selectedMethod: SignInMethod?
   @FocusState private var fieldContent: TextFieldContentType?
-  @EnvironmentObject var authViewModel: AuthenticationViewModel
+  @EnvironmentObject var authViewModel: AuthViewModel
   
   private var isValidForm: Bool {
     authViewModel.isValidEmail(emailAddress)
@@ -47,6 +47,11 @@ struct EmailAndPasswordForm: View {
       .scrollIndicators(.hidden)
       .scrollDisabled(true)
       
+      HStack(spacing:0) {
+        passwordRecoveryButton
+        Spacer()
+      }.padding(.leading,25)
+      
       signInButton
       
       Label("Other methods", systemImage: "arrow.backward.circle")
@@ -62,18 +67,37 @@ struct EmailAndPasswordForm: View {
   private var signInButton: some View {
     Button {
       Task {
-        await authViewModel.signIn(with: emailAddress, and: password)
+        await authViewModel.signIn(
+          with: emailAddress,
+          and: password
+        )
         isShownHome.toggle()
       }
     } label: {
-      ButtonLabel("Sign In", textColor: .white, pouring: .black)
+      ButtonLabel(
+        "Sign In",
+        textColor: .white,
+        pouring: .black
+      )
     }
     .disabled(!isValidForm)
     .opacity(!isValidForm ? 0.5 : 1)
+  }
+  
+  private var passwordRecoveryButton: some View {
+    
+    NavigationLink {
+      PasswordRecoveryForm()
+    } label: {
+      Text("Forgot password?")
+        .font(.footnote)
+        .fontWeight(.medium)
+        .foregroundStyle(.csCream)
+    }
   }
 }
 
 #Preview {
   EmailAndPasswordForm(.constant(.emailAndPassword))
-    .environmentObject(AuthenticationViewModel())
+    .environmentObject(AuthViewModel())
 }
