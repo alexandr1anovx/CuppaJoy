@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PasswordRecoveryForm: View {
+struct PasswordRecoveryScreen: View {
   
   @State private var emailAddress = ""
   @FocusState private var isEmailFocused: Bool
@@ -74,6 +74,6 @@ struct PasswordRecoveryForm: View {
 }
 
 #Preview {
-  PasswordRecoveryForm()
+  PasswordRecoveryScreen()
     .environmentObject(AuthViewModel())
 }
