@@ -9,20 +9,15 @@ import SwiftUI
 
 struct EmailAndPasswordForm: View {
   
-  @State private var isShownHome = false
   @State private var emailAddress = ""
   @State private var password = ""
-  @Binding var selectedMethod: SignInMethod?
+  @Binding var signInMethod: SignInMethod?
   @FocusState private var fieldContent: TextFieldContentType?
   @EnvironmentObject var authViewModel: AuthViewModel
   
   private var isValidForm: Bool {
     authViewModel.isValidEmail(emailAddress)
     && authViewModel.isValidPassword(password)
-  }
-  
-  init(_ selectedMethod: Binding<SignInMethod?>) {
-    self._selectedMethod = selectedMethod
   }
   
   var body: some View {
@@ -42,6 +37,7 @@ struct EmailAndPasswordForm: View {
           .onSubmit { fieldContent = nil }
       }
       .frame(height: 140)
+      .shadow(radius: 1)
       .environment(\.defaultMinListRowHeight, 50)
       .scrollContentBackground(.hidden)
       .scrollIndicators(.hidden)
@@ -54,13 +50,12 @@ struct EmailAndPasswordForm: View {
       
       signInButton
       
-      Label("Other methods", systemImage: "arrow.backward.circle")
+      Label("Back to other methods", systemImage: "arrow.backward.circle.fill")
+        .font(.subheadline)
         .fontWeight(.medium)
         .foregroundStyle(.csCream)
-        .onTapGesture { selectedMethod = .none }
-    }
-    .fullScreenCover(isPresented: $isShownHome) {
-      EntryPoint()
+        .onTapGesture { signInMethod = nil }
+        .padding(.top, 10)
     }
   }
   
@@ -71,14 +66,9 @@ struct EmailAndPasswordForm: View {
           with: emailAddress,
           and: password
         )
-        isShownHome.toggle()
       }
     } label: {
-      ButtonLabel(
-        "Sign In",
-        textColor: .white,
-        pouring: .black
-      )
+      ButtonLabel("Sign In", textColor: .white, pouring: .black)
     }
     .disabled(!isValidForm)
     .opacity(!isValidForm ? 0.5 : 1)
@@ -92,20 +82,19 @@ struct EmailAndPasswordForm: View {
   }
   
   private var passwordRecoveryButton: some View {
-    
     NavigationLink {
-      PasswordRecoveryForm()
+      PasswordRecoveryScreen()
     } label: {
       Text("Forgot password?")
-        .font(.footnote)
-        .fontWeight(.medium)
-        .foregroundStyle(.csCream)
+        .font(.caption)
+        .fontWeight(.semibold)
+        .foregroundStyle(.gray)
+        .underline(true)
     }
-    
   }
 }
 
 #Preview {
-  EmailAndPasswordForm(.constant(.emailAndPassword))
-    .environmentObject(AuthViewModel())
+  EmailAndPasswordForm(signInMethod: .constant(.emailAndPassword))
+    .environmentObject( AuthViewModel() )
 }
