@@ -21,6 +21,6 @@ struct HomeScreen: View {
 
 #Preview {
   HomeScreen()
-    .environmentObject( AuthenticationViewModel() )
+    .environmentObject( AuthViewModel() )
     .environmentObject( CoffeeViewModel() )
 }

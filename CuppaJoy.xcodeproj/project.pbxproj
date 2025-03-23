@@ -34,6 +34,7 @@
 		D1490D712D45652900230C54 /* PaymentOptionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1490D702D45652900230C54 /* PaymentOptionList.swift */; };
 		D15A87D12D66659300259382 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15A87D02D66659300259382 /* Order.swift */; };
 		D15A87D42D6669D900259382 /* OrderSummaryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15A87D32D6669D900259382 /* OrderSummaryScreen.swift */; };
+		D16275232D90345D0001D88C /* PasswordRecoveryForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16275222D90345C0001D88C /* PasswordRecoveryForm.swift */; };
 		D17172782D6689A800B538F6 /* ButtonLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17172772D6689A800B538F6 /* ButtonLabel.swift */; };
 		D1721E042D6F573F00A0CBF1 /* Coffee.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1721E032D6F573F00A0CBF1 /* Coffee.swift */; };
 		D1721E062D6F595500A0CBF1 /* CoffeeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1721E052D6F595500A0CBF1 /* CoffeeViewModel.swift */; };
@@ -58,7 +59,7 @@
 		D1D58DDB2D731F4000BD54EE /* ButtonLabelWithIconAnimated.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D58DDA2D731F4000BD54EE /* ButtonLabelWithIconAnimated.swift */; };
 		D1EC2FFC2D2637FA008E8265 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EC2FFB2D2637FA008E8265 /* Color+Extension.swift */; };
 		D1FEA5262D6603C500B082D8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FEA5252D6603C500B082D8 /* User.swift */; };
-		D1FEA5302D661A2200B082D8 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FEA52F2D661A2200B082D8 /* AuthenticationViewModel.swift */; };
+		D1FEA5302D661A2200B082D8 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FEA52F2D661A2200B082D8 /* AuthViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,6 +92,7 @@
 		D1490D702D45652900230C54 /* PaymentOptionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentOptionList.swift; sourceTree = "<group>"; };
 		D15A87D02D66659300259382 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		D15A87D32D6669D900259382 /* OrderSummaryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSummaryScreen.swift; sourceTree = "<group>"; };
+		D16275222D90345C0001D88C /* PasswordRecoveryForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordRecoveryForm.swift; sourceTree = "<group>"; };
 		D17172772D6689A800B538F6 /* ButtonLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLabel.swift; sourceTree = "<group>"; };
 		D1721E032D6F573F00A0CBF1 /* Coffee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coffee.swift; sourceTree = "<group>"; };
 		D1721E052D6F595500A0CBF1 /* CoffeeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeViewModel.swift; sourceTree = "<group>"; };
@@ -111,7 +113,7 @@
 		D1D58DDA2D731F4000BD54EE /* ButtonLabelWithIconAnimated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLabelWithIconAnimated.swift; sourceTree = "<group>"; };
 		D1EC2FFB2D2637FA008E8265 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		D1FEA5252D6603C500B082D8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		D1FEA52F2D661A2200B082D8 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
+		D1FEA52F2D661A2200B082D8 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -403,7 +405,7 @@
 		D1CE7A2A2D64A45D00542AC5 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				D1FEA52F2D661A2200B082D8 /* AuthenticationViewModel.swift */,
+				D1FEA52F2D661A2200B082D8 /* AuthViewModel.swift */,
 				D1AF8E182D67B2D2007382AF /* OrderViewModel.swift */,
 				D1721E052D6F595500A0CBF1 /* CoffeeViewModel.swift */,
 			);
@@ -414,6 +416,7 @@
 			isa = PBXGroup;
 			children = (
 				D1D1F1BA2D7474D800B7D035 /* EmailAndPasswordForm.swift */,
+				D16275222D90345C0001D88C /* PasswordRecoveryForm.swift */,
 			);
 			path = SignInMethods;
 			sourceTree = "<group>";
@@ -528,6 +531,7 @@
 				D1AF8E192D67B2D2007382AF /* OrderViewModel.swift in Sources */,
 				D1A2A9852D317D1200C9C17C /* AuthHeaderView.swift in Sources */,
 				D1EC2FFC2D2637FA008E8265 /* Color+Extension.swift in Sources */,
+				D16275232D90345D0001D88C /* PasswordRecoveryForm.swift in Sources */,
 				32FF43BB2CC6FA35001C0E0C /* EntryPoint.swift in Sources */,
 				32FF43AB2CC6CC9E001C0E0C /* ProfileScreen.swift in Sources */,
 				D1FEA5262D6603C500B082D8 /* User.swift in Sources */,
@@ -540,7 +544,7 @@
 				D11435302D2EB790007078D9 /* ApplePaySheet.swift in Sources */,
 				D1721E042D6F573F00A0CBF1 /* Coffee.swift in Sources */,
 				32325EE22CB2C3EB0048E557 /* SignUpScreen.swift in Sources */,
-				D1FEA5302D661A2200B082D8 /* AuthenticationViewModel.swift in Sources */,
+				D1FEA5302D661A2200B082D8 /* AuthViewModel.swift in Sources */,
 				D17172782D6689A800B538F6 /* ButtonLabel.swift in Sources */,
 				D1BD90302D45746900F43A54 /* PaymentOptionContainer.swift in Sources */,
 				D1721E062D6F595500A0CBF1 /* CoffeeViewModel.swift in Sources */,

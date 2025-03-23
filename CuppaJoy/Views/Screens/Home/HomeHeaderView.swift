@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeHeaderView: View {
   
-  @EnvironmentObject var authViewModel: AuthenticationViewModel
+  @EnvironmentObject var authViewModel: AuthViewModel
   
   var body: some View {
     userDataStack
@@ -65,5 +65,5 @@ struct HomeHeaderView: View {
 
 #Preview {
   HomeHeaderView()
-    .environmentObject( AuthenticationViewModel() )
+    .environmentObject( AuthViewModel() )
 }

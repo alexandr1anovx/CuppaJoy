@@ -19,7 +19,7 @@ struct ProfileScreen: View {
   @State private var isShownData = false
   @FocusState private var fieldContent: TextFieldContentType?
   
-  @EnvironmentObject var authViewModel: AuthenticationViewModel
+  @EnvironmentObject var authViewModel: AuthViewModel
   
   let context = CIContext()
   let filter = CIFilter.qrCodeGenerator()

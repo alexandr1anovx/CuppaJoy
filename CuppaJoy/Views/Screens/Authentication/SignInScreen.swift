@@ -16,7 +16,7 @@ enum SignInMethod {
 struct SignInScreen: View {
   
   @State private var selectedMethod: SignInMethod?
-  @EnvironmentObject var authViewModel: AuthenticationViewModel
+  @EnvironmentObject var authViewModel: AuthViewModel
   
   var body: some View {
     NavigationStack {
@@ -79,5 +79,5 @@ struct SignInScreen: View {
 
 #Preview {
   SignInScreen()
-    .environmentObject(AuthenticationViewModel())
+    .environmentObject(AuthViewModel())
 }

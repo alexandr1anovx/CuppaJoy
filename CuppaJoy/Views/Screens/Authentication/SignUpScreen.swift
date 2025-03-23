@@ -16,7 +16,7 @@ struct SignUpScreen: View {
   @State private var isShownHome = false
   
   @FocusState private var fieldContent: TextFieldContentType?
-  @EnvironmentObject var authViewModel: AuthenticationViewModel
+  @EnvironmentObject var authViewModel: AuthViewModel
   @Environment(\.dismiss) var dismiss
   
   private var isValidForm: Bool {
@@ -139,5 +139,5 @@ struct SignUpScreen: View {
 
 #Preview {
   SignUpScreen()
-    .environmentObject( AuthenticationViewModel() )
+    .environmentObject( AuthViewModel() )
 }

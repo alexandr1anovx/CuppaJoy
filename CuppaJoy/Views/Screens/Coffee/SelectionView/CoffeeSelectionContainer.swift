@@ -10,7 +10,7 @@ import SwiftUI
 struct CoffeeSelectionContainer: View {
   
   @EnvironmentObject var coffeeViewModel: CoffeeViewModel
-  @EnvironmentObject var authViewModel: AuthenticationViewModel
+  @EnvironmentObject var authViewModel: AuthViewModel
   
   let fixedColumns = [
     GridItem(
@@ -53,5 +53,5 @@ struct CoffeeSelectionContainer: View {
 #Preview {
   CoffeeSelectionContainer()
     .environmentObject( CoffeeViewModel() )
-    .environmentObject( AuthenticationViewModel() )
+    .environmentObject( AuthViewModel() )
 }
