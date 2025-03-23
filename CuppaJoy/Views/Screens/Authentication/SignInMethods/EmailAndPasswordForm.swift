@@ -82,6 +82,13 @@ struct EmailAndPasswordForm: View {
     }
     .disabled(!isValidForm)
     .opacity(!isValidForm ? 0.5 : 1)
+    .alert(item: $authViewModel.alertItem) { alert in
+      Alert(
+        title: alert.title,
+        message: alert.message,
+        dismissButton: alert.dismissButton
+      )
+    }
   }
   
   private var passwordRecoveryButton: some View {
@@ -94,6 +101,7 @@ struct EmailAndPasswordForm: View {
         .fontWeight(.medium)
         .foregroundStyle(.csCream)
     }
+    
   }
 }
 
