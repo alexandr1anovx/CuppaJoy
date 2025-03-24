@@ -10,6 +10,9 @@ import SwiftUI
 struct OrderConfiguratorScreen: View {
   
   let selectedCoffee: Coffee
+  @Binding var path: NavigationPath
+  @Binding var isTabBarVisible: Bool
+  
   @State private var cupCount = 1
   @State private var sugarSticks = 0
   @State private var iceCubes = 0
@@ -42,10 +45,10 @@ struct OrderConfiguratorScreen: View {
     )
   }
   
-  // MARK: Body
   var body: some View {
     ZStack {
       Color.appBackground.ignoresSafeArea(.all)
+      
       VStack {
         List {
           Section("Cup Configurations") {
@@ -74,7 +77,20 @@ struct OrderConfiguratorScreen: View {
     }
     .navigationTitle("Order Configurator")
     .navigationBarTitleDisplayMode(.inline)
+    .navigationBarBackButtonHidden(true)
+    
+    .toolbar {
+      ToolbarItem(placement: .navigationBarLeading) {
+        Button {
+          isTabBarVisible = true
+          path.removeLast()
+        } label: {
+          Label("Back", systemImage: "chevron.left")
+        }
+      }
+    }
     .onAppear {
+      isTabBarVisible = false
       setupSegmentedControlAppearance()
     }
   }
@@ -94,8 +110,9 @@ struct OrderConfiguratorScreen: View {
           .animation(.bouncy, value: totalPrice)
           .frame(minWidth: 75)
       }
-      NavigationLink {
-        OrderSummaryScreen(order: order)
+      
+      Button {
+        path.append(OrderPage.summary(order))
       } label: {
         ButtonLabelWithIconAnimated(
           "Summorize",
@@ -121,9 +138,4 @@ struct OrderConfiguratorScreen: View {
     appearance.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
     appearance.backgroundColor = .black
   }
-}
-
-#Preview {
-  OrderConfiguratorScreen(selectedCoffee: MockData.coffee)
-    .environmentObject(CoffeeViewModel())
 }
