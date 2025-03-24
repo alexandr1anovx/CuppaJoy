@@ -8,25 +8,23 @@
 import SwiftUI
 
 struct PaymentScreen: View {
+  
   let order: Order
+  @Binding var isTabBarVisible: Bool
+  @Binding var path: NavigationPath
   
   var body: some View {
-    NavigationStack {
-      ZStack {
-        Color.csBlack.ignoresSafeArea(.all)
-        PaymentOptionContainer(order: order)
-      }
-      .navigationTitle("Payment")
-      .navigationBarBackButtonHidden(true)
-      .toolbar {
-        ToolbarItem(placement: .topBarTrailing) {
-          DismissButton()
-        }
+    ZStack {
+      Color.csBlack.ignoresSafeArea(.all)
+      PaymentOptionContainer(order: order, path: $path, isTabBarVisible: $isTabBarVisible)
+    }
+    .navigationTitle("Payment")
+    .navigationBarTitleDisplayMode(.large)
+    .navigationBarBackButtonHidden(true)
+    .toolbar {
+      ToolbarItem(placement: .topBarTrailing) {
+        DismissButton()
       }
     }
   }
-}
-
-#Preview {
-  PaymentScreen(order: MockData.order)
 }
