@@ -14,15 +14,16 @@ struct ReceivedOrderCell: View {
   
   var body: some View {
     VStack(alignment: .leading, spacing:12) {
-      // Header
+      
       HStack(spacing:0) {
         dateLabel
         Spacer()
         priceAndPointsLabel
       }
+      
       row("Coffee:", content: order.coffee)
       row("Size:", content: order.cupSize)
-      // Footer
+      
       HStack {
         Spacer()
         configurationsButton

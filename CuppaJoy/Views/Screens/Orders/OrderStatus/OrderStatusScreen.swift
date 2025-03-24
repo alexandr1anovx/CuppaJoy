@@ -7,11 +7,13 @@
 
 import SwiftUI
 
-enum OrderStatus: String, CaseIterable {
+enum OrderStatus: String, CaseIterable, Identifiable {
   case ongoing
   case received
   
+  var id: String { self.rawValue }
   var title: String { rawValue.capitalized }
+  
   var iconName: String {
     switch self {
     case .ongoing: "cart.badge.clock"
@@ -58,7 +60,7 @@ struct OrderStatusScreen: View {
   
   private var orderStatusTabs: some View {
     HStack(spacing: 8) {
-      ForEach(OrderStatus.allCases, id: \.self) { status in
+      ForEach(OrderStatus.allCases) { status in
         indicatedTab(for: status, isSelected: status == selectedStatus)
           .onTapGesture { selectedStatus = status }
       }
@@ -86,7 +88,7 @@ struct OrderStatusScreen: View {
         }
       }
     } else {
-      List(orderViewModel.ongoingOrders, id: \.id) { order in
+      List(orderViewModel.ongoingOrders) { order in
         OngoingOrderCell(order: order)
       }
       .listStyle(.insetGrouped)
