@@ -10,10 +10,11 @@ import SwiftUI
 struct OrderSummaryScreen: View {
   
   let order: Order
-  @State private var isShownPaymentScreen = false
-  @Environment(\.dismiss) var dismiss
+  @Binding var path: NavigationPath
   
   @State private var visibleIndices: Set<Int> = []
+  @State private var isShownPaymentScreen = false
+  @Environment(\.dismiss) var dismiss
   
   var orderDetails: [(String, String)] {
     [
@@ -27,7 +28,7 @@ struct OrderSummaryScreen: View {
       ("Flavor", order.flavor)
     ]
   }
-
+  
   var body: some View {
     ZStack {
       Color.appBackground.ignoresSafeArea(.all)
@@ -51,9 +52,6 @@ struct OrderSummaryScreen: View {
       }
     }
     .navigationTitle("Order Summary")
-    .fullScreenCover(isPresented: $isShownPaymentScreen) {
-      PaymentScreen(order: order)
-    }
   }
   
   private func row(title: String, content: String) -> some View {
@@ -66,6 +64,7 @@ struct OrderSummaryScreen: View {
   }
   
   private var confirmationStack: some View {
+    
     VStack(spacing: 10) {
       Button {
         dismiss()
@@ -78,7 +77,7 @@ struct OrderSummaryScreen: View {
         )
       }
       Button {
-        isShownPaymentScreen.toggle()
+        path.append( OrderPage.payment(order) )
       } label: {
         ButtonLabelWithIconAnimated(
           "Confirm for \(order.stringPrice)",
@@ -96,8 +95,4 @@ struct OrderSummaryScreen: View {
         .shadow(radius: 5)
     )
   }
-}
-
-#Preview {
-  OrderSummaryScreen(order: MockData.order)
 }
