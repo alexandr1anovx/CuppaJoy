@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Order: Identifiable, Codable {
+struct Order: Identifiable, Codable, Hashable {
   let id: String
   let coffee: String
   let cupSize: String
