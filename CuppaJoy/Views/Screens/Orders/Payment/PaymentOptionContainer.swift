@@ -10,6 +10,8 @@ import SwiftUI
 struct PaymentOptionContainer: View {
   
   let order: Order
+  @Binding var path: NavigationPath
+  @Binding var isTabBarVisible: Bool
   @State private var isShownPaymentSheet = false
   
   var body: some View {
@@ -26,6 +28,10 @@ struct PaymentOptionContainer: View {
         .presentationDetents([.height(340)])
         .presentationBackgroundInteraction(.disabled)
         .presentationCornerRadius(30)
+        .onDisappear {
+          path.removeLast(path.count)
+          isTabBarVisible = true
+        }
     }
   }
   
@@ -101,8 +107,4 @@ struct PaymentOptionContainer: View {
         .shadow(radius: 5)
     )
   }
-}
-
-#Preview {
-  PaymentOptionContainer(order: MockData.order)
 }
