@@ -17,31 +17,28 @@ struct EntryPoint: View {
   let generator = UIImpactFeedbackGenerator(style: .light)
   
   var body: some View {
-    NavigationStack {
-      TabView(selection: $selectedTab) {
-        HomeScreen()
-          .tag(Tab.home)
-          .tabItem {
-            Image(systemName: "house")
-            Text("Home")
-          }
-        OrderStatusScreen(selectedTab: $selectedTab)
-          .tag(Tab.orders)
-          .tabItem {
-            Image(systemName: "list.bullet")
-            Text("Orders")
-          }
-        ProfileScreen()
-          .tag(Tab.settings)
-          .tabItem {
-            Image(systemName: "gearshape")
-            Text("Settings")
-          }
-      }
-      // Enables haptic feedback when selecting a tab.
-      .onChange(of: selectedTab) {
-        generator.impactOccurred()
-      }
+    TabView(selection: $selectedTab) {
+      HomeScreen()
+        .tag(Tab.home)
+        .tabItem {
+          Image(systemName: "house")
+          Text("Home")
+        }
+      OrderStatusScreen(selectedTab: $selectedTab)
+        .tag(Tab.orders)
+        .tabItem {
+          Image(systemName: "list.bullet")
+          Text("Orders")
+        }
+      ProfileScreen()
+        .tag(Tab.settings)
+        .tabItem {
+          Image(systemName: "gearshape")
+          Text("Settings")
+        }
+    }
+    .onChange(of: selectedTab) {
+      generator.impactOccurred()
     }
   }
 }
