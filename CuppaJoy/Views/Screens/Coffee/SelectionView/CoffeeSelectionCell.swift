@@ -8,24 +8,21 @@
 import SwiftUI
 
 struct CoffeeSelectionCell: View {
+  
   let coffee: Coffee
   
   var body: some View {
-    NavigationLink {
-      OrderConfiguratorScreen(selectedCoffee: coffee)
-    } label: {
-      RoundedRectangle(cornerRadius: 20)
-        .foregroundStyle(.csBlack)
-        .shadow(radius: 5)
-        .aspectRatio(1.1, contentMode: .fit)
-        .overlay(alignment: .topLeading) { coinsLabel }
-        .overlay(alignment: .topTrailing) { priceLabel }
-        .overlay(alignment: .center) { coffeeDataLabel }
-    }
+    RoundedRectangle(cornerRadius: 20)
+      .foregroundStyle(.csBlack)
+      .shadow(radius: 5)
+      .aspectRatio(1.1, contentMode: .fit)
+      .overlay(alignment: .topLeading) { coinsLabel }
+      .overlay(alignment: .topTrailing) { priceLabel }
+      .overlay(alignment: .center) { coffeeDataLabel }
   }
   
   private var coinsLabel: some View {
-    HStack(spacing: 6){
+    HStack(spacing: 6) {
       Image(.star)
         .resizable()
         .frame(width: 12, height: 12)
@@ -68,8 +65,4 @@ struct CoffeeSelectionCell: View {
         .padding(.horizontal)
     }
   }
-}
-
-#Preview {
-  CoffeeSelectionCell(coffee: MockData.coffee)
 }

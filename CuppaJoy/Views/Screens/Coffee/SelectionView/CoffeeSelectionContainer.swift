@@ -9,6 +9,9 @@ import SwiftUI
 
 struct CoffeeSelectionContainer: View {
   
+  @State private var selectedCoffee: Coffee?
+  @Binding var path: NavigationPath
+  @Binding var isTabBarVisible: Bool
   @EnvironmentObject var coffeeViewModel: CoffeeViewModel
   @EnvironmentObject var authViewModel: AuthViewModel
   
@@ -41,17 +44,13 @@ struct CoffeeSelectionContainer: View {
         ScrollView {
           LazyVGrid(columns: fixedColumns, spacing: 20) {
             ForEach(coffeeViewModel.coffees, id: \.id) { coffee in
-              CoffeeSelectionCell(coffee: coffee)
+              NavigationLink(value: OrderPage.configurator(coffee)) {
+                CoffeeSelectionCell(coffee: coffee)
+              }
             }
           }.padding(.top, 20)
         }
       }.padding(.vertical, 20)
     }.shadow(radius: 8)
   }
-}
-
-#Preview {
-  CoffeeSelectionContainer()
-    .environmentObject( CoffeeViewModel() )
-    .environmentObject( AuthViewModel() )
 }
