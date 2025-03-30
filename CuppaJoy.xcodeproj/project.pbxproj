@@ -21,6 +21,7 @@
 		50288ACA2CF7E73300DA7304 /* CoffeeSelectionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50288AC92CF7E73300DA7304 /* CoffeeSelectionContainer.swift */; };
 		50DFA8132D046D840058A4D4 /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DFA8122D046D840058A4D4 /* UIWindow+Extension.swift */; };
 		50DFA8232D04AC660058A4D4 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DFA8222D04AC660058A4D4 /* HomeHeaderView.swift */; };
+		D10A24C32D996EE1008A8B90 /* EditProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10A24C22D996EE1008A8B90 /* EditProfileScreen.swift */; };
 		D11435302D2EB790007078D9 /* ApplePaySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D114352F2D2EB790007078D9 /* ApplePaySheet.swift */; };
 		D11A71CB2D6A0B46007ECD20 /* ButtonLabelWithIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11A71CA2D6A0B46007ECD20 /* ButtonLabelWithIcon.swift */; };
 		D1261C342D71F96500E8C19B /* ButtonLabelAnimated.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1261C332D71F96500E8C19B /* ButtonLabelAnimated.swift */; };
@@ -78,6 +79,7 @@
 		50288AC92CF7E73300DA7304 /* CoffeeSelectionContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeSelectionContainer.swift; sourceTree = "<group>"; };
 		50DFA8122D046D840058A4D4 /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
 		50DFA8222D04AC660058A4D4 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
+		D10A24C22D996EE1008A8B90 /* EditProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileScreen.swift; sourceTree = "<group>"; };
 		D114352F2D2EB790007078D9 /* ApplePaySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePaySheet.swift; sourceTree = "<group>"; };
 		D11A71CA2D6A0B46007ECD20 /* ButtonLabelWithIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLabelWithIcon.swift; sourceTree = "<group>"; };
 		D1261C332D71F96500E8C19B /* ButtonLabelAnimated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLabelAnimated.swift; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				32FF43AA2CC6CC9E001C0E0C /* ProfileScreen.swift */,
+				D10A24C22D996EE1008A8B90 /* EditProfileScreen.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -517,6 +520,7 @@
 				D148B8252D67D662002F0344 /* OrderItems.swift in Sources */,
 				3209B2912CB08D4400814F7C /* SignInScreen.swift in Sources */,
 				D11A71CB2D6A0B46007ECD20 /* ButtonLabelWithIcon.swift in Sources */,
+				D10A24C32D996EE1008A8B90 /* EditProfileScreen.swift in Sources */,
 				D1261C362D72011300E8C19B /* MockData.swift in Sources */,
 				50288ACA2CF7E73300DA7304 /* CoffeeSelectionContainer.swift in Sources */,
 				D1AF8E192D67B2D2007382AF /* OrderViewModel.swift in Sources */,
