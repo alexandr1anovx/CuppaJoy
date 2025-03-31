@@ -17,7 +17,7 @@ struct ProfileScreen: View {
   @State private var emailAddress = ""
   @State private var selectedCity: City = .mykolaiv
   @State private var isShownData = false
-  @FocusState private var fieldContent: TextFieldContentType?
+  @FocusState private var fieldContent: TextFieldInputType?
   
   @EnvironmentObject var authViewModel: AuthViewModel
   
@@ -28,64 +28,104 @@ struct ProfileScreen: View {
   var body: some View {
     ZStack {
       Color.csBlack.ignoresSafeArea(.all)
-      VStack(spacing: 20) {
-        textFieldList
-        cityPicker.padding(.horizontal, 25)
-        Spacer()
-        qrcodeImage
+      
+      VStack(spacing: 0) {
+        // Avatar
+        ProfileImageView()
+        // Personal Data
+        personalDataList
+        // Buttons
+        HStack{
+          showDataButton
+          Spacer()
+          saveDataButton
+        }
+        .padding(.top,15)
+        .padding(.horizontal,23)
         Spacer()
       }
+      .padding(.top)
     }
     .navigationTitle("Profile")
     .navigationBarTitleDisplayMode(.inline)
   }
   
-  // MARK: TextFields
-  private var textFieldList: some View {
+  // MARK: Personal Data List
+  private var personalDataList: some View {
     List {
-      DefaultTextField(for: .username, inputData: $username)
-        .focused($fieldContent, equals: .username)
-        .textInputAutocapitalization(.words)
-        .submitLabel(.next)
-        .textInputAutocapitalization(.words)
-        .onSubmit { fieldContent = .phoneNumber }
+      HStack {
+        DefaultTextField(for: .fullName, inputData: $username)
+          .focused($fieldContent, equals: .fullName)
+          .textInputAutocapitalization(.words)
+          .submitLabel(.next)
+          .textInputAutocapitalization(.words)
+          .blur(radius: isShownData ? 0 : 2)
+          .onSubmit { fieldContent = .emailAddress }
+        
+        Button("Edit") {
+          fieldContent = .fullName
+        }
+        .disabled(!isShownData)
+        .font(.callout)
+        .fontWeight(.medium)
+        .foregroundStyle(.gray)
+      }
+      .buttonStyle(.plain)
       
-      DefaultTextField(for: .phoneNumber, inputData: $phoneNumber)
-        .focused($fieldContent, equals: .phoneNumber)
-        .blur(radius: isShownData ? 0 : 2)
-        .submitLabel(.next)
-        .onSubmit { fieldContent = .emailAddress }
+      HStack {
+        DefaultTextField(for: .emailAddress, inputData: $emailAddress)
+          .focused($fieldContent, equals: .emailAddress)
+          .keyboardType(.emailAddress)
+          .textInputAutocapitalization(.never)
+          .autocorrectionDisabled(true)
+          .blur(radius: isShownData ? 0 : 2)
+          .submitLabel(.done)
+          .onSubmit { fieldContent = nil }
+        
+        Button("Edit") {
+          fieldContent = .emailAddress
+        }
+        .disabled(!isShownData)
+        .font(.callout)
+        .fontWeight(.medium)
+        .foregroundStyle(.gray)
+      }
+      .buttonStyle(.plain)
       
-      DefaultTextField(for: .emailAddress, inputData: $emailAddress)
-        .focused($fieldContent, equals: .emailAddress)
-        .keyboardType(.emailAddress)
-        .textInputAutocapitalization(.never)
-        .autocorrectionDisabled(true)
-        .blur(radius: isShownData ? 0 : 2)
-        .submitLabel(.done)
-        .onSubmit { fieldContent = nil }
+      HStack(spacing: 15) {
+        Image(systemName: "building.2.fill")
+          .frame(width: 18, height: 18)
+          .foregroundStyle(.csCream)
+          .opacity(0.8)
+        Picker("City:", selection: $selectedCity) {
+          ForEach(City.allCases, id: \.self) { city in
+            Text(city.title)
+          }
+        }
+        .font(.subheadline)
+        .foregroundStyle(.primary)
+      }
     }
+    .listRowSpacing(10)
     .environment(\.defaultMinListRowHeight, 50)
-    .frame(height: 185)
+    .frame(height: 210)
     .scrollContentBackground(.hidden)
     .scrollIndicators(.hidden)
     .scrollDisabled(true)
   }
   
-  // MARK: City Picker
-  private var cityPicker: some View {
-    HStack(spacing: 0) {
-      Text("City:")
+  // MARK: Save Data Button
+  private var saveDataButton: some View {
+    Button {
+      // show an alert
+    } label: {
+      Text("Save Data")
         .font(.callout)
-        .fontWeight(.semibold)
-        .foregroundStyle(.gray)
-      Picker("City", selection: $selectedCity) {
-        ForEach(City.allCases, id: \.self) { city in
-          Text(city.title)
-        }
-      }
-      Spacer()
-      showDataButton
+        .fontWeight(.medium)
+        .foregroundStyle(.white)
+        .padding(13)
+        .background(.black)
+        .clipShape(.capsule)
     }
   }
   
@@ -93,19 +133,19 @@ struct ProfileScreen: View {
   private var showDataButton: some View {
     Button {
       isShownData.toggle()
+      fieldContent = nil
     } label: {
       Text(isShownData ? "Hide Data" : "Show Data")
         .font(.callout)
-        .fontWeight(.semibold)
+        .fontWeight(.medium)
         .foregroundStyle(.white)
-        .padding(.horizontal, 13)
-        .padding(.vertical, 12)
+        .padding(13)
         .background(.black)
         .clipShape(.capsule)
     }
   }
   
-  // MARK: QR code
+  /*
   private var qrcodeImage: some View {
     Image(uiImage: generateQRCode(from: username))
       .resizable()
@@ -121,6 +161,7 @@ struct ProfileScreen: View {
     }
     return UIImage()
   }
+  */
 }
 
 #Preview {
