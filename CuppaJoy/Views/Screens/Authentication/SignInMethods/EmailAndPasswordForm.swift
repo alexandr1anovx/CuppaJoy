@@ -12,7 +12,7 @@ struct EmailAndPasswordForm: View {
   @State private var emailAddress = ""
   @State private var password = ""
   @Binding var signInMethod: SignInMethod?
-  @FocusState private var fieldContent: TextFieldContentType?
+  @FocusState private var fieldContent: TextFieldInputType?
   @EnvironmentObject var authViewModel: AuthViewModel
   
   private var isValidForm: Bool {

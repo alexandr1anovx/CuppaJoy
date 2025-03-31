@@ -14,7 +14,7 @@ struct SignUpScreen: View {
   @State private var password = ""
   @State private var selectedCity: City = .mykolaiv
   
-  @FocusState private var fieldContent: TextFieldContentType?
+  @FocusState private var fieldContent: TextFieldInputType?
   @EnvironmentObject var authViewModel: AuthViewModel
   @Environment(\.dismiss) var dismiss
   
@@ -45,8 +45,8 @@ struct SignUpScreen: View {
   
   private var textFields: some View {
     List {
-      DefaultTextField(for: .username, inputData: $fullName)
-        .focused($fieldContent, equals: .username)
+      DefaultTextField(for: .fullName, inputData: $fullName)
+        .focused($fieldContent, equals: .fullName)
         .textInputAutocapitalization(.words)
         .submitLabel(.next)
         .onSubmit { fieldContent = .emailAddress }
