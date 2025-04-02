@@ -30,7 +30,7 @@ struct EntryPoint: View {
           Image(systemName: "list.bullet")
           Text("Orders")
         }
-      ProfileScreen()
+      GeneralScreen()
         .tag(Tab.settings)
         .tabItem {
           Image(systemName: "gearshape")
