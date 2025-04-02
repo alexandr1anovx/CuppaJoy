@@ -68,7 +68,11 @@ struct EmailAndPasswordForm: View {
         )
       }
     } label: {
-      ButtonLabel("Sign In", textColor: .white, pouring: .black)
+      ButtonLabel(
+        "Sign In",
+        textColor: .white,
+        bgColor: .black
+      )
     }
     .disabled(!isValidForm)
     .opacity(!isValidForm ? 0.5 : 1)

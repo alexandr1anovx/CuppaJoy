@@ -45,7 +45,11 @@ struct DetailedOrderView: View {
         Button {
           dismiss()
         } label: {
-          ButtonLabel("Close", textColor: .red, pouring: .black)
+          ButtonLabel(
+            "Close",
+            textColor: .red,
+            bgColor: .black
+          )
         }
       }.padding(.top)
     }

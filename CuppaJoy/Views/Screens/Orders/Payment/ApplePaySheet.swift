@@ -105,7 +105,7 @@ struct ApplePaySheet: View {
         "Confirm Payment",
         icon: "checkmark.circle.fill",
         textColor: .white,
-        pouring: .blue
+        bgColor: .blue
       )
     }
   }

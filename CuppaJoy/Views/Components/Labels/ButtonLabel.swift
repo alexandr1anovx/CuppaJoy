@@ -11,12 +11,12 @@ struct ButtonLabel: View {
   
   let title: String
   let textColor: Color
-  let pouring: Color
+  let bgColor: Color
   
-  init(_ title: String, textColor: Color, pouring: Color) {
+  init(_ title: String, textColor: Color, bgColor: Color) {
     self.title = title
     self.textColor = textColor
-    self.pouring = pouring
+    self.bgColor = bgColor
   }
   
   var body: some View {
@@ -26,7 +26,7 @@ struct ButtonLabel: View {
       .foregroundStyle(textColor)
       .frame(maxWidth: .infinity)
       .padding(.vertical, 16)
-      .background(pouring)
+      .background(bgColor)
       .clipShape(.rect(cornerRadius: 15))
       .padding(.horizontal, 20)
       .shadow(radius: 5)
@@ -37,6 +37,6 @@ struct ButtonLabel: View {
   ButtonLabel(
     "Continue",
     textColor: .yellow,
-    pouring: .black
+    bgColor: .black
   )
 }

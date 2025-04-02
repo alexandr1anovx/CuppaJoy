@@ -100,7 +100,11 @@ struct SignUpScreen: View {
         )
       }
     } label: {
-      ButtonLabel("Sign Up", textColor: .white, pouring: .black)
+      ButtonLabel(
+        "Sign Up",
+        textColor: .white,
+        bgColor: .black
+      )
     }
     .disabled(!isValidForm)
     .opacity(!isValidForm ? 0.5 : 1)

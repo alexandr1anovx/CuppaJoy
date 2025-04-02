@@ -56,7 +56,7 @@ struct PasswordRecoveryScreen: View {
           ButtonLabel(
             "Send Recovery Link",
             textColor: .csCream,
-            pouring: .black
+            bgColor: .black
           )
         }
         .disabled(!isValidEmail)

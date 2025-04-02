@@ -12,18 +12,18 @@ struct ButtonLabelWithIcon: View {
   let title: String
   let icon: String
   let textColor: Color
-  let pouring: Color
+  let bgColor: Color
   
   init(
     _ title: String,
     icon: String,
     textColor: Color,
-    pouring: Color
+    bgColor: Color
   ) {
     self.title = title
     self.icon = icon
     self.textColor = textColor
-    self.pouring = pouring
+    self.bgColor = bgColor
   }
   
   var body: some View {
@@ -33,7 +33,7 @@ struct ButtonLabelWithIcon: View {
       .foregroundStyle(textColor)
       .frame(maxWidth: .infinity)
       .padding(.vertical, 16)
-      .background(pouring)
+      .background(bgColor)
       .clipShape(.rect(cornerRadius: 15))
       .padding(.horizontal, 20)
       .shadow(radius: 5)
@@ -45,6 +45,6 @@ struct ButtonLabelWithIcon: View {
     "Continue",
     icon: "arrow.right",
     textColor: .white,
-    pouring: .blue
+    bgColor: .blue
   )
 }

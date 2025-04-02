@@ -53,7 +53,7 @@ struct SignInScreen: View {
         "Continue with Email & Password",
         icon: "envelope",
         textColor: .orange,
-        pouring: .black
+        bgColor: .black
       )
     }
   }

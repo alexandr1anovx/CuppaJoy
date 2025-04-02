@@ -69,7 +69,7 @@ struct PaymentOptionContainer: View {
         "Check order configurations",
         icon: "list.bullet",
         textColor: .orange,
-        pouring: .csDarkGrey
+        bgColor: .csDarkGrey
       )
     }
   }

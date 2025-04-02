@@ -73,7 +73,7 @@ struct OrderSummaryScreen: View {
           "Edit",
           icon: "slider.horizontal.3",
           textColor: .orange,
-          pouring: .black
+          bgColor: .black
         )
       }
       Button {
