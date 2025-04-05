@@ -8,7 +8,7 @@
 import SwiftUI
 import PhotosUI
 
-struct ProfileImageView: View {
+struct EditableProfileImageView: View {
   
   @State private var profileImage: UIImage? = nil
   @State private var selectedImage: UIImage? = nil
@@ -28,7 +28,7 @@ struct ProfileImageView: View {
         Image(uiImage: profileImage)
           .resizable()
           .scaledToFill()
-          .frame(width: 120, height: 120)
+          .frame(width: 100, height: 100)
           .clipShape(.circle)
           .onTapGesture {
             isShownConfirmationDialog = true
@@ -37,6 +37,7 @@ struct ProfileImageView: View {
             ZStack {
               Circle()
                 .foregroundStyle(.black)
+                .opacity(0.5)
                 .frame(width: 30, height: 30)
               Image(systemName: "pencil")
             }
@@ -45,13 +46,13 @@ struct ProfileImageView: View {
       } else {
         Circle()
           .fill(Color.black)
-          .frame(width: 120, height: 120)
+          .frame(width: 100, height: 100)
           .overlay {
             VStack(spacing: 10) {
               Image(systemName: "plus.circle.fill")
-                .font(.title2)
-              Text("Add Image")
-                .font(.footnote)
+                .font(.title3)
+              Text("Add image")
+                .font(.caption)
                 .fontWeight(.medium)
             }.foregroundStyle(.white)
           }
