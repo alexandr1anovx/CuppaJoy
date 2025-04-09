@@ -14,7 +14,7 @@ enum Tab {
 struct EntryPoint: View {
   
   @State private var selectedTab: Tab = .home
-  let generator = UIImpactFeedbackGenerator(style: .light)
+  let generator = UIImpactFeedbackGenerator(style: .medium)
   
   var body: some View {
     TabView(selection: $selectedTab) {
@@ -24,7 +24,7 @@ struct EntryPoint: View {
           Image(systemName: "house")
           Text("Home")
         }
-      OrderStatusScreen(selectedTab: $selectedTab)
+      MyOrdersScreen(selectedTab: $selectedTab)
         .tag(Tab.orders)
         .tabItem {
           Image(systemName: "list.bullet")
@@ -34,7 +34,7 @@ struct EntryPoint: View {
         .tag(Tab.settings)
         .tabItem {
           Image(systemName: "gearshape")
-          Text("Settings")
+          Text("General")
         }
     }
     .onChange(of: selectedTab) {
@@ -46,6 +46,6 @@ struct EntryPoint: View {
 #Preview {
   EntryPoint()
     .environmentObject( OrderViewModel() )
-    .environmentObject( CoffeeViewModel() )
-    .environmentObject( AuthViewModel() )
+    .environmentObject( CoffeeViewModel.previewMode() )
+    .environmentObject( AuthViewModel.previewMode() )
 }
