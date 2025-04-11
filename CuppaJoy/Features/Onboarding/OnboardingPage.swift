@@ -5,7 +5,7 @@
 //  Created by Alexander Andrianov on 19.01.2025.
 //
 
-import SwiftUI
+import Foundation
 
 enum OnboardingPage: Int, CaseIterable {
   case greeting

@@ -12,12 +12,11 @@ struct OnboardingScreen: View {
   @State private var pageIndex = 0
   @State private var isFinishedOnboarding = false
   @State private var isAnimating = false
-  let pages = OnboardingPage.allCases
   
-  var isIndexLast: Bool {
-    pageIndex == pages.count - 1
-  }
+  private let pages = OnboardingPage.allCases
+  private var isIndexLast: Bool { pageIndex == pages.count - 1 }
   
+
   var body: some View {
     if isFinishedOnboarding {
       SignInScreen()
