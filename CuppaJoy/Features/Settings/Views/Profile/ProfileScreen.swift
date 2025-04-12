@@ -16,7 +16,7 @@ struct ProfileScreen: View {
   @State private var phoneNumber = ""
   @State private var emailAddress = ""
   @State private var selectedCity: City = .mykolaiv
-  @FocusState private var fieldContent: TextFieldInputType?
+  @FocusState private var fieldContent: InputContentType?
   
   @Binding var generalScreenPath: NavigationPath
   @Binding var isTabBarVisible: Bool
@@ -65,20 +65,18 @@ struct ProfileScreen: View {
         }
       }
     }
-    
-
   }
   
   // MARK: Personal Data List
   private var personalDataList: some View {
     List {
       HStack {
-        DefaultTextField(for: .fullName, inputData: $username)
+        InputField(for: .fullName, data: $username)
           .focused($fieldContent, equals: .fullName)
           .textInputAutocapitalization(.words)
           .submitLabel(.next)
           .textInputAutocapitalization(.words)
-          .onSubmit { fieldContent = .emailAddress }
+          .onSubmit { fieldContent = .email }
         
         Button("Edit") {
           fieldContent = .fullName
@@ -90,8 +88,8 @@ struct ProfileScreen: View {
       .buttonStyle(.plain)
       
       HStack {
-        DefaultTextField(for: .emailAddress, inputData: $emailAddress)
-          .focused($fieldContent, equals: .emailAddress)
+        InputField(for: .email, data: $emailAddress)
+          .focused($fieldContent, equals: .email)
           .keyboardType(.emailAddress)
           .textInputAutocapitalization(.never)
           .autocorrectionDisabled(true)
@@ -99,7 +97,7 @@ struct ProfileScreen: View {
           .onSubmit { fieldContent = nil }
         
         Button("Edit") {
-          fieldContent = .emailAddress
+          fieldContent = .email
         }
         .font(.callout)
         .fontWeight(.medium)

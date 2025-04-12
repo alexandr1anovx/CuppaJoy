@@ -7,48 +7,25 @@
 
 import SwiftUI
 
-enum SignInMethod {
-  case emailAndPassword
-  // Add more in the future
-}
-
 struct SignInScreen: View {
-  
-  @State private var signInMethod: SignInMethod?
   @EnvironmentObject var authViewModel: AuthViewModel
-  
   
   var body: some View {
     NavigationStack {
       ZStack {
         Color.csBlack.ignoresSafeArea(.all)
-        VStack(spacing: 0) {
+        VStack(spacing: 25) {
           AuthHeaderView(for: .signIn)
-          pageContent
+          emailAndPasswordButton
+          signUpButton
         }
       }
     }
   }
   
-  @ViewBuilder
-  private var pageContent: some View {
-    if signInMethod == nil {
-      authMethodsView
-    } else if signInMethod == .emailAndPassword {
-      EmailAndPasswordForm(signInMethod: $signInMethod)
-    }
-  }
-  
-  private var authMethodsView: some View {
-    VStack(spacing: 15) {
-      continueWithEmailAndPasswordButton
-      signUpButton
-    }.padding(.top, 30)
-  }
-  
-  private var continueWithEmailAndPasswordButton: some View {
-    Button {
-      signInMethod = .emailAndPassword
+  private var emailAndPasswordButton: some View {
+    NavigationLink {
+      EmailAndPasswordForm()
     } label: {
       ButtonLabelWithIcon(
         "Continue with Email & Password",

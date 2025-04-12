@@ -14,7 +14,7 @@ struct SignUpScreen: View {
   @State private var password = ""
   @State private var selectedCity: City = .mykolaiv
   
-  @FocusState private var fieldContent: TextFieldInputType?
+  @FocusState private var fieldContent: InputContentType?
   @EnvironmentObject var authViewModel: AuthViewModel
   @Environment(\.dismiss) var dismiss
   
@@ -29,14 +29,15 @@ struct SignUpScreen: View {
       Color.csBlack.ignoresSafeArea(.all)
       ScrollView {
         VStack(spacing: 0) {
-          AuthHeaderView(for: .signUp)
           textFields
-          cityPicker.padding(20)
-          signUpButton.padding(.top, 5)
-          signInOption.padding(.top, 15)
+          cityPicker.padding(23)
+          signUpButton
+          signInOption.padding(.vertical, 15)
           Spacer()
-        }.padding(.top, 20)
+        }
       }
+      .navigationTitle("Sign Up")
+      .navigationBarTitleDisplayMode(.inline)
     }
     .onAppear {
       setupSegmentedControlAppearance()
@@ -45,28 +46,43 @@ struct SignUpScreen: View {
   
   private var textFields: some View {
     List {
-      DefaultTextField(for: .fullName, inputData: $fullName)
-        .focused($fieldContent, equals: .fullName)
-        .textInputAutocapitalization(.words)
-        .submitLabel(.next)
-        .onSubmit { fieldContent = .emailAddress }
-      
-      DefaultTextField(for: .emailAddress, inputData: $emailAddress)
-        .focused($fieldContent, equals: .emailAddress)
-        .keyboardType(.emailAddress)
-        .textInputAutocapitalization(.never)
-        .autocorrectionDisabled(true)
-        .submitLabel(.next)
-        .onSubmit { fieldContent = .password }
-      
-      SecuredTextField(password: $password)
-        .focused($fieldContent, equals: .password)
-        .textInputAutocapitalization(.never)
-        .autocorrectionDisabled(true)
-        .submitLabel(.done)
-        .onSubmit { fieldContent = nil }
+      Section {
+        InputField(for: .fullName, data: $fullName)
+          .focused($fieldContent, equals: .fullName)
+          .textInputAutocapitalization(.words)
+          .submitLabel(.next)
+          .onSubmit { fieldContent = .email }
+        
+        InputField(for: .email, data: $emailAddress)
+          .focused($fieldContent, equals: .email)
+          .keyboardType(.emailAddress)
+          .textInputAutocapitalization(.never)
+          .autocorrectionDisabled(true)
+          .submitLabel(.next)
+          .onSubmit { fieldContent = .password }
+        
+        SecuredInputField(password: $password)
+          .focused($fieldContent, equals: .password)
+          .textInputAutocapitalization(.never)
+          .autocorrectionDisabled(true)
+          .submitLabel(.done)
+          .onSubmit { fieldContent = nil }
+      } header: {
+        Text("Fill in the fields")
+          .font(.caption)
+          .fontWeight(.semibold)
+          .padding(.bottom, 10)
+      } footer: {
+        VStack(alignment: .leading, spacing: 5) {
+          Text("- Full name cannot be empty.")
+          Text("- Email address format: name@example.com.")
+          Text("- Password must be at least 6 characters.")
+        }
+        .font(.caption)
+        .padding(.top, 10)
+      }
     }
-    .frame(height: 190)
+    .frame(height: 275)
     .environment(\.defaultMinListRowHeight, 50)
     .scrollContentBackground(.hidden)
     .scrollIndicators(.hidden)
@@ -78,7 +94,6 @@ struct SignUpScreen: View {
     VStack(alignment: .leading) {
       Text("Select your city:")
         .font(.footnote)
-        .fontWeight(.semibold)
         .foregroundStyle(.gray)
         .padding(.leading, 5)
       Picker("City", selection: $selectedCity) {
@@ -102,7 +117,7 @@ struct SignUpScreen: View {
     } label: {
       ButtonLabel(
         "Sign Up",
-        textColor: .white,
+        textColor: .orange,
         bgColor: .black
       )
     }
