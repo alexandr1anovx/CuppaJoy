@@ -8,10 +8,10 @@
 import SwiftUI
 
 enum Tab {
-  case home, orders, settings
+  case home, orders, general
 }
 
-struct EntryPoint: View {
+struct MainTabView: View {
   
   @State private var selectedTab: Tab = .home
   let generator = UIImpactFeedbackGenerator(style: .medium)
@@ -31,7 +31,7 @@ struct EntryPoint: View {
           Text("Orders")
         }
       GeneralScreen()
-        .tag(Tab.settings)
+        .tag(Tab.general)
         .tabItem {
           Image(systemName: "gearshape")
           Text("General")
@@ -44,7 +44,7 @@ struct EntryPoint: View {
 }
 
 #Preview {
-  EntryPoint()
+  MainTabView()
     .environmentObject( OrderViewModel() )
     .environmentObject( CoffeeViewModel.previewMode() )
     .environmentObject( AuthViewModel.previewMode() )
