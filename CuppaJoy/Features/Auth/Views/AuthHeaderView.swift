@@ -25,7 +25,7 @@ enum AuthAction {
 }
 
 struct AuthHeaderView: View {
-  let authAction: AuthAction
+  private let authAction: AuthAction
   
   init(for authAction: AuthAction) {
     self.authAction = authAction
