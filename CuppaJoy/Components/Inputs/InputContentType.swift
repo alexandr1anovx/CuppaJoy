@@ -5,25 +5,30 @@
 //  Created by Alexander Andrianov on 31.03.2025.
 //
 
+import Foundation
 
-enum TextFieldInputType {
+enum InputContentType {
   case fullName
-  case emailAddress
+  case email
   case password
   
   var hint: String {
     switch self {
-    case .fullName: "Name and surname"
-    case .emailAddress: "Email address"
+    case .fullName: "Full Name"
+    case .email: "Email address"
     case .password: "Password"
     }
   }
   
-  var icon: String {
+  var iconName: String {
     switch self {
     case .fullName: "person.crop.circle"
-    case .emailAddress: "envelope"
+    case .email: "envelope"
     case .password: "lock"
     }
   }
+}
+
+enum InputFieldStatus {
+  case secured, notSecured
 }

@@ -7,22 +7,22 @@
 
 import SwiftUI
 
-struct DefaultTextField: View {
+struct InputField: View {
   
-  let inputType: TextFieldInputType
+  let inputType: InputContentType
   @Binding var inputData: String
   
   init(
-    for inputType: TextFieldInputType,
-    inputData: Binding<String>
+    for inputType: InputContentType,
+    data: Binding<String>
   ) {
     self.inputType = inputType
-    self._inputData = inputData
+    self._inputData = data
   }
   
   var body: some View {
     HStack(spacing: 15) {
-      Image(systemName: inputType.icon)
+      Image(systemName: inputType.iconName)
         .frame(width: 18, height: 18)
         .foregroundStyle(.csCream)
         .opacity(0.8)
@@ -33,5 +33,5 @@ struct DefaultTextField: View {
 }
 
 #Preview {
-  DefaultTextField(for: .password, inputData: .constant(""))
+  InputField(for: .password, data: .constant(""))
 }
