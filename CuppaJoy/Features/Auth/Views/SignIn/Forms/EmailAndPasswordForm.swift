@@ -73,7 +73,7 @@ struct EmailAndPasswordForm: View {
         }
       }
       .fullScreenCover(isPresented: $isShownHome) {
-        EntryPoint()
+        MainTabView()
       }
       .sheet(isPresented: $isShownPasswordRecoveryView) {
         PasswordRecoveryScreen()

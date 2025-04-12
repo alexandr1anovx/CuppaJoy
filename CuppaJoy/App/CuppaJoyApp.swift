@@ -24,14 +24,12 @@ struct CuppaJoyApp: App {
   
   var body: some Scene {
     WindowGroup {
-      OnboardingScreen()
+      AppEntryView()
         .preferredColorScheme(.dark)
         .environmentObject(orderViewModel)
         .environmentObject(authViewModel)
         .environmentObject(coffeeViewModel)
-        .onAppear {
-          coffeeViewModel.getCoffees()
-        }
+        
     }
   }
 }
