@@ -9,74 +9,90 @@ import SwiftUI
 
 struct EmailAndPasswordForm: View {
   
-  @State private var emailAddress = ""
+  @State private var email = ""
   @State private var password = ""
-  @Binding var signInMethod: SignInMethod?
-  @FocusState private var fieldContent: TextFieldInputType?
+  @State private var isShownHome = false
+  @State private var isShownPasswordRecoveryView = false
+  @FocusState private var inputContent: InputContentType?
+  @Environment(\.dismiss) var dismiss
   @EnvironmentObject var authViewModel: AuthViewModel
   
-  @State private var isShownHome = false
-  
   private var isValidForm: Bool {
-    authViewModel.isValidEmail(emailAddress)
+    authViewModel.isValidEmail(email)
     && authViewModel.isValidPassword(password)
   }
   
   var body: some View {
-    VStack(spacing: 20) {
-      List {
-        DefaultTextField(for: .emailAddress, inputData: $emailAddress)
-          .focused($fieldContent, equals: .emailAddress)
-          .keyboardType(.emailAddress)
-          .textInputAutocapitalization(.never)
-          .autocorrectionDisabled(true)
-          .submitLabel(.next)
-          .onSubmit { fieldContent = .password }
+    ZStack {
+      Color.csBlack.ignoresSafeArea(.all)
+      VStack(spacing: 20) {
+        List {
+          Section {
+            InputField(for: .email, data: $email)
+              .focused($inputContent, equals: .email)
+              .keyboardType(.emailAddress)
+              .textInputAutocapitalization(.never)
+              .autocorrectionDisabled(true)
+              .submitLabel(.next)
+              .onSubmit { inputContent = .password }
+            SecuredInputField(password: $password)
+              .focused($inputContent, equals: .password)
+              .submitLabel(.done)
+              .onSubmit { inputContent = nil }
+          } header: {
+            Text("Enter your email and password")
+              .font(.caption)
+              .fontWeight(.semibold)
+              .padding(.bottom, 10)
+          }
+        }
+        .frame(height: 160)
+        .shadow(radius: 1)
+        .environment(\.defaultMinListRowHeight, 53)
+        .scrollContentBackground(.hidden)
+        .scrollIndicators(.hidden)
+        .scrollDisabled(true)
         
-        SecuredTextField(password: $password)
-          .focused($fieldContent, equals: .password)
-          .submitLabel(.done)
-          .onSubmit { fieldContent = nil }
+        signInButton
+        
+        forgotPasswordButton
+          .frame(maxWidth: .infinity, alignment: .leading)
+          .padding(.leading, 25)
       }
-      .frame(height: 140)
-      .shadow(radius: 1)
-      .environment(\.defaultMinListRowHeight, 50)
-      .scrollContentBackground(.hidden)
-      .scrollIndicators(.hidden)
-      .scrollDisabled(true)
-      
-      HStack(spacing:0) {
-        passwordRecoveryButton
-        Spacer()
-      }.padding(.leading,25)
-      
-      signInButton
-      
-      Label("Back to other methods", systemImage: "arrow.backward.circle.fill")
-        .font(.subheadline)
-        .fontWeight(.medium)
-        .foregroundStyle(.csCream)
-        .onTapGesture { signInMethod = nil }
-        .padding(.top, 10)
-    }
-    .fullScreenCover(isPresented: $isShownHome) {
-      EntryPoint()
+      .frame(maxHeight: .infinity, alignment: .top)
+      .navigationTitle("Sign In")
+      .navigationBarBackButtonHidden(true)
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        ToolbarItem(placement: .topBarLeading) {
+          Button {
+            dismiss()
+          } label: {
+            ButtonLabelReturn()
+          }
+        }
+      }
+      .fullScreenCover(isPresented: $isShownHome) {
+        EntryPoint()
+      }
+      .sheet(isPresented: $isShownPasswordRecoveryView) {
+        PasswordRecoveryScreen()
+          .presentationCornerRadius(30)
+          .presentationDragIndicator(.visible)
+      }
     }
   }
   
   private var signInButton: some View {
     Button {
       Task {
-        await authViewModel.signIn(
-          with: emailAddress,
-          and: password
-        )
+        await authViewModel.signIn(with: email, and: password)
         isShownHome.toggle()
       }
     } label: {
       ButtonLabel(
         "Sign In",
-        textColor: .white,
+        textColor: .orange,
         bgColor: .black
       )
     }
@@ -91,9 +107,9 @@ struct EmailAndPasswordForm: View {
     }
   }
   
-  private var passwordRecoveryButton: some View {
-    NavigationLink {
-      PasswordRecoveryScreen()
+  private var forgotPasswordButton: some View {
+    Button {
+      isShownPasswordRecoveryView.toggle()
     } label: {
       Text("Forgot password?")
         .font(.caption)
@@ -105,6 +121,6 @@ struct EmailAndPasswordForm: View {
 }
 
 #Preview {
-  EmailAndPasswordForm(signInMethod: .constant(.emailAndPassword))
-    .environmentObject( AuthViewModel() )
+  EmailAndPasswordForm()
+    .environmentObject(AuthViewModel.previewMode())
 }
