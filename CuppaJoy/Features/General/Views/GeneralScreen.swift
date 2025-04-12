@@ -98,7 +98,11 @@ struct GeneralScreen: View {
       .toolbar(isTabBarVisible ? .visible : .hidden, for: .tabBar)
       
       .alert("Sign Out", isPresented: $isShownSignOutAlert) {
-        Button("Sign Out", role: .destructive) { authViewModel.signOut() }
+        Button("Sign Out", role: .destructive) {
+          withAnimation(.easeInOut(duration: 1)) {
+            authViewModel.signOut()
+          }
+        }
       } message: {
         Text("Are you sure you want to sign out?")
       }
