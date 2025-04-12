@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ButtonLabelReturn: View {
+struct ReturnButtonLabel: View {
   var body: some View {
     Image(systemName: "arrowshape.left.circle.fill")
       .imageScale(.large)
@@ -16,5 +16,5 @@ struct ButtonLabelReturn: View {
 }
 
 #Preview {
-  ButtonLabelReturn()
+  ReturnButtonLabel()
 }
