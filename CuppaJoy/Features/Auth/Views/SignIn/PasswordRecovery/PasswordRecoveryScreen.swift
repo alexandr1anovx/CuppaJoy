@@ -34,7 +34,7 @@ struct PasswordRecoveryScreen: View {
           .padding(.horizontal)
         
         List {
-          DefaultTextField(for: .emailAddress, inputData: $emailAddress)
+          InputField(for: .email, data: $emailAddress)
             .focused($isEmailFocused)
             .keyboardType(.emailAddress)
             .textInputAutocapitalization(.never)
