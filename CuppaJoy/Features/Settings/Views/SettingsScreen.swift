@@ -19,7 +19,7 @@ enum ColorTheme: String, Identifiable, CaseIterable {
 struct SettingsScreen: View {
   
   @Binding var generalScreenPath: NavigationPath
-  @Binding var isTabBarVisible: Bool
+  @Binding var isShownTabBar: Bool
   @State private var selectedTheme: ColorTheme = .system
   
   var body: some View {
@@ -52,17 +52,17 @@ struct SettingsScreen: View {
         .shadow(radius: 3)
       }
     }
-    .onAppear { isTabBarVisible = false }
+    .onAppear { isShownTabBar = false }
     .navigationTitle("Settings")
     .navigationBarTitleDisplayMode(.inline)
     .navigationBarBackButtonHidden(true)
     .toolbar {
       ToolbarItem(placement: .navigationBarLeading) {
         Button {
-          isTabBarVisible = true
+          isShownTabBar = true
           generalScreenPath.removeLast()
         } label: {
-          ButtonLabelReturn()
+          ReturnButtonLabel()
         }
       }
     }
@@ -72,6 +72,6 @@ struct SettingsScreen: View {
 #Preview {
   SettingsScreen(
     generalScreenPath: .constant(NavigationPath()),
-    isTabBarVisible: .constant(false)
+    isShownTabBar: .constant(false)
   )
 }
