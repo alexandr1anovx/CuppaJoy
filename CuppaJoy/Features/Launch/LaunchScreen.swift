@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct LaunchScreen: View {
-  @EnvironmentObject var coffeeViewModel: CoffeeViewModel
   
   var body: some View {
     ZStack {
@@ -17,12 +16,8 @@ struct LaunchScreen: View {
         Text("Launching")
           .font(.title2)
           .fontWeight(.semibold)
-          .fontDesign(.serif)
         ProgressView()
       }
-    }
-    .onAppear {
-      coffeeViewModel.getCoffees()
     }
   }
 }
