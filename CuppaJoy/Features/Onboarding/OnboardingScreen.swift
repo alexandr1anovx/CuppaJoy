@@ -78,6 +78,7 @@ struct OnboardingScreen: View {
       if !isIndexLast {
         pageIndex += 1
       } else {
+        UserDefaults.standard.isFirstLaunch = false
         withAnimation { isFinishedOnboarding = true }
       }
     } label: {
