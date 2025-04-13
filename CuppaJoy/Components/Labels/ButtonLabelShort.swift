@@ -22,10 +22,8 @@ struct ButtonLabelShort: View {
   var body: some View {
     Text(title)
       .font(.subheadline)
-      .fontWeight(.semibold)
       .foregroundStyle(textColor)
-      .padding(.horizontal,20)
-      .padding(.vertical,13)
+      .padding(13)
       .background(bgColor)
       .clipShape(.capsule)
       .shadow(radius: 3)
