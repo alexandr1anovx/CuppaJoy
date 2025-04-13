@@ -24,14 +24,14 @@ struct OrderPaymentOptionView: View {
     }
     .padding(.top, 25)
     .sheet(isPresented: $isShownPaymentSheet) {
-      ApplePayView(order: order)
-        .presentationDetents([.height(340)])
-        .presentationBackgroundInteraction(.disabled)
-        .presentationCornerRadius(30)
-        .onDisappear {
-          path.removeLast(path.count)
-          isTabBarVisible = true
-        }
+      ApplePayView(
+        order: order,
+        path: $path,
+        isTabBarVisible: $isTabBarVisible
+      )
+      .presentationDetents([.height(340)])
+      .presentationBackgroundInteraction(.disabled)
+      .presentationCornerRadius(30)
     }
   }
   
