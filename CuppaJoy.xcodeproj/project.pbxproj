@@ -16,12 +16,13 @@
 		32325EE22CB2C3EB0048E557 /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32325EE12CB2C3EB0048E557 /* SignUpScreen.swift */; };
 		326108402CBAD3B10072D238 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3261083F2CBAD3B10072D238 /* HomeScreen.swift */; };
 		32FF43AB2CC6CC9E001C0E0C /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF43AA2CC6CC9E001C0E0C /* ProfileScreen.swift */; };
-		32FF43BB2CC6FA35001C0E0C /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF43BA2CC6FA35001C0E0C /* MainTabView.swift */; };
+		32FF43BB2CC6FA35001C0E0C /* AppMainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF43BA2CC6FA35001C0E0C /* AppMainTabView.swift */; };
 		50288ACA2CF7E73300DA7304 /* CoffeeSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50288AC92CF7E73300DA7304 /* CoffeeSelectionView.swift */; };
 		50DFA8132D046D840058A4D4 /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DFA8122D046D840058A4D4 /* UIWindow+Extension.swift */; };
 		50DFA8232D04AC660058A4D4 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DFA8222D04AC660058A4D4 /* HomeHeaderView.swift */; };
 		D103DDC62DA1CF5B008EAA99 /* StaticProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D103DDC52DA1CF5B008EAA99 /* StaticProfileImageView.swift */; };
-		D103DDC82DA1E4AF008EAA99 /* ButtonLabelReturn.swift in Sources */ = {isa = PBXBuildFile; fileRef = D103DDC72DA1E4AF008EAA99 /* ButtonLabelReturn.swift */; };
+		D103DDC82DA1E4AF008EAA99 /* ReturnButtonLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D103DDC72DA1E4AF008EAA99 /* ReturnButtonLabel.swift */; };
+		D10A1BF92DAABDEB00F10EBA /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10A1BF82DAABDEA00F10EBA /* UserDefaults+Extension.swift */; };
 		D10DDF6B2DA7265F00D857E1 /* OrderStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10DDF6A2DA7265F00D857E1 /* OrderStatus.swift */; };
 		D10DDF6F2DA72B7A00D857E1 /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10DDF6E2DA72B7A00D857E1 /* PaymentMethod.swift */; };
 		D11435302D2EB790007078D9 /* ApplePayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D114352F2D2EB790007078D9 /* ApplePayView.swift */; };
@@ -59,7 +60,7 @@
 		D1A2A9852D317D1200C9C17C /* AuthHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2A9842D317D1200C9C17C /* AuthHeaderView.swift */; };
 		D1AF8E192D67B2D2007382AF /* OrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1AF8E182D67B2D2007382AF /* OrderViewModel.swift */; };
 		D1B57CA42DAAA116007FF521 /* LaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B57CA32DAAA116007FF521 /* LaunchScreen.swift */; };
-		D1B57CA62DAAB3A5007FF521 /* AppEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B57CA52DAAB3A5007FF521 /* AppEntryView.swift */; };
+		D1B57CA62DAAB3A5007FF521 /* AppEntryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B57CA52DAAB3A5007FF521 /* AppEntryRouter.swift */; };
 		D1BD90302D45746900F43A54 /* OrderPaymentOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BD902F2D45746900F43A54 /* OrderPaymentOptionView.swift */; };
 		D1C803E22D91945700674C04 /* PasswordRecoveryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C803E12D91945700674C04 /* PasswordRecoveryScreen.swift */; };
 		D1C859B62D20A55000DDB941 /* CoffeeSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C859B52D20A55000DDB941 /* CoffeeSelectionCell.swift */; };
@@ -85,12 +86,13 @@
 		324A9FD22CB0BB56007F6998 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3261083F2CBAD3B10072D238 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		32FF43AA2CC6CC9E001C0E0C /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
-		32FF43BA2CC6FA35001C0E0C /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		32FF43BA2CC6FA35001C0E0C /* AppMainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMainTabView.swift; sourceTree = "<group>"; };
 		50288AC92CF7E73300DA7304 /* CoffeeSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeSelectionView.swift; sourceTree = "<group>"; };
 		50DFA8122D046D840058A4D4 /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
 		50DFA8222D04AC660058A4D4 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
 		D103DDC52DA1CF5B008EAA99 /* StaticProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticProfileImageView.swift; sourceTree = "<group>"; };
-		D103DDC72DA1E4AF008EAA99 /* ButtonLabelReturn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLabelReturn.swift; sourceTree = "<group>"; };
+		D103DDC72DA1E4AF008EAA99 /* ReturnButtonLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnButtonLabel.swift; sourceTree = "<group>"; };
+		D10A1BF82DAABDEA00F10EBA /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		D10DDF6A2DA7265F00D857E1 /* OrderStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderStatus.swift; sourceTree = "<group>"; };
 		D10DDF6E2DA72B7A00D857E1 /* PaymentMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
 		D114352F2D2EB790007078D9 /* ApplePayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayView.swift; sourceTree = "<group>"; };
@@ -125,7 +127,7 @@
 		D1A2A9842D317D1200C9C17C /* AuthHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHeaderView.swift; sourceTree = "<group>"; };
 		D1AF8E182D67B2D2007382AF /* OrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewModel.swift; sourceTree = "<group>"; };
 		D1B57CA32DAAA116007FF521 /* LaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreen.swift; sourceTree = "<group>"; };
-		D1B57CA52DAAB3A5007FF521 /* AppEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryView.swift; sourceTree = "<group>"; };
+		D1B57CA52DAAB3A5007FF521 /* AppEntryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryRouter.swift; sourceTree = "<group>"; };
 		D1BD902F2D45746900F43A54 /* OrderPaymentOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderPaymentOptionView.swift; sourceTree = "<group>"; };
 		D1C803E12D91945700674C04 /* PasswordRecoveryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordRecoveryScreen.swift; sourceTree = "<group>"; };
 		D1C859B52D20A55000DDB941 /* CoffeeSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeSelectionCell.swift; sourceTree = "<group>"; };
@@ -194,8 +196,9 @@
 			isa = PBXGroup;
 			children = (
 				50DFA8122D046D840058A4D4 /* UIWindow+Extension.swift */,
-				D1EC2FFB2D2637FA008E8265 /* Color+Extension.swift */,
 				D1426EE62D4E5D5D00C78FE0 /* UIApplication+Extension.swift */,
+				D10A1BF82DAABDEA00F10EBA /* UserDefaults+Extension.swift */,
+				D1EC2FFB2D2637FA008E8265 /* Color+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -229,8 +232,8 @@
 				D10DDF5B2DA722B700D857E1 /* Orders */,
 				D10DDF5C2DA722CA00D857E1 /* General */,
 				D10DDF722DA7354300D857E1 /* Settings */,
+				50482B2D2D00D7A2006AE77A /* Profile */,
 				D10DDF762DA738B100D857E1 /* Coffee */,
-				D1B57CA82DAAB6D5007FF521 /* MainTabView */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -420,7 +423,6 @@
 			isa = PBXGroup;
 			children = (
 				D12992E92D9D21ED002D9A4C /* SettingsScreen.swift */,
-				50482B2D2D00D7A2006AE77A /* Profile */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -512,7 +514,7 @@
 				D1261C332D71F96500E8C19B /* ButtonLabelAnimated.swift */,
 				D1D58DDA2D731F4000BD54EE /* ButtonLabelWithIconAnimated.swift */,
 				D12992EB2D9D3460002D9A4C /* ButtonLabelShort.swift */,
-				D103DDC72DA1E4AF008EAA99 /* ButtonLabelReturn.swift */,
+				D103DDC72DA1E4AF008EAA99 /* ReturnButtonLabel.swift */,
 			);
 			path = Labels;
 			sourceTree = "<group>";
@@ -540,14 +542,6 @@
 			path = Launch;
 			sourceTree = "<group>";
 		};
-		D1B57CA82DAAB6D5007FF521 /* MainTabView */ = {
-			isa = PBXGroup;
-			children = (
-				32FF43BA2CC6FA35001C0E0C /* MainTabView.swift */,
-			);
-			path = MainTabView;
-			sourceTree = "<group>";
-		};
 		D1C859B82D20A6A500DDB941 /* OrderConfigurator */ = {
 			isa = PBXGroup;
 			children = (
@@ -562,7 +556,8 @@
 		D1C859CE2D20BD3C00DDB941 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				D1B57CA52DAAB3A5007FF521 /* AppEntryView.swift */,
+				D1B57CA52DAAB3A5007FF521 /* AppEntryRouter.swift */,
+				32FF43BA2CC6FA35001C0E0C /* AppMainTabView.swift */,
 				321D48132CAF6098007A0B20 /* CuppaJoyApp.swift */,
 				324A9FD22CB0BB56007F6998 /* Info.plist */,
 				D194CEBA2D63833500CE409C /* GoogleService-Info.plist */,
@@ -672,7 +667,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D103DDC82DA1E4AF008EAA99 /* ButtonLabelReturn.swift in Sources */,
+				D10A1BF92DAABDEB00F10EBA /* UserDefaults+Extension.swift in Sources */,
+				D103DDC82DA1E4AF008EAA99 /* ReturnButtonLabel.swift in Sources */,
 				D161E8962D9B1DB3003BBF78 /* EditableProfileImageView.swift in Sources */,
 				D1A24CBF2D26512800B1632E /* OrderPaymentScreen.swift in Sources */,
 				D10DDF6B2DA7265F00D857E1 /* OrderStatus.swift in Sources */,
@@ -685,7 +681,7 @@
 				D15A87D42D6669D900259382 /* OrderSummaryScreen.swift in Sources */,
 				D1B57CA42DAAA116007FF521 /* LaunchScreen.swift in Sources */,
 				D138A9492D6A85BB00AB1257 /* ReceivedOrderCell.swift in Sources */,
-				D1B57CA62DAAB3A5007FF521 /* AppEntryView.swift in Sources */,
+				D1B57CA62DAAB3A5007FF521 /* AppEntryRouter.swift in Sources */,
 				D1D1F1BB2D7474D800B7D035 /* EmailAndPasswordForm.swift in Sources */,
 				D1D58DDB2D731F4000BD54EE /* ButtonLabelWithIconAnimated.swift in Sources */,
 				50DFA8232D04AC660058A4D4 /* HomeHeaderView.swift in Sources */,
@@ -711,7 +707,7 @@
 				D1A2A9852D317D1200C9C17C /* AuthHeaderView.swift in Sources */,
 				D161E8942D9B1D89003BBF78 /* ProfileImageEditorView.swift in Sources */,
 				D1EC2FFC2D2637FA008E8265 /* Color+Extension.swift in Sources */,
-				32FF43BB2CC6FA35001C0E0C /* MainTabView.swift in Sources */,
+				32FF43BB2CC6FA35001C0E0C /* AppMainTabView.swift in Sources */,
 				32FF43AB2CC6CC9E001C0E0C /* ProfileScreen.swift in Sources */,
 				D1FEA5262D6603C500B082D8 /* User.swift in Sources */,
 				326108402CBAD3B10072D238 /* HomeScreen.swift in Sources */,
