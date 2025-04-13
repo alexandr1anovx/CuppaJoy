@@ -9,13 +9,9 @@ import SwiftUI
 
 struct PasswordRecoveryScreen: View {
   
-  @State private var emailAddress = ""
+  @State private var email = ""
   @FocusState private var isEmailFocused: Bool
   @EnvironmentObject var authViewModel: AuthViewModel
-  
-  private var isValidEmail: Bool {
-    authViewModel.isValidEmail(emailAddress)
-  }
   
   var body: some View {
     ZStack {
@@ -34,7 +30,7 @@ struct PasswordRecoveryScreen: View {
           .padding(.horizontal)
         
         List {
-          InputField(for: .email, data: $emailAddress)
+          InputField(for: .email, data: $email)
             .focused($isEmailFocused)
             .keyboardType(.emailAddress)
             .textInputAutocapitalization(.never)
@@ -50,7 +46,7 @@ struct PasswordRecoveryScreen: View {
         
         Button {
           Task {
-            await authViewModel.sendPasswordResetLink(to: emailAddress)
+            await authViewModel.sendPasswordResetLink(to: email)
           }
         } label: {
           ButtonLabel(
@@ -59,8 +55,8 @@ struct PasswordRecoveryScreen: View {
             bgColor: .black
           )
         }
-        .disabled(!isValidEmail)
-        .opacity(!isValidEmail ? 0.5 : 1)
+        .disabled(!authViewModel.isValid(email: email))
+        .opacity(!authViewModel.isValid(email: email) ? 0.5 : 1)
         .alert(item: $authViewModel.alertItem) { alertItem in
           Alert(
             title: alertItem.title,

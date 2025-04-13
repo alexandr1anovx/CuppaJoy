@@ -18,8 +18,8 @@ struct EmailAndPasswordForm: View {
   @EnvironmentObject var authViewModel: AuthViewModel
   
   private var isValidForm: Bool {
-    authViewModel.isValidEmail(email)
-    && authViewModel.isValidPassword(password)
+    authViewModel.isValid(email: email)
+    && authViewModel.isValid(password: password)
   }
   
   var body: some View {
@@ -68,12 +68,12 @@ struct EmailAndPasswordForm: View {
           Button {
             dismiss()
           } label: {
-            ButtonLabelReturn()
+            ReturnButtonLabel()
           }
         }
       }
       .fullScreenCover(isPresented: $isShownHome) {
-        MainTabView()
+        AppMainTabView()
       }
       .sheet(isPresented: $isShownPasswordRecoveryView) {
         PasswordRecoveryScreen()

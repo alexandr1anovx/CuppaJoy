@@ -10,7 +10,7 @@ import SwiftUI
 struct SignUpScreen: View {
   
   @State private var fullName = ""
-  @State private var emailAddress = ""
+  @State private var email = ""
   @State private var password = ""
   @State private var selectedCity: City = .mykolaiv
   
@@ -19,9 +19,9 @@ struct SignUpScreen: View {
   @Environment(\.dismiss) var dismiss
   
   private var isValidForm: Bool {
-    authViewModel.isValidFullName(fullName)
-    && authViewModel.isValidEmail(emailAddress)
-    && authViewModel.isValidPassword(password)
+    authViewModel.isValid(fullName: fullName)
+    && authViewModel.isValid(email: email)
+    && authViewModel.isValid(password: password)
   }
   
   var body: some View {
@@ -53,7 +53,7 @@ struct SignUpScreen: View {
           .submitLabel(.next)
           .onSubmit { fieldContent = .email }
         
-        InputField(for: .email, data: $emailAddress)
+        InputField(for: .email, data: $email)
           .focused($fieldContent, equals: .email)
           .keyboardType(.emailAddress)
           .textInputAutocapitalization(.never)
@@ -109,7 +109,7 @@ struct SignUpScreen: View {
       Task {
         await authViewModel.signUp(
           fullName: fullName,
-          email: emailAddress,
+          email: email,
           password: password,
           city: selectedCity
         )
