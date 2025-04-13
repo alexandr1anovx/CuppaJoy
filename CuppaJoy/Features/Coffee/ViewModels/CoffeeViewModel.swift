@@ -12,11 +12,9 @@ import FirebaseFirestore
 final class CoffeeViewModel: ObservableObject {
   
   @Published var coffees: [Coffee] = []
-  
   private let coffeeCollection = Firestore.firestore().collection("coffees")
   
-  // MARK: - Public Methods
-  
+  // Retrieves coffees data from the Firebase.
   func getCoffees() {
     coffeeCollection.addSnapshotListener { snapshot, error in
       if let error {
@@ -48,6 +46,8 @@ final class CoffeeViewModel: ObservableObject {
     }
   }
 }
+
+// MARK: Mock Data for Preview Mode
 
 extension CoffeeViewModel {
   static func previewMode() -> CoffeeViewModel {

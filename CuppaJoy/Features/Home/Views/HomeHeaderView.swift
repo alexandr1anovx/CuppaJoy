@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct HomeHeaderView: View {
-  
   @EnvironmentObject var authViewModel: AuthViewModel
   
   var body: some View {
@@ -36,7 +35,11 @@ struct HomeHeaderView: View {
         Spacer()
         pointsLabel(user.stringCoins)
       } else {
-        ProgressView()
+        HStack {
+          Text("Can't load user data. Check your internet connection or reopen the app.")
+            .font(.caption)
+          ProgressView()
+        }
       }
     }
     .padding(.vertical, 30)
@@ -61,5 +64,5 @@ struct HomeHeaderView: View {
 
 #Preview {
   HomeHeaderView()
-    .environmentObject( AuthViewModel() )
+    .environmentObject(AuthViewModel())
 }
