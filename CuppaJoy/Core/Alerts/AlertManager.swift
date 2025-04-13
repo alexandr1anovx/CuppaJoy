@@ -84,4 +84,24 @@ struct AuthAlertContext {
     Text("Failed to send password reset email. Please check your email address and try again."),
     dismissButton: .default(Text("OK"))
   )
+  
+  // MARK: Profile Update
+  
+  static let successfulProfileUpdate = AlertItem(
+    Text("Profile Updated"),
+    Text("Your profile has been successfully updated."),
+    dismissButton: .default(Text("OK"))
+  )
+  
+  static let unsuccessfulProfileUpdate = AlertItem(
+    Text("Update Failed"),
+    Text("Failed to update profile. Please try again."),
+    dismissButton: .default(Text("OK"))
+  )
+  
+  static let noChangesInProfile = AlertItem(
+    Text("No Changes"),
+    Text("No changes were made to your profile."),
+    dismissButton: .default(Text("OK"))
+  )
 }
