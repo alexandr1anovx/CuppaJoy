@@ -35,26 +35,26 @@ final class AuthViewModel: ObservableObject {
   
   // MARK: - Form Validation Methods
   
-  func isValidFullName(_ fullName: String) -> Bool {
+  func isValid(fullName: String) -> Bool {
     let regex = #"^[a-zA-Z-]+ ?.* [a-zA-Z-]+$"#
     let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
     return predicate.evaluate(with: fullName)
   }
   
-  func isValidPhoneNumber(_ phoneNumber: String) -> Bool {
+  func isValid(phoneNumber: String) -> Bool {
     // works only for ukrainian format.
     let regex = #"^(\+380|0)\d{9}$"#
     let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
     return predicate.evaluate(with: phoneNumber)
   }
   
-  func isValidEmail(_ emailAddress: String) -> Bool {
+  func isValid(email: String) -> Bool {
     let regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,64}$"
     let predicate = NSPredicate(format: "SELF MATCHES[c] %@", regex)
-    return predicate.evaluate(with: emailAddress)
+    return predicate.evaluate(with: email)
   }
   
-  func isValidPassword(_ password: String) -> Bool {
+  func isValid(password: String) -> Bool {
     let regex = #"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"#
     let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
     return predicate.evaluate(with: password)
@@ -123,6 +123,24 @@ final class AuthViewModel: ObservableObject {
     }
   }
   
+  func deleteUser(with password: String) async throws {
+    do {
+      guard let user = userSession else { throw AuthErrorCode.userNotFound }
+      guard let userEmail = user.email else { throw AuthErrorCode.invalidEmail }
+      
+      let userCredentials = EmailAuthProvider.credential(withEmail: userEmail, password: password)
+      try await user.reauthenticate(with: userCredentials)
+      let userRef = userCollection.document(user.uid)
+      try await userRef.delete()
+      try await user.delete()
+      
+      userSession = nil
+      currentUser = nil
+    } catch {
+      print("Cannot delete user: \(error.localizedDescription)")
+    }
+  }
+  
   // MARK: - Public Methods
   
   func addCoinsToUser(_ coins: Int) async {
@@ -162,11 +180,65 @@ final class AuthViewModel: ObservableObject {
     // Decode the fetched document into a User object.
     self.currentUser = try? snapshot.data(as: User.self)
   }
+  
+  // MARK: - Profile Update Methods
+  
+  func updateProfile(fullName: String, email: String, city: City) async {
+    guard let user = userSession, let currentUser = currentUser else {
+      alertItem = AuthAlertContext.unsuccessfulProfileUpdate
+      return
+    }
+    
+    // Check if any data has changed
+    let hasChanges = fullName != currentUser.fullName ||
+                    email != currentUser.emailAddress ||
+                    city.title != currentUser.city
+    
+    guard hasChanges else {
+      alertItem = AuthAlertContext.noChangesInProfile
+      return
+    }
+    
+    // Validate input data
+    guard isValid(fullName: fullName) else {
+      alertItem = AuthAlertContext.unsuccessfulProfileUpdate
+      return
+    }
+    
+    do {
+      // If email has changed, update Firebase Auth email
+      if email != currentUser.emailAddress {
+        guard isValid(email: email) else {
+          alertItem = AuthAlertContext.unsuccessfulProfileUpdate
+          return
+        }
+        try await user.updateEmail(to: email)
+      }
+      
+      // Update Firestore document
+      let updatedUser = User(
+        id: currentUser.id,
+        fullName: fullName,
+        emailAddress: email,
+        city: city.title,
+        coins: currentUser.coins
+      )
+      
+      let encodedUser = try Firestore.Encoder().encode(updatedUser)
+      try await userCollection.document(user.uid).setData(encodedUser)
+      
+      // Update local state
+      self.currentUser = updatedUser
+      alertItem = AuthAlertContext.successfulProfileUpdate
+    } catch {
+      print("Failed to update profile: \(error.localizedDescription)")
+      alertItem = AuthAlertContext.unsuccessfulProfileUpdate
+    }
+  }
 }
 
 // MARK: Preview Mode
 
-// Allows to run a preview with fake data.
 extension AuthViewModel {
   static func previewMode() -> AuthViewModel {
     let viewModel = AuthViewModel()
