@@ -11,7 +11,7 @@ struct StaticProfileImageView: View {
   @State private var profileImage: UIImage? = nil
   
   var body: some View {
-    if let profileImage = profileImage {
+    if let profileImage {
       Image(uiImage: profileImage)
         .resizable()
         .scaledToFill()

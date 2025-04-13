@@ -10,40 +10,49 @@ import CoreImage
 import CoreImage.CIFilterBuiltins
 
 struct ProfileScreen: View {
-  
-  // MARK: Properties
-  @State private var username = ""
-  @State private var phoneNumber = ""
-  @State private var emailAddress = ""
-  @State private var selectedCity: City = .mykolaiv
-  @FocusState private var fieldContent: InputContentType?
-  
-  @Binding var generalScreenPath: NavigationPath
-  @Binding var isTabBarVisible: Bool
-  
   @EnvironmentObject var authViewModel: AuthViewModel
   
-  // MARK: Body
+  @State private var fullName = ""
+  @State private var email = ""
+  @State private var accountPassword = ""
+  @State private var selectedCity: City = .mykolaiv
+  @State private var isShownDeleteAccountAlert = false
+  @State private var isShownSavedChangesAlert = false
+  
+  @FocusState private var fieldContent: InputContentType?
+  @Binding var isShownTabBar: Bool
+  @Binding var generalScreenPath: NavigationPath
+  
+  var hasChanges: Bool {
+    guard let currentUser = authViewModel.currentUser else {
+      print("Cannot get current user for checking changes.")
+      return false
+    }
+    let changedFullName = fullName != currentUser.fullName
+    let changedEmail = email != currentUser.emailAddress
+    let changedCity = selectedCity.title != currentUser.city
+    
+    return changedFullName || changedEmail || changedCity
+  }
+  
+  var isValidForm: Bool {
+    authViewModel.isValid(fullName: fullName) &&
+    (email == authViewModel.currentUser?.emailAddress || authViewModel.isValid(email: email))
+  }
+  
+  
   var body: some View {
     ZStack {
       Color.csBlack.ignoresSafeArea(.all)
-      
       ScrollView {
         VStack(spacing: 0) {
-          
           EditableProfileImageView()
           personalDataList
           HStack {
-            Button("Delete Account") {
-              // delete account action
-            }
+            deleteAccountButton
             Spacer()
-            Button("Save Changes") {
-              // save changes action
-            }
+            saveChangesButton
           }
-          .foregroundStyle(.white)
-          .buttonStyle(.bordered)
           .padding(23)
         }
       }
@@ -51,27 +60,50 @@ struct ProfileScreen: View {
         UIApplication.shared.hideKeyboard()
       }
     }
-    .onAppear { isTabBarVisible = false }
+    // Alert that appears when the user wants to delete an account.
+    .alert("Password", isPresented: $isShownDeleteAccountAlert) {
+      SecureField("", text: $accountPassword)
+      Button("Cancel", role: .cancel) { accountPassword = "" }
+      Button("Confirm") {
+        Task {
+          try await authViewModel.deleteUser(with: accountPassword)
+          accountPassword = ""
+        }
+      }
+    } message: {
+      Text("It will delete all your data forever.")
+    }
+    // Alert that appears when the user changes personal data.
+    .alert(item: $authViewModel.alertItem) { alertItem in
+      Alert(
+        title: alertItem.title,
+        message: alertItem.message,
+        dismissButton: alertItem.dismissButton
+      )
+    }
+    .onAppear {
+      isShownTabBar = false
+      loadUserData()
+    }
     .navigationTitle("Profile")
     .navigationBarTitleDisplayMode(.inline)
     .navigationBarBackButtonHidden(true)
     .toolbar {
       ToolbarItem(placement: .navigationBarLeading) {
         Button {
-          isTabBarVisible = true
+          isShownTabBar = true
           generalScreenPath.removeLast()
         } label: {
-          ButtonLabelReturn()
+          ReturnButtonLabel()
         }
       }
     }
   }
   
-  // MARK: Personal Data List
   private var personalDataList: some View {
     List {
       HStack {
-        InputField(for: .fullName, data: $username)
+        InputField(for: .fullName, data: $fullName)
           .focused($fieldContent, equals: .fullName)
           .textInputAutocapitalization(.words)
           .submitLabel(.next)
@@ -88,7 +120,7 @@ struct ProfileScreen: View {
       .buttonStyle(.plain)
       
       HStack {
-        InputField(for: .email, data: $emailAddress)
+        InputField(for: .email, data: $email)
           .focused($fieldContent, equals: .email)
           .keyboardType(.emailAddress)
           .textInputAutocapitalization(.never)
@@ -128,10 +160,15 @@ struct ProfileScreen: View {
     .shadow(radius: 1)
   }
   
-  // MARK: Save Data Button
-  private var saveDataButton: some View {
+  private var saveChangesButton: some View {
     Button {
-      // show an alert
+      Task {
+        await authViewModel.updateProfile(
+          fullName: fullName,
+          email: email,
+          city: selectedCity
+        )
+      }
     } label: {
       ButtonLabelShort(
         "Save Changes",
@@ -139,24 +176,36 @@ struct ProfileScreen: View {
         bgColor: .black
       )
     }
+    .disabled(!hasChanges || !isValidForm)
+    .opacity(!hasChanges || !isValidForm ? 0 : 1)
   }
   
   private var deleteAccountButton: some View {
     Button {
-      // ...
+      isShownDeleteAccountAlert.toggle()
     } label: {
-      ButtonLabel(
+      ButtonLabelShort(
         "Delete Account",
         textColor: .white,
-        bgColor: .red
+        bgColor: .black
       )
     }
+  }
+  
+  private func loadUserData() {
+    guard let currentUser = authViewModel.currentUser else {
+      print("Cannot retrieve current user data.")
+      return
+    }
+    fullName = currentUser.fullName
+    email = currentUser.emailAddress
   }
 }
 
 #Preview {
   ProfileScreen(
-    generalScreenPath: .constant(NavigationPath()),
-    isTabBarVisible: .constant(false)
+    isShownTabBar: .constant(false),
+    generalScreenPath: .constant(NavigationPath())
   )
+  .environmentObject(AuthViewModel.previewMode())
 }
