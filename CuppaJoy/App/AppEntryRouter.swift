@@ -7,15 +7,19 @@
 
 import SwiftUI
 
-struct AppEntryView: View {
+struct AppEntryRouter: View {
+  
   @State private var isShownAppContent = false
   @EnvironmentObject var authViewModel: AuthViewModel
+  @EnvironmentObject var coffeeViewModel: CoffeeViewModel
   
   var body: some View {
     Group {
-      if authViewModel.userSession != nil {
+      if UserDefaults.standard.isFirstLaunch {
+        OnboardingScreen()
+      } else if authViewModel.userSession != nil {
         if isShownAppContent {
-          MainTabView()
+          AppMainTabView()
         } else {
           LaunchScreen()
         }
@@ -24,6 +28,8 @@ struct AppEntryView: View {
       }
     }
     .onAppear {
+      coffeeViewModel.getCoffees()
+      
       DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
         withAnimation {
           isShownAppContent.toggle()
@@ -34,5 +40,5 @@ struct AppEntryView: View {
 }
 
 #Preview {
-  AppEntryView()
+  AppEntryRouter()
 }
