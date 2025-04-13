@@ -16,8 +16,8 @@ enum SettingsPageContent: Hashable {
 struct GeneralScreen: View {
   
   @State private var isShownSignOutAlert = false
+  @State private var isShownTabBar = true
   @State private var generalScreenPath = NavigationPath()
-  @State private var isTabBarVisible = true
   @Environment(\.requestReview) var requestReview
   @EnvironmentObject var authViewModel: AuthViewModel
   
@@ -78,7 +78,7 @@ struct GeneralScreen: View {
           .environment(\.defaultMinListRowHeight, 60)
           .shadow(radius: 3)
         }
-      }//ZStack
+      }
       .navigationTitle("General")
       .navigationBarTitleDisplayMode(.large)
       .navigationDestination(for: SettingsPageContent.self) { page in
@@ -86,16 +86,16 @@ struct GeneralScreen: View {
         case .settings:
           SettingsScreen(
             generalScreenPath: $generalScreenPath,
-            isTabBarVisible: $isTabBarVisible
+            isShownTabBar: $isShownTabBar
           )
         case .editProfile:
           ProfileScreen(
-            generalScreenPath: $generalScreenPath,
-            isTabBarVisible: $isTabBarVisible
+            isShownTabBar: $isShownTabBar,
+            generalScreenPath: $generalScreenPath
           )
         }
       }
-      .toolbar(isTabBarVisible ? .visible : .hidden, for: .tabBar)
+      .toolbar(isShownTabBar ? .visible : .hidden, for: .tabBar)
       
       .alert("Sign Out", isPresented: $isShownSignOutAlert) {
         Button("Sign Out", role: .destructive) {
