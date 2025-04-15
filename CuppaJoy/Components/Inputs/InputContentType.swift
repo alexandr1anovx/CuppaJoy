@@ -29,6 +29,6 @@ enum InputContentType {
   }
 }
 
-enum InputFieldStatus {
+enum InputContentStatus {
   case secured, notSecured
 }
