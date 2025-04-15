@@ -8,41 +8,47 @@
 import SwiftUI
 
 struct ApplePayView: View {
-  
-  let order: Order
-  @State private var isShownAlert = false
   @Environment(\.dismiss) var dismiss
   @EnvironmentObject var orderViewModel: OrderViewModel
   @EnvironmentObject var authViewModel: AuthViewModel
   let generator = UINotificationFeedbackGenerator()
   
+  let order: Order
+  @State private var isShownAlert = false
+  @Binding var path: NavigationPath
+  @Binding var isTabBarVisible: Bool
+  
   var body: some View {
-    VStack(spacing: 0) {
-      HStack {
+    VStack{
+      HStack{
         applePayLabel
         Spacer()
         DismissButton()
       }
       .padding(.top)
       .padding(.horizontal)
-      orderList
+      orderItemsList
       confirmPaymentButton
     }
     .alert(isPresented: $isShownAlert) {
       Alert(
-        title: Text("Congratulations!🔥"),
+        title: Text("Congratulations 🔥"),
         message: Text("Payment has been successfully processed."),
-        dismissButton: .default(Text("Done")) {
+        dismissButton: .default(Text("Back to Home")) {
           dismiss()
+          DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            path.removeLast(path.count)
+            isTabBarVisible = true
+          }
         }
       )
     }
   }
   
-  private var orderList: some View {
+  private var orderItemsList: some View {
     List {
-      productDataLabel
-      productPriceLabel
+      coffeeDataLabel
+      coffeePriceLabel
       accountLabel
     }
     .listStyle(.insetGrouped)
@@ -55,7 +61,7 @@ struct ApplePayView: View {
       .font(.title2)
   }
   
-  private var productDataLabel: some View {
+  private var coffeeDataLabel: some View {
     HStack(spacing: 20) {
       Image(.marker)
         .foregroundStyle(.accent)
@@ -73,7 +79,7 @@ struct ApplePayView: View {
     }
   }
   
-  private var productPriceLabel: some View {
+  private var coffeePriceLabel: some View {
     VStack(alignment: .leading, spacing: 5) {
       Text(order.stringPrice)
         .font(.headline)
@@ -87,8 +93,7 @@ struct ApplePayView: View {
   private var accountLabel: some View {
     HStack {
       Text("Account:")
-      Text("icloudname@icloud.com")
-        .tint(.gray)
+      Text("icloudname@icloud.com").tint(.gray)
     }
     .font(.subheadline)
     .fontWeight(.medium)
@@ -98,6 +103,8 @@ struct ApplePayView: View {
     Button {
       Task {
         await authViewModel.addCoinsToUser(order.points)
+        orderViewModel.setOngoingOrders(order)
+        isShownAlert.toggle()
       }
       orderViewModel.setOngoingOrders(order)
       isShownAlert.toggle()
@@ -114,5 +121,9 @@ struct ApplePayView: View {
 }
 
 #Preview {
-  ApplePayView(order: MockData.order)
+  ApplePayView(
+    order: MockData.order,
+    path: .constant(NavigationPath()),
+    isTabBarVisible: .constant(false)
+  )
 }
