@@ -10,7 +10,7 @@ import SwiftUI
 struct AppMainTabView: View {
   
   @State private var selectedTab: Tab = .home
-  let generator = UIImpactFeedbackGenerator(style: .medium)
+  let generator = UIImpactFeedbackGenerator(style: .soft)
   
   var body: some View {
     TabView(selection: $selectedTab) {
@@ -48,7 +48,7 @@ enum Tab: String {
   var title: String { rawValue.capitalized }
   var image: String {
     switch self {
-    case .home: "house"
+    case .home: "storefront.fill"
     case .orders: "list.bullet"
     case .general: "gearshape"
     }
