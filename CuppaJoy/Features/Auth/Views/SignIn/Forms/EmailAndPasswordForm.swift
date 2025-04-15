@@ -25,7 +25,7 @@ struct EmailAndPasswordForm: View {
   var body: some View {
     ZStack {
       Color.csBlack.ignoresSafeArea(.all)
-      VStack(spacing: 20) {
+      VStack(spacing: 15) {
         List {
           Section {
             InputField(for: .email, data: $email)
@@ -90,11 +90,7 @@ struct EmailAndPasswordForm: View {
         isShownHome.toggle()
       }
     } label: {
-      ButtonLabel(
-        "Sign In",
-        textColor: .orange,
-        bgColor: .black
-      )
+      ButtonLabel("Sign In", textColor: .orange, bgColor: .black)
     }
     .disabled(!isValidForm)
     .opacity(!isValidForm ? 0.5 : 1)

@@ -8,14 +8,23 @@
 import SwiftUI
 
 struct SignInScreen: View {
-  @EnvironmentObject var authViewModel: AuthViewModel
   
   var body: some View {
     NavigationStack {
       ZStack {
         Color.csBlack.ignoresSafeArea(.all)
         VStack(spacing: 25) {
-          AuthHeaderView(for: .signIn)
+          // Sign In Header View
+          HStack(alignment: .firstTextBaseline) {
+            Text("Sign In.")
+              .font(.title3)
+              .fontWeight(.bold)
+              .foregroundStyle(.csCream)
+            Text("Select a convenient way.")
+              .font(.headline)
+              .fontWeight(.medium)
+              .foregroundStyle(.gray)
+          }
           emailAndPasswordButton
           signUpButton
         }
@@ -38,7 +47,7 @@ struct SignInScreen: View {
   
   private var signUpButton: some View {
     HStack(spacing: 5) {
-      Text("Don't have an account yet?")
+      Text("Don't have an account?")
         .font(.footnote)
         .fontWeight(.medium)
         .foregroundStyle(.gray)
@@ -56,5 +65,5 @@ struct SignInScreen: View {
 
 #Preview {
   SignInScreen()
-    .environmentObject(AuthViewModel())
+    .environmentObject(AuthViewModel.previewMode())
 }

@@ -15,7 +15,7 @@ struct CoffeeSelectionView: View {
   @EnvironmentObject var coffeeViewModel: CoffeeViewModel
   @EnvironmentObject var authViewModel: AuthViewModel
   
-  let fixedColumns = [
+  private let fixedColumns = [
     GridItem(
       .fixed(UIScreen.current?.bounds.height == 667 ? 160 : 175), spacing: 20),
     GridItem(
@@ -27,30 +27,36 @@ struct CoffeeSelectionView: View {
       Color.appBackground
         .clipShape(.rect(cornerRadius: 35))
         .ignoresSafeArea(.all)
-      
       VStack {
         if let user = authViewModel.currentUser {
-          Label(user.city, image: "marker")
-            .font(.footnote)
-            .fontWeight(.semibold)
-            .foregroundStyle(.accent)
-            .padding(12)
-            .background(.csDarkGrey)
-            .clipShape(.capsule)
+          ButtonLabelWithIconShort(
+            user.city,
+            icon: "building.2.crop.circle.fill",
+            textColor: .accent,
+            bgColor: .csDarkGrey
+          )
+          ScrollView {
+            LazyVGrid(columns: fixedColumns, spacing: 20) {
+              ForEach(coffeeViewModel.coffees, id: \.id) { coffee in
+                NavigationLink(value: OrderPage.configurator(coffee)) {
+                  CoffeeSelectionCell(coffee: coffee)
+                }
+              }
+            }.padding(.top, 20)
+          }
         } else {
           ProgressView()
-        }
-        
-        ScrollView {
-          LazyVGrid(columns: fixedColumns, spacing: 20) {
-            ForEach(coffeeViewModel.coffees, id: \.id) { coffee in
-              NavigationLink(value: OrderPage.configurator(coffee)) {
-                CoffeeSelectionCell(coffee: coffee)
-              }
-            }
-          }.padding(.top, 20)
         }
       }.padding(.vertical, 20)
     }.shadow(radius: 8)
   }
+}
+
+#Preview {
+  CoffeeSelectionView(
+    path: .constant(NavigationPath()),
+    isTabBarVisible: .constant(false)
+  )
+  .environmentObject(AuthViewModel.previewMode())
+  .environmentObject(CoffeeViewModel.previewMode())
 }

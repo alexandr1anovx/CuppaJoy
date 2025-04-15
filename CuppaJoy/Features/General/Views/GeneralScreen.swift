@@ -24,7 +24,8 @@ struct GeneralScreen: View {
   var body: some View {
     NavigationStack(path: $generalScreenPath) {
       ZStack {
-        Color.csBlack.ignoresSafeArea(.all)
+        Color.csBlack
+          .ignoresSafeArea(.all)
         VStack(spacing: 10) {
           
           // Check whether the user data is shown
