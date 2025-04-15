@@ -14,6 +14,7 @@ struct ApplePayView: View {
   @Environment(\.dismiss) var dismiss
   @EnvironmentObject var orderViewModel: OrderViewModel
   @EnvironmentObject var authViewModel: AuthViewModel
+  let generator = UINotificationFeedbackGenerator()
   
   var body: some View {
     VStack(spacing: 0) {
@@ -100,6 +101,7 @@ struct ApplePayView: View {
       }
       orderViewModel.setOngoingOrders(order)
       isShownAlert.toggle()
+      generator.notificationOccurred(.success)
     } label: {
       ButtonLabelWithIcon(
         "Confirm Payment",
