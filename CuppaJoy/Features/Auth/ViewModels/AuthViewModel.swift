@@ -212,7 +212,7 @@ final class AuthViewModel: ObservableObject {
           alertItem = AuthAlertContext.unsuccessfulProfileUpdate
           return
         }
-        try await user.updateEmail(to: email)
+        try await user.sendEmailVerification()
       }
       
       // Update Firestore document
