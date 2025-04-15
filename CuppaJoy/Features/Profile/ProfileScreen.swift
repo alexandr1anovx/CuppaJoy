@@ -19,9 +19,10 @@ struct ProfileScreen: View {
   @State private var isShownDeleteAccountAlert = false
   @State private var isShownSavedChangesAlert = false
   
-  @FocusState private var fieldContent: InputContentType?
+  @FocusState var inputContent: InputContentType?
   @Binding var isShownTabBar: Bool
   @Binding var generalScreenPath: NavigationPath
+  let generator = UINotificationFeedbackGenerator()
   
   var hasChanges: Bool {
     guard let currentUser = authViewModel.currentUser else {
@@ -40,12 +41,22 @@ struct ProfileScreen: View {
     (email == authViewModel.currentUser?.emailAddress || authViewModel.isValid(email: email))
   }
   
+  struct InputFieldsList: View {
+    @FocusState var inputContent: InputContentType?
+    var body: some View {
+      Text("Hi")
+    }
+  }
   
   var body: some View {
     ZStack {
-      Color.csBlack.ignoresSafeArea(.all)
+      Color.csBlack
+        .ignoresSafeArea(.all)
+        .onTapGesture {
+          UIApplication.shared.hideKeyboard()
+        }
       ScrollView {
-        VStack(spacing: 0) {
+        VStack(spacing:0) {
           EditableProfileImageView()
           personalDataList
           HStack {
@@ -53,25 +64,24 @@ struct ProfileScreen: View {
             Spacer()
             saveChangesButton
           }
-          .padding(23)
+          .padding(.top,20)
+          .padding(.horizontal,23)
         }
-      }
-      .onTapGesture {
-        UIApplication.shared.hideKeyboard()
+        .padding(.top, 10)
       }
     }
     // Alert that appears when the user wants to delete an account.
-    .alert("Password", isPresented: $isShownDeleteAccountAlert) {
-      SecureField("", text: $accountPassword)
+    .alert("Account Deletion", isPresented: $isShownDeleteAccountAlert) {
+      SecureField("Your password", text: $accountPassword)
       Button("Cancel", role: .cancel) { accountPassword = "" }
-      Button("Confirm") {
+      Button("Delete", role: .destructive) {
         Task {
           try await authViewModel.deleteUser(with: accountPassword)
           accountPassword = ""
         }
       }
     } message: {
-      Text("It will delete all your data forever.")
+      Text("Are you sure you want to delete your account? It will delete all your data forever.")
     }
     // Alert that appears when the user changes personal data.
     .alert(item: $authViewModel.alertItem) { alertItem in
@@ -104,14 +114,14 @@ struct ProfileScreen: View {
     List {
       HStack {
         InputField(for: .fullName, data: $fullName)
-          .focused($fieldContent, equals: .fullName)
+          .focused($inputContent, equals: .fullName)
           .textInputAutocapitalization(.words)
           .submitLabel(.next)
           .textInputAutocapitalization(.words)
-          .onSubmit { fieldContent = .email }
+          .onSubmit { inputContent = .email }
         
         Button("Edit") {
-          fieldContent = .fullName
+          inputContent = .fullName
         }
         .font(.callout)
         .fontWeight(.medium)
@@ -121,15 +131,15 @@ struct ProfileScreen: View {
       
       HStack {
         InputField(for: .email, data: $email)
-          .focused($fieldContent, equals: .email)
+          .focused($inputContent, equals: .email)
           .keyboardType(.emailAddress)
           .textInputAutocapitalization(.never)
           .autocorrectionDisabled(true)
           .submitLabel(.done)
-          .onSubmit { fieldContent = nil }
+          .onSubmit { inputContent = nil }
         
         Button("Edit") {
-          fieldContent = .email
+          inputContent = .email
         }
         .font(.callout)
         .fontWeight(.medium)
@@ -162,6 +172,7 @@ struct ProfileScreen: View {
   
   private var saveChangesButton: some View {
     Button {
+      generator.notificationOccurred(.success)
       Task {
         await authViewModel.updateProfile(
           fullName: fullName,
@@ -170,11 +181,9 @@ struct ProfileScreen: View {
         )
       }
     } label: {
-      ButtonLabelShort(
-        "Save Changes",
-        textColor: .white,
-        bgColor: .black
-      )
+      Text("Save Changes")
+        .font(.subheadline)
+        .foregroundStyle(.blue)
     }
     .disabled(!hasChanges || !isValidForm)
     .opacity(!hasChanges || !isValidForm ? 0 : 1)
@@ -183,12 +192,14 @@ struct ProfileScreen: View {
   private var deleteAccountButton: some View {
     Button {
       isShownDeleteAccountAlert.toggle()
+      generator.notificationOccurred(.error)
     } label: {
-      ButtonLabelShort(
-        "Delete Account",
-        textColor: .white,
-        bgColor: .black
-      )
+      Text("Delete Account")
+        .font(.footnote)
+        .fontWeight(.medium)
+        .foregroundStyle(.red)
+        .opacity(0.8)
+        .underline()
     }
   }
   
