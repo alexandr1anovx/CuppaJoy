@@ -12,6 +12,10 @@ struct ReceivedOrderCell: View {
   let order: Order
   @State private var isShownConfigurationSheet = false
   
+  init(for order: Order) {
+    self.order = order
+  }
+  
   var body: some View {
     VStack(alignment: .leading, spacing: 12) {
       // Header
@@ -91,5 +95,5 @@ struct ReceivedOrderCell: View {
 }
 
 #Preview {
-  ReceivedOrderCell(order: MockData.order)
+  ReceivedOrderCell(for: MockData.order)
 }

@@ -16,97 +16,100 @@ struct MyOrdersScreen: View {
     ZStack {
       Color.appBackground.ignoresSafeArea(.all)
       VStack {
-        orderStatusTabs
+        statusTabs
         if selectedStatus == .ongoing {
-          ongoingOrders
+          ongoingOrdersList
         } else {
-          receivedOrders
+          receivedOrdersList
         }
-      }.padding(.top)
-    }
-    .onAppear {
-      selectedStatus = .ongoing
-      orderViewModel.getOngoingOrders()
-      orderViewModel.getReceivedOrders()
+      }
+      .padding(.top)
+      .onAppear { selectedStatus = .ongoing }
     }
   }
   
-  private func indicatedTab(
-    for status: OrderStatus,
-    isSelected: Bool
-  ) -> some View {
-    Label(status.title, systemImage: status.iconName)
-      .font(.subheadline)
-      .fontWeight(.semibold)
-      .foregroundStyle(isSelected ? .orange : .gray)
-      .padding(10)
-      .background(isSelected ? .csDarkGrey : .clear)
-      .clipShape(.capsule)
-  }
-  
-  private var orderStatusTabs: some View {
-    HStack(spacing: 8) {
+  // MARK: Status Tabs
+  private var statusTabs: some View {
+    HStack(spacing: 5) {
       ForEach(OrderStatus.allCases) { status in
-        indicatedTab(for: status, isSelected: status == selectedStatus)
-          .onTapGesture { selectedStatus = status }
+        Button {
+          selectedStatus = status
+        } label: {
+          ButtonLabelWithIconShort(
+            status.title,
+            icon: status.iconName,
+            textColor: status == selectedStatus ? .orange : .gray,
+            bgColor: status == selectedStatus ? .csDarkGrey : .clear
+          )
+        }
       }
     }
   }
   
-  @ViewBuilder
-  private var ongoingOrders: some View {
-    if orderViewModel.ongoingOrders.count == 0 {
-      ContentUnavailableView {
-        Label("Ongoing Orders", systemImage: "text.badge.xmark")
-      } description: {
-        Text("You don't have any ongoing orders yet.")
-      } actions: {
+  // MARK: Empty Ongoing Orders View
+  private var emptyOngoingOrdersView: some View {
+    ContentUnavailableView {
+      Label("Ongoing Orders", systemImage: "text.badge.xmark")
+        .foregroundStyle(.csCream)
+    } description: {
+      Text("You don't have any ongoing orders.\nTry to refresh if something isn't working.")
+    } actions: {
+      HStack(spacing: 12) {
         Button {
           selectedTab = .home
         } label: {
-          Label("Add", systemImage: "plus.circle.fill")
-            .foregroundStyle(.orange)
-            .font(.subheadline)
-            .fontWeight(.semibold)
-            .padding(13)
-            .background(.csDarkGrey)
-            .clipShape(.buttonBorder)
+          ButtonLabelWithIconShort(
+            "Add",
+            icon: "plus.circle.fill",
+            textColor: .black,
+            bgColor: .csCream
+          )
         }
-      }
-    } else {
-      List(orderViewModel.ongoingOrders) { order in
-        OngoingOrderCell(order: order)
-      }
-      .listStyle(.insetGrouped)
-      .listRowSpacing(15)
-      .scrollIndicators(.hidden)
-      .scrollContentBackground(.hidden)
-      .shadow(radius: 5)
+        RefreshButton { orderViewModel.getOngoingOrders() }
+      }.padding(.top,10)
     }
   }
   
+  // MARK: Empty Received Orders View
+  private var emptyReceivedOrdersView: some View {
+    ContentUnavailableView {
+      Label("Received Orders", systemImage: "text.badge.xmark")
+        .foregroundStyle(.csCream)
+    } description: {
+      Text("You don't have any received orders.\nTry to refresh if something isn't working.")
+    } actions: {
+      RefreshButton {
+        orderViewModel.getReceivedOrders()
+      }.padding(.top,10)
+    }
+  }
+  
+  // MARK: Ongoing Orders List
   @ViewBuilder
-  private var receivedOrders: some View {
-    if orderViewModel.receivedOrders.count == 0 {
-      ContentUnavailableView(
-        "Received Orders",
-        systemImage: "text.badge.xmark" ,
-        description: Text("You don't have any received orders yet.")
-      )
+  private var ongoingOrdersList: some View {
+    if orderViewModel.ongoingOrders.isEmpty {
+      emptyOngoingOrdersView
     } else {
-      List(orderViewModel.receivedOrders, id: \.id) { order in
-        ReceivedOrderCell(order: order)
-      }
-      .listStyle(.insetGrouped)
-      .listRowSpacing(15)
-      .scrollIndicators(.hidden)
-      .scrollContentBackground(.hidden)
-      .shadow(radius: 5)
+      List(orderViewModel.ongoingOrders) { order in
+        OngoingOrderCell(for: order)
+      }.customListStyle()
+    }
+  }
+  
+  // MARK: Received Orders List
+  @ViewBuilder
+  private var receivedOrdersList: some View {
+    if orderViewModel.receivedOrders.isEmpty {
+      emptyReceivedOrdersView
+    } else {
+      List(orderViewModel.receivedOrders) { order in
+        ReceivedOrderCell(for: order)
+      }.customListStyle()
     }
   }
 }
 
-//#Preview {
-//  OrderStatusScreen()
-//    .environmentObject( OrderViewModel() )
-//}
+#Preview {
+  MyOrdersScreen(selectedTab: .constant(.orders))
+    .environmentObject(OrderViewModel())
+}

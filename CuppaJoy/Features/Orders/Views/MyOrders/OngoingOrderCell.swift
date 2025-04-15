@@ -13,6 +13,10 @@ struct OngoingOrderCell: View {
   @State private var isShownConfigurationSheet = false
   @State private var isShownCancelationAlert = false
   @EnvironmentObject var orderViewModel: OrderViewModel
+
+  init(for order: Order) {
+    self.order = order
+  }
   
   var body: some View {
     VStack(alignment: .leading, spacing:12) {
@@ -34,7 +38,7 @@ struct OngoingOrderCell: View {
     .alert("Cancel Order", isPresented: $isShownCancelationAlert) {
       Button("Cancel", role: .cancel) {}
       Button("Confirm", role: .destructive) {
-        orderViewModel.cancelOngoingOrder(order)
+        withAnimation { orderViewModel.cancelOngoingOrder(order) }
       }
     } message: {
       Text("Are you sure you want to cancel this order?")
@@ -118,5 +122,5 @@ struct OngoingOrderCell: View {
 }
 
 #Preview {
-  OngoingOrderCell(order: MockData.order)
+  OngoingOrderCell(for: MockData.order)
 }
