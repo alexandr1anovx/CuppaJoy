@@ -153,3 +153,11 @@ final class OrderViewModel: ObservableObject {
   }
 }
 
+extension OrderViewModel {
+  static func previewMode() -> OrderViewModel {
+    let viewModel = OrderViewModel()
+    viewModel.ongoingOrders = [MockData.order]
+    viewModel.receivedOrders = [MockData.order]
+    return viewModel
+  }
+}
