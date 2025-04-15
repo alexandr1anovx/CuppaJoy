@@ -10,12 +10,15 @@ import SwiftUI
 struct ButtonLabelAnimated: View {
   
   @State private var isAnimating = false
-  
   let title: String
   let textColor: Color
   let bgColor: LinearGradient
   
-  init(_ title: String, textColor: Color, bgColor: LinearGradient) {
+  init(
+    _ title: String,
+    textColor: Color,
+    bgColor: LinearGradient
+  ) {
     self.title = title
     self.textColor = textColor
     self.bgColor = bgColor
@@ -24,17 +27,17 @@ struct ButtonLabelAnimated: View {
   var body: some View {
     Text(title)
       .font(.subheadline)
-      .fontWeight(.semibold)
+      .fontWeight(.medium)
       .foregroundStyle(textColor)
       .frame(maxWidth: .infinity)
-      .padding(.vertical, 16)
+      .padding(.vertical,15)
       .background(bgColor)
       .clipShape(.rect(cornerRadius: 15))
-      .padding(.horizontal, 20)
+      .padding(.horizontal,20)
       .shadow(radius: 5)
       .scaleEffect(isAnimating ? 0.95 : 1)
       .onAppear {
-        withAnimation(.easeInOut(duration: 2).repeatForever()) {
+        withAnimation(.easeInOut(duration: 1.8).repeatForever()) {
           isAnimating.toggle()
         }
       }

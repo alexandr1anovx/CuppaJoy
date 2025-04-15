@@ -10,7 +10,7 @@ import SwiftUI
 struct ReturnButtonLabel: View {
   var body: some View {
     Image(systemName: "arrowshape.left.circle.fill")
-      .imageScale(.large)
+      .font(.title3)
       .foregroundStyle(.accent)
   }
 }
