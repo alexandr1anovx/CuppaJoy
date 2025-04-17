@@ -17,10 +17,7 @@ struct OrderPaymentOptionsList: View {
         cell(for: .creditCard, isAvailable: false)
       }
     }
-    .listStyle(.insetGrouped)
-    .environment(\.defaultMinListRowHeight, 55)
-    .listRowSpacing(15)
-    .scrollContentBackground(.hidden)
+    .customListStyle(rowSpacing: 15, shadowRadius: 1)
   }
   
   @ViewBuilder
@@ -28,7 +25,7 @@ struct OrderPaymentOptionsList: View {
     HStack(spacing: 13) {
       Image(systemName: method.iconName)
         .imageScale(.large)
-        .foregroundColor(.white)
+        .foregroundColor(.primary)
       Text(method.title)
         .font(.subheadline)
         .fontWeight(.semibold)
@@ -36,7 +33,6 @@ struct OrderPaymentOptionsList: View {
       if isAvailable {
         Image(systemName: "checkmark")
           .imageScale(.medium)
-          .fontWeight(.medium)
           .foregroundStyle(
             selectedMethod == method ? .csCream : .clear
           )

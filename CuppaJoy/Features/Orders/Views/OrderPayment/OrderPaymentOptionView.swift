@@ -12,18 +12,17 @@ struct OrderPaymentOptionView: View {
   let order: Order
   @Binding var path: NavigationPath
   @Binding var isTabBarVisible: Bool
-  @State private var isShownPaymentSheet = false
+  @State private var isShownPaymentView = false
   
   var body: some View {
-    VStack(spacing:25) {
-      userDataStack
-      checkDetailsButton
+    VStack(spacing:20) {
+      orderConfigurationsButton
       OrderPaymentOptionsList()
       Spacer()
       paymentStack
     }
-    .padding(.top, 25)
-    .sheet(isPresented: $isShownPaymentSheet) {
+    .padding(.top)
+    .sheet(isPresented: $isShownPaymentView) {
       ApplePayView(
         order: order,
         path: $path,
@@ -35,76 +34,57 @@ struct OrderPaymentOptionView: View {
     }
   }
   
-  private var userDataStack: some View {
-    HStack(spacing:10) {
-      Image(systemName: "person.fill")
-        .imageScale(.large)
-        .foregroundStyle(.white)
-        .padding(10)
-        .background(.csDarkGrey)
-        .clipShape(.circle)
-      VStack(alignment: .leading, spacing: 8) {
-        Text("Alexander Andrianov")
-          .font(.headline)
-          .fontDesign(.rounded)
-          .fontWeight(.bold)
-        Text("+380669732145")
-          .font(.footnote)
-          .fontWeight(.bold)
-          .foregroundStyle(.gray)
-          .lineLimit(2)
-          .multilineTextAlignment(.leading)
-      }
-      Spacer()
-    }
-    .padding(.top, 10)
-    .padding(.leading, 20)
-  }
-  
-  private var checkDetailsButton: some View {
+  private var orderConfigurationsButton: some View {
     Button {
-      // ...
+      print("Showed order configurations")
     } label: {
       ButtonLabelWithIcon(
-        "Check order configurations",
-        icon: "list.bullet",
-        textColor: .orange,
+        "Order Configurations",
+        icon: "text.badge.checkmark",
+        textColor: .csCream,
         bgColor: .csDarkGrey
       )
     }
   }
   
   private var paymentStack: some View {
-    VStack(spacing: 20) {
-      HStack(spacing: 0) {
+    VStack(spacing: 25) {
+      HStack(spacing: 5) {
         Text("Total Amount:")
-          .font(.subheadline)
+          .font(.callout)
           .fontWeight(.bold)
           .foregroundStyle(.white)
         Text(order.stringPrice)
-          .font(.system(size: 17))
+          .font(.headline)
           .fontWeight(.bold)
-          .foregroundStyle(.csCream)
-          .contentTransition(.numericText())
-          .frame(minWidth: 75)
+          .foregroundStyle(.orange)
       }
       Button {
-        isShownPaymentSheet.toggle()
+        isShownPaymentView.toggle()
       } label: {
-        ButtonLabelWithIconAnimated(
-          "Confirm Payment",
-          icon: "checkmark.circle.fill",
+        ButtonLabelWithIcon(
+          "Pay",
+          icon: "apple.logo",
           textColor: .white,
-          bgColor: Color.pointsGradient
+          bgColor: .black
         )
-      }
+      }.shadow(color: .gray, radius: 0.5)
     }
     .background(
       RoundedRectangle(cornerRadius: 30)
-        .fill(Color.csBlack)
+        .fill(Color.black)
         .ignoresSafeArea(.all)
-        .frame(height: 140)
-        .shadow(radius: 5)
+        .frame(height: 150)
+        .shadow(color: .orange, radius: 5)
     )
   }
+}
+
+#Preview {
+  OrderPaymentOptionView(
+    order: MockData.order,
+    path: .constant(NavigationPath()),
+    isTabBarVisible: .constant(false)
+  )
+  .environmentObject(AuthViewModel.previewMode())
 }
