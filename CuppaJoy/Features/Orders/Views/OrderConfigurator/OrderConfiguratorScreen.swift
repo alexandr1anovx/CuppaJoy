@@ -12,10 +12,9 @@ struct OrderConfiguratorScreen: View {
   let selectedCoffee: Coffee
   @Binding var path: NavigationPath
   @Binding var isTabBarVisible: Bool
-  
-  @State private var cupCount = 1
-  @State private var sugarSticks = 0
-  @State private var iceCubes = 0
+  @State private var cupCount: Int = 1
+  @State private var sugarSticks: Int = 0
+  @State private var iceCubes: Int = 0
   @State private var cupSize: CupSize = .small
   @State private var variety: Variety = .standart
   @State private var milk: Milk = .none
@@ -48,7 +47,6 @@ struct OrderConfiguratorScreen: View {
   var body: some View {
     ZStack {
       Color.appBackground.ignoresSafeArea(.all)
-      
       VStack {
         List {
           Section("Cup Configurations") {
@@ -64,13 +62,9 @@ struct OrderConfiguratorScreen: View {
             OrderItemPicker("Flavor:", selectedItem: $flavor)
           }
         }
-        .listStyle(.insetGrouped)
+        .customListStyle(rowSpacing: 15, shadowRadius: 3)
         .listSectionSpacing(8)
-        .listRowSpacing(13)
         .environment(\.defaultMinListRowHeight, 45)
-        .scrollContentBackground(.hidden)
-        .scrollIndicators(.hidden)
-        .shadow(radius: 5)
         
         totalAmountLabel
       }
@@ -79,12 +73,12 @@ struct OrderConfiguratorScreen: View {
     .navigationBarTitleDisplayMode(.inline)
     .navigationBarBackButtonHidden(true)
     .toolbar {
-      ToolbarItem(placement: .navigationBarLeading) {
+      ToolbarItem(placement: .topBarLeading) {
         Button {
-          isTabBarVisible = true
           path.removeLast()
+          isTabBarVisible = true
         } label: {
-          Label("Back", systemImage: "chevron.left")
+          ReturnButtonLabel()
         }
       }
     }

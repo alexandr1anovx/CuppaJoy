@@ -11,10 +11,8 @@ struct OrderSummaryScreen: View {
   
   let order: Order
   @Binding var path: NavigationPath
-  
   @State private var visibleIndices: Set<Int> = []
   @State private var isShownPaymentScreen = false
-  @Environment(\.dismiss) var dismiss
   
   var orderDetails: [(String, String)] {
     [
@@ -33,6 +31,9 @@ struct OrderSummaryScreen: View {
     ZStack {
       Color.appBackground.ignoresSafeArea(.all)
       VStack {
+        Button("Add to favorite") {
+          //favoriteOrderViewModel.saveFavoriteOrder(order)
+        }
         List(Array(orderDetails.enumerated()), id: \.offset) { index, item in
           row(title: item.0, content: item.1)
             .opacity(visibleIndices.contains(index) ? 1:0)
@@ -52,22 +53,35 @@ struct OrderSummaryScreen: View {
       }
     }
     .navigationTitle("Order Summary")
+    .navigationBarTitleDisplayMode(.large)
+    .navigationBarBackButtonHidden(true)
+    .toolbar {
+      ToolbarItem(placement: .topBarLeading) {
+        Button {
+          path.removeLast()
+        } label: {
+          ReturnButtonLabel()
+        }
+      }
+    }
   }
   
   private func row(title: String, content: String) -> some View {
     HStack {
-      Text("\(title):").foregroundStyle(.white)
-      Text(content).foregroundStyle(.csCream)
+      Text("\(title):")
+        .fontWeight(.medium)
+        .foregroundStyle(.white)
+      Text(content)
+        .foregroundStyle(.csCream)
+        .fontWeight(.semibold)
     }
     .font(.subheadline)
-    .fontWeight(.semibold)
   }
   
   private var confirmationStack: some View {
-    
     VStack(spacing: 10) {
       Button {
-        dismiss()
+        path.removeLast()
       } label: {
         ButtonLabelWithIcon(
           "Edit",
@@ -77,13 +91,13 @@ struct OrderSummaryScreen: View {
         )
       }
       Button {
-        path.append( OrderPage.payment(order) )
+        path.append(OrderPage.payment(order))
       } label: {
-        ButtonLabelWithIconAnimated(
+        ButtonLabelWithIcon(
           "Confirm for \(order.stringPrice)",
           icon: "checkmark.circle.fill",
           textColor: .white,
-          bgColor: Color.pointsGradient
+          bgColor: .csBrown
         )
       }
     }
