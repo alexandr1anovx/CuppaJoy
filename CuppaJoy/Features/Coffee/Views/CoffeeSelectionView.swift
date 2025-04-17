@@ -27,27 +27,15 @@ struct CoffeeSelectionView: View {
       Color.appBackground
         .clipShape(.rect(cornerRadius: 35))
         .ignoresSafeArea(.all)
-      VStack {
-        if let user = authViewModel.currentUser {
-          ButtonLabelWithIconShort(
-            user.city,
-            icon: "building.2.crop.circle.fill",
-            textColor: .accent,
-            bgColor: .csDarkGrey
-          )
-          ScrollView {
-            LazyVGrid(columns: fixedColumns, spacing: 20) {
-              ForEach(coffeeViewModel.coffees, id: \.id) { coffee in
-                NavigationLink(value: OrderPage.configurator(coffee)) {
-                  CoffeeSelectionCell(coffee: coffee)
-                }
-              }
-            }.padding(.top, 20)
+      ScrollView {
+        LazyVGrid(columns: fixedColumns, spacing: 20) {
+          ForEach(coffeeViewModel.coffees, id: \.id) { coffee in
+            NavigationLink(value: OrderPage.configurator(coffee)) {
+              CoffeeSelectionCell(coffee: coffee)
+            }
           }
-        } else {
-          ProgressView()
-        }
-      }.padding(.vertical, 20)
+        }.padding(.vertical,20)
+      }
     }.shadow(radius: 8)
   }
 }

@@ -28,7 +28,7 @@ struct CoffeeSelectionCell: View {
         .frame(width: 12, height: 12)
       Text(coffee.stringPoints)
         .font(.caption2)
-        .fontWeight(.bold)
+        .fontWeight(.semibold)
     }
     .foregroundStyle(.orange)
     .padding(8)
@@ -41,7 +41,7 @@ struct CoffeeSelectionCell: View {
   private var priceLabel: some View {
     Text(coffee.stringPrice)
       .font(.subheadline)
-      .fontWeight(.bold)
+      .fontWeight(.semibold)
       .foregroundStyle(.csCream)
       .padding(5)
       .background(.csDarkGrey)
@@ -65,4 +65,8 @@ struct CoffeeSelectionCell: View {
         .padding(.horizontal)
     }
   }
+}
+
+#Preview {
+  CoffeeSelectionCell(coffee: MockData.coffee)
 }
