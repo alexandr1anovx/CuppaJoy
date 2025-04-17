@@ -8,33 +8,44 @@
 import SwiftUI
 
 struct ApplePayView: View {
+  
+  // MARK: Properties
+  let order: Order
+  let feedbackGenerator = UINotificationFeedbackGenerator() // haptic feedback.
+  @Binding var path: NavigationPath
+  @Binding var isTabBarVisible: Bool
+  @State private var isShownAlert = false
   @Environment(\.dismiss) var dismiss
   @EnvironmentObject var orderViewModel: OrderViewModel
   @EnvironmentObject var authViewModel: AuthViewModel
-  let generator = UINotificationFeedbackGenerator()
   
-  let order: Order
-  @State private var isShownAlert = false
-  @Binding var path: NavigationPath
-  @Binding var isTabBarVisible: Bool
-  
+  // MARK: Body
   var body: some View {
-    VStack{
-      HStack{
-        applePayLabel
+    VStack {
+      // Header
+      HStack {
+        Label("Pay", systemImage: "apple.logo").font(.title2)
         Spacer()
         DismissButton()
       }
       .padding(.top)
       .padding(.horizontal)
-      orderItemsList
-      confirmPaymentButton
+      
+      List {
+        firstSectionView
+        secondSectionView
+        thirdSectionView
+      }
+      .customListStyle()
+      .shadow(radius: 1)
+      
+      paymentButton
     }
-    .alert(isPresented: $isShownAlert) {
+    .alert(isPresented: $isShownAlert) { // Alert for successful payment.
       Alert(
-        title: Text("Congratulations 🔥"),
-        message: Text("Payment has been successfully processed."),
-        dismissButton: .default(Text("Back to Home")) {
+        title: Text("Success!"),
+        message: Text("The order has been placed in the queue. You can cancel it on the order screen."),
+        dismissButton: .default(Text("Got it!")) {
           dismiss()
           DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             path.removeLast(path.count)
@@ -45,23 +56,7 @@ struct ApplePayView: View {
     }
   }
   
-  private var orderItemsList: some View {
-    List {
-      coffeeDataLabel
-      coffeePriceLabel
-      accountLabel
-    }
-    .listStyle(.insetGrouped)
-    .scrollContentBackground(.hidden)
-    .shadow(radius: 1)
-  }
-  
-  private var applePayLabel: some View {
-    Label("Pay", systemImage: "apple.logo")
-      .font(.title2)
-  }
-  
-  private var coffeeDataLabel: some View {
+  private var firstSectionView: some View {
     HStack(spacing: 20) {
       Image(.marker)
         .foregroundStyle(.accent)
@@ -79,7 +74,7 @@ struct ApplePayView: View {
     }
   }
   
-  private var coffeePriceLabel: some View {
+  private var secondSectionView: some View {
     VStack(alignment: .leading, spacing: 5) {
       Text(order.stringPrice)
         .font(.headline)
@@ -90,7 +85,7 @@ struct ApplePayView: View {
     }
   }
   
-  private var accountLabel: some View {
+  private var thirdSectionView: some View {
     HStack {
       Text("Account:")
       Text("icloudname@icloud.com").tint(.gray)
@@ -99,16 +94,15 @@ struct ApplePayView: View {
     .fontWeight(.medium)
   }
   
-  private var confirmPaymentButton: some View {
+  private var paymentButton: some View {
     Button {
       Task {
         await authViewModel.addCoinsToUser(order.points)
         orderViewModel.setOngoingOrders(order)
         isShownAlert.toggle()
+        orderViewModel.setOngoingOrders(order)
+        feedbackGenerator.notificationOccurred(.success)
       }
-      orderViewModel.setOngoingOrders(order)
-      isShownAlert.toggle()
-      generator.notificationOccurred(.success)
     } label: {
       ButtonLabelWithIcon(
         "Confirm Payment",
