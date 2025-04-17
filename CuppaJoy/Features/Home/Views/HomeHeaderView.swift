@@ -11,7 +11,7 @@ struct HomeHeaderView: View {
   @EnvironmentObject var authViewModel: AuthViewModel
   
   var body: some View {
-    HStack(spacing: 10) {
+    HStack(spacing:12) {
       if let user = authViewModel.currentUser {
         Image(systemName: "person.fill")
           .imageScale(.large)
@@ -19,44 +19,47 @@ struct HomeHeaderView: View {
           .padding(10)
           .background(.csDarkGrey)
           .clipShape(.circle)
+        
         VStack(alignment: .leading, spacing: 10) {
           Text(user.fullName)
-            .font(.headline)
+            .font(.subheadline)
             .fontWeight(.semibold)
-            .foregroundStyle(.white)
+            .foregroundStyle(.primary)
             .lineLimit(2)
-          Text(user.emailAddress)
-            .font(.footnote)
-            .fontWeight(.semibold)
-            .foregroundStyle(.gray)
-            .lineLimit(2)
-            .multilineTextAlignment(.leading)
+          
+          coinsLabel(user.stringCoins)
         }
         Spacer()
-        pointsLabel(user.stringCoins)
+        ButtonLabelWithIconShort(
+          user.city,
+          icon: "building.2.crop.circle.fill",
+          textColor: .accent,
+          bgColor: .csDarkGrey
+        )
       } else {
-        HStack {
-          Text("Can't load user data. Check your internet connection or reopen the app.")
-            .font(.caption)
+        HStack(spacing:10) {
+          Text("Check your internet connection")
+            .font(.footnote)
+            .fontDesign(.monospaced)
+            .fontWeight(.medium)
+            .foregroundStyle(.orange)
           ProgressView()
         }
       }
     }
-    .padding(.vertical, 30)
-    .padding(.horizontal, 15)
   }
   
-  private func pointsLabel(_ points: String) -> some View {
+  private func coinsLabel(_ coins: String) -> some View {
     HStack(spacing: 6) {
       Image(.star)
         .resizable()
-        .frame(width: 15, height: 15)
-      Text(points)
+        .frame(width: 12, height: 12)
+      Text(coins)
         .font(.footnote)
-        .fontWeight(.bold)
+        .fontWeight(.semibold)
     }
     .foregroundStyle(.orange)
-    .padding(10)
+    .padding(8)
     .background(.csDarkGrey)
     .clipShape(.capsule)
   }
@@ -64,5 +67,5 @@ struct HomeHeaderView: View {
 
 #Preview {
   HomeHeaderView()
-    .environmentObject(AuthViewModel())
+    .environmentObject(AuthViewModel.previewMode())
 }

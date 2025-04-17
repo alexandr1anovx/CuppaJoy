@@ -30,10 +30,10 @@ struct ButtonLabelWithIconShort: View {
       .font(.subheadline)
       .fontWeight(.medium)
       .foregroundStyle(textColor)
-      .padding(13)
+      .padding(11)
       .background(bgColor)
       .clipShape(.capsule)
-      .shadow(radius:5)
+      .shadow(radius:3)
   }
 }
 

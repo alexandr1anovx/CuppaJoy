@@ -21,8 +21,12 @@ struct HomeScreen: View {
     NavigationStack(path: $path) {
       ZStack {
         Color.appBackground.ignoresSafeArea(.all)
-        VStack {
+        VStack(spacing:0) {
           HomeHeaderView()
+            .padding(.vertical, 30)
+            .padding(.horizontal, 15)
+          //FavoriteConfigView()
+            .padding(.bottom,30)
           CoffeeSelectionView(
             path: $path,
             isTabBarVisible: $isTabBarVisible
@@ -59,6 +63,6 @@ struct HomeScreen: View {
 
 #Preview {
   HomeScreen()
-    .environmentObject( AuthViewModel() )
-    .environmentObject( CoffeeViewModel() )
+    .environmentObject(AuthViewModel.previewMode())
+    .environmentObject(CoffeeViewModel.previewMode())
 }
