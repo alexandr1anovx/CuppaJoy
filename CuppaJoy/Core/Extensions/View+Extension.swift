@@ -8,12 +8,15 @@
 import SwiftUI
 
 extension View {
-  func customListStyle() -> some View {
+  func customListStyle(
+    rowSpacing: CGFloat? = 0,
+    shadowRadius: CGFloat? = 0
+  ) -> some View {
     self
       .listStyle(.insetGrouped)
-      .listRowSpacing(15)
+      .listRowSpacing(rowSpacing)
       .scrollIndicators(.hidden)
       .scrollContentBackground(.hidden)
-      .shadow(radius:5)
+      .shadow(radius: shadowRadius ?? 0)
   }
 }
