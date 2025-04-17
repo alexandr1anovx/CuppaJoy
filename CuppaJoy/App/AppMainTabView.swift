@@ -10,54 +10,44 @@ import SwiftUI
 struct AppMainTabView: View {
   
   @State private var selectedTab: Tab = .home
-  let generator = UIImpactFeedbackGenerator(style: .soft)
   
   var body: some View {
     TabView(selection: $selectedTab) {
       HomeScreen()
         .tag(Tab.home)
         .tabItem {
-          Image(systemName: Tab.home.image)
-          Text(Tab.home.title)
+          Image(systemName: "storefront.fill")
+          Text("Home")
         }
       MyOrdersScreen(selectedTab: $selectedTab)
-        .tag(Tab.orders)
+        .tag(Tab.myOrders)
         .tabItem {
-          Image(systemName: Tab.orders.image)
-          Text(Tab.orders.title)
+          Image(systemName: "list.bullet")
+          Text("My Orders")
         }
       GeneralScreen()
         .tag(Tab.general)
         .tabItem {
-          Image(systemName: Tab.general.image)
-          Text(Tab.general.title)
+          Image(systemName: "gearshape")
+          Text("General")
         }
     }
     .onChange(of: selectedTab) {
+      let generator = UIImpactFeedbackGenerator(style: .soft)
       generator.impactOccurred()
     }
   }
 }
 
-enum Tab: String {
+enum Tab {
   case home
-  case orders
+  case myOrders
   case general
-  
-  var id: String { rawValue }
-  var title: String { rawValue.capitalized }
-  var image: String {
-    switch self {
-    case .home: "storefront.fill"
-    case .orders: "list.bullet"
-    case .general: "gearshape"
-    }
-  }
 }
 
 #Preview {
   AppMainTabView()
     .environmentObject(AuthViewModel.previewMode())
     .environmentObject(CoffeeViewModel.previewMode())
-    .environmentObject(OrderViewModel())
+    .environmentObject(OrderViewModel.previewMode())
 }
