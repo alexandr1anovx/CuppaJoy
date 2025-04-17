@@ -92,7 +92,8 @@ struct MyOrdersScreen: View {
     } else {
       List(orderViewModel.ongoingOrders) { order in
         OngoingOrderCell(for: order)
-      }.customListStyle()
+      }
+      .customListStyle(rowSpacing: 15, shadowRadius: 1)
     }
   }
   
@@ -104,12 +105,13 @@ struct MyOrdersScreen: View {
     } else {
       List(orderViewModel.receivedOrders) { order in
         ReceivedOrderCell(for: order)
-      }.customListStyle()
+      }
+      .customListStyle(rowSpacing: 15, shadowRadius: 1)
     }
   }
 }
 
 #Preview {
-  MyOrdersScreen(selectedTab: .constant(.orders))
+  MyOrdersScreen(selectedTab: .constant(.myOrders))
     .environmentObject(OrderViewModel())
 }
