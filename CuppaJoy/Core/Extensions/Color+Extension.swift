@@ -13,17 +13,17 @@ extension Color {
     startPoint: .topLeading,
     endPoint: .bottomTrailing
   )
-  static let creamGradient = LinearGradient(
+  static let gradientCream = LinearGradient(
     colors: [.csCream],
     startPoint: .topTrailing,
     endPoint: .bottomLeading
   )
-  static let brownGradient = LinearGradient(
+  static let gradientBrown = LinearGradient(
     colors: [.csBrown],
     startPoint: .leading,
     endPoint: .trailing
   )
-  static let pointsGradient = LinearGradient(
+  static let gradientBrownBlack = LinearGradient(
     colors: [.csBrown, .csBlack],
     startPoint: .leading,
     endPoint: .trailing

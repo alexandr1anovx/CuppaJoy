@@ -48,6 +48,6 @@ struct ButtonLabelAnimated: View {
   ButtonLabelAnimated(
     "Check Order Details",
     textColor: .white,
-    bgColor: Color.brownGradient
+    bgColor: Color.gradientBrown
   )
 }

@@ -53,6 +53,6 @@ struct ButtonLabelWithIconAnimated: View {
     "Confirm",
     icon: "checkmark",
     textColor: .white,
-    bgColor: Color.brownGradient
+    bgColor: Color.gradientBrown
   )
 }

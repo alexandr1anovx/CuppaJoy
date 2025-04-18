@@ -33,7 +33,7 @@ struct ButtonLabelWithIconShort: View {
       .padding(11)
       .background(bgColor)
       .clipShape(.capsule)
-      .shadow(radius:3)
+      .shadow(radius: 3)
   }
 }
 
