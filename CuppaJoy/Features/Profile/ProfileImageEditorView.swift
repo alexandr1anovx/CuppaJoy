@@ -14,11 +14,10 @@ struct ProfileImageEditorView: View {
   
   @Binding var scale: CGFloat
   @Binding var offset: CGSize
+  @Binding var profileImage: UIImage?
   @State private var lastScale: CGFloat = 1.0
   @State private var lastOffset: CGSize = .zero
   @State private var showImagePicker = true
-  
-  @Binding var profileImage: UIImage?
   @Environment(\.dismiss) var dismiss
   
   let circleDiameter: CGFloat = 300
@@ -145,7 +144,10 @@ struct ProfileImageEditorView: View {
   private func saveCroppedImage() {
     guard selectedImage != nil else { return }
     
-    guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let window = windowScene.windows.first else { return }
+    guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+          let window = windowScene.windows.first else {
+      return
+    }
     
     let cropRect = CGRect(
       x: (UIScreen.main.bounds.width - circleDiameter) / 2,
