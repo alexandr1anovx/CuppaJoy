@@ -19,6 +19,11 @@ struct OrderConfiguratorScreen: View {
   @State private var variety: Variety = .standart
   @State private var milk: Milk = .none
   @State private var flavor: Flavor = .none
+  @State private var isShownSaveConfigAlert = false
+  @State private var configName: String = ""
+  
+  @EnvironmentObject var configViewModel: CoffeeConfigViewModel
+  @State private var selectedConfiguration: CoffeeConfig?
   
   var totalPrice: Double {
     let basePrice = selectedCoffee.price
@@ -44,10 +49,30 @@ struct OrderConfiguratorScreen: View {
     )
   }
   
+  var config: CoffeeConfig {
+    CoffeeConfig(
+      title: configName,
+      cupSize: cupSize,
+      sugarSticks: sugarSticks,
+      iceCubes: iceCubes,
+      variety: variety,
+      milk: milk,
+      flavor: flavor
+    )
+  }
+  
   var body: some View {
     ZStack {
       Color.appBackground.ignoresSafeArea(.all)
       VStack {
+        if configViewModel.favoriteConfigs.isEmpty {
+          emptyConfigsView
+        } else {
+          configsView
+        }
+        
+        
+        
         List {
           Section("Cup Configurations") {
             OrderItemPicker("Size", selectedItem: $cupSize)
@@ -64,14 +89,24 @@ struct OrderConfiguratorScreen: View {
         }
         .customListStyle(rowSpacing: 15, shadowRadius: 3)
         .listSectionSpacing(8)
-        .environment(\.defaultMinListRowHeight, 45)
         
         totalAmountLabel
-      }
+      }.padding(.top)
     }
     .navigationTitle("Order Configurator")
     .navigationBarTitleDisplayMode(.inline)
     .navigationBarBackButtonHidden(true)
+    .alert("Save Config", isPresented: $isShownSaveConfigAlert) {
+      TextField("Config name", text: $configName)
+      Button("Cancel", role: .cancel) { configName = "" }
+      Button("Save") {
+        configViewModel.saveFavoriteConfig(config)
+        print("Config saved!")
+        print(configViewModel.favoriteConfigs)
+      }
+    } message: {
+      Text("Enter the name of your config.")
+    }
     .toolbar {
       ToolbarItem(placement: .topBarLeading) {
         Button {
@@ -81,11 +116,48 @@ struct OrderConfiguratorScreen: View {
           ReturnButtonLabel()
         }
       }
+      ToolbarItem(placement: .topBarTrailing) {
+        Button("Save") {
+          isShownSaveConfigAlert.toggle()
+        }
+      }
     }
     .onAppear {
       isTabBarVisible = false
       setupSegmentedControlAppearance()
     }
+  }
+  
+  private var emptyConfigsView: some View {
+    Text("You don't have any saved configs.")
+      .underline()
+      .font(.caption)
+      .foregroundStyle(.gray)
+      .padding()
+      .background(.csDarkGrey)
+      .clipShape(.capsule)
+  }
+  
+  private var configsView: some View {
+    ScrollView(.horizontal, showsIndicators: false) {
+      HStack {
+        Text("Configs:")
+          .font(.subheadline)
+          .foregroundStyle(.gray)
+        ForEach(configViewModel.favoriteConfigs) { config in
+          Button {
+            selectedConfiguration = config
+            applyConfig()
+          } label: {
+            ButtonLabelShort(
+              config.title,
+              textColor: .orange,
+              bgColor: .csDarkGrey
+            )
+          }
+        }
+      }
+    }.padding(.horizontal,28)
   }
   
   private var totalAmountLabel: some View {
@@ -107,28 +179,39 @@ struct OrderConfiguratorScreen: View {
       Button {
         path.append(OrderPage.summary(order))
       } label: {
-        ButtonLabelWithIconAnimated(
+        ButtonLabelAnimated(
           "Summorize",
-          icon: "plus.circle.fill",
           textColor: .white,
-          bgColor: Color.pointsGradient
+          bgColor: Color.gradientBrownBlack
         )
       }
     }
     .background(
-      RoundedRectangle(cornerRadius: 30)
+      RoundedRectangle(cornerRadius: 40)
         .fill(Color.csBlack)
         .ignoresSafeArea(.all)
-        .frame(height: 140)
-        .shadow(radius: 5)
+        .frame(height: 170)
+        .shadow(color: .black, radius: 2)
     )
   }
   
-  private func setupSegmentedControlAppearance() {
-    let appearance = UISegmentedControl.appearance()
-    appearance.selectedSegmentTintColor = .csBrown
-    appearance.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
-    appearance.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
-    appearance.backgroundColor = .black
+  private func applyConfig() {
+    cupSize = selectedConfiguration?.cupSize ?? .small
+    sugarSticks = selectedConfiguration?.sugarSticks ?? 0
+    iceCubes = selectedConfiguration?.iceCubes ?? 0
+    variety = selectedConfiguration?.variety ?? .standart
+    milk = selectedConfiguration?.milk ?? .none
+    flavor = selectedConfiguration?.flavor ?? .none
   }
+}
+
+#Preview {
+  OrderConfiguratorScreen(
+    selectedCoffee: MockData.coffee,
+    path: .constant(NavigationPath()),
+    isTabBarVisible: .constant(false)
+  )
+    .environmentObject(OrderViewModel.previewMode())
+    .environmentObject(CoffeeViewModel.previewMode())
+    .environmentObject(CoffeeConfigViewModel())
 }
