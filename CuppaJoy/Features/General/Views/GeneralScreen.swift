@@ -17,22 +17,21 @@ struct GeneralScreen: View {
   
   @State private var isShownSignOutAlert = false
   @State private var isShownTabBar = true
-  @State private var generalScreenPath = NavigationPath()
+  @State private var path = NavigationPath()
   @Environment(\.requestReview) var requestReview
   @EnvironmentObject var authViewModel: AuthViewModel
   
   var body: some View {
-    NavigationStack(path: $generalScreenPath) {
+    NavigationStack(path: $path) {
       ZStack {
-        Color.csBlack
-          .ignoresSafeArea(.all)
-        VStack(spacing: 10) {
-          
+        Color.csBlack.ignoresSafeArea(.all)
+        VStack {
           // Check whether the user data is shown
           // Otherwise shown a progress view
           if let user = authViewModel.currentUser {
             HStack(spacing: 15) {
-              StaticProfileImageView().shadow(radius: 3)
+              StaticProfileImageView()
+                .shadow(radius: 3)
               VStack(alignment: .leading, spacing: 10) {
                 Text(user.fullName)
                   .foregroundStyle(.white)
@@ -60,24 +59,21 @@ struct GeneralScreen: View {
             NavigationLink(value: SettingsPageContent.settings) {
               CustomListCell(for: .settings)
             }
-            // RateUs Button
+            // Rate Us Button
             Button {
               requestReview()
             } label: {
               CustomListCell(for: .rateUS)
             }
-            // SignOut Button
+            // Sign Out Button
             Button {
               isShownSignOutAlert = true
             } label: {
               CustomListCell(for: .signOut)
             }
           }
-          .listStyle(.insetGrouped)
-          .listRowSpacing(10)
-          .scrollContentBackground(.hidden)
+          .customListStyle(rowSpacing: 10, shadowRadius: 3)
           .environment(\.defaultMinListRowHeight, 60)
-          .shadow(radius: 3)
         }
       }
       .navigationTitle("General")
@@ -86,21 +82,18 @@ struct GeneralScreen: View {
         switch page {
         case .settings:
           SettingsScreen(
-            generalScreenPath: $generalScreenPath,
-            isShownTabBar: $isShownTabBar
+            path: $path, isShownTabBar: $isShownTabBar
           )
         case .editProfile:
           ProfileScreen(
-            isShownTabBar: $isShownTabBar,
-            generalScreenPath: $generalScreenPath
+            path: $path, isShownTabBar: $isShownTabBar
           )
         }
       }
       .toolbar(isShownTabBar ? .visible : .hidden, for: .tabBar)
-      
       .alert("Sign Out", isPresented: $isShownSignOutAlert) {
         Button("Sign Out", role: .destructive) {
-          withAnimation(.easeInOut(duration: 1)) {
+          withAnimation {
             authViewModel.signOut()
           }
         }
