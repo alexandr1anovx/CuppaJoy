@@ -17,8 +17,7 @@ enum ColorTheme: String, Identifiable, CaseIterable {
 }
 
 struct SettingsScreen: View {
-  
-  @Binding var generalScreenPath: NavigationPath
+  @Binding var path: NavigationPath
   @Binding var isShownTabBar: Bool
   @State private var selectedTheme: ColorTheme = .system
   
@@ -33,9 +32,7 @@ struct SettingsScreen: View {
               ForEach(ColorTheme.allCases) { theme in
                 Text(theme.title)
               }
-            }
-            .padding(.vertical, 5)
-            .pickerStyle(.segmented)
+            }.pickerStyle(.segmented)
           }
           
           // Profile Section
@@ -45,22 +42,22 @@ struct SettingsScreen: View {
             }
           }
         }
-        .listStyle(.insetGrouped)
+        .customListStyle(rowSpacing: 10, shadowRadius: 3)
         .listSectionSpacing(10)
-        .listRowSpacing(10)
-        .scrollContentBackground(.hidden)
-        .shadow(radius: 3)
       }
     }
-    .onAppear { isShownTabBar = false }
+    .onAppear {
+      isShownTabBar = false
+      setupSegmentedControlAppearance()
+    }
     .navigationTitle("Settings")
     .navigationBarTitleDisplayMode(.inline)
     .navigationBarBackButtonHidden(true)
     .toolbar {
-      ToolbarItem(placement: .navigationBarLeading) {
+      ToolbarItem(placement: .topBarLeading) {
         Button {
+          path.removeLast()
           isShownTabBar = true
-          generalScreenPath.removeLast()
         } label: {
           ReturnButtonLabel()
         }
@@ -71,7 +68,7 @@ struct SettingsScreen: View {
 
 #Preview {
   SettingsScreen(
-    generalScreenPath: .constant(NavigationPath()),
+    path: .constant(NavigationPath()),
     isShownTabBar: .constant(false)
   )
 }
