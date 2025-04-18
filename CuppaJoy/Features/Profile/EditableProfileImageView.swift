@@ -13,26 +13,22 @@ struct EditableProfileImageView: View {
   @State private var profileImage: UIImage? = nil
   @State private var selectedImage: UIImage? = nil
   @State private var selectedPhotosPickerItem: PhotosPickerItem? = nil
-  
   @State private var isShownConfirmationDialog = false
   @State private var isShownPhotoPicker = false
   @State private var isShownEditor = false
-  
   @State private var editorOffset: CGSize = .zero
   @State private var editorScale: CGFloat = 1
   
   var body: some View {
     VStack(spacing: 30) {
       
-      if let profileImage = profileImage {
+      if let profileImage {
         Image(uiImage: profileImage)
           .resizable()
           .scaledToFill()
           .frame(width: 100, height: 100)
           .clipShape(.circle)
-          .onTapGesture {
-            isShownConfirmationDialog = true
-          }
+          .onTapGesture { isShownConfirmationDialog = true }
           .overlay(alignment: .bottomTrailing) {
             ZStack {
               Circle()
@@ -54,7 +50,8 @@ struct EditableProfileImageView: View {
               Text("Add image")
                 .font(.caption)
                 .fontWeight(.medium)
-            }.foregroundStyle(.white)
+            }
+            .foregroundStyle(.white)
           }
           .onTapGesture { isShownPhotoPicker = true }
       }
@@ -63,13 +60,8 @@ struct EditableProfileImageView: View {
       isPresented: $isShownPhotoPicker,
       selection: $selectedPhotosPickerItem
     )
-    
     .confirmationDialog("Avatar", isPresented: $isShownConfirmationDialog) {
-      
-      Button("Edit Photo") {
-        isShownEditor = true
-      }
-      
+      Button("Edit Photo") { isShownEditor = true }
       Button("Choose new photo") {
         editorScale = 1
         editorOffset = .zero

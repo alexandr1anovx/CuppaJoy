@@ -13,6 +13,7 @@ struct OrderSummaryScreen: View {
   @Binding var path: NavigationPath
   @State private var visibleIndices: Set<Int> = []
   @State private var isShownPaymentScreen = false
+  @State private var selectedConfiguration: CoffeeConfig?
   
   var orderDetails: [(String, String)] {
     [
@@ -31,9 +32,6 @@ struct OrderSummaryScreen: View {
     ZStack {
       Color.appBackground.ignoresSafeArea(.all)
       VStack {
-        Button("Add to favorite") {
-          //favoriteOrderViewModel.saveFavoriteOrder(order)
-        }
         List(Array(orderDetails.enumerated()), id: \.offset) { index, item in
           row(title: item.0, content: item.1)
             .opacity(visibleIndices.contains(index) ? 1:0)
@@ -43,11 +41,7 @@ struct OrderSummaryScreen: View {
               visibleIndices.insert(index)
             }
         }
-        .listStyle(.insetGrouped)
-        .listRowSpacing(10)
-        .environment(\.defaultMinListRowHeight, 45)
-        .scrollContentBackground(.hidden)
-        .shadow(radius: 5)
+        .customListStyle()
         
         confirmationStack
       }
@@ -109,4 +103,8 @@ struct OrderSummaryScreen: View {
         .shadow(radius: 5)
     )
   }
+}
+
+#Preview {
+  OrderSummaryScreen(order: MockData.order, path: .constant(NavigationPath()))
 }
