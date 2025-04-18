@@ -21,12 +21,10 @@ struct HomeScreen: View {
     NavigationStack(path: $path) {
       ZStack {
         Color.appBackground.ignoresSafeArea(.all)
-        VStack(spacing:0) {
+        VStack {
           HomeHeaderView()
             .padding(.vertical, 30)
             .padding(.horizontal, 15)
-          //FavoriteConfigView()
-            .padding(.bottom,30)
           CoffeeSelectionView(
             path: $path,
             isTabBarVisible: $isTabBarVisible
@@ -44,10 +42,7 @@ struct HomeScreen: View {
             isTabBarVisible: $isTabBarVisible
           )
         case .summary(let order):
-          OrderSummaryScreen(
-            order: order,
-            path: $path
-          )
+          OrderSummaryScreen(order: order, path: $path)
         case .payment(let order):
           OrderPaymentScreen(
             order: order,
@@ -65,4 +60,5 @@ struct HomeScreen: View {
   HomeScreen()
     .environmentObject(AuthViewModel.previewMode())
     .environmentObject(CoffeeViewModel.previewMode())
+    .environmentObject(CoffeeConfigViewModel())
 }

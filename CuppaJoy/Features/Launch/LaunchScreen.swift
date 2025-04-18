@@ -31,21 +31,12 @@ struct LaunchScreen: View {
     }
     .onAppear {
       isAnimating = true
-      withAnimation(.smooth) { rotation += 720 }
+      withAnimation { rotation += 720 }
       
       // Returns the button to its original state after 2 seconds.
       DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
         withAnimation(.bouncy) { isAnimating = false }
       }
-      
-      /* Alternative way instead of using DispatchQueue:
-      withAnimation(.easeInOut.delay(3)) {
-        isAnimating = false
-        for letter in title {
-          text.append(letter)
-        }
-      }
-      */
     }
   }
 }
