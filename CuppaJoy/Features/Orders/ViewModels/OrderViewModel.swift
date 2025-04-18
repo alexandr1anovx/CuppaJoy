@@ -15,7 +15,7 @@ final class OrderViewModel: ObservableObject {
   @Published var ongoingOrders: [Order] = []
   @Published var receivedOrders: [Order] = []
   
-  let userCollection = Firestore.firestore().collection("users")
+  private let userCollection = Firestore.firestore().collection("users")
   
   // MARK: - Ongoing Orders
   

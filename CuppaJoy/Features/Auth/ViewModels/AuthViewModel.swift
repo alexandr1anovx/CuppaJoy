@@ -17,13 +17,12 @@ enum City: String, Identifiable, CaseIterable {
 
 @MainActor
 final class AuthViewModel: ObservableObject {
-  
   @Published var userSession: FirebaseAuth.User?
   @Published var currentUser: User?
   @Published var selectedCity: City = .mykolaiv
   @Published var alertItem: AlertItem?
   
-  let userCollection = Firestore.firestore().collection("users")
+  private let userCollection = Firestore.firestore().collection("users")
   
   // MARK: - Init
   init() {
@@ -75,12 +74,7 @@ final class AuthViewModel: ObservableObject {
     }
   }
   
-  func signUp(
-    fullName: String,
-    email: String,
-    password: String,
-    city: City
-  ) async {
+  func signUp(fullName: String, email: String, password: String, city: City) async {
     do {
       let result = try await Auth.auth().createUser(
         withEmail: email,
@@ -114,15 +108,6 @@ final class AuthViewModel: ObservableObject {
     }
   }
   
-  func sendPasswordResetLink(to email: String) async {
-    do {
-      try await Auth.auth().sendPasswordReset(withEmail: email)
-      alertItem = AuthAlertContext.passwordResetLinkSent
-    } catch {
-      alertItem = AuthAlertContext.passwordResetLinkFailed
-    }
-  }
-  
   func deleteUser(with password: String) async throws {
     do {
       guard let user = userSession else { throw AuthErrorCode.userNotFound }
@@ -138,6 +123,15 @@ final class AuthViewModel: ObservableObject {
       currentUser = nil
     } catch {
       print("Cannot delete user: \(error.localizedDescription)")
+    }
+  }
+  
+  func sendPasswordResetLink(to email: String) async {
+    do {
+      try await Auth.auth().sendPasswordReset(withEmail: email)
+      alertItem = AuthAlertContext.passwordResetLinkSent
+    } catch {
+      alertItem = AuthAlertContext.passwordResetLinkFailed
     }
   }
   
