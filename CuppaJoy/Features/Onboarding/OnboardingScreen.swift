@@ -16,7 +16,6 @@ struct OnboardingScreen: View {
   private let pages = OnboardingPage.allCases
   private var isIndexLast: Bool { pageIndex == pages.count - 1 }
   
-
   var body: some View {
     if isFinishedOnboarding {
       SignInScreen()
@@ -86,7 +85,7 @@ struct OnboardingScreen: View {
         isIndexLast ? "Get Started!": "Continue",
         icon: isIndexLast ? "checkmark.seal.fill": "arrow.right.circle.fill",
         textColor: isIndexLast ? .black : .white,
-        bgColor: isIndexLast ? Color.creamGradient : Color.pointsGradient
+        bgColor: isIndexLast ? Color.gradientCream : Color.gradientBrownBlack
       )
     }
   }

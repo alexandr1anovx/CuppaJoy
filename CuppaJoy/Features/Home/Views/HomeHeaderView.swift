@@ -27,7 +27,18 @@ struct HomeHeaderView: View {
             .foregroundStyle(.primary)
             .lineLimit(2)
           
-          coinsLabel(user.stringCoins)
+          HStack(spacing: 6) {
+            Image(.star)
+              .resizable()
+              .frame(width: 12, height: 12)
+            Text(user.stringCoins)
+              .font(.footnote)
+              .fontWeight(.semibold)
+          }
+          .foregroundStyle(.orange)
+          .padding(8)
+          .background(.csDarkGrey)
+          .clipShape(.capsule)
         }
         Spacer()
         ButtonLabelWithIconShort(
@@ -47,21 +58,6 @@ struct HomeHeaderView: View {
         }
       }
     }
-  }
-  
-  private func coinsLabel(_ coins: String) -> some View {
-    HStack(spacing: 6) {
-      Image(.star)
-        .resizable()
-        .frame(width: 12, height: 12)
-      Text(coins)
-        .font(.footnote)
-        .fontWeight(.semibold)
-    }
-    .foregroundStyle(.orange)
-    .padding(8)
-    .background(.csDarkGrey)
-    .clipShape(.capsule)
   }
 }
 
