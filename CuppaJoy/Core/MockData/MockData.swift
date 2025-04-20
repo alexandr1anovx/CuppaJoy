@@ -40,4 +40,23 @@ struct MockData {
     city: "Mykolaiv",
     coins: 20
   )
+  
+  static let config = CoffeeConfig(
+    title: "Americano",
+    cupSize: .medium,
+    sugarSticks: 2,
+    iceCubes: 1,
+    variety: .robusta,
+    milk: .lactose,
+    flavor: .caramel
+  )
+  static let config2 = CoffeeConfig(
+    title: "Latte",
+    cupSize: .large,
+    sugarSticks: 0,
+    iceCubes: 1,
+    variety: .excelsa,
+    milk: .lactose,
+    flavor: .vanilla
+  )
 }
