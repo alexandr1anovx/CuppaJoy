@@ -48,28 +48,10 @@ final class CoffeeViewModel: ObservableObject {
 }
 
 // MARK: Mock Data for Preview Mode
-
 extension CoffeeViewModel {
   static func previewMode() -> CoffeeViewModel {
     let viewModel = CoffeeViewModel()
-    viewModel.coffees = [
-      Coffee(
-        id: "1",
-        title: "Cappuccino",
-        description: "Caramelized sugar on top",
-        rating: 15,
-        points: 5,
-        price: 25.50
-      ),
-      Coffee(
-        id: "2",
-        title: "Americano",
-        description: "Caramelized sugar on bottom",
-        rating: 10,
-        points: 3,
-        price: 15.50
-      )
-    ]
+    viewModel.coffees = [MockData.coffee, MockData.coffee]
     return viewModel
   }
 }
