@@ -21,7 +21,7 @@ struct ButtonLabel: View {
   
   var body: some View {
     Text(title)
-      .font(.subheadline)
+      .font(.callout)
       .fontWeight(.medium)
       .foregroundStyle(textColor)
       .frame(maxWidth: .infinity)

@@ -30,7 +30,7 @@ struct ButtonLabelWithIconAnimated: View {
   
   var body: some View {
     Label(title, systemImage: icon)
-      .font(.subheadline)
+      .font(.callout)
       .fontWeight(.medium)
       .foregroundStyle(textColor)
       .frame(maxWidth: .infinity)
