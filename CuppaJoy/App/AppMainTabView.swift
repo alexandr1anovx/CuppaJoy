@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AppMainTabView: View {
-  
   @State private var selectedTab: Tab = .home
   
   var body: some View {
@@ -16,20 +15,17 @@ struct AppMainTabView: View {
       HomeScreen()
         .tag(Tab.home)
         .tabItem {
-          Image(systemName: "storefront.fill")
-          Text("Home")
+          Label("Home", systemImage: "storefront.fill")
         }
       MyOrdersScreen(selectedTab: $selectedTab)
         .tag(Tab.myOrders)
         .tabItem {
-          Image(systemName: "list.bullet")
-          Text("My Orders")
+          Label("My Orders", systemImage: "list.bullet")
         }
       GeneralScreen()
         .tag(Tab.general)
         .tabItem {
-          Image(systemName: "gearshape")
-          Text("General")
+          Label("General", systemImage: "gearshape")
         }
     }
     .onChange(of: selectedTab) {
@@ -40,9 +36,7 @@ struct AppMainTabView: View {
 }
 
 enum Tab {
-  case home
-  case myOrders
-  case general
+  case home, myOrders, general
 }
 
 #Preview {
@@ -50,4 +44,5 @@ enum Tab {
     .environmentObject(AuthViewModel.previewMode())
     .environmentObject(CoffeeViewModel.previewMode())
     .environmentObject(OrderViewModel.previewMode())
+    .environmentObject(CoffeeConfigViewModel())
 }
