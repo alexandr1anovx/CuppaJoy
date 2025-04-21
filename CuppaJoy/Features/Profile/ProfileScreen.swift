@@ -24,6 +24,7 @@ struct ProfileScreen: View {
   @FocusState var inputContent: InputContentType?
   
   let feedbackGenerator = UINotificationFeedbackGenerator()
+  private let validationService = ValidationService.shared
 
   // MARK: Computed Properties
   private var hasChanges: Bool {
@@ -39,8 +40,8 @@ struct ProfileScreen: View {
   }
   
   private var isValidForm: Bool {
-    authViewModel.isValid(fullName: fullName) &&
-    (email == authViewModel.currentUser?.emailAddress || authViewModel.isValid(email: email))
+    validationService.isValid(fullName: fullName) &&
+    (email == authViewModel.currentUser?.emailAddress || validationService.isValid(email: email))
   }
   
   // MARK: Body
@@ -67,7 +68,7 @@ struct ProfileScreen: View {
       Button("Cancel", role: .cancel) { accountPassword = "" }
       Button("Delete", role: .destructive) {
         Task {
-          try await authViewModel.deleteUser(with: accountPassword)
+          await authViewModel.deleteUser(password: accountPassword)
         }
       }
     } message: {

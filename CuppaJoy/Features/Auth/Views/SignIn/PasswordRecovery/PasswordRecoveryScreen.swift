@@ -10,8 +10,8 @@ import SwiftUI
 struct PasswordRecoveryScreen: View {
   
   @State private var email = ""
-  @FocusState private var isEmailFocused: Bool
   @EnvironmentObject var authViewModel: AuthViewModel
+  private let validationService = ValidationService.shared
   
   var body: some View {
     ZStack {
@@ -31,22 +31,18 @@ struct PasswordRecoveryScreen: View {
         
         List {
           InputField(for: .email, data: $email)
-            .focused($isEmailFocused)
             .keyboardType(.emailAddress)
             .textInputAutocapitalization(.never)
             .autocorrectionDisabled(true)
             .submitLabel(.done)
-            .onSubmit { isEmailFocused = false }
         }
+        .customListStyle()
         .frame(height: 90)
         .environment(\.defaultMinListRowHeight, 50)
-        .scrollContentBackground(.hidden)
-        .scrollIndicators(.hidden)
-        .scrollDisabled(true)
         
         Button {
           Task {
-            await authViewModel.sendPasswordResetLink(to: email)
+            //await authViewModel.sendPasswordResetLink(to: email)
           }
         } label: {
           ButtonLabel(
@@ -55,16 +51,16 @@ struct PasswordRecoveryScreen: View {
             bgColor: .black
           )
         }
-        .disabled(!authViewModel.isValid(email: email))
-        .opacity(!authViewModel.isValid(email: email) ? 0.5 : 1)
-        .alert(item: $authViewModel.alertItem) { alertItem in
-          Alert(
-            title: alertItem.title,
-            message: alertItem.message,
-            dismissButton: alertItem.dismissButton
-          )
-        }
+        .disabled(!validationService.isValid(email: email))
+        .opacity(!validationService.isValid(email: email) ? 0.5 : 1)
       }
+    }
+    .alert(item: $authViewModel.alertItem) { alertItem in
+      Alert(
+        title: alertItem.title,
+        message: alertItem.message,
+        dismissButton: alertItem.dismissButton
+      )
     }
   }
 }

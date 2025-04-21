@@ -16,10 +16,11 @@ struct EmailAndPasswordForm: View {
   @FocusState private var inputContent: InputContentType?
   @Environment(\.dismiss) var dismiss
   @EnvironmentObject var authViewModel: AuthViewModel
+  private let validationService = ValidationService.shared
   
   private var isValidForm: Bool {
-    authViewModel.isValid(email: email)
-    && authViewModel.isValid(password: password)
+    validationService.isValid(email: email)
+    && validationService.isValid(password: password)
   }
   
   var body: some View {
@@ -46,11 +47,9 @@ struct EmailAndPasswordForm: View {
               .padding(.bottom, 10)
           }
         }
-        .frame(height: 160)
-        .shadow(radius: 1)
+        .customListStyle(rowSpacing: 8, shadowRadius: 5)
+        .frame(height: 165)
         .environment(\.defaultMinListRowHeight, 53)
-        .scrollContentBackground(.hidden)
-        .scrollIndicators(.hidden)
         .scrollDisabled(true)
         
         signInButton
@@ -90,10 +89,14 @@ struct EmailAndPasswordForm: View {
         isShownHome.toggle()
       }
     } label: {
-      ButtonLabel("Sign In", textColor: .orange, bgColor: .black)
+      ButtonLabel(
+        "Sign In",
+        textColor: .white,
+        bgColor: .black
+      )
     }
     .disabled(!isValidForm)
-    .opacity(!isValidForm ? 0.5 : 1)
+    .opacity(!isValidForm ? 0.3 : 1)
     .alert(item: $authViewModel.alertItem) { alert in
       Alert(
         title: alert.title,
