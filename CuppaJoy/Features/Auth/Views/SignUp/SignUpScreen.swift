@@ -18,10 +18,12 @@ struct SignUpScreen: View {
   @EnvironmentObject var authViewModel: AuthViewModel
   @Environment(\.dismiss) var dismiss
   
+  private let validationService = ValidationService.shared
+  
   private var isValidForm: Bool {
-    authViewModel.isValid(fullName: fullName)
-    && authViewModel.isValid(email: email)
-    && authViewModel.isValid(password: password)
+    validationService.isValid(fullName: fullName)
+    && validationService.isValid(email: email)
+    && validationService.isValid(password: password)
   }
   
   var body: some View {
@@ -73,21 +75,20 @@ struct SignUpScreen: View {
           .fontWeight(.semibold)
           .padding(.bottom, 10)
       } footer: {
-        VStack(alignment: .leading, spacing: 5) {
+        VStack(alignment: .leading, spacing: 6) {
           Text("- Full name cannot be empty.")
           Text("- Email address format: name@example.com.")
-          Text("- Password must be at least 6 characters.")
+          Text("- Password must be at least 8 characters,")
+          Text("- contain at least one letter,")
+          Text("- contain at least one number.")
         }
         .font(.caption)
         .padding(.top, 10)
       }
     }
-    .frame(height: 275)
+    .customListStyle(rowSpacing: 8, shadowRadius: 5)
+    .frame(height: 325)
     .environment(\.defaultMinListRowHeight, 50)
-    .scrollContentBackground(.hidden)
-    .scrollIndicators(.hidden)
-    .scrollDisabled(true)
-    .shadow(radius: 5)
   }
   
   private var cityPicker: some View {
@@ -95,7 +96,6 @@ struct SignUpScreen: View {
       Text("Select your city:")
         .font(.footnote)
         .foregroundStyle(.gray)
-        .padding(.leading, 5)
       Picker("City", selection: $selectedCity) {
         ForEach(City.allCases) { city in
           Text(city.title)
@@ -117,37 +117,28 @@ struct SignUpScreen: View {
     } label: {
       ButtonLabel(
         "Sign Up",
-        textColor: .orange,
+        textColor: .white,
         bgColor: .black
       )
     }
     .disabled(!isValidForm)
-    .opacity(!isValidForm ? 0.5 : 1)
+    .opacity(!isValidForm ? 0.3 : 1)
   }
   
   private var signInOption: some View {
     Button {
       dismiss()
     } label: {
-      HStack(spacing: 5) {
+      HStack {
         Text("Already have an account?")
           .font(.footnote)
-          .fontWeight(.medium)
           .foregroundStyle(.gray)
         Text("Sign In.")
           .font(.subheadline)
-          .fontWeight(.bold)
+          .fontWeight(.semibold)
           .foregroundStyle(.csCream)
       }
     }
-  }
-  
-  private func setupSegmentedControlAppearance() {
-    let appearance = UISegmentedControl.appearance()
-    appearance.selectedSegmentTintColor = .csBrown
-    appearance.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
-    appearance.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
-    appearance.backgroundColor = .black
   }
 }
 
