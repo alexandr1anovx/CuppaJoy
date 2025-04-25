@@ -20,7 +20,7 @@ struct CuppaJoyApp: App {
   @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
   @StateObject private var orderViewModel = OrderViewModel()
   @StateObject private var authViewModel = AuthViewModel()
-  @StateObject private var coffeeViewModel = CoffeeViewModel()
+  @StateObject private var coffeeViewModel = CoffeeCatalogViewModel()
   @StateObject private var configViewModel = CoffeeConfigViewModel()
   
   var body: some Scene {

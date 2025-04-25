@@ -12,7 +12,7 @@ struct CoffeeSelectionView: View {
   @State private var selectedCoffee: Coffee?
   @Binding var path: NavigationPath
   @Binding var isTabBarVisible: Bool
-  @EnvironmentObject var coffeeViewModel: CoffeeViewModel
+  @EnvironmentObject var coffeeViewModel: CoffeeCatalogViewModel
   @EnvironmentObject var authViewModel: AuthViewModel
   
   private let fixedColumns = [
@@ -47,5 +47,5 @@ struct CoffeeSelectionView: View {
     isTabBarVisible: .constant(false)
   )
   .environmentObject(AuthViewModel.previewMode())
-  .environmentObject(CoffeeViewModel.previewMode())
+  .environmentObject(CoffeeCatalogViewModel.previewMode())
 }
