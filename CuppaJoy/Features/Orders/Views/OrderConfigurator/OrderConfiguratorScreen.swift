@@ -12,6 +12,7 @@ struct OrderConfiguratorScreen: View {
   let selectedCoffee: Coffee
   @Binding var path: NavigationPath
   @Binding var isTabBarVisible: Bool
+  
   @State private var cupCount: Int = 1
   @State private var sugarSticks: Int = 0
   @State private var iceCubes: Int = 0
@@ -23,6 +24,7 @@ struct OrderConfiguratorScreen: View {
   @State private var configName: String = ""
   
   @EnvironmentObject var configViewModel: CoffeeConfigViewModel
+  @EnvironmentObject var orderViewModel: OrderViewModel
   @State private var selectedConfiguration: CoffeeConfig?
   
   var totalPrice: Double {
@@ -51,13 +53,14 @@ struct OrderConfiguratorScreen: View {
   
   var config: CoffeeConfig {
     CoffeeConfig(
+      id: UUID().uuidString,
       title: configName,
-      cupSize: cupSize,
+      cupSize: cupSize.title,
       sugarSticks: sugarSticks,
       iceCubes: iceCubes,
-      variety: variety,
-      milk: milk,
-      flavor: flavor
+      variety: variety.title,
+      milk: milk.title,
+      flavor: flavor.title
     )
   }
   
@@ -65,13 +68,11 @@ struct OrderConfiguratorScreen: View {
     ZStack {
       Color.appBackground.ignoresSafeArea(.all)
       VStack {
-        if configViewModel.favoriteConfigs.isEmpty {
+        if orderViewModel.configs.isEmpty {
           emptyConfigsView
         } else {
           configsView
         }
-        
-        
         
         List {
           Section("Cup Configurations") {
@@ -100,9 +101,8 @@ struct OrderConfiguratorScreen: View {
       TextField("Config name", text: $configName)
       Button("Cancel", role: .cancel) { configName = "" }
       Button("Save") {
-        configViewModel.saveFavoriteConfig(config)
-        print("Config saved!")
-        print(configViewModel.favoriteConfigs)
+        orderViewModel.setFavoriteConfigs(config)
+        print("✅ New Config Saved!")
       }
     } message: {
       Text("Enter the name of your config.")
@@ -144,7 +144,7 @@ struct OrderConfiguratorScreen: View {
         Text("Configs:")
           .font(.subheadline)
           .foregroundStyle(.gray)
-        ForEach(configViewModel.favoriteConfigs) { config in
+        ForEach(orderViewModel.configs) { config in
           Button {
             selectedConfiguration = config
             applyConfig()
@@ -179,10 +179,11 @@ struct OrderConfiguratorScreen: View {
       Button {
         path.append(OrderPage.summary(order))
       } label: {
-        ButtonLabelAnimated(
+        ButtonLabelWithIcon(
           "Summorize",
+          icon: "plus.circle.fill",
           textColor: .white,
-          bgColor: Color.gradientBrownBlack
+          bgColor: .csBrown
         )
       }
     }
@@ -190,18 +191,34 @@ struct OrderConfiguratorScreen: View {
       RoundedRectangle(cornerRadius: 40)
         .fill(Color.csBlack)
         .ignoresSafeArea(.all)
-        .frame(height: 170)
+        .frame(height: 150)
         .shadow(color: .black, radius: 2)
     )
   }
   
   private func applyConfig() {
-    cupSize = selectedConfiguration?.cupSize ?? .small
+    if let sizeString = selectedConfiguration?.cupSize,
+       let size = CupSize.allCases.first(where: { $0.title == sizeString }) {
+      cupSize = size
+    }
+    
     sugarSticks = selectedConfiguration?.sugarSticks ?? 0
     iceCubes = selectedConfiguration?.iceCubes ?? 0
-    variety = selectedConfiguration?.variety ?? .standart
-    milk = selectedConfiguration?.milk ?? .none
-    flavor = selectedConfiguration?.flavor ?? .none
+    
+    if let varietyString = selectedConfiguration?.variety,
+       let varietyValue = Variety.allCases.first(where: { $0.title == varietyString }) {
+      variety = varietyValue
+    }
+    
+    if let milkString = selectedConfiguration?.milk,
+       let milkValue = Milk.allCases.first(where: { $0.title == milkString }) {
+      milk = milkValue
+    }
+    
+    if let flavorString = selectedConfiguration?.flavor,
+       let flavorValue = Flavor.allCases.first(where: { $0.title == flavorString }) {
+      flavor = flavorValue
+    }
   }
 }
 
@@ -211,7 +228,7 @@ struct OrderConfiguratorScreen: View {
     path: .constant(NavigationPath()),
     isTabBarVisible: .constant(false)
   )
-    .environmentObject(OrderViewModel.previewMode())
-    .environmentObject(CoffeeViewModel.previewMode())
-    .environmentObject(CoffeeConfigViewModel())
+  .environmentObject(OrderViewModel.previewMode())
+  .environmentObject(CoffeeCatalogViewModel.previewMode())
+  .environmentObject(CoffeeConfigViewModel())
 }
