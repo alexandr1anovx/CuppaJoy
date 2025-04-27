@@ -8,6 +8,7 @@
 import Foundation
 
 struct Order: Identifiable, Codable, Hashable {
+  
   let id: String
   let coffee: String
   let cupSize: String
@@ -17,20 +18,17 @@ struct Order: Identifiable, Codable, Hashable {
   let variety: String
   let milk: String
   let flavor: String
-  let timestamp: Date
   let points: Int
   let totalPrice: Double
+  let timestamp: Date
   
-  var stringPoints: String {
-    "\(points)"
-  }
-  var stringDate: String {
+  var formattedDate: String {
     let formatter = DateFormatter()
     formatter.dateFormat = "dd.MM.yyyy, HH:mm"
     return formatter.string(from: timestamp)
   }
-  var stringPrice: String {
+  
+  var formattedPrice: String {
     "$\(String(format: "%.2f", totalPrice))"
   }
-  
 }
