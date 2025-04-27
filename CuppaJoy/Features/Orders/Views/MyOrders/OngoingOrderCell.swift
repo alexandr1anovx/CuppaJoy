@@ -46,44 +46,42 @@ struct OngoingOrderCell: View {
   }
   
   private var dateLabel: some View {
-    Text(order.stringDate)
-      .font(.caption)
-      .fontWeight(.semibold)
-      .fontDesign(.monospaced)
-      .foregroundStyle(.gray)
-      .opacity(0.9)
+    VStack {
+      Text(order.formattedDate)
+        .font(.footnote)
+        .fontDesign(.monospaced)
+        .foregroundStyle(.gray)
+      Divider()
+        .frame(width: 160)
+    }
   }
   
   private var priceAndPointsLabel: some View {
-    HStack(spacing:2) {
-      HStack(spacing:6) {
-        Image(.star)
-          .resizable()
-          .frame(width: 15, height: 15)
-        Text(order.stringPoints)
+    HStack(spacing: 2) {
+      HStack(spacing: 5) {
+        Image(systemName: "star.leadinghalf.filled")
+        Text("\(order.points)")
       }
-      .font(.caption)
       .foregroundStyle(.orange)
       .padding(8)
       .background(.csDarkGrey)
-      .clipShape(.capsule)
-      Text(order.stringPrice)
-        .font(.subheadline)
+      Text(order.formattedPrice)
         .foregroundStyle(.csCream)
         .padding(8)
         .background(.csDarkGrey)
-        .clipShape(.capsule)
     }
+    .font(.footnote)
     .fontWeight(.bold)
+    .clipShape(.capsule)
   }
   
   private func row(_ title: String, content: String) -> some View {
-    HStack(spacing:5) {
-      Text(title).foregroundStyle(.white)
+    HStack(spacing: 5) {
+      Text(title).foregroundStyle(.gray)
       Text(content).foregroundStyle(.csCream)
+        .fontWeight(.semibold)
     }
     .font(.footnote)
-    .fontWeight(.semibold)
   }
   
   private var configurationsButton: some View {
@@ -92,9 +90,9 @@ struct OngoingOrderCell: View {
     } label: {
       Text("Configurations")
         .font(.caption)
-        .fontWeight(.bold)
+        .fontWeight(.medium)
         .foregroundStyle(.white)
-        .padding(10)
+        .padding(8)
         .background(.csDarkGrey)
         .clipShape(.capsule)
     }
@@ -112,9 +110,9 @@ struct OngoingOrderCell: View {
     } label: {
       Text("Cancel Order")
         .font(.caption)
-        .fontWeight(.bold)
+        .fontWeight(.medium)
         .foregroundStyle(.red)
-        .padding(10)
+        .padding(8)
         .background(.csDarkGrey)
         .clipShape(.capsule)
     }.buttonStyle(.plain)
