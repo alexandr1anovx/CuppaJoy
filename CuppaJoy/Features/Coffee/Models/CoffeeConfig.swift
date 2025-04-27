@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct CoffeeConfig: Identifiable, Hashable {
-  let id = UUID().uuidString
+struct CoffeeConfig: Identifiable, Hashable, Codable {
+  let id: String
   let title: String
-  let cupSize: CupSize
+  let cupSize: String
   let sugarSticks: Int
   let iceCubes: Int
-  let variety: Variety
-  let milk: Milk
-  let flavor: Flavor
+  let variety: String
+  let milk: String
+  let flavor: String
 }
