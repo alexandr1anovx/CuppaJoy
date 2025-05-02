@@ -23,7 +23,7 @@ final class CoffeeConfigService: CoffeeConfigProtocol {
   
   func fetchConfigs() async throws {
     guard let uid = authService.currentUser?.uid else {
-      print("⚠️Failed to get user ID")
+      print("⚠️ Failed to get user ID")
       return
     }
     authService.userCollection.document(uid).collection("configs")
@@ -51,7 +51,17 @@ final class CoffeeConfigService: CoffeeConfigProtocol {
     configs.append(config)
   }
   
-  func deleteConfig(_ config: CoffeeConfig) async {
-    configs.removeAll { $0.id == config.id }
+  func deleteConfig(_ config: CoffeeConfig) async throws {
+    guard let uid = authService.currentUser?.uid else {
+      print("⚠️ Failed to get user ID")
+      throw NSError(
+        domain: "CoffeeConfigService",
+        code: 1,
+        userInfo: [NSLocalizedDescriptionKey: "User not authenticated"]
+      )
+    }
+    
+    let userDocument = authService.userCollection.document(uid)
+    try await userDocument.collection("configs").document(config.id).delete()
   }
 }
