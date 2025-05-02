@@ -11,9 +11,9 @@ import Combine
 @MainActor
 final class OrderViewModel: ObservableObject {
   
-  @Published var ongoingOrders: [Order] = [MockData.order]
-  @Published var receivedOrders: [Order] = [MockData.order]
-  @Published var configs: [CoffeeConfig] = []
+  @Published var ongoingOrders: [Order] = []
+  @Published var receivedOrders: [Order] = []
+  @Published var favoriteConfigs: [CoffeeConfig] = []
   
   private let orderService = OrderService.shared
   private var cancellables = Set<AnyCancellable>()
@@ -69,7 +69,7 @@ final class OrderViewModel: ObservableObject {
         guard let self = self else { return }
         self.ongoingOrders = self.orderService.ongoingOrders
         self.receivedOrders = self.orderService.receivedOrders
-        self.configs = self.orderService.configs
+        self.favoriteConfigs = self.orderService.favoriteConfigs
       }
       .store(in: &cancellables)
   }
@@ -80,6 +80,7 @@ final class OrderViewModel: ObservableObject {
 extension OrderViewModel {
   static func previewMode() -> OrderViewModel {
     let viewModel = OrderViewModel()
+    viewModel.favoriteConfigs = [MockData.config2]
     return viewModel
   }
 }
