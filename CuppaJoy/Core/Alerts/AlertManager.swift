@@ -24,6 +24,22 @@ struct AlertItem: Identifiable {
   }
 }
 
+struct ConfigAlertContext {
+  
+  static let configSuccessfullyDeleted = AlertItem(
+    Text("Success!"),
+    Text("Config was successfully deleted!"),
+    dismissButton: .default(Text("OK"))
+  )
+  
+  static let failedToDeleteConfig = AlertItem(
+    Text("Deletion Failed"),
+    Text("You cannot delete this config"),
+    dismissButton: .default(Text("OK"))
+  )
+  
+}
+
 struct AuthAlertContext {
   
   static let failedToSignIn = AlertItem(
@@ -40,6 +56,12 @@ struct AuthAlertContext {
   
   static let failedToSignOut = AlertItem(
     Text("Failed to Sign Out"),
+    Text("Please, contact support for assistance"),
+    dismissButton: .default(Text("OK"))
+  )
+  
+  static let failedToDeleteUser = AlertItem(
+    Text("Failed to delete account"),
     Text("Please, contact support for assistance"),
     dismissButton: .default(Text("OK"))
   )
