@@ -13,7 +13,6 @@ struct OrderSummaryScreen: View {
   @Binding var path: NavigationPath
   @State private var visibleIndices: Set<Int> = []
   @State private var isShownPaymentScreen = false
-  @State private var selectedConfiguration: CoffeeConfig?
   
   var orderDetails: [(String, String)] {
     [
@@ -41,7 +40,7 @@ struct OrderSummaryScreen: View {
               visibleIndices.insert(index)
             }
         }
-        .customListStyle()
+        .customListStyle(rowSpacing: 10, shadowRadius: 3)
         
         confirmationStack
       }
@@ -80,7 +79,7 @@ struct OrderSummaryScreen: View {
         ButtonLabelWithIcon(
           "Edit",
           icon: "slider.horizontal.3",
-          textColor: .orange,
+          textColor: .white,
           bgColor: .black
         )
       }
@@ -88,7 +87,7 @@ struct OrderSummaryScreen: View {
         path.append(OrderPage.payment(order))
       } label: {
         ButtonLabelWithIcon(
-          "Confirm for \(order.stringPrice)",
+          "Confirm for \(order.formattedPrice)",
           icon: "checkmark.circle.fill",
           textColor: .white,
           bgColor: .csBrown
@@ -106,5 +105,8 @@ struct OrderSummaryScreen: View {
 }
 
 #Preview {
-  OrderSummaryScreen(order: MockData.order, path: .constant(NavigationPath()))
+  OrderSummaryScreen(
+    order: MockData.order,
+    path: .constant(NavigationPath())
+  )
 }

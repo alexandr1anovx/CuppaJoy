@@ -32,11 +32,10 @@ struct CoffeeSelectionView: View {
           ForEach(coffeeViewModel.coffees, id: \.id) { coffee in
             NavigationLink(value: OrderPage.configurator(coffee)) {
               CoffeeSelectionCell(coffee: coffee)
-                
             }
           }
-        }
-      }.padding(.vertical,30)
+        }.padding(.vertical,30)
+      }
     }.shadow(radius: 8)
   }
 }

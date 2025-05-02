@@ -15,7 +15,7 @@ struct OrderPaymentOptionView: View {
   @State private var isShownPaymentView = false
   
   var body: some View {
-    VStack(spacing:20) {
+    VStack(spacing: 20) {
       orderConfigurationsButton
       OrderPaymentOptionsList()
       Spacer()
@@ -49,16 +49,18 @@ struct OrderPaymentOptionView: View {
   
   private var paymentStack: some View {
     VStack(spacing: 25) {
+      
       HStack(spacing: 5) {
         Text("Total Amount:")
           .font(.callout)
-          .fontWeight(.bold)
-          .foregroundStyle(.white)
-        Text(order.stringPrice)
+          .fontWeight(.medium)
+          .foregroundStyle(.gray)
+        Text(order.formattedPrice)
           .font(.headline)
           .fontWeight(.bold)
-          .foregroundStyle(.orange)
+          .foregroundStyle(.white)
       }
+      
       Button {
         isShownPaymentView.toggle()
       } label: {
@@ -66,16 +68,15 @@ struct OrderPaymentOptionView: View {
           "Pay",
           icon: "apple.logo",
           textColor: .white,
-          bgColor: .black
+          bgColor: .blue
         )
-      }.shadow(color: .gray, radius: 0.5)
+      }
     }
     .background(
       RoundedRectangle(cornerRadius: 30)
         .fill(Color.black)
         .ignoresSafeArea(.all)
         .frame(height: 150)
-        .shadow(color: .orange, radius: 5)
     )
   }
 }
@@ -86,5 +87,4 @@ struct OrderPaymentOptionView: View {
     path: .constant(NavigationPath()),
     isTabBarVisible: .constant(false)
   )
-  .environmentObject(AuthViewModel.previewMode())
 }

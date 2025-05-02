@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MyOrdersScreen: View {
+  
   @Binding var selectedTab: Tab
   @State private var selectedStatus: OrderStatus = .ongoing
   @EnvironmentObject var orderViewModel: OrderViewModel
@@ -66,7 +67,8 @@ struct MyOrdersScreen: View {
           )
         }
         RefreshButton { orderViewModel.getOngoingOrders() }
-      }.padding(.top,10)
+      }
+      .padding(.top,10)
     }
   }
   
@@ -80,7 +82,8 @@ struct MyOrdersScreen: View {
     } actions: {
       RefreshButton {
         orderViewModel.getReceivedOrders()
-      }.padding(.top,10)
+      }
+      .padding(.top,10)
     }
   }
   
@@ -92,8 +95,9 @@ struct MyOrdersScreen: View {
     } else {
       List(orderViewModel.ongoingOrders) { order in
         OngoingOrderCell(for: order)
+          .listRowBackground(Color.csBlack)
       }
-      .customListStyle(rowSpacing: 15, shadowRadius: 1)
+      .customListStyle(rowSpacing: 15, shadowRadius: 5)
     }
   }
   
@@ -105,13 +109,14 @@ struct MyOrdersScreen: View {
     } else {
       List(orderViewModel.receivedOrders) { order in
         ReceivedOrderCell(for: order)
+          .listRowBackground(Color.csBlack)
       }
-      .customListStyle(rowSpacing: 15, shadowRadius: 1)
+      .customListStyle(rowSpacing: 15, shadowRadius: 5)
     }
   }
 }
 
 #Preview {
   MyOrdersScreen(selectedTab: .constant(.myOrders))
-    .environmentObject(OrderViewModel())
+    .environmentObject(OrderViewModel.previewMode())
 }
