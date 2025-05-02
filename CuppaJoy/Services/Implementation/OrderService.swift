@@ -24,10 +24,9 @@ final class OrderService: OrderServiceProtocol {
   private let auth = Auth.auth()
   private let userCollection = Firestore.firestore().collection("users")
   
-  var ongoingOrders: [Order] = [MockData.order]
-  var receivedOrders: [Order] = [MockData.order]
-  
-  var configs: [CoffeeConfig] = []
+  var ongoingOrders: [Order] = []
+  var receivedOrders: [Order] = []
+  var favoriteConfigs: [CoffeeConfig] = [MockData.config2]
   
   func getOngoingOrders() {
     guard let uid = auth.currentUser?.uid else {
@@ -80,7 +79,7 @@ final class OrderService: OrderServiceProtocol {
           try? doc.data(as: CoffeeConfig.self)
         }
         DispatchQueue.main.async {
-          self.configs = newConfigs
+          self.favoriteConfigs = newConfigs
         }
       }
   }
