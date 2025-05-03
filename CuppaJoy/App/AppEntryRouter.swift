@@ -6,19 +6,21 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct AppEntryRouter: View {
   
   @State private var isShownAppContent = false
   @EnvironmentObject var authViewModel: AuthViewModel
-  @EnvironmentObject var coffeeViewModel: CoffeeViewModel
   @EnvironmentObject var orderViewModel: OrderViewModel
+  @EnvironmentObject var coffeeCatalogViewModel: CoffeeCatalogViewModel
+  @EnvironmentObject var coffeeConfigViewModel: CoffeeConfigViewModel
   
   var body: some View {
     Group {
       if UserDefaults.standard.isFirstLaunch {
         OnboardingScreen()
-      } else if authViewModel.userSession != nil {
+      } else if Auth.auth().currentUser != nil {
         if isShownAppContent {
           AppMainTabView()
         } else {
@@ -29,7 +31,10 @@ struct AppEntryRouter: View {
       }
     }
     .onAppear {
-      coffeeViewModel.getCoffees()
+      Task {
+        await coffeeCatalogViewModel.fetchCoffees()
+        await coffeeConfigViewModel.fetchConfigs()
+      }
       orderViewModel.getOngoingOrders()
       orderViewModel.getReceivedOrders()
       
