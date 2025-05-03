@@ -9,45 +9,43 @@ import SwiftUI
 
 struct ApplePayView: View {
   
-  // MARK: Properties
+  private let feedbackGenerator = UINotificationFeedbackGenerator()
+  
   let order: Order
-  let feedbackGenerator = UINotificationFeedbackGenerator() // haptic feedback.
   @Binding var path: NavigationPath
   @Binding var isTabBarVisible: Bool
+  
   @State private var isShownAlert = false
   @Environment(\.dismiss) var dismiss
   @EnvironmentObject var orderViewModel: OrderViewModel
-  @EnvironmentObject var authViewModel: AuthViewModel
   
-  // MARK: Body
   var body: some View {
-    VStack {
-      // Header
+    VStack(spacing: 5) {
       HStack {
-        Label("Pay", systemImage: "apple.logo").font(.title2)
+        Label("Pay", systemImage: "apple.logo")
+          .font(.title2)
         Spacer()
-        DismissButton()
+        DismissButton(color: .red)
       }
-      .padding(.top)
-      .padding(.horizontal)
+      .padding(.top, 20)
+      .padding(.horizontal, 20)
       
       List {
         firstSectionView
         secondSectionView
         thirdSectionView
       }
-      .customListStyle()
-      .shadow(radius: 1)
+      .customListStyle(shadowRadius: 1)
       
       paymentButton
     }
-    .alert(isPresented: $isShownAlert) { // Alert for successful payment.
+    .alert(isPresented: $isShownAlert) {
       Alert(
-        title: Text("Success!"),
-        message: Text("The order has been placed in the queue. You can cancel it on the order screen."),
-        dismissButton: .default(Text("Got it!")) {
+        title: Text("✅ Success!"),
+        message: Text("The order has been placed in the queue."),
+        dismissButton: .default(Text("OK")) {
           dismiss()
-          DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+          DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             path.removeLast(path.count)
             isTabBarVisible = true
           }
@@ -76,7 +74,7 @@ struct ApplePayView: View {
   
   private var secondSectionView: some View {
     VStack(alignment: .leading, spacing: 5) {
-      Text(order.stringPrice)
+      Text(order.formattedPrice)
         .font(.headline)
         .fontWeight(.semibold)
       Text("One-time purchase")
@@ -97,10 +95,8 @@ struct ApplePayView: View {
   private var paymentButton: some View {
     Button {
       Task {
-        await authViewModel.addCoinsToUser(order.points)
         orderViewModel.setOngoingOrders(order)
         isShownAlert.toggle()
-        orderViewModel.setOngoingOrders(order)
         feedbackGenerator.notificationOccurred(.success)
       }
     } label: {
