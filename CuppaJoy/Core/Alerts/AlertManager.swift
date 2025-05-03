@@ -43,39 +43,34 @@ struct ConfigAlertContext {
 struct AuthAlertContext {
   
   static let failedToSignIn = AlertItem(
-    Text("Failed to Sign In"),
+    Text("⚠️ Failed to Sign In!"),
     Text("The user with this email address does not exist."),
     dismissButton: .default(Text("OK"))
   )
   
   static let failedToSignUp = AlertItem(
-    Text("Failed to Sign Up"),
+    Text("⚠️ Failed to Sign Up!"),
     Text("A user with the entered data already exists."),
     dismissButton: .default(Text("OK"))
   )
   
   static let failedToSignOut = AlertItem(
-    Text("Failed to Sign Out"),
-    Text("Please, contact support for assistance"),
+    Text("⚠️ Failed to Sign Out"),
+    Text("Please, contact support for assistance."),
     dismissButton: .default(Text("OK"))
   )
   
   static let failedToDeleteUser = AlertItem(
-    Text("Failed to delete account"),
-    Text("Please, contact support for assistance"),
+    Text("⚠️ Failed to delete account"),
+    Text("Please, contact support for assistance."),
     dismissButton: .default(Text("OK"))
   )
   
   // MARK: Account Deletion
   
   static let successfullAccountDeletion = AlertItem(
-    Text("Account Successfully Deleted"),
-    dismissButton: .default(Text("OK"))
-  )
-  
-  static let unsuccessfullAccountDeletion = AlertItem(
-    Text("Failed to Delete Account"),
-    Text("An error occurred while trying to delete an account."),
+    Text("✅ Success!"),
+    Text("All your data has been deleted."),
     dismissButton: .default(Text("OK"))
   )
   
