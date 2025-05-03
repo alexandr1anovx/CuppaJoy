@@ -48,11 +48,15 @@
 		D16275252D903D4E0001D88C /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16275242D903D4E0001D88C /* AlertManager.swift */; };
 		D17172782D6689A800B538F6 /* ButtonLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17172772D6689A800B538F6 /* ButtonLabel.swift */; };
 		D1721E042D6F573F00A0CBF1 /* Coffee.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1721E032D6F573F00A0CBF1 /* Coffee.swift */; };
-		D1721E062D6F595500A0CBF1 /* CoffeeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1721E052D6F595500A0CBF1 /* CoffeeViewModel.swift */; };
+		D1721E062D6F595500A0CBF1 /* CoffeeCatalogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1721E052D6F595500A0CBF1 /* CoffeeCatalogViewModel.swift */; };
 		D174204A2D3D532D00FE1E2B /* OnboardingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17420492D3D532D00FE1E2B /* OnboardingPage.swift */; };
 		D174B3112D6E4AB900188C69 /* SecuredInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D174B3102D6E4AB900188C69 /* SecuredInputField.swift */; };
 		D181356B2D4502BE00F77824 /* DismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D181356A2D4502BE00F77824 /* DismissButton.swift */; };
 		D182F4A72D325A8C00A113E8 /* OnboardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D182F4A62D325A8C00A113E8 /* OnboardingScreen.swift */; };
+		D18C03262DBAB5FA000F79E2 /* CoffeeCatalogServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C03252DBAB5FA000F79E2 /* CoffeeCatalogServiceProtocol.swift */; };
+		D18C03282DBAB610000F79E2 /* CoffeeСatalogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C03272DBAB610000F79E2 /* CoffeeСatalogService.swift */; };
+		D18C032A2DBAE430000F79E2 /* CoffeeConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C03292DBAE430000F79E2 /* CoffeeConfigService.swift */; };
+		D18C032C2DBAE4C6000F79E2 /* CoffeeConfigProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C032B2DBAE4C6000F79E2 /* CoffeeConfigProtocol.swift */; };
 		D194CEBB2D63833500CE409C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D194CEBA2D63833500CE409C /* GoogleService-Info.plist */; };
 		D194CEBF2D63842F00CE409C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D194CEBE2D63842F00CE409C /* FirebaseAuth */; };
 		D194CEC12D63843500CE409C /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = D194CEC02D63843500CE409C /* FirebaseCore */; };
@@ -73,6 +77,13 @@
 		D1DD423B2DAD97AF00F4FBD9 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DD423A2DAD97AF00F4FBD9 /* View+Extension.swift */; };
 		D1EACE842DA32E0A00484FEC /* CustomListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EACE832DA32E0A00484FEC /* CustomListCell.swift */; };
 		D1EC2FFC2D2637FA008E8265 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EC2FFB2D2637FA008E8265 /* Color+Extension.swift */; };
+		D1EF6E8F2DB5670400232718 /* ValidationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EF6E8E2DB5670400232718 /* ValidationServiceProtocol.swift */; };
+		D1EF6E912DB5672500232718 /* ValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EF6E902DB5672500232718 /* ValidationService.swift */; };
+		D1EF6EA22DB593ED00232718 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EF6EA12DB593ED00232718 /* City.swift */; };
+		D1EF6EA42DB5A4B300232718 /* AuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EF6EA32DB5A4B300232718 /* AuthServiceProtocol.swift */; };
+		D1EF6EA62DB6681700232718 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EF6EA52DB6681700232718 /* AuthService.swift */; };
+		D1EF6EA82DB66D8F00232718 /* OrderServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EF6EA72DB66D8F00232718 /* OrderServiceProtocol.swift */; };
+		D1EF6EAA2DB66D9900232718 /* OrderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EF6EA92DB66D9900232718 /* OrderService.swift */; };
 		D1F061032DAD590D00024160 /* RefreshButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F061022DAD590D00024160 /* RefreshButton.swift */; };
 		D1FEA5262D6603C500B082D8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FEA5252D6603C500B082D8 /* User.swift */; };
 		D1FEA5302D661A2200B082D8 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FEA52F2D661A2200B082D8 /* AuthViewModel.swift */; };
@@ -122,11 +133,15 @@
 		D16275242D903D4E0001D88C /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		D17172772D6689A800B538F6 /* ButtonLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLabel.swift; sourceTree = "<group>"; };
 		D1721E032D6F573F00A0CBF1 /* Coffee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coffee.swift; sourceTree = "<group>"; };
-		D1721E052D6F595500A0CBF1 /* CoffeeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeViewModel.swift; sourceTree = "<group>"; };
+		D1721E052D6F595500A0CBF1 /* CoffeeCatalogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeCatalogViewModel.swift; sourceTree = "<group>"; };
 		D17420492D3D532D00FE1E2B /* OnboardingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage.swift; sourceTree = "<group>"; };
 		D174B3102D6E4AB900188C69 /* SecuredInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecuredInputField.swift; sourceTree = "<group>"; };
 		D181356A2D4502BE00F77824 /* DismissButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissButton.swift; sourceTree = "<group>"; };
 		D182F4A62D325A8C00A113E8 /* OnboardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScreen.swift; sourceTree = "<group>"; };
+		D18C03252DBAB5FA000F79E2 /* CoffeeCatalogServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeCatalogServiceProtocol.swift; sourceTree = "<group>"; };
+		D18C03272DBAB610000F79E2 /* CoffeeСatalogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoffeeСatalogService.swift"; sourceTree = "<group>"; };
+		D18C03292DBAE430000F79E2 /* CoffeeConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeConfigService.swift; sourceTree = "<group>"; };
+		D18C032B2DBAE4C6000F79E2 /* CoffeeConfigProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeConfigProtocol.swift; sourceTree = "<group>"; };
 		D194CEBA2D63833500CE409C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D197C1F72D68A2CD00010474 /* OrderItemCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderItemCounter.swift; sourceTree = "<group>"; };
 		D1A24CBE2D26512800B1632E /* OrderPaymentScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderPaymentScreen.swift; sourceTree = "<group>"; };
@@ -144,6 +159,13 @@
 		D1DD423A2DAD97AF00F4FBD9 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		D1EACE832DA32E0A00484FEC /* CustomListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomListCell.swift; sourceTree = "<group>"; };
 		D1EC2FFB2D2637FA008E8265 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		D1EF6E8E2DB5670400232718 /* ValidationServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationServiceProtocol.swift; sourceTree = "<group>"; };
+		D1EF6E902DB5672500232718 /* ValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationService.swift; sourceTree = "<group>"; };
+		D1EF6EA12DB593ED00232718 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
+		D1EF6EA32DB5A4B300232718 /* AuthServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceProtocol.swift; sourceTree = "<group>"; };
+		D1EF6EA52DB6681700232718 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		D1EF6EA72DB66D8F00232718 /* OrderServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderServiceProtocol.swift; sourceTree = "<group>"; };
+		D1EF6EA92DB66D9900232718 /* OrderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderService.swift; sourceTree = "<group>"; };
 		D1F061022DAD590D00024160 /* RefreshButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshButton.swift; sourceTree = "<group>"; };
 		D1FEA5252D6603C500B082D8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D1FEA52F2D661A2200B082D8 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
@@ -185,6 +207,8 @@
 			children = (
 				D1C859CE2D20BD3C00DDB941 /* App */,
 				D10DDF7A2DA7397C00D857E1 /* Core */,
+				D1EF6E8B2DB5658A00232718 /* Services */,
+				D1EF6EA02DB593CD00232718 /* Models */,
 				D10DDF592DA7227000D857E1 /* Features */,
 				D1C859D22D20C00000DDB941 /* Components */,
 				D10DDF7C2DA739C700D857E1 /* Resources */,
@@ -277,19 +301,10 @@
 		D10DDF5D2DA722F200D857E1 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				D10DDF5E2DA7230B00D857E1 /* Models */,
 				D10DDF5F2DA7231300D857E1 /* Views */,
 				D10DDF602DA7231700D857E1 /* ViewModels */,
 			);
 			path = Auth;
-			sourceTree = "<group>";
-		};
-		D10DDF5E2DA7230B00D857E1 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				D1FEA5252D6603C500B082D8 /* User.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		D10DDF5F2DA7231300D857E1 /* Views */ = {
@@ -449,7 +464,7 @@
 		D10DDF772DA738B900D857E1 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				D1721E052D6F595500A0CBF1 /* CoffeeViewModel.swift */,
+				D1721E052D6F595500A0CBF1 /* CoffeeCatalogViewModel.swift */,
 				D14413332DB2D35200BE38C0 /* CoffeeConfigViewModel.swift */,
 			);
 			path = ViewModels;
@@ -605,6 +620,48 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		D1EF6E8B2DB5658A00232718 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D1EF6E8D2DB5661C00232718 /* Protocols */,
+				D1EF6E8C2DB5659D00232718 /* Implementation */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D1EF6E8C2DB5659D00232718 /* Implementation */ = {
+			isa = PBXGroup;
+			children = (
+				D18C03292DBAE430000F79E2 /* CoffeeConfigService.swift */,
+				D18C03272DBAB610000F79E2 /* CoffeeСatalogService.swift */,
+				D1EF6EA92DB66D9900232718 /* OrderService.swift */,
+				D1EF6E902DB5672500232718 /* ValidationService.swift */,
+				D1EF6EA52DB6681700232718 /* AuthService.swift */,
+			);
+			path = Implementation;
+			sourceTree = "<group>";
+		};
+		D1EF6E8D2DB5661C00232718 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				D18C032B2DBAE4C6000F79E2 /* CoffeeConfigProtocol.swift */,
+				D18C03252DBAB5FA000F79E2 /* CoffeeCatalogServiceProtocol.swift */,
+				D1EF6EA72DB66D8F00232718 /* OrderServiceProtocol.swift */,
+				D1EF6E8E2DB5670400232718 /* ValidationServiceProtocol.swift */,
+				D1EF6EA32DB5A4B300232718 /* AuthServiceProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		D1EF6EA02DB593CD00232718 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D1FEA5252D6603C500B082D8 /* User.swift */,
+				D1EF6EA12DB593ED00232718 /* City.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -701,16 +758,22 @@
 				50DFA8232D04AC660058A4D4 /* HomeHeaderView.swift in Sources */,
 				D1DD423B2DAD97AF00F4FBD9 /* View+Extension.swift in Sources */,
 				321D48142CAF6098007A0B20 /* CuppaJoyApp.swift in Sources */,
+				D1EF6EA82DB66D8F00232718 /* OrderServiceProtocol.swift in Sources */,
+				D18C03282DBAB610000F79E2 /* CoffeeСatalogService.swift in Sources */,
 				D1C803E22D91945700674C04 /* PasswordRecoveryScreen.swift in Sources */,
 				D16275252D903D4E0001D88C /* AlertManager.swift in Sources */,
 				D182F4A72D325A8C00A113E8 /* OnboardingScreen.swift in Sources */,
+				D1EF6EA42DB5A4B300232718 /* AuthServiceProtocol.swift in Sources */,
 				D14413362DB2D3FF00BE38C0 /* CoffeeConfig.swift in Sources */,
+				D1EF6EA22DB593ED00232718 /* City.swift in Sources */,
 				50DFA8132D046D840058A4D4 /* UIWindow+Extension.swift in Sources */,
 				D174204A2D3D532D00FE1E2B /* OnboardingPage.swift in Sources */,
 				32152D692CC8101A00F7AC37 /* OrderConfiguratorScreen.swift in Sources */,
+				D1EF6EA62DB6681700232718 /* AuthService.swift in Sources */,
 				D14413342DB2D35200BE38C0 /* CoffeeConfigViewModel.swift in Sources */,
 				D1C859B62D20A55000DDB941 /* CoffeeSelectionCell.swift in Sources */,
 				D1490D712D45652900230C54 /* OrderPaymentOptionsList.swift in Sources */,
+				D1EF6EAA2DB66D9900232718 /* OrderService.swift in Sources */,
 				D1261C342D71F96500E8C19B /* ButtonLabelAnimated.swift in Sources */,
 				D197C1F82D68A2CD00010474 /* OrderItemCounter.swift in Sources */,
 				D148B8252D67D662002F0344 /* OrderItems.swift in Sources */,
@@ -723,6 +786,7 @@
 				D1AF8E192D67B2D2007382AF /* OrderViewModel.swift in Sources */,
 				D161E8942D9B1D89003BBF78 /* ProfileImageEditorView.swift in Sources */,
 				D1EC2FFC2D2637FA008E8265 /* Color+Extension.swift in Sources */,
+				D18C032A2DBAE430000F79E2 /* CoffeeConfigService.swift in Sources */,
 				32FF43BB2CC6FA35001C0E0C /* AppMainTabView.swift in Sources */,
 				32FF43AB2CC6CC9E001C0E0C /* ProfileScreen.swift in Sources */,
 				D1FEA5262D6603C500B082D8 /* User.swift in Sources */,
@@ -734,14 +798,18 @@
 				D10DDF6F2DA72B7A00D857E1 /* PaymentMethod.swift in Sources */,
 				32325EE02CB2B9490048E557 /* InputField.swift in Sources */,
 				D1426EE72D4E5D5E00C78FE0 /* UIApplication+Extension.swift in Sources */,
+				D18C03262DBAB5FA000F79E2 /* CoffeeCatalogServiceProtocol.swift in Sources */,
+				D1EF6E912DB5672500232718 /* ValidationService.swift in Sources */,
 				D11435302D2EB790007078D9 /* ApplePayView.swift in Sources */,
+				D1EF6E8F2DB5670400232718 /* ValidationServiceProtocol.swift in Sources */,
 				D1721E042D6F573F00A0CBF1 /* Coffee.swift in Sources */,
 				32325EE22CB2C3EB0048E557 /* SignUpScreen.swift in Sources */,
 				D1FEA5302D661A2200B082D8 /* AuthViewModel.swift in Sources */,
+				D18C032C2DBAE4C6000F79E2 /* CoffeeConfigProtocol.swift in Sources */,
 				D1EACE842DA32E0A00484FEC /* CustomListCell.swift in Sources */,
 				D17172782D6689A800B538F6 /* ButtonLabel.swift in Sources */,
 				D1BD90302D45746900F43A54 /* OrderPaymentOptionView.swift in Sources */,
-				D1721E062D6F595500A0CBF1 /* CoffeeViewModel.swift in Sources */,
+				D1721E062D6F595500A0CBF1 /* CoffeeCatalogViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
