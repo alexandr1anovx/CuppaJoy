@@ -14,6 +14,7 @@ final class CoffeeConfigViewModel: ObservableObject {
   @Published var configs: [CoffeeConfig] = []
   private let configService = CoffeeConfigService.shared
   private var cancellables = Set<AnyCancellable>()
+  @Published var alertItem: AlertItem?
   
   private func setupBindings() async {
     do {
@@ -42,7 +43,12 @@ final class CoffeeConfigViewModel: ObservableObject {
     configs.append(config)
   }
   
-  func deleteFavoriteConfig(_ config: CoffeeConfig) {
-    configs.removeAll { $0.id == config.id }
+  func deleteFavoriteConfig(_ config: CoffeeConfig) async {
+    do {
+      try await configService.deleteConfig(config)
+      alertItem = ConfigAlertContext.configSuccessfullyDeleted
+    } catch {
+      alertItem = ConfigAlertContext.failedToDeleteConfig
+    }
   }
 }
