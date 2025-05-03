@@ -15,6 +15,7 @@ struct OrderPaymentScreen: View {
   @State private var isShownDismissAlert = false
   
   var body: some View {
+    
     ZStack {
       Color.csBlack.ignoresSafeArea(.all)
       OrderPaymentOptionView(
@@ -28,21 +29,36 @@ struct OrderPaymentScreen: View {
     .navigationBarBackButtonHidden(true)
     .toolbar {
       ToolbarItem(placement: .topBarTrailing) {
-        Button("Dismiss") {
+        Button {
           isShownDismissAlert.toggle()
-        }.foregroundStyle(.red)
+        } label: {
+          Image(systemName: "xmark.circle.fill")
+            .font(.title3)
+            .foregroundStyle(.red)
+            .symbolRenderingMode(.hierarchical)
+        }
       }
     }
     .alert(isPresented: $isShownDismissAlert) {
       Alert(
         title: Text("You changed your mind?"),
         message: Text("You can return to the main screen to cancel the current order."),
-        primaryButton: .cancel(),
-        secondaryButton: .default(Text("Home")) {
+        primaryButton: .destructive(Text("Cancel")),
+        secondaryButton: .default(Text("Go Home")) {
           path.removeLast(path.count)
           isTabBarVisible = true
         }
       )
     }
   }
+  
+}
+
+#Preview {
+  OrderPaymentScreen(
+    order: MockData.order,
+    isTabBarVisible: .constant(false),
+    path: .constant(NavigationPath())
+  )
+  
 }

@@ -40,6 +40,7 @@ struct OrderPaymentOptionsList: View {
         Text("unavailable now").foregroundStyle(.red)
       }
     }
+    .listRowBackground(Color.csDarkGrey)
     .opacity(isAvailable ? 1 : 0.5)
     .padding(.vertical, 8)
     .onTapGesture {

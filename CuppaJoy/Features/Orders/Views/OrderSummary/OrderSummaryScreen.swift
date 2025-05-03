@@ -79,8 +79,8 @@ struct OrderSummaryScreen: View {
         ButtonLabelWithIcon(
           "Edit",
           icon: "slider.horizontal.3",
-          textColor: .white,
-          bgColor: .black
+          textColor: .orange,
+          bgColor: .csDarkGrey
         )
       }
       Button {
@@ -89,8 +89,8 @@ struct OrderSummaryScreen: View {
         ButtonLabelWithIcon(
           "Confirm for \(order.formattedPrice)",
           icon: "checkmark.circle.fill",
-          textColor: .white,
-          bgColor: .csBrown
+          textColor: .csCream,
+          bgColor: .csDarkGrey
         )
       }
     }

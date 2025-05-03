@@ -16,7 +16,6 @@ struct OrderPaymentOptionView: View {
   
   var body: some View {
     VStack(spacing: 20) {
-      orderConfigurationsButton
       OrderPaymentOptionsList()
       Spacer()
       paymentStack
@@ -28,27 +27,24 @@ struct OrderPaymentOptionView: View {
         path: $path,
         isTabBarVisible: $isTabBarVisible
       )
-      .presentationDetents([.height(340)])
+      .presentationDetents([.height(350)])
       .presentationBackgroundInteraction(.disabled)
       .presentationCornerRadius(30)
     }
   }
   
-  private var orderConfigurationsButton: some View {
-    Button {
-      print("Showed order configurations")
-    } label: {
-      ButtonLabelWithIcon(
-        "Order Configurations",
-        icon: "text.badge.checkmark",
-        textColor: .csCream,
-        bgColor: .csDarkGrey
-      )
-    }
-  }
+  
   
   private var paymentStack: some View {
     VStack(spacing: 25) {
+      Button {
+        // ...
+      } label: {
+        Text("Check my order details.")
+          .font(.callout)
+          .foregroundStyle(.orange)
+          .underline()
+      }
       
       HStack(spacing: 5) {
         Text("Total Amount:")
@@ -74,9 +70,9 @@ struct OrderPaymentOptionView: View {
     }
     .background(
       RoundedRectangle(cornerRadius: 30)
-        .fill(Color.black)
+        .fill(Color.csDarkGrey)
         .ignoresSafeArea(.all)
-        .frame(height: 150)
+        .frame(height: 200)
     )
   }
 }
