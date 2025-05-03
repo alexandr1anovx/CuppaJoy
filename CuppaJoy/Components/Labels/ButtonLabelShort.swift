@@ -23,7 +23,7 @@ struct ButtonLabelShort: View {
     Text(title)
       .font(.subheadline)
       .foregroundStyle(textColor)
-      .padding(11)
+      .padding(10)
       .background(bgColor)
       .clipShape(.capsule)
       .shadow(radius: 3)

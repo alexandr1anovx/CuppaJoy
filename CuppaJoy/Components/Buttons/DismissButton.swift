@@ -8,18 +8,21 @@
 import SwiftUI
 
 struct DismissButton: View {
+  let color: Color
   @Environment(\.dismiss) var dismiss
   
   var body: some View {
-    Image(systemName: "xmark.circle.fill")
-      .font(.title3)
-      .foregroundStyle(.gray)
-      .onTapGesture {
-        dismiss()
-      }
+    Button {
+      dismiss()
+    } label: {
+      Image(systemName: "xmark.circle.fill")
+        .font(.title)
+        .foregroundStyle(color)
+        .symbolRenderingMode(.hierarchical)
+    }
   }
 }
 
 #Preview {
-  DismissButton()
+  DismissButton(color: .red)
 }
