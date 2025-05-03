@@ -19,9 +19,9 @@ struct MockData {
     variety: "Arabica",
     milk: "Lactose",
     flavor: "Caramel",
-    timestamp: .now,
     points: 10,
-    totalPrice: 35.20
+    totalPrice: 35.20,
+    timestamp: .now
   )
   
   static let coffee = Coffee(
@@ -42,21 +42,23 @@ struct MockData {
   )
   
   static let config = CoffeeConfig(
+    id: "1",
     title: "Americano",
-    cupSize: .medium,
+    cupSize: "Medium",
     sugarSticks: 2,
     iceCubes: 1,
-    variety: .robusta,
-    milk: .lactose,
-    flavor: .caramel
+    variety: "Robusta",
+    milk: "Lactose",
+    flavor: "Caramel"
   )
   static let config2 = CoffeeConfig(
+    id: "2",
     title: "Latte",
-    cupSize: .large,
+    cupSize: "Large",
     sugarSticks: 0,
     iceCubes: 1,
-    variety: .excelsa,
-    milk: .lactose,
-    flavor: .vanilla
+    variety: "Excelsa",
+    milk: "Lactose",
+    flavor: "Vanilla"
   )
 }
