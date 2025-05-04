@@ -20,7 +20,7 @@ struct AppEntryRouter: View {
     Group {
       if UserDefaults.standard.isFirstLaunch {
         OnboardingScreen()
-      } else if Auth.auth().currentUser != nil {
+      } else if authViewModel.userSession != nil {
         if isShownAppContent {
           AppMainTabView()
         } else {
