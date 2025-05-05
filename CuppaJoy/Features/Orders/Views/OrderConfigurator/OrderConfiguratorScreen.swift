@@ -90,16 +90,15 @@ struct OrderConfiguratorScreen: View {
     .navigationBarBackButtonHidden(true)
     .ignoresSafeArea(.keyboard)
     
-    .alert("Save Config", isPresented: $isShownSaveConfigAlert) {
+    .alert(
+      "Want to save your configuration?",
+      isPresented: $isShownSaveConfigAlert
+    ) {
       TextField("Config name", text: $configName)
-      Button("Cancel", role: .cancel) { configName = "" }
-      Button("Save") {
-        orderViewModel.setFavoriteConfigs(config) 
-        configName = ""
-      }
-      .disabled(configName.isEmpty)
+      cancelConfigButton
+      saveConfigButton
     } message: {
-      Text("Enter the name of your config.")
+      Text("Minimum 1 character, maximum 6!")
     }
     
     .sheet(isPresented: $isShownFAQ) {
@@ -109,6 +108,7 @@ struct OrderConfiguratorScreen: View {
         .presentationDragIndicator(.visible)
         .presentationCompactAdaptation(.sheet)
     }
+    
     .toolbar {
       ToolbarItem(placement: .topBarLeading) {
         Button {
@@ -122,7 +122,6 @@ struct OrderConfiguratorScreen: View {
         Image(systemName: "info.circle.fill")
           .foregroundStyle(.csCream)
           .onTapGesture {
-            
             isShownFAQ.toggle()
           }
       }
@@ -143,6 +142,19 @@ struct OrderConfiguratorScreen: View {
   }
   
   // MARK: - Configurations List
+  
+  private var saveConfigButton: some View {
+    // MARK: ‼️ BUG ‼️
+    // The UI is not updating when the user adds the config.
+    Button("Save") {
+      orderViewModel.setFavoriteConfigs(config)
+      configName = ""
+    }.disabled(configName.isEmpty && configName.count > 8)
+  }
+  
+  private var cancelConfigButton: some View {
+    Button("Cancel", role: .destructive) { configName = "" }
+  }
   
   private var configurationsList: some View {
     List {
@@ -185,7 +197,6 @@ struct OrderConfiguratorScreen: View {
   // MARK: - Favorite Configs View
   
   private var favoriteConfigsView: some View {
-    
     HStack {
       Text("My Configs:")
         .font(.footnote)
