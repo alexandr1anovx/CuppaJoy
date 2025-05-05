@@ -48,7 +48,7 @@ final class CoffeeCatalogViewModel: ObservableObject {
 extension CoffeeCatalogViewModel {
   static func previewMode() -> CoffeeCatalogViewModel {
     let viewModel = CoffeeCatalogViewModel()
-    viewModel.coffees = [MockData.coffee, MockData.coffee]
+    //viewModel.coffees = [MockData.coffee, MockData.coffee]
     return viewModel
   }
 }

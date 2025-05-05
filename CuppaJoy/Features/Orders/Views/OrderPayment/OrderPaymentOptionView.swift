@@ -33,8 +33,6 @@ struct OrderPaymentOptionView: View {
     }
   }
   
-  
-  
   private var paymentStack: some View {
     VStack(spacing: 25) {
       Button {
@@ -64,13 +62,14 @@ struct OrderPaymentOptionView: View {
           "Pay",
           icon: "apple.logo",
           textColor: .white,
-          bgColor: .blue
+          bgColor: .black
         )
       }
     }
     .background(
       RoundedRectangle(cornerRadius: 30)
-        .fill(Color.csDarkGrey)
+        .fill(Color.csBlack)
+        .shadow(color: .white, radius: 1)
         .ignoresSafeArea(.all)
         .frame(height: 200)
     )

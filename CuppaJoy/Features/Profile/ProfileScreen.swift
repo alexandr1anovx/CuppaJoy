@@ -68,7 +68,7 @@ struct ProfileScreen: View {
       Button("Cancel", role: .cancel) { accountPassword = "" }
       Button("Delete", role: .destructive) {
         Task {
-          await authViewModel.deleteUser(password: accountPassword)
+          await authViewModel.deleteUser(withPassword: accountPassword)
         }
       }
     } message: {

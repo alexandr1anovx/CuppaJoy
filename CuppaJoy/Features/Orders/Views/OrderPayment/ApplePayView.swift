@@ -45,7 +45,7 @@ struct ApplePayView: View {
         message: Text("The order has been placed in the queue."),
         dismissButton: .default(Text("OK")) {
           dismiss()
-          DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+          DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             path.removeLast(path.count)
             isTabBarVisible = true
           }

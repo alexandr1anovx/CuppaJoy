@@ -16,7 +16,7 @@ extension View {
     self
       .listStyle(.insetGrouped)
       .listRowSpacing(rowSpacing)
-      .scrollIndicators(.hidden)
+      //.scrollIndicators(.hidden)
       .scrollContentBackground(.hidden)
       .shadow(radius: shadowRadius ?? 0)
   }
