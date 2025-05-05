@@ -34,7 +34,7 @@ struct ButtonLabelWithIconAnimated: View {
       .fontWeight(.medium)
       .foregroundStyle(textColor)
       .frame(maxWidth: .infinity)
-      .padding(.vertical,15)
+      .padding(.vertical,16)
       .background(bgColor)
       .clipShape(.rect(cornerRadius: 15))
       .padding(.horizontal,20)
