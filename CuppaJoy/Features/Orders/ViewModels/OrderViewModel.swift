@@ -32,10 +32,6 @@ final class OrderViewModel: ObservableObject {
     orderService.getConfigs()
   }
   
-  func setFavoriteConfigs(_ config: CoffeeConfig) {
-    orderService.setFavoriteConfigs(config)
-  }
-  
   func setOngoingOrders(_ order: Order) {
     orderService.setOngoingOrders(order)
   }
