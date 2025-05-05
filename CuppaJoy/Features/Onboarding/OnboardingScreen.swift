@@ -25,15 +25,15 @@ struct OnboardingScreen: View {
   }
   
   private var onboardingPage: some View {
-    ZStack(alignment: .bottom) {
-      Color.appBackground.ignoresSafeArea(.all)
+    ZStack {
+      Color.appBackground.ignoresSafeArea()
       VStack(spacing: 35) {
-        Spacer()
         onboardingData(for: pages[pageIndex])
         pageIndicator
-        Spacer()
       }
-      continueButton.padding(.bottom, 10)
+    }
+    .overlay(alignment: .bottom) {
+      continueButton
     }
   }
   
