@@ -13,7 +13,6 @@ final class OrderViewModel: ObservableObject {
   
   @Published var ongoingOrders: [Order] = []
   @Published var receivedOrders: [Order] = []
-  @Published var favoriteConfigs: [CoffeeConfig] = []
   
   private let orderService = OrderService.shared
   private var cancellables = Set<AnyCancellable>()
@@ -28,12 +27,8 @@ final class OrderViewModel: ObservableObject {
     orderService.getOngoingOrders()
   }
   
-  func getConfigs() {
-    orderService.getConfigs()
-  }
-  
   func setOngoingOrders(_ order: Order) {
-    orderService.setOngoingOrders(order)
+    orderService.setOngoingOrder(order)
   }
   
   func cancelOngoingOrder(_ order: Order) {
@@ -44,10 +39,6 @@ final class OrderViewModel: ObservableObject {
   
   func getReceivedOrders() {
     orderService.getReceivedOrders()
-  }
-  
-  func setReceivedOrders(_ order: Order) {
-    orderService.setReceivedOrders(order)
   }
   
   // MARK: Private Methods
@@ -65,7 +56,7 @@ final class OrderViewModel: ObservableObject {
         guard let self = self else { return }
         self.ongoingOrders = self.orderService.ongoingOrders
         self.receivedOrders = self.orderService.receivedOrders
-        self.favoriteConfigs = self.orderService.favoriteConfigs
+        //self.favoriteConfigs = self.orderService.favoriteConfigs
       }
       .store(in: &cancellables)
   }
@@ -76,7 +67,7 @@ final class OrderViewModel: ObservableObject {
 extension OrderViewModel {
   static func previewMode() -> OrderViewModel {
     let viewModel = OrderViewModel()
-    viewModel.favoriteConfigs = [MockData.config2]
+    //viewModel.favoriteConfigs = [MockData.config2]
     return viewModel
   }
 }
