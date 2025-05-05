@@ -26,7 +26,7 @@ final class OrderService: OrderServiceProtocol {
   
   var ongoingOrders: [Order] = []
   var receivedOrders: [Order] = []
-  var favoriteConfigs: [CoffeeConfig] = [MockData.config2]
+  var favoriteConfigs: [CoffeeConfig] = []
   
   func getOngoingOrders() {
     guard let uid = auth.currentUser?.uid else {
@@ -228,8 +228,8 @@ final class OrderService: OrderServiceProtocol {
 extension OrderService {
   static func previewMode() -> OrderService {
     let service = OrderService.shared
-    service.ongoingOrders = [MockData.order]
-    service.receivedOrders = [MockData.order]
+    //service.ongoingOrders = [MockData.order]
+    //service.receivedOrders = [MockData.order]
     return service
   }
 }

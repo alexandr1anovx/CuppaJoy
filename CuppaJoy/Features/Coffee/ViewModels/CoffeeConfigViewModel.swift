@@ -46,9 +46,9 @@ final class CoffeeConfigViewModel: ObservableObject {
   func deleteFavoriteConfig(_ config: CoffeeConfig) async {
     do {
       try await configService.deleteConfig(config)
-      alertItem = ConfigAlertContext.configSuccessfullyDeleted
+      alertItem = ConfigAlertContext.configDeletionSuccess
     } catch {
-      alertItem = ConfigAlertContext.failedToDeleteConfig
+      alertItem = ConfigAlertContext.configDeletionFailed
     }
   }
 }

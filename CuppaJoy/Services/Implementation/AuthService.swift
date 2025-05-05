@@ -25,12 +25,11 @@ final class AuthService: AuthServiceProtocol {
   func signIn(
     email: String,
     password: String
-  ) async throws -> FirebaseAuth.User {
-    let result = try await auth.signIn(
+  ) async throws {
+    try await auth.signIn(
       withEmail: email,
       password: password
     )
-    return result.user
   }
   
   func signUp(email: String, password: String) async throws -> FirebaseAuth.User {
@@ -45,13 +44,13 @@ final class AuthService: AuthServiceProtocol {
     try auth.signOut()
   }
   
-  func deleteUser(password: String) async throws {
+  func deleteUser(withPassword: String) async throws {
     guard let user = auth.currentUser, let email = user.email else {
       throw AuthErrorCode.userNotFound
     }
     let credential = EmailAuthProvider.credential(
       withEmail: email,
-      password: password
+      password: withPassword
     )
     try await user.reauthenticate(with: credential)
     try await userCollection.document(user.uid).delete()

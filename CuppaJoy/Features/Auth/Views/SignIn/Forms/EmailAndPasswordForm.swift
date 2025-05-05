@@ -86,7 +86,7 @@ struct EmailAndPasswordForm: View {
     Button {
       Task {
         await authViewModel.signIn(with: email, and: password)
-        isShownHome.toggle()
+        password = ""
       }
     } label: {
       ButtonLabel(
@@ -114,7 +114,7 @@ struct EmailAndPasswordForm: View {
         .font(.caption)
         .fontWeight(.semibold)
         .foregroundStyle(.gray)
-        .underline(true)
+        .underline()
     }
   }
 }

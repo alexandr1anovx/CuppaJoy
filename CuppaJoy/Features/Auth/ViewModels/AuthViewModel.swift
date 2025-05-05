@@ -30,14 +30,11 @@ final class AuthViewModel: ObservableObject {
     and password: String
   ) async {
     do {
-      let user = try await authService.signIn(
-        email: email,
-        password: password
-      )
-      self.userSession = user
-      self.currentUser = try await authService.fetchUserData(uid: user.uid)
+      try await authService.signIn(email: email, password: password)
+      self.userSession = authService.currentUser
+      await fetchUserData()
     } catch {
-      alertItem = AuthAlertContext.failedToSignIn
+      alertItem = AuthAlertContext.userNotExist
     }
   }
   
@@ -64,7 +61,7 @@ final class AuthViewModel: ObservableObject {
       self.userSession = user
       self.currentUser = newUser
     } catch {
-      alertItem = AuthAlertContext.failedToSignUp
+      alertItem = AuthAlertContext.userExists
     }
   }
   
@@ -82,12 +79,10 @@ final class AuthViewModel: ObservableObject {
     email: String,
     city: City
   ) async {
-    
     guard let currentUser else {
-      alertItem = AuthAlertContext.unsuccessfulProfileUpdate
+      alertItem = AuthAlertContext.profileUpdateFailed
       return
     }
-    
     let updatedUser = User(
       id: currentUser.id,
       fullName: fullName,
@@ -95,20 +90,20 @@ final class AuthViewModel: ObservableObject {
       city: city.title,
       coins: currentUser.coins
     )
-    
     do {
       try await authService.saveUserData(for: updatedUser)
       self.currentUser = updatedUser
-      alertItem = AuthAlertContext.successfulProfileUpdate
+      alertItem = AuthAlertContext.profileUpdateSuccess
     } catch {
       print("⚠️ Failed to update profile: \(error)")
-      alertItem = AuthAlertContext.unsuccessfulProfileUpdate
+      alertItem = AuthAlertContext.profileUpdateFailed
     }
   }
   
-  func deleteUser(password: String) async {
+  func deleteUser(withPassword: String) async {
     do {
-      try await authService.deleteUser(password: password)
+      try await authService.deleteUser(withPassword: withPassword)
+      alertItem = AuthAlertContext.successfullAccountDeletion
       self.currentUser = nil
     } catch {
       print("⚠️ Failed to delete user: \(error)")

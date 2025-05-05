@@ -123,6 +123,13 @@ struct SignUpScreen: View {
     }
     .disabled(!isValidForm)
     .opacity(!isValidForm ? 0.3 : 1)
+    .alert(item: $authViewModel.alertItem) { alert in
+      Alert(
+        title: alert.title,
+        message: alert.message,
+        dismissButton: alert.dismissButton
+      )
+    }
   }
   
   private var signInOption: some View {

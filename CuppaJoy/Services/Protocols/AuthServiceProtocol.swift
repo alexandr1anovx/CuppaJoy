@@ -14,7 +14,7 @@ protocol AuthServiceProtocol {
   func signIn(
     email: String,
     password: String
-  ) async throws -> FirebaseAuth.User
+  ) async throws
   
   func signUp(
     email: String,
@@ -23,7 +23,7 @@ protocol AuthServiceProtocol {
   
   func sendEmailVerification() async throws
   func signOut() throws
-  func deleteUser(password: String) async throws
+  func deleteUser(withPassword: String) async throws
   func sendPasswordReset(email: String) async throws
   func fetchUserData(uid: String) async throws -> User
   func saveUserData(for user: User) async throws
