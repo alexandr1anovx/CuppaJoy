@@ -15,12 +15,12 @@ final class AuthService: AuthServiceProtocol {
   let userCollection = Firestore.firestore().collection("users")
   var currentUser: FirebaseAuth.User? { auth.currentUser }
   
-  // MARK: - Private Init
+  // MARK: - Private Initializer
   
   static let shared = AuthService()
   private init() {}
   
-  // MARK: - Authentication Methods
+  // MARK: - Public Methods
   
   func signIn(
     email: String,
