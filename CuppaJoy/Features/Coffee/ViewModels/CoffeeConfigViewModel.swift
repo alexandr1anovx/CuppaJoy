@@ -11,44 +11,51 @@ import Combine
 @MainActor
 final class CoffeeConfigViewModel: ObservableObject {
   
-  @Published var configs: [CoffeeConfig] = []
+  @Published var favoriteConfigs: [CoffeeConfig] = []
+  @Published var alertItem: AlertItem?
   private let configService = CoffeeConfigService.shared
   private var cancellables = Set<AnyCancellable>()
-  @Published var alertItem: AlertItem?
   
-  private func setupBindings() async {
+  init() {
+    Task { await setupBindings() }
+  }
+  
+  // MARK: - Public Methods
+  
+  func fetchFavoriteConfigs() async {
     do {
-      try await configService.fetchConfigs()
-      Timer.publish(every: 0.5, on: .main, in: .common)
-        .autoconnect()
-        .sink { [weak self] _ in
-          guard let self = self else { return }
-          self.configs = self.configService.configs
-        }
-        .store(in: &cancellables)
+      try await configService.fetchFavoriteConfigs()
     } catch {
-      print("⚠️ Cannot setup bindings")
+      print("⚠️ Failed to fetch favorite configs: \(error.localizedDescription)")
     }
   }
   
-  func fetchConfigs() async {
-    do {
-      try await configService.fetchConfigs()
-    } catch {
-      print("⚠️ Failed to fetch user configs: \(error.localizedDescription)")
-    }
-  }
-  
-  func saveFavoriteConfig(_ config: CoffeeConfig) {
-    configs.append(config)
+  func saveFavoriteConfig(_ config: CoffeeConfig) async {
+    configService.saveFavoriteConfig(config)
   }
   
   func deleteFavoriteConfig(_ config: CoffeeConfig) async {
     do {
-      try await configService.deleteConfig(config)
+      try await configService.deleteFavoriteConfig(config)
       alertItem = ConfigAlertContext.configDeletionSuccess
     } catch {
       alertItem = ConfigAlertContext.configDeletionFailed
+    }
+  }
+  
+  // MARK: - Private Methods
+  private func setupBindings() async {
+    do {
+      try await configService.fetchFavoriteConfigs()
+      Timer.publish(every: 0.5, on: .main, in: .common)
+        .autoconnect()
+        .sink { [weak self] _ in
+          guard let self = self else { return }
+          self.favoriteConfigs = self.configService.favoriteConfigs
+        }
+        .store(in: &cancellables)
+    } catch {
+      print("⚠️ Cannot setup bindings")
     }
   }
 }
