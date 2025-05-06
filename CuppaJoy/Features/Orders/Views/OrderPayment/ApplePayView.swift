@@ -95,7 +95,7 @@ struct ApplePayView: View {
   private var paymentButton: some View {
     Button {
       Task {
-        orderViewModel.setOngoingOrders(order)
+        orderViewModel.setOngoingOrder(order)
         isShownAlert.toggle()
         feedbackGenerator.notificationOccurred(.success)
       }
