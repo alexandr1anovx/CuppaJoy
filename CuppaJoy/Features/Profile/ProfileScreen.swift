@@ -47,7 +47,7 @@ struct ProfileScreen: View {
   // MARK: Body
   var body: some View {
     ZStack {
-      Color.csBlack.ignoresSafeArea(.all)
+      Color.appBackgroundDimmed.ignoresSafeArea(.all)
       ScrollView {
         VStack {
           EditableProfileImageView()

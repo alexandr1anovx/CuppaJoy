@@ -28,7 +28,7 @@ struct SignUpScreen: View {
   
   var body: some View {
     ZStack {
-      Color.csBlack.ignoresSafeArea(.all)
+      Color.appBackgroundDimmed.ignoresSafeArea(.all)
       ScrollView {
         VStack(spacing: 0) {
           textFields

@@ -25,7 +25,7 @@ struct EmailAndPasswordForm: View {
   
   var body: some View {
     ZStack {
-      Color.csBlack.ignoresSafeArea(.all)
+      Color.appBackgroundDimmed.ignoresSafeArea(.all)
       VStack(spacing: 15) {
         List {
           Section {

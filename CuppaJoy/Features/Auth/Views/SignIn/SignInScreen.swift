@@ -8,13 +8,11 @@
 import SwiftUI
 
 struct SignInScreen: View {
-  
   var body: some View {
     NavigationStack {
       ZStack {
-        Color.csBlack.ignoresSafeArea(.all)
+        Color.appBackgroundDimmed.ignoresSafeArea(.all)
         VStack(spacing: 25) {
-          // Sign In Header View
           HStack(alignment: .firstTextBaseline) {
             Text("Sign In.")
               .font(.title3)
@@ -40,7 +38,7 @@ struct SignInScreen: View {
         "Continue with Email & Password",
         icon: "envelope",
         textColor: .orange,
-        bgColor: .black
+        bgColor: .csBlack
       )
     }
   }
