@@ -9,6 +9,6 @@ import Foundation
 
 protocol CoffeeConfigProtocol {
   func fetchFavoriteConfigs() async throws
-  func saveFavoriteConfig(_ config: CoffeeConfig) async throws
+  func saveFavoriteConfig(_ config: CoffeeConfig)
   func deleteFavoriteConfig(_ config: CoffeeConfig) async throws
 }
