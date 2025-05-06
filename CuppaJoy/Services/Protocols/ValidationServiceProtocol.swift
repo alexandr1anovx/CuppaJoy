@@ -9,7 +9,7 @@ import Foundation
 
 protocol ValidationServiceProtocol {
   func isValid(fullName: String) -> Bool
-  func isValid(phoneNumber: String) -> Bool
+  // func isValid(phoneNumber: String) -> Bool
   func isValid(email: String) -> Bool
   func isValid(password: String) -> Bool
 }

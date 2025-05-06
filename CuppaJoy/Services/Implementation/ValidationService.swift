@@ -9,22 +9,26 @@ import Foundation
 
 final class ValidationService: ValidationServiceProtocol {
   
+  // MARK: Private Initializer
+  
   static let shared = ValidationService()
   private init() {}
+  
+  // MARK: Public Methods
   
   func isValid(fullName: String) -> Bool {
     let regex = #"^[a-zA-Z-]+ ?.* [a-zA-Z-]+$"#
     let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
     return predicate.evaluate(with: fullName)
   }
-  
+  /*
   func isValid(phoneNumber: String) -> Bool {
     // works only for ukrainian format
     let regex = #"^(\+380|0)\d{9}$"#
     let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
     return predicate.evaluate(with: phoneNumber)
   }
-  
+  */
   func isValid(email: String) -> Bool {
     let regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,64}$"
     let predicate = NSPredicate(format: "SELF MATCHES[c] %@", regex)
@@ -36,5 +40,4 @@ final class ValidationService: ValidationServiceProtocol {
     let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
     return predicate.evaluate(with: password)
   }
-
 }
