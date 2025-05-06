@@ -13,6 +13,11 @@ extension Color {
     startPoint: .topLeading,
     endPoint: .bottomTrailing
   )
+  static let appBackgroundDimmed = AngularGradient(
+    colors: [.csBrown.opacity(0.4), .csBlack],
+    center: .trailing,
+    angle: .degrees(360)
+  )
   static let gradientCream = LinearGradient(
     colors: [.csCream],
     startPoint: .topTrailing,
