@@ -47,7 +47,7 @@ final class OrderViewModel: ObservableObject {
     // Using KVO to observe changes in the service's arrays
     orderService.getOngoingOrders()
     orderService.getReceivedOrders()
-    orderService.getConfigs()
+    //orderService.getConfigs()
     
     // Update our published properties whenever the service's properties change
     Timer.publish(every: 0.5, on: .main, in: .common)
