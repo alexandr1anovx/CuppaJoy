@@ -13,26 +13,29 @@
 //
 
 import Foundation
-import FirebaseFirestore
 import FirebaseAuth
 
 final class OrderService: OrderServiceProtocol {
   
-  static let shared = OrderService()
-  private init() {}
-  
-  private let auth = Auth.auth()
-  private let userCollection = Firestore.firestore().collection("users")
+  // MARK: Properties
   
   var ongoingOrders: [Order] = []
   var receivedOrders: [Order] = []
+  private let authService = AuthService.shared
+  
+  // MARK: Private Initializer
+  
+  static let shared = OrderService()
+  private init() {}
+  
+  // MARK: - Ongoing Orders
   
   func getOngoingOrders() {
-    guard let uid = auth.currentUser?.uid else {
+    guard let uid = authService.currentUser?.uid else {
       print("⚠️ Failed to get user ID.")
       return
     }
-    userCollection.document(uid).collection("orders")
+    authService.userCollection.document(uid).collection("orders")
       .whereField("status", isEqualTo: "ongoing")
       .addSnapshotListener { [weak self] snapshot, error in
         guard let self = self else { return }
@@ -58,7 +61,7 @@ final class OrderService: OrderServiceProtocol {
   }
   
   func setOngoingOrder(_ order: Order) {
-    guard let uid = auth.currentUser?.uid else {
+    guard let uid = authService.currentUser?.uid else {
       print("⚠️ Failed to get user ID")
       return
     }
@@ -77,7 +80,7 @@ final class OrderService: OrderServiceProtocol {
       "totalPrice": order.totalPrice,
       "status": "ongoing"
     ]
-    userCollection.document(uid).collection("orders").document(order.id)
+    authService.userCollection.document(uid).collection("orders").document(order.id)
       .setData(orderData) { error in
         if let error {
           print("⚠️ Error writing document: \(error)")
@@ -88,12 +91,14 @@ final class OrderService: OrderServiceProtocol {
   }
   
   func cancelOngoingOrder(_ order: Order) {
-    guard let uid = auth.currentUser?.uid else {
+    guard let uid = authService.currentUser?.uid else {
       print("⚠️ Failed to get user ID.")
       return
     }
+    
     self.ongoingOrders.removeAll { $0.id == order.id }
-    userCollection.document(uid).collection("orders").document(order.id)
+    
+    authService.userCollection.document(uid).collection("orders").document(order.id)
       .delete { error in
         guard let error else {
           print("✅ Order successfully deleted from Firestore!")
@@ -103,12 +108,14 @@ final class OrderService: OrderServiceProtocol {
       }
   }
   
+  // MARK: - Received Orders
+  
   func getReceivedOrders() {
-    guard let uid = auth.currentUser?.uid else {
+    guard let uid = authService.currentUser?.uid else {
       print("⚠️ Failed to get user ID")
       return
     }
-    userCollection.document(uid).collection("orders")
+    authService.userCollection.document(uid).collection("orders")
       .whereField("status", isEqualTo: "received")
       .order(by: "timestamp", descending: true)
       .addSnapshotListener { [weak self] querySnapshot, error in
@@ -132,16 +139,5 @@ final class OrderService: OrderServiceProtocol {
           }
         }
       }
-  }
-}
-
-// MARK: Preview Mode
-
-extension OrderService {
-  static func previewMode() -> OrderService {
-    let service = OrderService.shared
-    //service.ongoingOrders = [MockData.order]
-    //service.receivedOrders = [MockData.order]
-    return service
   }
 }
