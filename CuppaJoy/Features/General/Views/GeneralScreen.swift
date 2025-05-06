@@ -24,10 +24,8 @@ struct GeneralScreen: View {
   var body: some View {
     NavigationStack(path: $path) {
       ZStack {
-        Color.csBlack.ignoresSafeArea(.all)
+        Color.appBackgroundDimmed.ignoresSafeArea(.all)
         VStack {
-          // Check whether the user data is shown
-          // Otherwise shown a progress view
           if let user = authViewModel.currentUser {
             HStack(spacing: 15) {
               StaticProfileImageView()
@@ -50,7 +48,6 @@ struct GeneralScreen: View {
             VStack{
               ProgressView()
               Text("Data is loading...")
-              Text("Please, wait a bit.")
             }
           }
           
