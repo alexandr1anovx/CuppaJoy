@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import FirebaseAuth
 
 struct AppEntryRouter: View {
   
@@ -33,7 +32,7 @@ struct AppEntryRouter: View {
     .onAppear {
       Task {
         await coffeeCatalogViewModel.fetchCoffees()
-        await coffeeConfigViewModel.fetchConfigs()
+        await coffeeConfigViewModel.fetchFavoriteConfigs()
       }
       orderViewModel.getOngoingOrders()
       orderViewModel.getReceivedOrders()

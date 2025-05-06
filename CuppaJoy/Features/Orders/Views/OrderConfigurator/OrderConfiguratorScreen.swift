@@ -75,7 +75,7 @@ struct OrderConfiguratorScreen: View {
       Color.appBackground.ignoresSafeArea(.all)
       
       VStack {
-        if orderViewModel.favoriteConfigs.isEmpty {
+        if configViewModel.favoriteConfigs.isEmpty {
           emptyConfigsView
         } else {
           favoriteConfigsView
@@ -147,9 +147,12 @@ struct OrderConfiguratorScreen: View {
     // MARK: ‼️ BUG ‼️
     // The UI is not updating when the user adds the config.
     Button("Save") {
-      orderViewModel.setFavoriteConfigs(config)
-      configName = ""
-    }.disabled(configName.isEmpty && configName.count > 8)
+      print("✅ Config has been successfully saved!")
+      Task {
+        await configViewModel.saveFavoriteConfig(config)
+      }
+    }
+    .disabled(configName.isEmpty && configName.count > 8)
   }
   
   private var cancelConfigButton: some View {
@@ -205,7 +208,7 @@ struct OrderConfiguratorScreen: View {
       
       ScrollView(.horizontal) {
         HStack(spacing: 10) {
-          ForEach(orderViewModel.favoriteConfigs) { config in
+          ForEach(configViewModel.favoriteConfigs) { config in
             Button {
               selectedConfig = config
               applyConfig()

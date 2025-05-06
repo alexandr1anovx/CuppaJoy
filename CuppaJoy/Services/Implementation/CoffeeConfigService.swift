@@ -6,12 +6,14 @@
 //
 
 import Foundation
+import FirebaseFirestore
+import FirebaseAuth
 
 final class CoffeeConfigService: CoffeeConfigProtocol {
   
-  // MARK: Private Properites
+  var favoriteConfigs: [CoffeeConfig] = []
   
-  var configs: [CoffeeConfig] = []
+  // MARK: Private Properites
   private let authService = AuthService.shared
   
   // MARK: - Private Initializer
@@ -21,7 +23,7 @@ final class CoffeeConfigService: CoffeeConfigProtocol {
   
   // MARK: - Public Methods
   
-  func fetchConfigs() async throws {
+  func fetchFavoriteConfigs() async throws {
     guard let uid = authService.currentUser?.uid else {
       print("⚠️ Failed to get user ID")
       return
@@ -42,16 +44,40 @@ final class CoffeeConfigService: CoffeeConfigProtocol {
           try? doc.data(as: CoffeeConfig.self)
         }
         DispatchQueue.main.async {
-          self.configs = newConfigs
+          self.favoriteConfigs = newConfigs
         }
       }
   }
   
-  func saveConfigs(_ config: CoffeeConfig) async {
-    configs.append(config)
+  
+  func saveFavoriteConfig(_ config: CoffeeConfig) {
+    guard let uid = authService.currentUser?.uid else {
+      print("⚠️Failed to get user ID")
+      return
+    }
+    
+    let configData: [String: Any] = [
+      "id": config.id,
+      "title": config.title,
+      "cupSize": config.cupSize,
+      "sugarSticks": config.sugarSticks,
+      "iceCubes": config.iceCubes,
+      "variety": config.variety,
+      "milk": config.milk,
+      "flavor": config.flavor
+    ]
+    
+    authService.userCollection.document(uid).collection("configs").document(config.id)
+      .setData(configData) { error in
+        if let error {
+          print("⚠️ Failed to save favorite config: \(error)")
+        } else {
+          print("✅ Order document successfully updated with the new config!")
+        }
+      }
   }
   
-  func deleteConfig(_ config: CoffeeConfig) async throws {
+  func deleteFavoriteConfig(_ config: CoffeeConfig) async throws {
     guard let uid = authService.currentUser?.uid else {
       print("⚠️ Failed to get user ID")
       throw NSError(
@@ -60,7 +86,6 @@ final class CoffeeConfigService: CoffeeConfigProtocol {
         userInfo: [NSLocalizedDescriptionKey: "User not authenticated"]
       )
     }
-    
     let userDocument = authService.userCollection.document(uid)
     try await userDocument.collection("configs").document(config.id).delete()
   }
