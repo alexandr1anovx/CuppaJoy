@@ -34,12 +34,12 @@ struct ButtonLabelWithIconAnimated: View {
       .fontWeight(.medium)
       .foregroundStyle(textColor)
       .frame(maxWidth: .infinity)
-      .padding(.vertical,16)
+      .padding(.vertical,17)
       .background(bgColor)
       .clipShape(.rect(cornerRadius: 15))
-      .padding(.horizontal,20)
+      .padding(.horizontal,30)
       .shadow(radius: 5)
-      .scaleEffect(isAnimating ? 0.95 : 1)
+      .scaleEffect(isAnimating ? 0.98 : 1)
       .onAppear {
         withAnimation(.easeInOut(duration: 2).repeatForever()) {
           isAnimating.toggle()
