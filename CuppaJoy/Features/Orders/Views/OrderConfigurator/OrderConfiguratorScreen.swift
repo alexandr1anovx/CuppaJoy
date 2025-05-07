@@ -73,7 +73,6 @@ struct OrderConfiguratorScreen: View {
   var body: some View {
     ZStack {
       Color.appBackground.ignoresSafeArea(.all)
-      
       VStack {
         if configViewModel.favoriteConfigs.isEmpty {
           emptyConfigsView
@@ -90,15 +89,12 @@ struct OrderConfiguratorScreen: View {
     .navigationBarBackButtonHidden(true)
     .ignoresSafeArea(.keyboard)
     
-    .alert(
-      "Want to save your configuration?",
-      isPresented: $isShownSaveConfigAlert
-    ) {
-      TextField("Config name", text: $configName)
+    .alert("Config Saving", isPresented: $isShownSaveConfigAlert) {
+      TextField("Enter a name", text: $configName)
       cancelConfigButton
       saveConfigButton
     } message: {
-      Text("Minimum 1 character, maximum 6!")
+      Text("Make sure you carefully check your current config.")
     }
     
     .sheet(isPresented: $isShownFAQ) {
@@ -126,15 +122,6 @@ struct OrderConfiguratorScreen: View {
           }
       }
     }
-    
-    .alert(item: $configViewModel.alertItem) { alertItem in
-      Alert(
-        title: alertItem.title,
-        message: alertItem.message,
-        dismissButton: alertItem.dismissButton
-      )
-    }
-    
     .onAppear {
       isTabBarVisible = false
       setupSegmentedControlAppearance()
@@ -144,19 +131,16 @@ struct OrderConfiguratorScreen: View {
   // MARK: - Configurations List
   
   private var saveConfigButton: some View {
-    // MARK: ‼️ BUG ‼️
-    // The UI is not updating when the user adds the config.
     Button("Save") {
-      print("✅ Config has been successfully saved!")
       Task {
         await configViewModel.saveFavoriteConfig(config)
       }
     }
-    .disabled(configName.isEmpty && configName.count > 8)
+    .disabled(configName.isEmpty || configName.count > 6)
   }
   
   private var cancelConfigButton: some View {
-    Button("Cancel", role: .destructive) { configName = "" }
+    Button("Cancel") { configName = "" }
   }
   
   private var configurationsList: some View {
@@ -181,19 +165,19 @@ struct OrderConfiguratorScreen: View {
   // MARK: - Empty Configs View
   
   private var emptyConfigsView: some View {
-    HStack(spacing: 15) {
-      Text("You don't have any saved configs.")
+    HStack {
+      Text("You have 0 favorite configs.")
         .underline()
         .font(.caption)
         .foregroundStyle(.gray)
-      Button("Save", systemImage: "plus.circle") {
+      Button("Add", systemImage: "plus.circle") {
         isShownSaveConfigAlert.toggle()
       }
       .font(.footnote)
       .foregroundStyle(.orange)
       .padding(12)
       .background(.csDarkGrey)
-      .clipShape(.buttonBorder)
+      .clipShape(.capsule)
     }
   }
   
@@ -221,7 +205,6 @@ struct OrderConfiguratorScreen: View {
             }
             .contextMenu {
               Group {
-                Button("Edit Config", systemImage: "pencil") {}
                 Button("Delete Config", systemImage: "trash") {
                   Task {
                     await configViewModel.deleteFavoriteConfig(config)
