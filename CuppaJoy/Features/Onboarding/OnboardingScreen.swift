@@ -26,14 +26,30 @@ struct OnboardingScreen: View {
   
   private var onboardingPage: some View {
     ZStack {
-      Color.appBackground.ignoresSafeArea()
-      VStack(spacing: 35) {
+      mainGradientBackground
+      VStack(spacing: 30) {
         onboardingData(for: pages[pageIndex])
         pageIndicator
       }
     }
     .overlay(alignment: .bottom) {
       continueButton
+        .padding(.bottom,8)
+    }
+  }
+  
+  private var mainGradientBackground: some View {
+    AngularGradient(
+      colors: [.csBlack, .csBrown],
+      center: .center,
+      angle: .degrees(isAnimating ? 360:0)
+    )
+    .blur(radius: 50)
+    .ignoresSafeArea()
+    .onAppear {
+      withAnimation(.linear(duration: 8).repeatForever(autoreverses: false)) {
+        isAnimating = true
+      }
     }
   }
   
@@ -85,7 +101,7 @@ struct OnboardingScreen: View {
         isIndexLast ? "Get Started!": "Continue",
         icon: isIndexLast ? "checkmark.seal.fill": "arrow.right.circle.fill",
         textColor: isIndexLast ? .black : .white,
-        bgColor: isIndexLast ? Color.gradientCream : Color.gradientBrownBlack
+        bgColor: isIndexLast ? Color.gradientCream : Color.gradientBrown
       )
     }
   }
