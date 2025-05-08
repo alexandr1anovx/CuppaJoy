@@ -103,5 +103,5 @@ struct GeneralScreen: View {
 
 #Preview {
   GeneralScreen()
-    .environmentObject(AuthViewModel.previewMode())
+    .environmentObject(AuthViewModel())
 }

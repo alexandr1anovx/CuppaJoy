@@ -41,8 +41,8 @@ enum Tab {
 
 #Preview {
   AppMainTabView()
-    .environmentObject(AuthViewModel.previewMode())
-    .environmentObject(CoffeeCatalogViewModel.previewMode())
-    .environmentObject(OrderViewModel.previewMode())
+    .environmentObject(AuthViewModel())
+    .environmentObject(CoffeeCatalogViewModel())
+    .environmentObject(OrderViewModel())
     .environmentObject(CoffeeConfigViewModel())
 }

@@ -63,5 +63,5 @@ struct SignInScreen: View {
 
 #Preview {
   SignInScreen()
-    .environmentObject(AuthViewModel.previewMode())
+    .environmentObject(AuthViewModel())
 }

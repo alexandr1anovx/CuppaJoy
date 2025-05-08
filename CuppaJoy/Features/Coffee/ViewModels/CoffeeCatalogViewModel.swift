@@ -42,13 +42,3 @@ final class CoffeeCatalogViewModel: ObservableObject {
     }
   }
 }
-
-// MARK: - Preview Mode
-
-extension CoffeeCatalogViewModel {
-  static func previewMode() -> CoffeeCatalogViewModel {
-    let viewModel = CoffeeCatalogViewModel()
-    //viewModel.coffees = [MockData.coffee, MockData.coffee]
-    return viewModel
-  }
-}

@@ -45,6 +45,6 @@ struct CoffeeSelectionView: View {
     path: .constant(NavigationPath()),
     isTabBarVisible: .constant(false)
   )
-  .environmentObject(AuthViewModel.previewMode())
-  .environmentObject(CoffeeCatalogViewModel.previewMode())
+  .environmentObject(AuthViewModel())
+  .environmentObject(CoffeeCatalogViewModel())
 }

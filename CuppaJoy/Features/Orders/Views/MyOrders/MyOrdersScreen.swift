@@ -118,5 +118,5 @@ struct MyOrdersScreen: View {
 
 #Preview {
   MyOrdersScreen(selectedTab: .constant(.myOrders))
-    .environmentObject(OrderViewModel.previewMode())
+    .environmentObject(OrderViewModel())
 }

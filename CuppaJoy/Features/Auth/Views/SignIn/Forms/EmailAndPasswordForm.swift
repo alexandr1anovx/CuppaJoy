@@ -121,5 +121,5 @@ struct EmailAndPasswordForm: View {
 
 #Preview {
   EmailAndPasswordForm()
-    .environmentObject(AuthViewModel.previewMode())
+    .environmentObject(AuthViewModel())
 }

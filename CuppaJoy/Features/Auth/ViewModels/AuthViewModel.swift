@@ -144,10 +144,10 @@ final class AuthViewModel: ObservableObject {
 
 // MARK: - Preview Mode
 
-extension AuthViewModel {
-  static func previewMode() -> AuthViewModel {
-    let viewModel = AuthViewModel()
-    viewModel.currentUser = MockData.user
-    return viewModel
-  }
-}
+//extension AuthViewModel {
+//  static func previewMode() -> AuthViewModel {
+//    let viewModel = AuthViewModel()
+//    viewModel.currentUser = MockData.user
+//    return viewModel
+//  }
+//}

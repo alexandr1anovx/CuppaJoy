@@ -297,7 +297,7 @@ struct OrderConfiguratorScreen: View {
     path: .constant(NavigationPath()),
     isTabBarVisible: .constant(false)
   )
-  .environmentObject(OrderViewModel.previewMode())
-  .environmentObject(CoffeeCatalogViewModel.previewMode())
+  .environmentObject(OrderViewModel())
+  .environmentObject(CoffeeCatalogViewModel())
   .environmentObject(CoffeeConfigViewModel())
 }

@@ -63,5 +63,5 @@ struct HomeHeaderView: View {
 
 #Preview {
   HomeHeaderView()
-    .environmentObject(AuthViewModel.previewMode())
+    .environmentObject(AuthViewModel())
 }

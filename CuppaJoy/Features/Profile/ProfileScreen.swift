@@ -187,5 +187,5 @@ struct ProfileScreen: View {
     path: .constant(NavigationPath()),
     isShownTabBar: .constant(false)
   )
-  .environmentObject(AuthViewModel.previewMode())
+  .environmentObject(AuthViewModel())
 }

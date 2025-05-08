@@ -55,13 +55,3 @@ final class OrderViewModel: ObservableObject {
       .store(in: &cancellables)
   }
 }
-
-// MARK: - Preview Mode
-
-extension OrderViewModel {
-  static func previewMode() -> OrderViewModel {
-    let viewModel = OrderViewModel()
-    //viewModel.favoriteConfigs = [MockData.config2]
-    return viewModel
-  }
-}

@@ -58,7 +58,7 @@ struct HomeScreen: View {
 
 #Preview {
   HomeScreen()
-    .environmentObject(AuthViewModel.previewMode())
-    .environmentObject(CoffeeCatalogViewModel.previewMode())
+    .environmentObject(AuthViewModel())
+    .environmentObject(CoffeeCatalogViewModel())
     .environmentObject(CoffeeConfigViewModel())
 }
