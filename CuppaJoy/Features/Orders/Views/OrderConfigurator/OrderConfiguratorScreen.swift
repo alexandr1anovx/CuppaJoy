@@ -92,7 +92,7 @@ struct OrderConfiguratorScreen: View {
     .alert("Config Saving", isPresented: $isShownSaveConfigAlert) {
       TextField("Enter a name", text: $configName)
       cancelConfigButton
-      saveConfigButton
+      addConfigButton
     } message: {
       Text("Make sure you carefully check your current config.")
     }
@@ -130,8 +130,8 @@ struct OrderConfiguratorScreen: View {
   
   // MARK: - Configurations List
   
-  private var saveConfigButton: some View {
-    Button("Save") {
+  private var addConfigButton: some View {
+    Button("Add") {
       Task {
         await configViewModel.saveFavoriteConfig(config)
       }
