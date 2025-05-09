@@ -5,66 +5,56 @@
 //  Created by Alexander Andrianov on 21.04.2025.
 //
 
-//
-//  OrderService.swift
-//  CuppaJoy
-//
-//  Created by Alexander Andrianov on 21.04.2025.
-//
-
 import Foundation
 import FirebaseAuth
+import FirebaseFirestore
 
 final class OrderService: OrderServiceProtocol {
   
-  // MARK: Properties
-  
+  // MARK: Public Properties
   var ongoingOrders: [Order] = []
   var receivedOrders: [Order] = []
-  private let authService = AuthService.shared
+  
+  // MARK: Private Properties
+  private let database = Firestore.firestore()
   
   // MARK: Private Initializer
-  
   static let shared = OrderService()
   private init() {}
   
   // MARK: - Ongoing Orders
   
   func getOngoingOrders() {
-    guard let uid = authService.currentUser?.uid else {
-      print("⚠️ Failed to get user ID.")
-      return
-    }
-    authService.userCollection.document(uid).collection("orders")
+    guard let uid = Auth.auth().currentUser?.uid else { return }
+    
+    database
+      .collection("users")
+      .document(uid)
+      .collection("orders")
       .whereField("status", isEqualTo: "ongoing")
       .addSnapshotListener { [weak self] snapshot, error in
         guard let self = self else { return }
         
-        if let error {
-          print("⚠️ Error listening for documents: \(error)")
+        if let error = error {
+          print("⚠️ DEBUG: Snapshot listener error: \(error.localizedDescription)")
           return
         }
         guard let documents = snapshot?.documents else {
-          print("⚠️ Error fetching documents: \(error!)")
+          print("⚠️ DEBUG: Fetching documents error!")
           return
         }
-        let newOngoingOrders = documents.compactMap { doc -> Order? in
-          try? doc.data(as: Order.self)
+        let newOngoingOrders = documents.compactMap { document -> Order? in
+          // Retrieves all fields in a document and convert them to an instance of caller-specified type.
+          try? document.data(as: Order.self)
         }
-        DispatchQueue.main.async {
-          self.ongoingOrders = newOngoingOrders
-          self.receivedOrders.removeAll { order in
-            newOngoingOrders.contains(where: { $0.id == order.id })
-          }
-        }
+        // Update ongoing orders array. Should be called on the main thread.
+        self.ongoingOrders = newOngoingOrders
       }
   }
   
   func setOngoingOrder(_ order: Order) {
-    guard let uid = authService.currentUser?.uid else {
-      print("⚠️ Failed to get user ID")
-      return
-    }
+    guard let uid = Auth.auth().currentUser?.uid else { return }
+    
     let orderData: [String: Any] = [
       "id": order.id,
       "coffee": order.coffee,
@@ -80,64 +70,62 @@ final class OrderService: OrderServiceProtocol {
       "totalPrice": order.totalPrice,
       "status": "ongoing"
     ]
-    authService.userCollection.document(uid).collection("orders").document(order.id)
+    database
+      .collection("users")
+      .document(uid)
+      .collection("orders")
+      .document(order.id)
       .setData(orderData) { error in
         if let error {
-          print("⚠️ Error writing document: \(error)")
+          print("DEBUG ⚠️: Cannot set ongoing order: \(error.localizedDescription)")
         } else {
-          print("✅ Order document successfully updated with the new ongoing order!")
+          print("✅ Ongoing order has been added!")
         }
       }
   }
   
   func cancelOngoingOrder(_ order: Order) {
-    guard let uid = authService.currentUser?.uid else {
-      print("⚠️ Failed to get user ID.")
-      return
-    }
+    guard let uid = Auth.auth().currentUser?.uid else { return }
     
-    self.ongoingOrders.removeAll { $0.id == order.id }
-    
-    authService.userCollection.document(uid).collection("orders").document(order.id)
+    database
+      .collection("users")
+      .document(uid)
+      .collection("orders")
+      .document(order.id)
       .delete { error in
-        guard let error else {
-          print("✅ Order successfully deleted from Firestore!")
-          return
+        if let error = error {
+          print("DEBUG ⚠️: Cannot delete ongoing order: \(error.localizedDescription)")
         }
-        print("⚠️ Error deleting order: \(error.localizedDescription)")
       }
   }
   
   // MARK: - Received Orders
   
   func getReceivedOrders() {
-    guard let uid = authService.currentUser?.uid else {
-      print("⚠️ Failed to get user ID")
-      return
-    }
-    authService.userCollection.document(uid).collection("orders")
+    guard let uid = Auth.auth().currentUser?.uid else { return }
+    
+    database
+      .collection("users")
+      .document(uid)
+      .collection("orders")
       .whereField("status", isEqualTo: "received")
       .order(by: "timestamp", descending: true)
-      .addSnapshotListener { [weak self] querySnapshot, error in
+      .addSnapshotListener { [weak self] snapshot, error in
         guard let self = self else { return }
         
         if let error {
-          print("⚠️ Error listening for documents: \(error)")
+          print("DEBUG ⚠️: Error listening for documents: \(error.localizedDescription)")
           return
         }
-        guard let documents = querySnapshot?.documents else {
+        guard let documents = snapshot?.documents else {
           print("⚠️ Failed to get the documents")
           return
         }
-        let newReceivedOrders = documents.compactMap { doc -> Order? in
-          try? doc.data(as: Order.self)
+        let receivedOrders = documents.compactMap { document -> Order? in
+          try? document.data(as: Order.self)
         }
-        DispatchQueue.main.async {
-          self.receivedOrders = newReceivedOrders
-          self.ongoingOrders.removeAll { order in
-            newReceivedOrders.contains(where: { $0.id == order.id })
-          }
-        }
+        // // Update ongoing orders array. Should be called on the main thread.
+        self.receivedOrders = receivedOrders
       }
   }
 }
