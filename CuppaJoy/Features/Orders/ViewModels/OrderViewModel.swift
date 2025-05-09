@@ -6,23 +6,31 @@
 //
 
 import Foundation
-import Combine
 
 @MainActor
 final class OrderViewModel: ObservableObject {
   
   @Published var ongoingOrders: [Order] = []
   @Published var receivedOrders: [Order] = []
+  private let orderService: OrderService
   
-  private let orderService = OrderService.shared
-  private var cancellables = Set<AnyCancellable>()
+  // MARK: - Initializer
   
-  init() { setupBindings() }
+  init(orderService: OrderService = OrderService()) {
+    self.orderService = orderService
+    setupBindings()
+    getOngoingOrders()
+    getReceivedOrders()
+  }
   
-  // MARK: - Ongoing Orders
+  // MARK: - Public Methods
   
   func getOngoingOrders() {
     orderService.getOngoingOrders()
+  }
+  
+  func getReceivedOrders() {
+    orderService.getReceivedOrders()
   }
   
   func setOngoingOrder(_ order: Order) {
@@ -33,25 +41,15 @@ final class OrderViewModel: ObservableObject {
     orderService.cancelOngoingOrder(order)
   }
   
-  // MARK: - Received Orders
-  
-  func getReceivedOrders() {
-    orderService.getReceivedOrders()
-  }
-  
-  // MARK: Private Methods
+  // MARK: - Private Methods
   
   private func setupBindings() {
-    orderService.getOngoingOrders()
-    orderService.getReceivedOrders()
+    orderService.$ongoingOrders
+      .receive(on: DispatchQueue.main)
+      .assign(to: &$ongoingOrders)
     
-    Timer.publish(every: 0.5, on: .main, in: .common)
-      .autoconnect()
-      .sink { [weak self] _ in
-        guard let self = self else { return }
-        self.ongoingOrders = self.orderService.ongoingOrders
-        self.receivedOrders = self.orderService.receivedOrders
-      }
-      .store(in: &cancellables)
+    orderService.$receivedOrders
+      .receive(on: DispatchQueue.main)
+      .assign(to: &$receivedOrders)
   }
 }
