@@ -21,14 +21,7 @@ final class ValidationService: ValidationServiceProtocol {
     let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
     return predicate.evaluate(with: fullName)
   }
-  /*
-  func isValid(phoneNumber: String) -> Bool {
-    // works only for ukrainian format
-    let regex = #"^(\+380|0)\d{9}$"#
-    let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
-    return predicate.evaluate(with: phoneNumber)
-  }
-  */
+  
   func isValid(email: String) -> Bool {
     let regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,64}$"
     let predicate = NSPredicate(format: "SELF MATCHES[c] %@", regex)
