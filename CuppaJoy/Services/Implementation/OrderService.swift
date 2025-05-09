@@ -9,20 +9,16 @@ import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 
-final class OrderService: OrderServiceProtocol {
+final class OrderService: OrderServiceProtocol, ObservableObject {
   
   // MARK: Public Properties
-  var ongoingOrders: [Order] = []
-  var receivedOrders: [Order] = []
+  @Published var ongoingOrders: [Order] = []
+  @Published var receivedOrders: [Order] = []
   
   // MARK: Private Properties
   private let database = Firestore.firestore()
   
-  // MARK: Private Initializer
-  static let shared = OrderService()
-  private init() {}
-  
-  // MARK: - Ongoing Orders
+  // MARK: - Public Methods
   
   func getOngoingOrders() {
     guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -33,22 +29,44 @@ final class OrderService: OrderServiceProtocol {
       .collection("orders")
       .whereField("status", isEqualTo: "ongoing")
       .addSnapshotListener { [weak self] snapshot, error in
-        guard let self = self else { return }
-        
         if let error = error {
-          print("⚠️ DEBUG: Snapshot listener error: \(error.localizedDescription)")
-          return
+          print("⚠️ Failed to fetch ongoing orders: \(error.localizedDescription)")
         }
-        guard let documents = snapshot?.documents else {
-          print("⚠️ DEBUG: Fetching documents error!")
-          return
+        guard let self = self else { return }
+        print("‼️ SELF: \(self)")
+        guard let documents = snapshot?.documents else { return }
+        print("‼️ DOCUMENTS: \(documents)")
+        let orders = documents.compactMap {
+          try? $0.data(as: Order.self)
         }
-        let newOngoingOrders = documents.compactMap { document -> Order? in
-          // Retrieves all fields in a document and convert them to an instance of caller-specified type.
-          try? document.data(as: Order.self)
+        DispatchQueue.main.async {
+          self.ongoingOrders = orders
         }
-        // Update ongoing orders array. Should be called on the main thread.
-        self.ongoingOrders = newOngoingOrders
+      }
+  }
+  
+  func getReceivedOrders() {
+    guard let uid = Auth.auth().currentUser?.uid else { return }
+    
+    database
+      .collection("users")
+      .document(uid)
+      .collection("orders")
+      .whereField("status", isEqualTo: "received")
+      .addSnapshotListener { [weak self] snapshot, error in
+        if let error = error {
+          print("⚠️ Failed to fetch ongoing orders: \(error.localizedDescription)")
+        }
+        guard let self = self else { return }
+        print("‼️ SELF: \(self)")
+        guard let documents = snapshot?.documents else { return }
+        print("‼️ DOCUMENTS: \(documents)")
+        let orders = documents.compactMap {
+          try? $0.data(as: Order.self)
+        }
+        DispatchQueue.main.async {
+          self.receivedOrders = orders
+        }
       }
   }
   
@@ -96,36 +114,6 @@ final class OrderService: OrderServiceProtocol {
         if let error = error {
           print("DEBUG ⚠️: Cannot delete ongoing order: \(error.localizedDescription)")
         }
-      }
-  }
-  
-  // MARK: - Received Orders
-  
-  func getReceivedOrders() {
-    guard let uid = Auth.auth().currentUser?.uid else { return }
-    
-    database
-      .collection("users")
-      .document(uid)
-      .collection("orders")
-      .whereField("status", isEqualTo: "received")
-      .order(by: "timestamp", descending: true)
-      .addSnapshotListener { [weak self] snapshot, error in
-        guard let self = self else { return }
-        
-        if let error {
-          print("DEBUG ⚠️: Error listening for documents: \(error.localizedDescription)")
-          return
-        }
-        guard let documents = snapshot?.documents else {
-          print("⚠️ Failed to get the documents")
-          return
-        }
-        let receivedOrders = documents.compactMap { document -> Order? in
-          try? document.data(as: Order.self)
-        }
-        // // Update ongoing orders array. Should be called on the main thread.
-        self.receivedOrders = receivedOrders
       }
   }
 }
