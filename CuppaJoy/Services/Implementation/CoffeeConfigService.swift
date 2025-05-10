@@ -5,41 +5,36 @@
 //  Created by Alexander Andrianov on 25.04.2025.
 //
 
-import Foundation
 import FirebaseFirestore
 import FirebaseAuth
 
-final class CoffeeConfigService: CoffeeConfigProtocol {
+final class CoffeeConfigService: CoffeeConfigProtocol, ObservableObject {
   
-  var favoriteConfigs: [CoffeeConfig] = []
+  // MARK: Public Properites
+  
+  @Published var favoriteConfigs: [CoffeeConfig] = []
   
   // MARK: Private Properites
-  private let authService = AuthService.shared
-  
-  // MARK: - Private Initializer
-  
-  static let shared = CoffeeConfigService()
-  private init() {}
+  private let database = Firestore.firestore()
   
   // MARK: - Public Methods
   
-  func fetchFavoriteConfigs() async throws {
-    guard let uid = authService.currentUser?.uid else {
-      print("⚠️ Failed to get user ID")
-      return
-    }
-    authService.userCollection.document(uid).collection("configs")
+  func fetchConfigs() async throws {
+    guard let uid = Auth.auth().currentUser?.uid else { return }
+    
+    database
+      .collection("users")
+      .document(uid)
+      .collection("configs")
       .addSnapshotListener { [weak self] snapshot, error in
         guard let self = self else { return }
         
-        if let error {
+        if let error = error {
           print("⚠️ Error listening for documents: \(error)")
           return
         }
-        guard let documents = snapshot?.documents else {
-          print("⚠️ Error fetching documents: \(error!)")
-          return
-        }
+        guard let documents = snapshot?.documents else { return }
+        
         let newConfigs = documents.compactMap { doc -> CoffeeConfig? in
           try? doc.data(as: CoffeeConfig.self)
         }
@@ -49,12 +44,8 @@ final class CoffeeConfigService: CoffeeConfigProtocol {
       }
   }
   
-  
-  func saveFavoriteConfig(_ config: CoffeeConfig) {
-    guard let uid = authService.currentUser?.uid else {
-      print("⚠️Failed to get user ID")
-      return
-    }
+  func saveConfig(_ config: CoffeeConfig) async throws {
+    guard let uid = Auth.auth().currentUser?.uid else { return }
     
     let configData: [String: Any] = [
       "id": config.id,
@@ -67,26 +58,22 @@ final class CoffeeConfigService: CoffeeConfigProtocol {
       "flavor": config.flavor
     ]
     
-    authService.userCollection.document(uid).collection("configs").document(config.id)
-      .setData(configData) { error in
-        if let error {
-          print("⚠️ Failed to save favorite config: \(error)")
-        } else {
-          print("✅ Order document successfully updated with the new config!")
-        }
-      }
+    try await database
+      .collection("users")
+      .document(uid)
+      .collection("configs")
+      .document(config.id)
+      .setData(configData)
   }
   
-  func deleteFavoriteConfig(_ config: CoffeeConfig) async throws {
-    guard let uid = authService.currentUser?.uid else {
-      print("⚠️ Failed to get user ID")
-      throw NSError(
-        domain: "CoffeeConfigService",
-        code: 1,
-        userInfo: [NSLocalizedDescriptionKey: "User not authenticated"]
-      )
-    }
-    let userDocument = authService.userCollection.document(uid)
-    try await userDocument.collection("configs").document(config.id).delete()
+  func deleteConfig(_ config: CoffeeConfig) async throws {
+    guard let uid = Auth.auth().currentUser?.uid else { return }
+    
+    try await database
+      .collection("users")
+      .document(uid)
+      .collection("configs")
+      .document(config.id)
+      .delete()
   }
 }
