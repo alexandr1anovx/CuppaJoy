@@ -11,71 +11,70 @@ import FirebaseAuth
 
 final class AuthService: AuthServiceProtocol {
   
-  private let auth = Auth.auth()
-  let userCollection = Firestore.firestore().collection("users")
-  var currentUser: FirebaseAuth.User? { auth.currentUser }
-  
   // MARK: - Private Initializer
   
-  static let shared = AuthService()
-  private init() {}
+  private let database = Firestore.firestore()
   
   // MARK: - Public Methods
   
-  func signIn(
-    email: String,
-    password: String
-  ) async throws {
-    try await auth.signIn(
-      withEmail: email,
-      password: password
-    )
+  func signIn(email: String, password: String) async throws {
+    try await Auth.auth().signIn(withEmail: email, password: password)
   }
   
   func signUp(email: String, password: String) async throws -> FirebaseAuth.User {
-    let result = try await auth.createUser(
-      withEmail: email,
-      password: password
+    let authResult = try await Auth.auth().createUser(
+      withEmail: email, password: password
     )
-    return result.user
+    return authResult.user
   }
   
   func signOut() throws {
-    try auth.signOut()
+    try Auth.auth().signOut()
   }
   
   func deleteUser(withPassword: String) async throws {
-    guard let user = auth.currentUser, let email = user.email else {
+    guard let user = Auth.auth().currentUser,
+            let email = user.email else {
       throw AuthErrorCode.userNotFound
     }
     let credential = EmailAuthProvider.credential(
-      withEmail: email,
-      password: withPassword
+      withEmail: email, password: withPassword
     )
     try await user.reauthenticate(with: credential)
-    try await userCollection.document(user.uid).delete()
+    // deletes the user from the user collection
+    try await database
+      .collection("users")
+      .document(user.uid)
+      .delete()
+    // deletes the user from the authentication section
     try await user.delete()
-  }
-  
-  func sendEmailVerification() async throws {
-    try await auth.currentUser?.sendEmailVerification()
-  }
-  
-  func sendPasswordReset(email: String) async throws {
-    try await auth.sendPasswordReset(withEmail: email)
-  }
-  
-  func fetchUserData(uid: String) async throws -> User {
-    let document = try await userCollection.document(uid).getDocument()
-    guard let user = try? document.data(as: User.self) else {
-      throw NSError(domain: "UserDecodeError", code: -1)
-    }
-    return user
   }
   
   func saveUserData(for user: User) async throws {
     let encodedUser = try Firestore.Encoder().encode(user)
-    let userDocument = userCollection.document(user.id)
+    let userDocument = database
+      .collection("users")
+      .document(user.id)
     try await userDocument.setData(encodedUser)
+  }
+  
+  func sendEmailVerification() async throws {
+    try await Auth.auth().currentUser?.sendEmailVerification()
+  }
+  
+  func sendPasswordReset(email: String) async throws {
+    try await Auth.auth().sendPasswordReset(withEmail: email)
+  }
+  
+  func fetchUserData(uid: String) async throws -> User {
+    let document = try await database
+      .collection("users")
+      .document(uid)
+      .getDocument()
+    
+    guard let user = try? document.data(as: User.self) else {
+      throw NSError()
+    }
+    return user
   }
 }
