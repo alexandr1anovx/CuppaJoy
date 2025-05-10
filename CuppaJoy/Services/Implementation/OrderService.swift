@@ -17,13 +17,25 @@ final class OrderService: OrderServiceProtocol, ObservableObject {
   
   // MARK: Private Properties
   private let database = Firestore.firestore()
+  private var ongoingOrdersListener: ListenerRegistration?
+  private var receivedOrdersListener: ListenerRegistration?
+  
+  // MARK: - Deinit
+  
+  deinit {
+    ongoingOrdersListener?.remove()
+    receivedOrdersListener?.remove()
+  }
   
   // MARK: - Public Methods
   
   func getOngoingOrders() {
+    // Remove previous listeners.
+    ongoingOrdersListener?.remove()
+    
     guard let uid = Auth.auth().currentUser?.uid else { return }
     
-    database
+    ongoingOrdersListener = database
       .collection("users")
       .document(uid)
       .collection("orders")
@@ -46,6 +58,9 @@ final class OrderService: OrderServiceProtocol, ObservableObject {
   }
   
   func getReceivedOrders() {
+    // Remove previous listeners.
+    receivedOrdersListener?.remove()
+    
     guard let uid = Auth.auth().currentUser?.uid else { return }
     
     database
