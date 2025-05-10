@@ -11,28 +11,37 @@ import FirebaseFirestore
 @MainActor
 final class AuthViewModel: ObservableObject {
   
+  // MARK: - Public Properties
+  
   @Published var userSession: FirebaseAuth.User?
   @Published var currentUser: User?
   @Published var alertItem: AlertItem?
   
-  private var authStateListener: AuthStateDidChangeListenerHandle?
-  private let authService = AuthService.shared
+  // MARK: Private Properties
   
-  // MARK: - Init
-  init() {
+  private var authStateListener: AuthStateDidChangeListenerHandle?
+  private let authService: AuthService
+  
+  // MARK: - Initializer
+  
+  init(authService: AuthService = AuthService()) {
+    self.authService = authService
     setupAuthStateListener()
   }
   
-  // MARK: - Public Authentication Methods
+  // MARK: - Deinitializer
   
-  func signIn(
-    with email: String,
-    and password: String
-  ) async {
+  deinit {
+    if let handle = authStateListener {
+      Auth.auth().removeStateDidChangeListener(handle)
+    }
+  }
+  
+  // MARK: - Public Methods
+  
+  func signIn(email: String, password: String) async {
     do {
       try await authService.signIn(email: email, password: password)
-      self.userSession = authService.currentUser
-      await fetchUserData()
     } catch {
       alertItem = AuthAlertContext.userNotExist
     }
@@ -45,10 +54,7 @@ final class AuthViewModel: ObservableObject {
     city: City
   ) async {
     do {
-      let user = try await authService.signUp(
-        email: email,
-        password: password
-      )
+      let user = try await authService.signUp(email: email, password: password)
       try await authService.sendEmailVerification()
       let newUser = User(
         id: user.uid,
@@ -58,7 +64,6 @@ final class AuthViewModel: ObservableObject {
         coins: Int.random(in: 0...8)
       )
       try await authService.saveUserData(for: newUser)
-      self.userSession = user
       self.currentUser = newUser
     } catch {
       alertItem = AuthAlertContext.userExists
@@ -74,12 +79,8 @@ final class AuthViewModel: ObservableObject {
     }
   }
   
-  func updateProfile(
-    fullName: String,
-    email: String,
-    city: City
-  ) async {
-    guard let currentUser else {
+  func updateProfile(fullName: String, email: String, city: City) async {
+    guard let currentUser = currentUser else {
       alertItem = AuthAlertContext.profileUpdateFailed
       return
     }
@@ -95,7 +96,6 @@ final class AuthViewModel: ObservableObject {
       self.currentUser = updatedUser
       alertItem = AuthAlertContext.profileUpdateSuccess
     } catch {
-      print("⚠️ Failed to update profile: \(error)")
       alertItem = AuthAlertContext.profileUpdateFailed
     }
   }
@@ -103,51 +103,48 @@ final class AuthViewModel: ObservableObject {
   func deleteUser(withPassword: String) async {
     do {
       try await authService.deleteUser(withPassword: withPassword)
-      alertItem = AuthAlertContext.successfullAccountDeletion
       self.currentUser = nil
+      alertItem = AuthAlertContext.successfullAccountDeletion
     } catch {
-      print("⚠️ Failed to delete user: \(error)")
       alertItem = AuthAlertContext.failedToDeleteUser
     }
   }
 
-  // MARK: - Private Authentication Methods
+  // MARK: - Private Methods
   
   private func setupAuthStateListener() {
-    let auth = Auth.auth()
-    authStateListener = auth.addStateDidChangeListener { [weak self] _, user in
-      guard let self = self else { return }
-      self.userSession = user
-      
-      if user != nil {
-        Task { await self.fetchUserData() }
-      } else {
-        self.currentUser = nil
+    authStateListener = Auth.auth()
+      .addStateDidChangeListener { [weak self] _, user in
+        guard let self = self else { return }
+        self.userSession = user
+        
+        if user == nil {
+          self.currentUser = nil
+        } else {
+          Task {
+            await self.fetchUserData()
+          }
+        }
       }
-    }
   }
   
   private func fetchUserData() async {
-    guard let uid = userSession?.uid else {
-      print("Error when getting user uid")
-      return
-    }
+    guard let uid = userSession?.uid else { return }
     do {
       let user = try await authService.fetchUserData(uid: uid)
       self.currentUser = user
     } catch {
-      print("⚠️ Failed to get user data: \(error)")
+      print("‼️ DEBUG: Failed to fetch user data: \(error)")
     }
   }
-  
 }
 
 // MARK: - Preview Mode
 
-//extension AuthViewModel {
-//  static func previewMode() -> AuthViewModel {
-//    let viewModel = AuthViewModel()
-//    viewModel.currentUser = MockData.user
-//    return viewModel
-//  }
-//}
+extension AuthViewModel {
+  static var preview: AuthViewModel {
+    let viewModel = AuthViewModel()
+    viewModel.currentUser = MockData.user
+    return viewModel
+  }
+}
