@@ -40,7 +40,7 @@ struct OnboardingScreen: View {
   
   private var mainGradientBackground: some View {
     AngularGradient(
-      colors: [.csBlack, .csBrown],
+      colors: [.csBrown, .csBrown, .black],
       center: .center,
       angle: .degrees(isAnimating ? 360:0)
     )
@@ -97,11 +97,11 @@ struct OnboardingScreen: View {
         withAnimation { isFinishedOnboarding = true }
       }
     } label: {
-      ButtonLabelWithIconAnimated(
+      ButtonLabelWithIcon(
         isIndexLast ? "Get Started!": "Continue",
-        icon: isIndexLast ? "checkmark.seal.fill": "arrow.right.circle.fill",
-        textColor: isIndexLast ? .black : .white,
-        bgColor: isIndexLast ? Color.gradientCream : Color.gradientBrown
+        icon: isIndexLast ? "checkmark.circle.fill": "arrow.right.circle",
+        textColor: isIndexLast ? .black : .csCream,
+        bgColor: isIndexLast ? Color.csCream : Color.csDarkGrey
       )
     }
   }
