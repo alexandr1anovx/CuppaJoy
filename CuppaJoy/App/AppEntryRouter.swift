@@ -11,9 +11,6 @@ struct AppEntryRouter: View {
   
   @State private var isShownAppContent = false
   @EnvironmentObject var authViewModel: AuthViewModel
-  @EnvironmentObject var orderViewModel: OrderViewModel
-  @EnvironmentObject var coffeeCatalogViewModel: CoffeeCatalogViewModel
-  @EnvironmentObject var coffeeConfigViewModel: CoffeeConfigViewModel
   
   var body: some View {
     Group {
@@ -30,13 +27,6 @@ struct AppEntryRouter: View {
       }
     }
     .onAppear {
-      Task {
-        await coffeeCatalogViewModel.fetchCoffees()
-        await coffeeConfigViewModel.fetchFavoriteConfigs()
-      }
-      orderViewModel.getOngoingOrders()
-      orderViewModel.getReceivedOrders()
-      
       DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
         withAnimation {
           isShownAppContent.toggle()
