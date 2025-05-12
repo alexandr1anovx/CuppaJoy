@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Coffee: Hashable {
+struct Coffee: Hashable, Decodable {
   let id: String
   let title: String
   let description: String
