@@ -6,39 +6,32 @@
 //
 
 import Foundation
-import Combine
 
 @MainActor
 final class CoffeeCatalogViewModel: ObservableObject {
   
+  // MARK: Public Properties
   @Published var coffees: [Coffee] = []
-  private let coffeeService = CoffeeСatalogService.shared
-  private var cancellables = Set<AnyCancellable>()
   
-  init() {
-    Task { await setupBindings() }
+  // MARK: Private Properties
+  private let coffeeCatalogService: CoffeeСatalogService
+  
+  // MARK: Initializer
+  init(coffeeCatalogService: CoffeeСatalogService = CoffeeСatalogService()) {
+    self.coffeeCatalogService = coffeeCatalogService
+    setupBindings()
+    fetchCoffees()
   }
   
-  func fetchCoffees() async {
-    do {
-      try await coffeeService.fetchCoffees()
-    } catch {
-      print("⚠️ Failed to fetch coffees: \(error)")
-    }
+  // MARK: Public Methods
+  func fetchCoffees() {
+    coffeeCatalogService.getCoffees()
   }
   
-  private func setupBindings() async {
-    do {
-      try await coffeeService.fetchCoffees()
-      Timer.publish(every: 0.5, on: .main, in: .common)
-        .autoconnect()
-        .sink { [weak self] _ in
-          guard let self = self else { return }
-          self.coffees = self.coffeeService.coffees
-        }
-        .store(in: &cancellables)
-    } catch {
-      print("⚠️ Cannot setup bindings")
-    }
+  // MARK: Private Methods
+  private func setupBindings() {
+    coffeeCatalogService.$coffees
+      .receive(on: DispatchQueue.main)
+      .assign(to: &$coffees)
   }
 }

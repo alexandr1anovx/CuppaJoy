@@ -6,55 +6,49 @@
 //
 
 import Foundation
-import Combine
 
 @MainActor
 final class CoffeeConfigViewModel: ObservableObject {
   
+  // MARK: Public Properties
   @Published var favoriteConfigs: [CoffeeConfig] = []
   @Published var alertItem: AlertItem?
-  private let configService = CoffeeConfigService.shared
-  private var cancellables = Set<AnyCancellable>()
   
-  init() {
-    Task { await setupBindings() }
+  // MARK: Private Properties
+  private let coffeeConfigService: CoffeeConfigService
+  
+  // MARK: Initializer
+  init(coffeeConfigService: CoffeeConfigService =  CoffeeConfigService()) {
+    self.coffeeConfigService = coffeeConfigService
+    setupBindings()
+    getConfigs()
   }
   
   // MARK: - Public Methods
+  func getConfigs() {
+    coffeeConfigService.getConfigs()
+  }
   
-  func fetchFavoriteConfigs() async {
+  func saveConfig(_ config: CoffeeConfig) async {
     do {
-      try await configService.fetchFavoriteConfigs()
+      try await coffeeConfigService.saveConfig(config)
     } catch {
-      print("⚠️ Failed to fetch favorite configs: \(error.localizedDescription)")
+      print("‼️ Cannot save config: \(error)")
     }
   }
   
-  func saveFavoriteConfig(_ config: CoffeeConfig) async {
-    configService.saveFavoriteConfig(config)
-  }
-  
-  func deleteFavoriteConfig(_ config: CoffeeConfig) async {
+  func deleteConfig(_ config: CoffeeConfig) async {
     do {
-      try await configService.deleteFavoriteConfig(config)
+      try await coffeeConfigService.deleteConfig(config)
     } catch {
       alertItem = ConfigAlertContext.configDeletionFailed
     }
   }
   
   // MARK: - Private Methods
-  private func setupBindings() async {
-    do {
-      try await configService.fetchFavoriteConfigs()
-      Timer.publish(every: 0.5, on: .main, in: .common)
-        .autoconnect()
-        .sink { [weak self] _ in
-          guard let self = self else { return }
-          self.favoriteConfigs = self.configService.favoriteConfigs
-        }
-        .store(in: &cancellables)
-    } catch {
-      print("⚠️ Cannot setup bindings")
-    }
+  private func setupBindings() {
+    coffeeConfigService.$favoriteConfigs
+      .receive(on: DispatchQueue.main)
+      .assign(to: &$favoriteConfigs)
   }
 }
