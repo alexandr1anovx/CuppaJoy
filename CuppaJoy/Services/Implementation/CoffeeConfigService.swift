@@ -11,15 +11,23 @@ import FirebaseAuth
 final class CoffeeConfigService: CoffeeConfigProtocol, ObservableObject {
   
   // MARK: Public Properites
-  
   @Published var favoriteConfigs: [CoffeeConfig] = []
   
   // MARK: Private Properites
   private let database = Firestore.firestore()
+  private var configsListener: ListenerRegistration?
+  
+  // MARK: Deinitializer
+  deinit {
+    configsListener?.remove()
+  }
   
   // MARK: - Public Methods
   
-  func fetchConfigs() async throws {
+  func getConfigs() {
+    // Remove previous listeners.
+    configsListener?.remove()
+    
     guard let uid = Auth.auth().currentUser?.uid else { return }
     
     database
@@ -57,7 +65,6 @@ final class CoffeeConfigService: CoffeeConfigProtocol, ObservableObject {
       "milk": config.milk,
       "flavor": config.flavor
     ]
-    
     try await database
       .collection("users")
       .document(uid)
@@ -68,7 +75,6 @@ final class CoffeeConfigService: CoffeeConfigProtocol, ObservableObject {
   
   func deleteConfig(_ config: CoffeeConfig) async throws {
     guard let uid = Auth.auth().currentUser?.uid else { return }
-    
     try await database
       .collection("users")
       .document(uid)
