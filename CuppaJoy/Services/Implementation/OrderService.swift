@@ -5,7 +5,6 @@
 //  Created by Alexander Andrianov on 21.04.2025.
 //
 
-import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 
@@ -20,8 +19,7 @@ final class OrderService: OrderServiceProtocol, ObservableObject {
   private var ongoingOrdersListener: ListenerRegistration?
   private var receivedOrdersListener: ListenerRegistration?
   
-  // MARK: - Deinit
-  
+  // MARK: - Deinitialization
   deinit {
     ongoingOrdersListener?.remove()
     receivedOrdersListener?.remove()
@@ -42,12 +40,10 @@ final class OrderService: OrderServiceProtocol, ObservableObject {
       .whereField("status", isEqualTo: "ongoing")
       .addSnapshotListener { [weak self] snapshot, error in
         if let error = error {
-          print("⚠️ Failed to fetch ongoing orders: \(error.localizedDescription)")
+          print("⚠️ Failed to get ongoing orders: \(error)")
         }
         guard let self = self else { return }
-        print("‼️ SELF: \(self)")
         guard let documents = snapshot?.documents else { return }
-        print("‼️ DOCUMENTS: \(documents)")
         let orders = documents.compactMap {
           try? $0.data(as: Order.self)
         }
@@ -70,12 +66,10 @@ final class OrderService: OrderServiceProtocol, ObservableObject {
       .whereField("status", isEqualTo: "received")
       .addSnapshotListener { [weak self] snapshot, error in
         if let error = error {
-          print("⚠️ Failed to fetch ongoing orders: \(error.localizedDescription)")
+          print("⚠️ Failed to get received orders: \(error)")
         }
         guard let self = self else { return }
-        print("‼️ SELF: \(self)")
         guard let documents = snapshot?.documents else { return }
-        print("‼️ DOCUMENTS: \(documents)")
         let orders = documents.compactMap {
           try? $0.data(as: Order.self)
         }
@@ -85,7 +79,7 @@ final class OrderService: OrderServiceProtocol, ObservableObject {
       }
   }
   
-  func setOngoingOrder(_ order: Order) {
+  func setOngoingOrder(_ order: Order) async throws {
     guard let uid = Auth.auth().currentUser?.uid else { return }
     
     let orderData: [String: Any] = [
@@ -103,32 +97,22 @@ final class OrderService: OrderServiceProtocol, ObservableObject {
       "totalPrice": order.totalPrice,
       "status": "ongoing"
     ]
-    database
+    try await database
       .collection("users")
       .document(uid)
       .collection("orders")
       .document(order.id)
-      .setData(orderData) { error in
-        if let error {
-          print("DEBUG ⚠️: Cannot set ongoing order: \(error.localizedDescription)")
-        } else {
-          print("✅ Ongoing order has been added!")
-        }
-      }
+      .setData(orderData)
   }
   
-  func cancelOngoingOrder(_ order: Order) {
+  func cancelOngoingOrder(_ order: Order) async throws {
     guard let uid = Auth.auth().currentUser?.uid else { return }
     
-    database
+    try await database
       .collection("users")
       .document(uid)
       .collection("orders")
       .document(order.id)
-      .delete { error in
-        if let error = error {
-          print("DEBUG ⚠️: Cannot delete ongoing order: \(error.localizedDescription)")
-        }
-      }
+      .delete()
   }
 }
