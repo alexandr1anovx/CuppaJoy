@@ -12,8 +12,7 @@ struct CoffeeSelectionView: View {
   @State private var selectedCoffee: Coffee?
   @Binding var path: NavigationPath
   @Binding var isTabBarVisible: Bool
-  @EnvironmentObject var coffeeViewModel: CoffeeCatalogViewModel
-  @EnvironmentObject var authViewModel: AuthViewModel
+  @EnvironmentObject var coffeeСonfigViewModel: CoffeeCatalogViewModel
   
   private let fixedColumns = [
     GridItem(
@@ -24,12 +23,12 @@ struct CoffeeSelectionView: View {
   
   var body: some View {
     ZStack {
-      Color.appBackground
+      Color.appBackgroundDimmed
         .clipShape(.rect(cornerRadius: 35))
-        .ignoresSafeArea(.all)
+        .ignoresSafeArea()
       ScrollView {
         LazyVGrid(columns: fixedColumns, spacing: 20) {
-          ForEach(coffeeViewModel.coffees, id: \.id) { coffee in
+          ForEach(coffeeСonfigViewModel.coffees, id: \.id) { coffee in
             NavigationLink(value: OrderPage.configurator(coffee)) {
               CoffeeSelectionCell(coffee: coffee)
             }

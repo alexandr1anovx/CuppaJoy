@@ -29,7 +29,7 @@ struct OrderSummaryScreen: View {
   
   var body: some View {
     ZStack {
-      Color.appBackground.ignoresSafeArea(.all)
+      Color.appBackgroundDimmed.ignoresSafeArea(.all)
       VStack {
         List(Array(orderDetails.enumerated()), id: \.offset) { index, item in
           row(title: item.0, content: item.1)

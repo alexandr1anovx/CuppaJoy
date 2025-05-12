@@ -15,7 +15,7 @@ struct MyOrdersScreen: View {
   
   var body: some View {
     ZStack {
-      Color.appBackground.ignoresSafeArea(.all)
+      Color.appBackgroundDimmed.ignoresSafeArea()
       VStack {
         statusTabs
         if selectedStatus == .ongoing {

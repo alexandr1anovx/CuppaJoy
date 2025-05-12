@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct LaunchScreen: View {
-  
   @State private var isAnimating = false
   @State private var rotation = 0.0
   
   var body: some View {
     ZStack {
-      Color.appBackground.ignoresSafeArea(.all)
+      Color.appBackgroundDimmed.ignoresSafeArea()
       HStack(spacing: isAnimating ? 0:10) {
         Image(systemName: isAnimating ? "arrow.clockwise.circle.fill" : "cup.and.saucer.fill")
           .rotationEffect(.degrees(rotation))
@@ -33,7 +32,7 @@ struct LaunchScreen: View {
       isAnimating = true
       withAnimation { rotation += 720 }
       
-      // Returns the button to its original state after 2 seconds.
+      // Returns the button to its original state after 3 seconds.
       DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
         withAnimation(.bouncy) { isAnimating = false }
       }
