@@ -5,14 +5,12 @@
 //  Created by Alexander Andrianov on 21.04.2025.
 //
 
-import Foundation
 import FirebaseFirestore
 import FirebaseAuth
 
 final class AuthService: AuthServiceProtocol {
   
   // MARK: - Private Initializer
-  
   private let database = Firestore.firestore()
   
   // MARK: - Public Methods

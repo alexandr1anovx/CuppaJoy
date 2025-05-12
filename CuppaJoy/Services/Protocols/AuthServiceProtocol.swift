@@ -5,7 +5,6 @@
 //  Created by Alexander Andrianov on 21.04.2025.
 //
 
-import Foundation
 import FirebaseAuth
 
 protocol AuthServiceProtocol {
