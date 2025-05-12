@@ -62,7 +62,6 @@ struct ProfileScreen: View {
         }
       }
     }
-    // Alert that appears when the user wants to delete an account.
     .alert("Account Deletion", isPresented: $isShownDeleteAccountAlert) {
       SecureField("Your password", text: $accountPassword)
       Button("Cancel", role: .cancel) { accountPassword = "" }
@@ -74,7 +73,7 @@ struct ProfileScreen: View {
     } message: {
       Text("Are you sure? It will delete all your data forever.")
     }
-    // Alert that appears when the user changes personal data.
+    // appears when the user changes personal data.
     .alert(item: $authViewModel.alertItem) { alertItem in
       Alert(
         title: alertItem.title,
@@ -99,6 +98,8 @@ struct ProfileScreen: View {
       }
     }
   }
+  
+  // MARK: - Auxilary UI Components
   
   private var personalDataList: some View {
     List {
@@ -172,13 +173,12 @@ struct ProfileScreen: View {
     }
   }
   
+  // MARK: Logical Methods
+  
   private func loadUserData() {
-    guard let currentUser = authViewModel.currentUser else {
-      print("Cannot retrieve current user data at profile screen.")
-      return
-    }
-    fullName = currentUser.fullName
-    email = currentUser.emailAddress
+    guard let user = authViewModel.currentUser else { return }
+    fullName = user.fullName
+    email = user.emailAddress
   }
 }
 

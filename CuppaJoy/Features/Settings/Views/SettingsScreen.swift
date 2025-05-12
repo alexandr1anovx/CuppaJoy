@@ -23,7 +23,7 @@ struct SettingsScreen: View {
   
   var body: some View {
     ZStack {
-      Color.appBackgroundDimmed.ignoresSafeArea(.all)
+      Color.appBackgroundDimmed.ignoresSafeArea()
       VStack {
         List {
           // Appearance Section

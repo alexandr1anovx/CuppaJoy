@@ -20,7 +20,7 @@ struct ProfileImageEditorView: View {
   @State private var showImagePicker = true
   @Environment(\.dismiss) var dismiss
   
-  let circleDiameter: CGFloat = 300
+  private let circleDiameter: CGFloat = 300
   
   init(
     _ profileImage: Binding<UIImage?>,
@@ -28,17 +28,16 @@ struct ProfileImageEditorView: View {
     scale: Binding<CGFloat>,
     offset: Binding<CGSize>
   ) {
+    self._profileImage = profileImage
     self.selectedImage = selectedImage
-    _profileImage = profileImage
-    _scale = scale
-    _offset = offset
+    self._scale = scale
+    self._offset = offset
   }
   
   var body: some View {
     ZStack {
       Color.black.ignoresSafeArea()
-      Color.black.opacity(0.4)
-        .ignoresSafeArea()
+      Color.black.opacity(0.4).ignoresSafeArea()
         .overlay {
           Circle()
             .frame(width: circleDiameter, height: circleDiameter)

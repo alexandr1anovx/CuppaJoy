@@ -20,7 +20,7 @@ struct HomeScreen: View {
   var body: some View {
     NavigationStack(path: $path) {
       ZStack {
-        Color.appBackground.ignoresSafeArea(.all)
+        Color.appBackgroundDimmed.ignoresSafeArea()
         VStack {
           HomeHeaderView()
             .padding(.vertical, 30)
@@ -58,7 +58,7 @@ struct HomeScreen: View {
 
 #Preview {
   HomeScreen()
-    .environmentObject(AuthViewModel())
+    .environmentObject(AuthViewModel.preview)
     .environmentObject(CoffeeCatalogViewModel())
     .environmentObject(CoffeeConfigViewModel())
 }

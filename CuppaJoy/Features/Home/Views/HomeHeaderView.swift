@@ -11,7 +11,7 @@ struct HomeHeaderView: View {
   @EnvironmentObject var authViewModel: AuthViewModel
   
   var body: some View {
-    HStack(spacing:12) {
+    HStack(spacing: 12) {
       if let user = authViewModel.currentUser {
         Image(systemName: "person.fill")
           .imageScale(.large)
@@ -51,9 +51,7 @@ struct HomeHeaderView: View {
         HStack(spacing:10) {
           Text("Check your internet connection")
             .font(.footnote)
-            .fontDesign(.monospaced)
-            .fontWeight(.medium)
-            .foregroundStyle(.orange)
+            .foregroundStyle(.red)
           ProgressView()
         }
       }
@@ -63,5 +61,5 @@ struct HomeHeaderView: View {
 
 #Preview {
   HomeHeaderView()
-    .environmentObject(AuthViewModel())
+    .environmentObject(AuthViewModel.preview)
 }

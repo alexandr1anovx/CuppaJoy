@@ -85,7 +85,7 @@ struct EmailAndPasswordForm: View {
   private var signInButton: some View {
     Button {
       Task {
-        await authViewModel.signIn(with: email, and: password)
+        await authViewModel.signIn(email: email, password: password)
         password = ""
       }
     } label: {

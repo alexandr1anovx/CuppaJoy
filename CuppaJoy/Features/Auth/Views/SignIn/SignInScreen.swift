@@ -37,8 +37,8 @@ struct SignInScreen: View {
       ButtonLabelWithIcon(
         "Continue with Email & Password",
         icon: "envelope",
-        textColor: .orange,
-        bgColor: .csBlack
+        textColor: .white,
+        bgColor: .black
       )
     }
   }

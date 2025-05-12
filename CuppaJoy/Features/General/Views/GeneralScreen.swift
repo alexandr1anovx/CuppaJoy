@@ -24,7 +24,7 @@ struct GeneralScreen: View {
   var body: some View {
     NavigationStack(path: $path) {
       ZStack {
-        Color.appBackgroundDimmed.ignoresSafeArea(.all)
+        Color.appBackgroundDimmed.ignoresSafeArea()
         VStack {
           if let user = authViewModel.currentUser {
             HStack(spacing: 15) {
@@ -90,9 +90,7 @@ struct GeneralScreen: View {
       .toolbar(isShownTabBar ? .visible : .hidden, for: .tabBar)
       .alert("Sign Out", isPresented: $isShownSignOutAlert) {
         Button("Sign Out", role: .destructive) {
-          withAnimation {
-            authViewModel.signOut()
-          }
+          withAnimation { authViewModel.signOut() }
         }
       } message: {
         Text("Are you sure you want to sign out?")

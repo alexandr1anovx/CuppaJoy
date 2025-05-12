@@ -9,17 +9,18 @@ import SwiftUI
 
 struct SignUpScreen: View {
   
+  // MARK: Dynamic Properties
   @State private var fullName = ""
   @State private var email = ""
   @State private var password = ""
+  @State private var confirmedPassword = ""
   @State private var selectedCity: City = .mykolaiv
-  
   @FocusState private var fieldContent: InputContentType?
   @EnvironmentObject var authViewModel: AuthViewModel
   @Environment(\.dismiss) var dismiss
   
+  // MARK: Private Properties
   private let validationService = ValidationService.shared
-  
   private var isValidForm: Bool {
     validationService.isValid(fullName: fullName)
     && validationService.isValid(email: email)
@@ -28,7 +29,7 @@ struct SignUpScreen: View {
   
   var body: some View {
     ZStack {
-      Color.appBackgroundDimmed.ignoresSafeArea(.all)
+      Color.appBackgroundDimmed.ignoresSafeArea()
       ScrollView {
         VStack(spacing: 0) {
           textFields
@@ -115,11 +116,7 @@ struct SignUpScreen: View {
         )
       }
     } label: {
-      ButtonLabel(
-        "Sign Up",
-        textColor: .white,
-        bgColor: .black
-      )
+      ButtonLabel("Sign Up", textColor: .white, bgColor: .black)
     }
     .disabled(!isValidForm)
     .opacity(!isValidForm ? 0.3 : 1)
@@ -151,5 +148,5 @@ struct SignUpScreen: View {
 
 #Preview {
   SignUpScreen()
-    .environmentObject( AuthViewModel() )
+    .environmentObject(AuthViewModel.preview)
 }
