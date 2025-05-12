@@ -10,8 +10,13 @@ import Foundation
 @MainActor
 final class OrderViewModel: ObservableObject {
   
+  // MARK: Public Properties
+  
   @Published var ongoingOrders: [Order] = []
   @Published var receivedOrders: [Order] = []
+  
+  // MARK: Private Properties
+  
   private let orderService: OrderService
   
   // MARK: - Initializer
@@ -33,12 +38,20 @@ final class OrderViewModel: ObservableObject {
     orderService.getReceivedOrders()
   }
   
-  func setOngoingOrder(_ order: Order) {
-    orderService.setOngoingOrder(order)
+  func setOngoingOrder(_ order: Order) async {
+    do {
+      try await orderService.setOngoingOrder(order)
+    } catch {
+      print("‼️ Cannot set ongoing order: \(error)")
+    }
   }
   
-  func cancelOngoingOrder(_ order: Order) {
-    orderService.cancelOngoingOrder(order)
+  func cancelOngoingOrder(_ order: Order) async {
+    do {
+     try await orderService.cancelOngoingOrder(order)
+    } catch {
+      print("‼️ Cannot cancel ongoing order: \(error)")
+    }
   }
   
   // MARK: - Private Methods
