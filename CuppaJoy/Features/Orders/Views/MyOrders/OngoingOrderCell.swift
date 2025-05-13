@@ -38,7 +38,9 @@ struct OngoingOrderCell: View {
     .alert("Cancel Order", isPresented: $isShownCancelationAlert) {
       Button("Cancel", role: .cancel) {}
       Button("Confirm", role: .destructive) {
-        withAnimation { orderViewModel.cancelOngoingOrder(order) }
+        Task {
+          await orderViewModel.cancelOngoingOrder(order)
+        }
       }
     } message: {
       Text("Are you sure you want to cancel this order?")
