@@ -12,8 +12,7 @@ struct OrderConfiguratorScreen: View {
   let selectedCoffee: Coffee
   @Binding var path: NavigationPath
   @Binding var isTabBarVisible: Bool
-  
-  @State var tooltipVisible = false
+  @EnvironmentObject var coffeeConfigViewModel: CoffeeConfigViewModel
   
   // Configuration properties
   @State private var cupCount: Int = 1
@@ -24,14 +23,11 @@ struct OrderConfiguratorScreen: View {
   @State private var milk: Milk = .none
   @State private var flavor: Flavor = .none
   
-  @State private var isShownFAQ: Bool = false
+  @State private var isShownFAQSheet: Bool = false
   
   @State private var selectedConfig: CoffeeConfig?
   @State private var isShownSaveConfigAlert: Bool = false
   @State private var configName: String = ""
-  
-  @EnvironmentObject var configViewModel: CoffeeConfigViewModel
-  @EnvironmentObject var orderViewModel: OrderViewModel
   
   var totalPrice: Double {
     let basePrice = selectedCoffee.price
@@ -72,14 +68,14 @@ struct OrderConfiguratorScreen: View {
   
   var body: some View {
     ZStack {
-      Color.appBackground.ignoresSafeArea(.all)
+      Color.appBackgroundDimmed.ignoresSafeArea()
       VStack {
-        if configViewModel.favoriteConfigs.isEmpty {
+        if coffeeConfigViewModel.favoriteConfigs.isEmpty {
           emptyConfigsView
         } else {
-          favoriteConfigsView
+          scrollableFavoriteConfigs
         }
-        configurationsList
+        configurationList
         totalAmountLabel
       }
       .padding(.top)
@@ -92,12 +88,12 @@ struct OrderConfiguratorScreen: View {
     .alert("Config Saving", isPresented: $isShownSaveConfigAlert) {
       TextField("Enter a name", text: $configName)
       cancelConfigButton
-      addConfigButton
+      addConfigConfirmationButton
     } message: {
       Text("Make sure you carefully check your current config.")
     }
     
-    .sheet(isPresented: $isShownFAQ) {
+    .sheet(isPresented: $isShownFAQSheet) {
       EmptyView()
         .presentationDetents([.medium])
         .presentationCornerRadius(30)
@@ -115,11 +111,10 @@ struct OrderConfiguratorScreen: View {
         }
       }
       ToolbarItem(placement: .topBarTrailing) {
-        Image(systemName: "info.circle.fill")
-          .foregroundStyle(.csCream)
-          .onTapGesture {
-            isShownFAQ.toggle()
-          }
+        Button { isShownFAQSheet.toggle() } label: {
+          Image(systemName: "info.circle.fill")
+            .foregroundStyle(.csCream)
+        }
       }
     }
     .onAppear {
@@ -128,62 +123,9 @@ struct OrderConfiguratorScreen: View {
     }
   }
   
-  // MARK: - Configurations List
+  // MARK: - Auxilary UI Components
   
-  private var addConfigButton: some View {
-    Button("Add") {
-      Task {
-        await configViewModel.saveFavoriteConfig(config)
-      }
-    }
-    .disabled(configName.isEmpty || configName.count > 6)
-  }
-  
-  private var cancelConfigButton: some View {
-    Button("Cancel") { configName = "" }
-  }
-  
-  private var configurationsList: some View {
-    List {
-      Section("Cup Configurations") {
-        OrderItemPicker("Size", selectedItem: $cupSize)
-          .pickerStyle(.segmented)
-        OrderItemCounter("Count:", min: 1, max: 4, count: $cupCount)
-      }
-      Section("Additives") {
-        OrderItemCounter("Sugar sticks:", min: 0, max: 3, count: $sugarSticks)
-        OrderItemCounter("Ice cubes:", min: 0, max: 3, count: $iceCubes)
-        OrderItemPicker("Variety:", selectedItem: $variety)
-        OrderItemPicker("Milk:", selectedItem: $milk)
-        OrderItemPicker("Flavor:", selectedItem: $flavor)
-      }
-    }
-    .customListStyle(rowSpacing: 15, shadowRadius: 3)
-    .listSectionSpacing(8)
-  }
-  
-  // MARK: - Empty Configs View
-  
-  private var emptyConfigsView: some View {
-    HStack {
-      Text("You have 0 favorite configs.")
-        .underline()
-        .font(.caption)
-        .foregroundStyle(.gray)
-      Button("Add", systemImage: "plus.circle") {
-        isShownSaveConfigAlert.toggle()
-      }
-      .font(.footnote)
-      .foregroundStyle(.orange)
-      .padding(12)
-      .background(.csDarkGrey)
-      .clipShape(.capsule)
-    }
-  }
-  
-  // MARK: - Favorite Configs View
-  
-  private var favoriteConfigsView: some View {
+  private var scrollableFavoriteConfigs: some View {
     HStack {
       Text("My Configs:")
         .font(.footnote)
@@ -192,7 +134,7 @@ struct OrderConfiguratorScreen: View {
       
       ScrollView(.horizontal) {
         HStack(spacing: 10) {
-          ForEach(configViewModel.favoriteConfigs) { config in
+          ForEach(coffeeConfigViewModel.favoriteConfigs) { config in
             Button {
               selectedConfig = config
               applyConfig()
@@ -207,7 +149,7 @@ struct OrderConfiguratorScreen: View {
               Group {
                 Button("Delete Config", systemImage: "trash") {
                   Task {
-                    await configViewModel.deleteFavoriteConfig(config)
+                    await coffeeConfigViewModel.deleteConfig(config)
                   }
                 }
               }
@@ -229,6 +171,53 @@ struct OrderConfiguratorScreen: View {
     }.padding(.horizontal,20)
   }
   
+  private var emptyConfigsView: some View {
+    HStack {
+      Text("You have 0 favorite configs.")
+        .underline()
+        .font(.caption)
+        .foregroundStyle(.gray)
+      Button("Add", systemImage: "plus.circle") {
+        isShownSaveConfigAlert.toggle()
+      }
+      .font(.footnote)
+      .foregroundStyle(.orange)
+      .padding(12)
+      .background(.csDarkGrey)
+      .clipShape(.capsule)
+    }
+  }
+  
+  private var addConfigConfirmationButton: some View {
+    Button("Add") {
+      Task { await coffeeConfigViewModel.saveConfig(config) }
+    }
+    .disabled(configName.isEmpty || configName.count > 6)
+  }
+  
+  private var cancelConfigButton: some View {
+    Button("Cancel") { configName = "" }
+  }
+  
+  private var configurationList: some View {
+    List {
+      Section("Cup Configurations") {
+        OrderItemPicker("Size", selectedItem: $cupSize)
+          .pickerStyle(.segmented)
+        OrderItemCounter("Count:", min: 1, max: 4, count: $cupCount)
+      }
+      Section("Additives") {
+        OrderItemCounter("Sugar sticks:", min: 0, max: 3, count: $sugarSticks)
+        OrderItemCounter("Ice cubes:", min: 0, max: 3, count: $iceCubes)
+        OrderItemPicker("Variety:", selectedItem: $variety)
+        OrderItemPicker("Milk:", selectedItem: $milk)
+        OrderItemPicker("Flavor:", selectedItem: $flavor)
+      }
+    }
+    .customListStyle(rowSpacing: 15, shadowRadius: 3)
+    .listSectionSpacing(8)
+  }
+  
   private var totalAmountLabel: some View {
     VStack(spacing: 20) {
       HStack(spacing: 0) {
@@ -244,7 +233,6 @@ struct OrderConfiguratorScreen: View {
           .animation(.bouncy, value: totalPrice)
           .frame(minWidth: 75)
       }
-      
       Button {
         path.append(OrderPage.summary(order))
       } label: {
@@ -257,11 +245,11 @@ struct OrderConfiguratorScreen: View {
       }
     }
     .background(
-      RoundedRectangle(cornerRadius: 40)
+      RoundedRectangle(cornerRadius: 35)
         .fill(Color.csBlack)
         .ignoresSafeArea(.all)
         .frame(height: 150)
-        .shadow(color: .black, radius: 2)
+        .shadow(radius: 5)
     )
   }
   
