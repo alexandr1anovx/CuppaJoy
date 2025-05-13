@@ -65,8 +65,7 @@ struct CustomListCell: View {
       case .settings: "gearshape"
       case .signOut: "door.left.hand.open"
       case .rateUS: "hand.thumbsup.fill"
-      case .deleteAccount:
-        "person.crop.circle.fill.badge.xmark"
+      case .deleteAccount: "person.crop.circle.fill.badge.xmark"
       }
     }
     
