@@ -10,30 +10,42 @@ import Foundation
 @MainActor
 final class CoffeeConfigViewModel: ObservableObject {
   
-  // MARK: Public Properties
+  // MARK: - Public Properties
+  
   @Published var favoriteConfigs: [CoffeeConfig] = []
   @Published var alertItem: AlertItem?
   
-  // MARK: Private Properties
+  // MARK: - Private Properties
+  
   private let coffeeConfigService: CoffeeConfigService
   
-  // MARK: Initializer
+  // MARK: - Init
+  
   init(coffeeConfigService: CoffeeConfigService =  CoffeeConfigService()) {
     self.coffeeConfigService = coffeeConfigService
-    setupBindings()
-    getConfigs()
+    fetchConfigs()
   }
   
   // MARK: - Public Methods
-  func getConfigs() {
-    coffeeConfigService.getConfigs()
+  
+  func fetchConfigs() {
+    coffeeConfigService.fetchConfigs { [weak self] result in
+      DispatchQueue.main.async {
+        switch result {
+        case .success(let configs):
+          self?.favoriteConfigs = configs
+        case .failure(let error):
+          print("❌ Failed to fetch configs: \(error.localizedDescription)")
+        }
+      }
+    }
   }
   
   func saveConfig(_ config: CoffeeConfig) async {
     do {
       try await coffeeConfigService.saveConfig(config)
     } catch {
-      print("‼️ Cannot save config: \(error)")
+      print("❌ Failed to save config: \(error.localizedDescription)")
     }
   }
   
@@ -44,11 +56,12 @@ final class CoffeeConfigViewModel: ObservableObject {
       alertItem = ConfigAlertContext.configDeletionFailed
     }
   }
-  
-  // MARK: - Private Methods
-  private func setupBindings() {
-    coffeeConfigService.$favoriteConfigs
-      .receive(on: DispatchQueue.main)
-      .assign(to: &$favoriteConfigs)
+}
+
+extension CoffeeConfigViewModel {
+  static var previewMode: CoffeeConfigViewModel {
+    let viewModel = CoffeeConfigViewModel()
+    viewModel.favoriteConfigs = [MockData.coffeeConfigLatte, MockData.coffeeConfigAmericano]
+    return viewModel
   }
 }
