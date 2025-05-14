@@ -15,8 +15,7 @@ struct PasswordRecoveryScreen: View {
   
   var body: some View {
     ZStack {
-      Color.csBlack.ignoresSafeArea(edges: .all)
-      
+      Color.appBackgroundDimmed.ignoresSafeArea()
       VStack(spacing: 20) {
         Text("Password Recovery")
           .font(.title2)
@@ -42,7 +41,7 @@ struct PasswordRecoveryScreen: View {
         
         Button {
           Task {
-            //await authViewModel.sendPasswordResetLink(to: email)
+            await authViewModel.sendPasswordResetLink(to: email)
           }
         } label: {
           ButtonLabel(
@@ -67,5 +66,5 @@ struct PasswordRecoveryScreen: View {
 
 #Preview {
   PasswordRecoveryScreen()
-    .environmentObject(AuthViewModel())
+    .environmentObject(AuthViewModel.previewMode)
 }
