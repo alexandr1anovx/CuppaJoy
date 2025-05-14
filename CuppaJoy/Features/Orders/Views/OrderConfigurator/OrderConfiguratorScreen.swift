@@ -23,7 +23,7 @@ struct OrderConfiguratorScreen: View {
   @State private var milk: Milk = .none
   @State private var flavor: Flavor = .none
   
-  @State private var isShownFAQSheet: Bool = false
+  @State private var isShownHintPopover: Bool = false
   
   @State private var selectedConfig: CoffeeConfig?
   @State private var isShownSaveConfigAlert: Bool = false
@@ -66,6 +66,8 @@ struct OrderConfiguratorScreen: View {
     )
   }
   
+  //init() { setupSegmentedControlAppearance() }
+  
   var body: some View {
     ZStack {
       Color.appBackgroundDimmed.ignoresSafeArea()
@@ -80,42 +82,13 @@ struct OrderConfiguratorScreen: View {
       }
       .padding(.top)
     }
-    .navigationTitle("Order Configurator")
+    .navigationTitle("Configurator")
     .navigationBarTitleDisplayMode(.inline)
     .navigationBarBackButtonHidden(true)
     .ignoresSafeArea(.keyboard)
-    
-    .alert("Config Saving", isPresented: $isShownSaveConfigAlert) {
-      TextField("Enter a name", text: $configName)
-      cancelConfigButton
-      addConfigConfirmationButton
-    } message: {
-      Text("Make sure you carefully check your current config.")
-    }
-    
-    .sheet(isPresented: $isShownFAQSheet) {
-      EmptyView()
-        .presentationDetents([.medium])
-        .presentationCornerRadius(30)
-        .presentationDragIndicator(.visible)
-        .presentationCompactAdaptation(.sheet)
-    }
-    
     .toolbar {
-      ToolbarItem(placement: .topBarLeading) {
-        Button {
-          path.removeLast()
-          isTabBarVisible = true
-        } label: {
-          ReturnButtonLabel()
-        }
-      }
-      ToolbarItem(placement: .topBarTrailing) {
-        Button { isShownFAQSheet.toggle() } label: {
-          Image(systemName: "info.circle.fill")
-            .foregroundStyle(.csCream)
-        }
-      }
+      ToolbarItem(placement: .topBarLeading) { toolbarBackButton }
+      ToolbarItem(placement: .topBarTrailing) { toolbarHintButton }
     }
     .onAppear {
       isTabBarVisible = false
@@ -133,7 +106,7 @@ struct OrderConfiguratorScreen: View {
         .foregroundStyle(.white)
       
       ScrollView(.horizontal) {
-        HStack(spacing: 10) {
+        HStack(spacing:10) {
           ForEach(coffeeConfigViewModel.favoriteConfigs) { config in
             Button {
               selectedConfig = config
@@ -163,21 +136,28 @@ struct OrderConfiguratorScreen: View {
       } label: {
         Image(systemName: "plus.circle")
           .foregroundStyle(.orange)
-          .padding(7)
+          .padding(8)
           .background(.csDarkGrey)
           .clipShape(.circle)
-          .shadow(radius: 3)
+          .shadow(radius:3)
       }
-    }.padding(.horizontal,20)
+      .alert("Config Saving", isPresented: $isShownSaveConfigAlert) {
+        TextField("Enter a name", text: $configName)
+        cancelConfigButton
+        addConfigConfirmationButton
+      } message: {
+        Text("Make sure you carefully check your current config.")
+      }
+    }
+    .padding(.horizontal,20)
   }
   
   private var emptyConfigsView: some View {
     HStack {
-      Text("You have 0 favorite configs.")
-        .underline()
-        .font(.caption)
+      Text("You have no configs yet 🫠.")
+        .font(.footnote)
         .foregroundStyle(.gray)
-      Button("Add", systemImage: "plus.circle") {
+      Button("Add", systemImage: "plus.circle.fill") {
         isShownSaveConfigAlert.toggle()
       }
       .font(.footnote)
@@ -192,7 +172,7 @@ struct OrderConfiguratorScreen: View {
     Button("Add") {
       Task { await coffeeConfigViewModel.saveConfig(config) }
     }
-    .disabled(configName.isEmpty || configName.count > 6)
+    .disabled(configName.isEmpty)
   }
   
   private var cancelConfigButton: some View {
@@ -226,7 +206,7 @@ struct OrderConfiguratorScreen: View {
           .fontWeight(.bold)
           .foregroundStyle(.white)
         Text(order.formattedPrice)
-          .font(.system(size: 17))
+          .font(.headline)
           .fontWeight(.bold)
           .foregroundStyle(.orange)
           .contentTransition(.numericText())
@@ -251,6 +231,40 @@ struct OrderConfiguratorScreen: View {
         .frame(height: 150)
         .shadow(radius: 5)
     )
+  }
+  
+  private var toolbarBackButton: some View {
+    Button {
+      path.removeLast()
+      isTabBarVisible = true
+    } label: {
+      ReturnButtonLabel()
+    }
+  }
+  
+  private var toolbarHintButton: some View {
+    Button {
+      isShownHintPopover.toggle()
+    } label: {
+      Image(systemName: "info.circle.fill")
+        .foregroundStyle(.pink)
+    }
+    .popover(
+      isPresented: $isShownHintPopover,
+      attachmentAnchor: .point(.trailing),
+      arrowEdge: .trailing) {
+        VStack(alignment: .leading, spacing:8) {
+          Text("• To save the configuration, select all the desired parameters and click the **Add** button.")
+          Divider()
+          Text("• For additional actions with the configuration, hold down its button.")
+        }
+        .font(.caption)
+        .multilineTextAlignment(.leading)
+        .frame(height:80)
+        .presentationBackground(.csCream.tertiary)
+        .presentationCompactAdaptation(.popover)
+        .padding()
+      }
   }
   
   private func applyConfig() {
@@ -285,7 +299,7 @@ struct OrderConfiguratorScreen: View {
     path: .constant(NavigationPath()),
     isTabBarVisible: .constant(false)
   )
-  .environmentObject(OrderViewModel())
-  .environmentObject(CoffeeCatalogViewModel())
-  .environmentObject(CoffeeConfigViewModel())
+  .environmentObject(OrderViewModel.previewMode)
+  .environmentObject(CoffeeCatalogViewModel.previewMode)
+  .environmentObject(CoffeeConfigViewModel.previewMode)
 }
