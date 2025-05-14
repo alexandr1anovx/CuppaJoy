@@ -11,10 +11,12 @@ import Foundation
 final class CoffeeCatalogViewModel: ObservableObject {
   
   // MARK: - Properties
+  
   @Published var coffees: [Coffee] = []
   private let coffeeCatalogService: CoffeeCatalogService
   
   // MARK: - Init
+  
   init(coffeeCatalogService: CoffeeCatalogService = CoffeeCatalogService()) {
     self.coffeeCatalogService = coffeeCatalogService
     fetchCoffees()
@@ -23,7 +25,7 @@ final class CoffeeCatalogViewModel: ObservableObject {
   // MARK: - Private Methods
   
   private func fetchCoffees() {
-    coffeeCatalogService.getCoffees { [weak self] result in
+    coffeeCatalogService.fetchCoffees { [weak self] result in
       DispatchQueue.main.async {
         switch result {
         case .success(let coffees):

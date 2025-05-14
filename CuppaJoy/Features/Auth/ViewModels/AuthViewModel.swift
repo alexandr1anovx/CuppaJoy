@@ -17,19 +17,17 @@ final class AuthViewModel: ObservableObject {
   @Published var currentUser: User?
   @Published var alertItem: AlertItem?
   
-  // MARK: Private Properties
+  // MARK: - Private Properties
   
   private var authStateListener: AuthStateDidChangeListenerHandle?
   private let authService: AuthService
   
-  // MARK: - Initializer
+  // MARK: - Init / Deinit
   
   init(authService: AuthService = AuthService()) {
     self.authService = authService
     setupAuthStateListener()
   }
-  
-  // MARK: - Deinitializer
   
   deinit {
     if let handle = authStateListener {
@@ -109,6 +107,15 @@ final class AuthViewModel: ObservableObject {
       alertItem = AuthAlertContext.failedToDeleteUser
     }
   }
+  
+  func sendPasswordResetLink(to email: String) async {
+    do {
+      try await authService.sendPasswordReset(email: email)
+      alertItem = AuthAlertContext.passwordResetLinkSent
+    } catch {
+      alertItem = AuthAlertContext.failedToUpdateEmail
+    }
+  }
 
   // MARK: - Private Methods
   
@@ -134,7 +141,7 @@ final class AuthViewModel: ObservableObject {
       let user = try await authService.fetchUserData(uid: uid)
       self.currentUser = user
     } catch {
-      print("‼️ DEBUG: Failed to fetch user data: \(error)")
+      print("‼️ Failed to fetch user data: \(error.localizedDescription)")
     }
   }
 }
@@ -142,7 +149,7 @@ final class AuthViewModel: ObservableObject {
 // MARK: - Preview Mode
 
 extension AuthViewModel {
-  static var preview: AuthViewModel {
+  static var previewMode: AuthViewModel {
     let viewModel = AuthViewModel()
     viewModel.currentUser = MockData.user
     return viewModel
