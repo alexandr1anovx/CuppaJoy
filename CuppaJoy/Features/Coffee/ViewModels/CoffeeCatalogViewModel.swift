@@ -10,28 +10,36 @@ import Foundation
 @MainActor
 final class CoffeeCatalogViewModel: ObservableObject {
   
-  // MARK: Public Properties
+  // MARK: - Properties
   @Published var coffees: [Coffee] = []
+  private let coffeeCatalogService: CoffeeCatalogService
   
-  // MARK: Private Properties
-  private let coffeeCatalogService: CoffeeСatalogService
-  
-  // MARK: Initializer
-  init(coffeeCatalogService: CoffeeСatalogService = CoffeeСatalogService()) {
+  // MARK: - Init
+  init(coffeeCatalogService: CoffeeCatalogService = CoffeeCatalogService()) {
     self.coffeeCatalogService = coffeeCatalogService
-    setupBindings()
     fetchCoffees()
   }
   
-  // MARK: Public Methods
-  func fetchCoffees() {
-    coffeeCatalogService.getCoffees()
-  }
+  // MARK: - Private Methods
   
-  // MARK: Private Methods
-  private func setupBindings() {
-    coffeeCatalogService.$coffees
-      .receive(on: DispatchQueue.main)
-      .assign(to: &$coffees)
+  private func fetchCoffees() {
+    coffeeCatalogService.getCoffees { [weak self] result in
+      DispatchQueue.main.async {
+        switch result {
+        case .success(let coffees):
+          self?.coffees = coffees
+        case .failure(let error):
+          print("❌ Error loading coffees: \(error.localizedDescription)")
+        }
+      }
+    }
+  }
+}
+
+extension CoffeeCatalogViewModel {
+  static var previewMode: CoffeeCatalogViewModel {
+    let viewModel = CoffeeCatalogViewModel()
+    viewModel.coffees = [MockData.coffee]
+    return viewModel
   }
 }
