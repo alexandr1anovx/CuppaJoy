@@ -25,7 +25,7 @@ struct EmailAndPasswordForm: View {
   
   var body: some View {
     ZStack {
-      Color.appBackgroundDimmed.ignoresSafeArea(.all)
+      Color.appBackgroundDimmed.ignoresSafeArea()
       VStack(spacing: 15) {
         List {
           Section {
@@ -121,5 +121,5 @@ struct EmailAndPasswordForm: View {
 
 #Preview {
   EmailAndPasswordForm()
-    .environmentObject(AuthViewModel())
+    .environmentObject(AuthViewModel.previewMode)
 }

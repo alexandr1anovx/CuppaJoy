@@ -148,5 +148,5 @@ struct SignUpScreen: View {
 
 #Preview {
   SignUpScreen()
-    .environmentObject(AuthViewModel.preview)
+    .environmentObject(AuthViewModel.previewMode)
 }

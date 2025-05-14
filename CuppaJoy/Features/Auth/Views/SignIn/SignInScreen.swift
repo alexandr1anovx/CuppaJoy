@@ -11,8 +11,8 @@ struct SignInScreen: View {
   var body: some View {
     NavigationStack {
       ZStack {
-        Color.appBackgroundDimmed.ignoresSafeArea(.all)
-        VStack(spacing: 25) {
+        Color.appBackgroundDimmed.ignoresSafeArea()
+        VStack(spacing:25) {
           HStack(alignment: .firstTextBaseline) {
             Text("Sign In.")
               .font(.title3)
@@ -44,7 +44,7 @@ struct SignInScreen: View {
   }
   
   private var signUpButton: some View {
-    HStack(spacing: 5) {
+    HStack(spacing:5) {
       Text("Don't have an account?")
         .font(.footnote)
         .fontWeight(.medium)
@@ -63,5 +63,5 @@ struct SignInScreen: View {
 
 #Preview {
   SignInScreen()
-    .environmentObject(AuthViewModel())
+    .environmentObject(AuthViewModel.previewMode)
 }
