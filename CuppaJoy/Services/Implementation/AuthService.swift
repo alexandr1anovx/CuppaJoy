@@ -11,6 +11,7 @@ import FirebaseAuth
 final class AuthService: AuthServiceProtocol {
   
   // MARK: - Private Initializer
+  
   private let database = Firestore.firestore()
   
   // MARK: - Public Methods
@@ -39,13 +40,12 @@ final class AuthService: AuthServiceProtocol {
       withEmail: email, password: withPassword
     )
     try await user.reauthenticate(with: credential)
-    // deletes the user from the user collection
+    
     try await database
       .collection("users")
       .document(user.uid)
-      .delete()
-    // deletes the user from the authentication section
-    try await user.delete()
+      .delete() // deletes a user from the collection
+    try await user.delete() // deletes a user from the authentication section
   }
   
   func saveUserData(for user: User) async throws {

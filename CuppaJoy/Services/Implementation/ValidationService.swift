@@ -9,12 +9,12 @@ import Foundation
 
 final class ValidationService: ValidationServiceProtocol {
   
-  // MARK: Private Initializer
+  // MARK:  - Singleton
   
   static let shared = ValidationService()
   private init() {}
   
-  // MARK: Public Methods
+  // MARK: - Public Methods
   
   func isValid(fullName: String) -> Bool {
     let regex = #"^[a-zA-Z-]+ ?.* [a-zA-Z-]+$"#

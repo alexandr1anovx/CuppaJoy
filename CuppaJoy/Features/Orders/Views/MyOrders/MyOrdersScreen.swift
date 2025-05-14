@@ -66,7 +66,7 @@ struct MyOrdersScreen: View {
             bgColor: .csCream
           )
         }
-        RefreshButton { orderViewModel.getOngoingOrders() }
+        RefreshButton { orderViewModel.fetchOngoingOrders() }
       }
       .padding(.top,10)
     }
@@ -81,7 +81,9 @@ struct MyOrdersScreen: View {
       Text("You don't have any received orders.\nTry to refresh if something isn't working.")
     } actions: {
       RefreshButton {
-        orderViewModel.getReceivedOrders()
+        //orderViewModel.get
+        orderViewModel.fetchReceivedOrders()
+        //orderViewModel.getReceivedOrders()
       }
       .padding(.top,10)
     }
