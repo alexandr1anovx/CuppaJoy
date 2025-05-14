@@ -11,7 +11,7 @@ struct HomeHeaderView: View {
   @EnvironmentObject var authViewModel: AuthViewModel
   
   var body: some View {
-    HStack(spacing: 12) {
+    HStack(spacing:12) {
       if let user = authViewModel.currentUser {
         Image(systemName: "person.fill")
           .imageScale(.large)
@@ -20,7 +20,7 @@ struct HomeHeaderView: View {
           .background(.csDarkGrey)
           .clipShape(.circle)
         
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing:10) {
           Text(user.fullName)
             .font(.subheadline)
             .fontWeight(.semibold)
@@ -49,9 +49,9 @@ struct HomeHeaderView: View {
         )
       } else {
         HStack(spacing:10) {
-          Text("Check your internet connection")
-            .font(.footnote)
-            .foregroundStyle(.red)
+          Text("Connecting...")
+            .font(.callout)
+            .foregroundStyle(.pink)
           ProgressView()
         }
       }
@@ -61,5 +61,5 @@ struct HomeHeaderView: View {
 
 #Preview {
   HomeHeaderView()
-    .environmentObject(AuthViewModel.preview)
+    .environmentObject(AuthViewModel.previewMode)
 }
