@@ -6,5 +6,5 @@
 //
 
 protocol CoffeeCatalogServiceProtocol {
-  func getCoffees(completion: @escaping (Result<[Coffee], Error>) -> Void)
+  func fetchCoffees(completion: @escaping (Result<[Coffee], Error>) -> Void)
 }

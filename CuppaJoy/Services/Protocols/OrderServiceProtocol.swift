@@ -6,8 +6,10 @@
 //
 
 protocol OrderServiceProtocol {
-  func getOngoingOrders()
-  func getReceivedOrders()
+  func getOrders(
+    forStatus: OrderStatus,
+    completion: @escaping (Result<[Order], Error>) -> Void
+  )
   func setOngoingOrder(_ order: Order) async throws
   func cancelOngoingOrder(_ order: Order) async throws
 }
