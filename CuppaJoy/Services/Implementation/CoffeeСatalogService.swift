@@ -8,37 +8,39 @@
 import FirebaseFirestore
 import FirebaseAuth
 
-final class CoffeeСatalogService: CoffeeCatalogServiceProtocol, ObservableObject {
+final class CoffeeCatalogService: CoffeeCatalogServiceProtocol {
   
-  // MARK: Public Properties
-  @Published var coffees: [Coffee] = []
+  // MARK: - Private Properties
   
-  // MARK: Private Properties
   private let database = Firestore.firestore()
   private var listener: ListenerRegistration?
   
-  // MARK: Deinitialization
+  // MARK: - Deinitialization
   deinit { listener?.remove() }
   
-  // MARK: Public Methods
+  // MARK: - Public Methods
   
-  func getCoffees() {
+  func getCoffees(completion: @escaping (Result<[Coffee], Error>) -> Void) {
     listener?.remove()
     
     listener = database
       .collection("coffees")
-      .addSnapshotListener { [weak self] snapshot, error in
-        if let error = error {
-          print("⚠️ Failed to get coffees: \(error)")
+      .addSnapshotListener { snapshot, error in
+        if let error {
+          print("❌ Failed to get coffees: \(error)")
+          completion(.failure(error))
+          return
         }
-        guard let self = self else { return }
-        guard let documents = snapshot?.documents else { return }
+        guard let documents = snapshot?.documents else {
+          print("❌ Failed to read coffee documents!")
+          completion(.failure(NSError(domain: "Firestore", code: -1, userInfo: [NSLocalizedDescriptionKey: "No documents found."])))
+          return
+        }
         let coffees = documents.compactMap {
           try? $0.data(as: Coffee.self)
         }
-        DispatchQueue.main.async {
-          self.coffees = coffees
-        }
+        completion(.success(coffees))
+        print("✅ COFFEESS: \(coffees)")
       }
   }
 }
