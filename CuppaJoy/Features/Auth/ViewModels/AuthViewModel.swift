@@ -5,6 +5,7 @@
 //  Created by Alexander Andrianov on 19.02.2025.
 //
 
+import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 
@@ -13,7 +14,14 @@ final class AuthViewModel: ObservableObject {
   
   // MARK: - Public Properties
   
-  @Published var userSession: FirebaseAuth.User?
+  @Published var userSession: FirebaseAuth.User? {
+    didSet {
+      NotificationCenter.default.post(
+        name: .authUserDidChange,
+        object: userSession
+      )
+    }
+  }
   @Published var currentUser: User?
   @Published var alertItem: AlertItem?
   
