@@ -46,7 +46,7 @@ struct OrderItemCounter: View {
         .clipShape(.circle)
         .disabled(count == maxValue)
     }
-    .fontWeight(.semibold)
+    .fontWeight(.medium)
     .foregroundStyle(.white)
   }
 }

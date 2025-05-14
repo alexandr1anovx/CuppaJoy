@@ -26,7 +26,7 @@ struct OrderItemPicker<T: OrderItemType>: View {
     }
     .tint(.csCream)
     .font(.subheadline)
-    .fontWeight(.semibold)
+    .fontWeight(.medium)
   }
 }
 
