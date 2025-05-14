@@ -35,7 +35,3 @@ struct AppEntryRouter: View {
     }
   }
 }
-
-#Preview {
-  AppEntryRouter()
-}

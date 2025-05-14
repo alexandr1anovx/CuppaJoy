@@ -15,12 +15,13 @@ final class CoffeeCatalogService: CoffeeCatalogServiceProtocol {
   private let database = Firestore.firestore()
   private var listener: ListenerRegistration?
   
-  // MARK: - Deinitialization
+  // MARK: - Deinit
+  
   deinit { listener?.remove() }
   
   // MARK: - Public Methods
   
-  func getCoffees(completion: @escaping (Result<[Coffee], Error>) -> Void) {
+  func fetchCoffees(completion: @escaping (Result<[Coffee], Error>) -> Void) {
     listener?.remove()
     
     listener = database
@@ -33,14 +34,16 @@ final class CoffeeCatalogService: CoffeeCatalogServiceProtocol {
         }
         guard let documents = snapshot?.documents else {
           print("❌ Failed to read coffee documents!")
-          completion(.failure(NSError(domain: "Firestore", code: -1, userInfo: [NSLocalizedDescriptionKey: "No documents found."])))
+          completion(.failure(
+            NSError(domain: "Firestore", code: -1, userInfo: [NSLocalizedDescriptionKey: "No documents found."]))
+          )
           return
         }
         let coffees = documents.compactMap {
           try? $0.data(as: Coffee.self)
         }
         completion(.success(coffees))
-        print("✅ COFFEESS: \(coffees)")
+        print("✅ Fetched coffees: \(coffees)")
       }
   }
 }
