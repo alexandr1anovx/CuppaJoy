@@ -8,24 +8,20 @@
 import FirebaseFirestore
 import FirebaseAuth
 
-final class CoffeeConfigService: CoffeeConfigProtocol, ObservableObject {
+final class CoffeeConfigService: CoffeeConfigServiceProtocol {
   
-  // MARK: Public Properites
-  @Published var favoriteConfigs: [CoffeeConfig] = []
+  // MARK: - Private Properites
   
-  // MARK: Private Properites
   private let database = Firestore.firestore()
   private var configsListener: ListenerRegistration?
   
-  // MARK: Deinitializer
-  deinit {
-    configsListener?.remove()
-  }
+  // MARK: - Deinit
+  
+  deinit { configsListener?.remove() }
   
   // MARK: - Public Methods
   
-  func getConfigs() {
-    // Remove previous listeners.
+  func fetchConfigs(completion: @escaping (Result<[CoffeeConfig], Error>) -> Void) {
     configsListener?.remove()
     
     guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -34,21 +30,24 @@ final class CoffeeConfigService: CoffeeConfigProtocol, ObservableObject {
       .collection("users")
       .document(uid)
       .collection("configs")
-      .addSnapshotListener { [weak self] snapshot, error in
-        guard let self = self else { return }
-        
-        if let error = error {
-          print("⚠️ Error listening for documents: \(error)")
+      .addSnapshotListener { snapshot, error in
+        if let error {
+          print("❌ Failed to fetch configs: \(error)")
+          completion(.failure(error))
           return
         }
-        guard let documents = snapshot?.documents else { return }
-        
-        let newConfigs = documents.compactMap { doc -> CoffeeConfig? in
-          try? doc.data(as: CoffeeConfig.self)
+        guard let documents = snapshot?.documents else {
+          print("❌ Failed to read config documents!")
+          completion(.failure(
+            NSError(domain: "Firestore", code: -1, userInfo: [NSLocalizedDescriptionKey: "No documents found."]))
+          )
+          return
         }
-        DispatchQueue.main.async {
-          self.favoriteConfigs = newConfigs
+        let configs = documents.compactMap {
+          try? $0.data(as: CoffeeConfig.self)
         }
+        completion(.success(configs))
+        print("✅ Fetched configs: \(configs)")
       }
   }
   

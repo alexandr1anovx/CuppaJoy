@@ -8,74 +8,49 @@
 import FirebaseAuth
 import FirebaseFirestore
 
-final class OrderService: OrderServiceProtocol, ObservableObject {
+final class OrderService: OrderServiceProtocol {
   
-  // MARK: Public Properties
-  @Published var ongoingOrders: [Order] = []
-  @Published var receivedOrders: [Order] = []
+  // MARK: - Private Properties
   
-  // MARK: Private Properties
   private let database = Firestore.firestore()
-  private var ongoingOrdersListener: ListenerRegistration?
-  private var receivedOrdersListener: ListenerRegistration?
+  private var ordersListener: ListenerRegistration?
   
-  // MARK: - Deinitialization
-  deinit {
-    ongoingOrdersListener?.remove()
-    receivedOrdersListener?.remove()
-  }
+  // MARK: - Deinit
+  
+  deinit { ordersListener?.remove() }
   
   // MARK: - Public Methods
   
-  func getOngoingOrders() {
-    // Remove previous listeners.
-    ongoingOrdersListener?.remove()
+  func getOrders(
+    forStatus status: OrderStatus,
+    completion: @escaping (Result<[Order], any Error>) -> Void
+  ) {
+    ordersListener?.remove()
     
     guard let uid = Auth.auth().currentUser?.uid else { return }
     
-    ongoingOrdersListener = database
+    ordersListener = database
       .collection("users")
       .document(uid)
       .collection("orders")
-      .whereField("status", isEqualTo: "ongoing")
-      .addSnapshotListener { [weak self] snapshot, error in
-        if let error = error {
-          print("⚠️ Failed to get ongoing orders: \(error)")
+      .whereField("status", isEqualTo: status.rawValue)
+      .addSnapshotListener { snapshot, error in
+        if let error {
+          print("❌ Failed to get orders: \(error)")
+          completion(.failure(error))
         }
-        guard let self = self else { return }
-        guard let documents = snapshot?.documents else { return }
+        guard let documents = snapshot?.documents else {
+          print("❌ Failed to read coffee documents!")
+          completion(.failure(
+            NSError(domain: "Firestore", code: -1, userInfo: [NSLocalizedDescriptionKey: "No documents found."]))
+          )
+          return
+        }
         let orders = documents.compactMap {
           try? $0.data(as: Order.self)
         }
-        DispatchQueue.main.async {
-          self.ongoingOrders = orders
-        }
-      }
-  }
-  
-  func getReceivedOrders() {
-    // Remove previous listeners.
-    receivedOrdersListener?.remove()
-    
-    guard let uid = Auth.auth().currentUser?.uid else { return }
-    
-    database
-      .collection("users")
-      .document(uid)
-      .collection("orders")
-      .whereField("status", isEqualTo: "received")
-      .addSnapshotListener { [weak self] snapshot, error in
-        if let error = error {
-          print("⚠️ Failed to get received orders: \(error)")
-        }
-        guard let self = self else { return }
-        guard let documents = snapshot?.documents else { return }
-        let orders = documents.compactMap {
-          try? $0.data(as: Order.self)
-        }
-        DispatchQueue.main.async {
-          self.receivedOrders = orders
-        }
+        completion(.success(orders))
+        print("✅ ORDERS: \(orders)")
       }
   }
   
