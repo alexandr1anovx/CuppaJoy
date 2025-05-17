@@ -61,7 +61,6 @@ final class AuthViewModel: ObservableObject {
   ) async {
     do {
       let user = try await authService.signUp(email: email, password: password)
-      try await authService.sendEmailVerification()
       let newUser = User(
         id: user.uid,
         fullName: fullName,
@@ -70,9 +69,10 @@ final class AuthViewModel: ObservableObject {
         coins: Int.random(in: 0...8)
       )
       try await authService.saveUserData(for: newUser)
+      try await authService.sendEmailVerification()
       self.currentUser = newUser
     } catch {
-      alertItem = AuthAlertContext.userExists
+      print("❌ Registration failed: \(error.localizedDescription)")
     }
   }
   
@@ -124,7 +124,7 @@ final class AuthViewModel: ObservableObject {
       alertItem = AuthAlertContext.failedToUpdateEmail
     }
   }
-
+  
   // MARK: - Private Methods
   
   private func setupAuthStateListener() {
@@ -150,6 +150,7 @@ final class AuthViewModel: ObservableObject {
       self.currentUser = user
     } catch {
       print("‼️ Failed to fetch user data: \(error.localizedDescription)")
+      print("❌ DEBUG: Error: \(error)")
     }
   }
 }
