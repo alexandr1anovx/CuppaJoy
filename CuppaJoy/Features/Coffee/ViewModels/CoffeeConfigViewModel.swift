@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 @MainActor
 final class CoffeeConfigViewModel: ObservableObject {
@@ -18,12 +19,19 @@ final class CoffeeConfigViewModel: ObservableObject {
   // MARK: - Private Properties
   
   private let coffeeConfigService: CoffeeConfigService
+  private var observer: NSObjectProtocol?
   
-  // MARK: - Init
+  // MARK: - Init / Deinit
   
   init(coffeeConfigService: CoffeeConfigService =  CoffeeConfigService()) {
     self.coffeeConfigService = coffeeConfigService
-    fetchConfigs()
+    setupAuthObserver()
+  }
+  
+  deinit {
+    if let observer = observer {
+      NotificationCenter.default.removeObserver(observer)
+    }
   }
   
   // MARK: - Public Methods
@@ -56,12 +64,36 @@ final class CoffeeConfigViewModel: ObservableObject {
       alertItem = ConfigAlertContext.configDeletionFailed
     }
   }
+  
+  // MARK: - Private Methods
+  
+  private func setupAuthObserver() {
+    self.observer = NotificationCenter.default.addObserver(
+      forName: .authUserDidChange,
+      object: nil,
+      queue: .main,
+      using: { [weak self] notification in
+        Task { @MainActor in
+          if let _ = notification.object as? FirebaseAuth.User {
+            self?.fetchConfigs()
+          } else {
+            self?.favoriteConfigs = []
+          }
+        }
+      }
+    )
+  }
 }
+
+// MARK: - Preview Mode
 
 extension CoffeeConfigViewModel {
   static var previewMode: CoffeeConfigViewModel {
     let viewModel = CoffeeConfigViewModel()
-    viewModel.favoriteConfigs = [MockData.coffeeConfigLatte, MockData.coffeeConfigAmericano]
+    viewModel.favoriteConfigs = [
+      MockData.coffeeConfigLatte,
+      MockData.coffeeConfigAmericano
+    ]
     return viewModel
   }
 }
