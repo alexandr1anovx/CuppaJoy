@@ -71,7 +71,7 @@ final class AuthService: AuthServiceProtocol {
       .getDocument()
     
     guard let user = try? document.data(as: User.self) else {
-      throw NSError()
+      throw AuthErrorCode.userNotFound
     }
     return user
   }
