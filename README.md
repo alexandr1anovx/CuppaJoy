@@ -18,15 +18,14 @@
 
 <p align="center">
   <img src="app-screenshots/1_Onboarding.png" width="150" alt="Onboarding" />
-  <img src="app-screenshots/2_Login.png" width="150" alt="Login" />
-  <img src="app-screenshots/3_Registration.png" width="150" alt="Registration" />
+  <img src="app-screenshots/2_SignIn.png" width="150" alt="Login" />
+  <img src="app-screenshots/3_SignUp.png" width="150" alt="Registration" />
   <img src="app-screenshots/4_Home.png" width="150" alt="Home" />
   <img src="app-screenshots/5_OrderConfigurator.png" width="150" alt="Order Configurator" />
 </p>
 
 <p align="center">
   <img src="app-screenshots/6_OrderSummary.png" width="150" alt="Order Summary" />
-  <img src="app-screenshots/7_Payment.png" width="150" alt="Order Payment" />
+  <img src="app-screenshots/7_OrderPayment.png" width="150" alt="Order Payment" />
   <img src="app-screenshots/8_MyOrders.png" width="150" alt="My Orders" />
-  <img src="app-screenshots/9_General.png" width="150" alt="General" />
 </p>
