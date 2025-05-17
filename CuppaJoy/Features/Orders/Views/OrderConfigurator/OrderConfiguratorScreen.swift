@@ -94,6 +94,13 @@ struct OrderConfiguratorScreen: View {
       isTabBarVisible = false
       setupSegmentedControlAppearance()
     }
+    .alert("Config Saving", isPresented: $isShownSaveConfigAlert) {
+      TextField("Enter a name", text: $configName)
+      cancelConfigButton
+      addConfigConfirmationButton
+    } message: {
+      Text("Make sure you carefully check your current config.")
+    }
   }
   
   // MARK: - Auxilary UI Components
@@ -141,13 +148,7 @@ struct OrderConfiguratorScreen: View {
           .clipShape(.circle)
           .shadow(radius:3)
       }
-      .alert("Config Saving", isPresented: $isShownSaveConfigAlert) {
-        TextField("Enter a name", text: $configName)
-        cancelConfigButton
-        addConfigConfirmationButton
-      } message: {
-        Text("Make sure you carefully check your current config.")
-      }
+      
     }
     .padding(.horizontal,20)
   }
