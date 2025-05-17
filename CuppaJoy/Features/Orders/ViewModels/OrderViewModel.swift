@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 @MainActor
 final class OrderViewModel: ObservableObject {
@@ -18,13 +19,19 @@ final class OrderViewModel: ObservableObject {
   // MARK: - Private Properties
   
   private let orderService: OrderService
+  private var observer: NSObjectProtocol?
   
-  // MARK: - Init
+  // MARK: - Init / Deinit
   
   init(orderService: OrderService = OrderService()) {
     self.orderService = orderService
-    fetchOngoingOrders()
-    fetchReceivedOrders()
+    setupAuthObserver()
+  }
+  
+  deinit {
+    if let observer = observer {
+      NotificationCenter.default.removeObserver(observer)
+    }
   }
   
   // MARK: - Public Methods
@@ -70,9 +77,30 @@ final class OrderViewModel: ObservableObject {
       print("❌ Failed to cancel ongoing order: \(error.localizedDescription)")
     }
   }
+  
+  // MARK:  - Private Methods
+  
+  private func setupAuthObserver() {
+    self.observer = NotificationCenter.default.addObserver(
+      forName: .authUserDidChange,
+      object: nil,
+      queue: .main,
+      using: { [weak self] notification in
+        Task { @MainActor in
+          if let _ = notification.object as? FirebaseAuth.User {
+            self?.fetchOngoingOrders()
+            self?.fetchReceivedOrders()
+          } else {
+            self?.ongoingOrders = []
+            self?.receivedOrders = []
+          }
+        }
+      }
+    )
+  }
 }
 
-// MARK:  Preview Mode
+// MARK:  - Preview Mode
 
 extension OrderViewModel {
   static var previewMode: OrderViewModel {
