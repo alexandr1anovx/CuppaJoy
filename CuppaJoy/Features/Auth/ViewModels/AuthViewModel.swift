@@ -69,7 +69,6 @@ final class AuthViewModel: ObservableObject {
         coins: Int.random(in: 0...8)
       )
       try await authService.saveUserData(for: newUser)
-      try await authService.sendEmailVerification()
       self.currentUser = newUser
     } catch {
       print("❌ Registration failed: \(error.localizedDescription)")
