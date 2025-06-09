@@ -28,4 +28,5 @@
   <img src="app-screenshots/6_OrderSummary.png" width="150" alt="Order Summary" />
   <img src="app-screenshots/7_OrderPayment.png" width="150" alt="Order Payment" />
   <img src="app-screenshots/8_MyOrders.png" width="150" alt="My Orders" />
+  <img src="app-screenshots/9_General.png" width="150" alt="General" />
 </p>
