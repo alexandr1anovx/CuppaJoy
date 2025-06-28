@@ -53,7 +53,6 @@
 		D174B3112D6E4AB900188C69 /* SecuredInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D174B3102D6E4AB900188C69 /* SecuredInputField.swift */; };
 		D181356B2D4502BE00F77824 /* DismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D181356A2D4502BE00F77824 /* DismissButton.swift */; };
 		D182F4A72D325A8C00A113E8 /* OnboardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D182F4A62D325A8C00A113E8 /* OnboardingScreen.swift */; };
-		D18C03262DBAB5FA000F79E2 /* CoffeeCatalogServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C03252DBAB5FA000F79E2 /* CoffeeCatalogServiceProtocol.swift */; };
 		D18C03282DBAB610000F79E2 /* CoffeeСatalogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C03272DBAB610000F79E2 /* CoffeeСatalogService.swift */; };
 		D18C032A2DBAE430000F79E2 /* CoffeeConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C03292DBAE430000F79E2 /* CoffeeConfigService.swift */; };
 		D18C032C2DBAE4C6000F79E2 /* CoffeeConfigServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C032B2DBAE4C6000F79E2 /* CoffeeConfigServiceProtocol.swift */; };
@@ -138,7 +137,6 @@
 		D174B3102D6E4AB900188C69 /* SecuredInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecuredInputField.swift; sourceTree = "<group>"; };
 		D181356A2D4502BE00F77824 /* DismissButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissButton.swift; sourceTree = "<group>"; };
 		D182F4A62D325A8C00A113E8 /* OnboardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScreen.swift; sourceTree = "<group>"; };
-		D18C03252DBAB5FA000F79E2 /* CoffeeCatalogServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeCatalogServiceProtocol.swift; sourceTree = "<group>"; };
 		D18C03272DBAB610000F79E2 /* CoffeeСatalogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoffeeСatalogService.swift"; sourceTree = "<group>"; };
 		D18C03292DBAE430000F79E2 /* CoffeeConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeConfigService.swift; sourceTree = "<group>"; };
 		D18C032B2DBAE4C6000F79E2 /* CoffeeConfigServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeConfigServiceProtocol.swift; sourceTree = "<group>"; };
@@ -637,7 +635,6 @@
 			isa = PBXGroup;
 			children = (
 				D18C032B2DBAE4C6000F79E2 /* CoffeeConfigServiceProtocol.swift */,
-				D18C03252DBAB5FA000F79E2 /* CoffeeCatalogServiceProtocol.swift */,
 				D1EF6EA72DB66D8F00232718 /* OrderServiceProtocol.swift */,
 				D1EF6EA32DB5A4B300232718 /* AuthServiceProtocol.swift */,
 			);
@@ -790,7 +787,6 @@
 				D10DDF6F2DA72B7A00D857E1 /* PaymentMethod.swift in Sources */,
 				32325EE02CB2B9490048E557 /* InputField.swift in Sources */,
 				D1426EE72D4E5D5E00C78FE0 /* UIApplication+Extension.swift in Sources */,
-				D18C03262DBAB5FA000F79E2 /* CoffeeCatalogServiceProtocol.swift in Sources */,
 				D1EF6E912DB5672500232718 /* ValidationService.swift in Sources */,
 				D11435302D2EB790007078D9 /* ApplePayView.swift in Sources */,
 				D1721E042D6F573F00A0CBF1 /* Coffee.swift in Sources */,
