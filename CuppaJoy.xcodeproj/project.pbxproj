@@ -78,7 +78,6 @@
 		D1DD423B2DAD97AF00F4FBD9 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DD423A2DAD97AF00F4FBD9 /* View+Extension.swift */; };
 		D1EACE842DA32E0A00484FEC /* CustomListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EACE832DA32E0A00484FEC /* CustomListCell.swift */; };
 		D1EC2FFC2D2637FA008E8265 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EC2FFB2D2637FA008E8265 /* Color+Extension.swift */; };
-		D1EF6E8F2DB5670400232718 /* ValidationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EF6E8E2DB5670400232718 /* ValidationServiceProtocol.swift */; };
 		D1EF6E912DB5672500232718 /* ValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EF6E902DB5672500232718 /* ValidationService.swift */; };
 		D1EF6EA22DB593ED00232718 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EF6EA12DB593ED00232718 /* City.swift */; };
 		D1EF6EA42DB5A4B300232718 /* AuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EF6EA32DB5A4B300232718 /* AuthServiceProtocol.swift */; };
@@ -161,7 +160,6 @@
 		D1DD423A2DAD97AF00F4FBD9 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		D1EACE832DA32E0A00484FEC /* CustomListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomListCell.swift; sourceTree = "<group>"; };
 		D1EC2FFB2D2637FA008E8265 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
-		D1EF6E8E2DB5670400232718 /* ValidationServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationServiceProtocol.swift; sourceTree = "<group>"; };
 		D1EF6E902DB5672500232718 /* ValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationService.swift; sourceTree = "<group>"; };
 		D1EF6EA12DB593ED00232718 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		D1EF6EA32DB5A4B300232718 /* AuthServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceProtocol.swift; sourceTree = "<group>"; };
@@ -641,7 +639,6 @@
 				D18C032B2DBAE4C6000F79E2 /* CoffeeConfigServiceProtocol.swift */,
 				D18C03252DBAB5FA000F79E2 /* CoffeeCatalogServiceProtocol.swift */,
 				D1EF6EA72DB66D8F00232718 /* OrderServiceProtocol.swift */,
-				D1EF6E8E2DB5670400232718 /* ValidationServiceProtocol.swift */,
 				D1EF6EA32DB5A4B300232718 /* AuthServiceProtocol.swift */,
 			);
 			path = Protocols;
@@ -796,7 +793,6 @@
 				D18C03262DBAB5FA000F79E2 /* CoffeeCatalogServiceProtocol.swift in Sources */,
 				D1EF6E912DB5672500232718 /* ValidationService.swift in Sources */,
 				D11435302D2EB790007078D9 /* ApplePayView.swift in Sources */,
-				D1EF6E8F2DB5670400232718 /* ValidationServiceProtocol.swift in Sources */,
 				D1721E042D6F573F00A0CBF1 /* Coffee.swift in Sources */,
 				32325EE22CB2C3EB0048E557 /* SignUpScreen.swift in Sources */,
 				D18E62C82DD54086002BFFD8 /* Notification+Extension.swift in Sources */,
