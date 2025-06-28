@@ -8,42 +8,22 @@
 import FirebaseFirestore
 import FirebaseAuth
 
+protocol CoffeeCatalogServiceProtocol {
+  func fetchCoffees() async throws -> [Coffee]
+}
+
 final class CoffeeCatalogService: CoffeeCatalogServiceProtocol {
   
-  // MARK: - Private Properties
+  private let db = Firestore.firestore()
+  private let coffeeCollection: String = "coffees"
   
-  private let database = Firestore.firestore()
-  private var listener: ListenerRegistration?
-  
-  // MARK: - Deinit
-  
-  deinit { listener?.remove() }
-  
-  // MARK: - Public Methods
-  
-  func fetchCoffees(completion: @escaping (Result<[Coffee], Error>) -> Void) {
-    listener?.remove()
-    
-    listener = database
-      .collection("coffees")
-      .addSnapshotListener { snapshot, error in
-        if let error {
-          print("❌ Failed to get coffees: \(error)")
-          completion(.failure(error))
-          return
-        }
-        guard let documents = snapshot?.documents else {
-          print("❌ Failed to read coffee documents!")
-          completion(.failure(
-            NSError(domain: "Firestore", code: -1, userInfo: [NSLocalizedDescriptionKey: "No documents found."]))
-          )
-          return
-        }
-        let coffees = documents.compactMap {
-          try? $0.data(as: Coffee.self)
-        }
-        completion(.success(coffees))
-        print("✅ Fetched coffees: \(coffees)")
-      }
+  func fetchCoffees() async throws -> [Coffee] {
+    let snapshot = try await db
+      .collection(coffeeCollection)
+      .getDocuments()
+    let coffees = try snapshot.documents.compactMap { document in
+      try document.data(as: Coffee.self)
+    }
+    return coffees
   }
 }
