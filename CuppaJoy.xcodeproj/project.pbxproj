@@ -78,9 +78,7 @@
 		D1EC2FFC2D2637FA008E8265 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EC2FFB2D2637FA008E8265 /* Color+Extension.swift */; };
 		D1EF6E912DB5672500232718 /* ValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EF6E902DB5672500232718 /* ValidationService.swift */; };
 		D1EF6EA22DB593ED00232718 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EF6EA12DB593ED00232718 /* City.swift */; };
-		D1EF6EA42DB5A4B300232718 /* AuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EF6EA32DB5A4B300232718 /* AuthServiceProtocol.swift */; };
 		D1EF6EA62DB6681700232718 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EF6EA52DB6681700232718 /* AuthService.swift */; };
-		D1EF6EA82DB66D8F00232718 /* OrderServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EF6EA72DB66D8F00232718 /* OrderServiceProtocol.swift */; };
 		D1EF6EAA2DB66D9900232718 /* OrderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EF6EA92DB66D9900232718 /* OrderService.swift */; };
 		D1F061032DAD590D00024160 /* RefreshButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F061022DAD590D00024160 /* RefreshButton.swift */; };
 		D1FEA5262D6603C500B082D8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FEA5252D6603C500B082D8 /* User.swift */; };
@@ -158,9 +156,7 @@
 		D1EC2FFB2D2637FA008E8265 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		D1EF6E902DB5672500232718 /* ValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationService.swift; sourceTree = "<group>"; };
 		D1EF6EA12DB593ED00232718 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
-		D1EF6EA32DB5A4B300232718 /* AuthServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceProtocol.swift; sourceTree = "<group>"; };
 		D1EF6EA52DB6681700232718 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
-		D1EF6EA72DB66D8F00232718 /* OrderServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderServiceProtocol.swift; sourceTree = "<group>"; };
 		D1EF6EA92DB66D9900232718 /* OrderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderService.swift; sourceTree = "<group>"; };
 		D1F061022DAD590D00024160 /* RefreshButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshButton.swift; sourceTree = "<group>"; };
 		D1FEA5252D6603C500B082D8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -612,7 +608,6 @@
 			isa = PBXGroup;
 			children = (
 				D1EF6E8C2DB5659D00232718 /* Implementation */,
-				D1EF6E8D2DB5661C00232718 /* Protocols */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -620,22 +615,13 @@
 		D1EF6E8C2DB5659D00232718 /* Implementation */ = {
 			isa = PBXGroup;
 			children = (
-				D18C03292DBAE430000F79E2 /* CoffeeConfigService.swift */,
 				D18C03272DBAB610000F79E2 /* CoffeeСatalogService.swift */,
+				D18C03292DBAE430000F79E2 /* CoffeeConfigService.swift */,
 				D1EF6EA92DB66D9900232718 /* OrderService.swift */,
 				D1EF6E902DB5672500232718 /* ValidationService.swift */,
 				D1EF6EA52DB6681700232718 /* AuthService.swift */,
 			);
 			path = Implementation;
-			sourceTree = "<group>";
-		};
-		D1EF6E8D2DB5661C00232718 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				D1EF6EA72DB66D8F00232718 /* OrderServiceProtocol.swift */,
-				D1EF6EA32DB5A4B300232718 /* AuthServiceProtocol.swift */,
-			);
-			path = Protocols;
 			sourceTree = "<group>";
 		};
 		D1EF6EA02DB593CD00232718 /* Models */ = {
@@ -744,12 +730,10 @@
 				50DFA8232D04AC660058A4D4 /* HomeHeaderView.swift in Sources */,
 				D1DD423B2DAD97AF00F4FBD9 /* View+Extension.swift in Sources */,
 				321D48142CAF6098007A0B20 /* CuppaJoyApp.swift in Sources */,
-				D1EF6EA82DB66D8F00232718 /* OrderServiceProtocol.swift in Sources */,
 				D18C03282DBAB610000F79E2 /* CoffeeСatalogService.swift in Sources */,
 				D1C803E22D91945700674C04 /* PasswordRecoveryScreen.swift in Sources */,
 				D16275252D903D4E0001D88C /* AlertManager.swift in Sources */,
 				D182F4A72D325A8C00A113E8 /* OnboardingScreen.swift in Sources */,
-				D1EF6EA42DB5A4B300232718 /* AuthServiceProtocol.swift in Sources */,
 				D14413362DB2D3FF00BE38C0 /* CoffeeConfig.swift in Sources */,
 				D1EF6EA22DB593ED00232718 /* City.swift in Sources */,
 				50DFA8132D046D840058A4D4 /* UIWindow+Extension.swift in Sources */,
