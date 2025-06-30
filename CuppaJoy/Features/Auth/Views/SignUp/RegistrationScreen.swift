@@ -7,25 +7,12 @@
 
 import SwiftUI
 
-struct SignUpScreen: View {
+struct RegistrationScreen: View {
   
-  // MARK: Dynamic Properties
-  @State private var fullName = ""
-  @State private var email = ""
-  @State private var password = ""
-  @State private var confirmedPassword = ""
-  @State private var selectedCity: City = .mykolaiv
+  //@StateObject var viewModel: RegistrationViewModel
+  @EnvironmentObject var viewModel: RegistrationViewModel
   @FocusState private var fieldContent: InputContentType?
-  @EnvironmentObject var authViewModel: AuthViewModel
   @Environment(\.dismiss) var dismiss
-  
-  // MARK: Private Properties
-  private let validationService = ValidationService.shared
-  private var isValidForm: Bool {
-    validationService.isValid(fullName: fullName)
-    && validationService.isValid(email: email)
-    && validationService.isValid(password: password)
-  }
   
   var body: some View {
     ZStack {
@@ -47,16 +34,18 @@ struct SignUpScreen: View {
     }
   }
   
+  // MARK: - Subviews
+  
   private var textFields: some View {
     List {
       Section {
-        InputField(for: .fullName, data: $fullName)
+        InputField(for: .fullName, data: $viewModel.fullName)
           .focused($fieldContent, equals: .fullName)
           .textInputAutocapitalization(.words)
           .submitLabel(.next)
           .onSubmit { fieldContent = .email }
         
-        InputField(for: .email, data: $email)
+        InputField(for: .email, data: $viewModel.email)
           .focused($fieldContent, equals: .email)
           .keyboardType(.emailAddress)
           .textInputAutocapitalization(.never)
@@ -64,7 +53,7 @@ struct SignUpScreen: View {
           .submitLabel(.next)
           .onSubmit { fieldContent = .password }
         
-        SecuredInputField(password: $password)
+        SecuredInputField(password: $viewModel.password)
           .focused($fieldContent, equals: .password)
           .textInputAutocapitalization(.never)
           .autocorrectionDisabled(true)
@@ -87,9 +76,10 @@ struct SignUpScreen: View {
         .padding(.top, 10)
       }
     }
-    .customListStyle(rowSpacing: 8, shadowRadius: 5)
+    .listRowSpacing(8)
     .frame(height: 325)
     .environment(\.defaultMinListRowHeight, 50)
+    .shadow(radius: 5)
   }
   
   private var cityPicker: some View {
@@ -97,7 +87,7 @@ struct SignUpScreen: View {
       Text("Select your city:")
         .font(.footnote)
         .foregroundStyle(.gray)
-      Picker("City", selection: $selectedCity) {
+      Picker("City", selection: $viewModel.selectedCity) {
         ForEach(City.allCases) { city in
           Text(city.title)
         }
@@ -107,20 +97,13 @@ struct SignUpScreen: View {
   
   private var signUpButton: some View {
     Button {
-      Task {
-        await authViewModel.signUp(
-          fullName: fullName,
-          email: email,
-          password: password,
-          city: selectedCity
-        )
-      }
+      Task { await viewModel.signUp() }
     } label: {
       ButtonLabel("Sign Up", textColor: .white, bgColor: .black)
     }
-    .disabled(!isValidForm)
-    .opacity(!isValidForm ? 0.3 : 1)
-    .alert(item: $authViewModel.alertItem) { alert in
+    .disabled(!viewModel.isValidForm)
+    .opacity(!viewModel.isValidForm ? 0.3 : 1)
+    .alert(item: $viewModel.alertItem) { alert in
       Alert(
         title: alert.title,
         message: alert.message,
@@ -144,9 +127,4 @@ struct SignUpScreen: View {
       }
     }
   }
-}
-
-#Preview {
-  SignUpScreen()
-    .environmentObject(AuthViewModel.previewMode)
 }

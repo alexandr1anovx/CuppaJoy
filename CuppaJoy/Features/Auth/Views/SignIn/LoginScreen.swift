@@ -7,7 +7,12 @@
 
 import SwiftUI
 
-struct SignInScreen: View {
+struct LoginScreen: View {
+  
+  let authService: AuthServiceProtocol
+  let userService: UserServiceProtocol
+  @StateObject var viewModel: LoginViewModel
+  
   var body: some View {
     NavigationStack {
       ZStack {
@@ -32,7 +37,7 @@ struct SignInScreen: View {
   
   private var emailAndPasswordButton: some View {
     NavigationLink {
-      EmailAndPasswordForm()
+      EmailAndPasswordForm(viewModel: viewModel)
     } label: {
       ButtonLabelWithIcon(
         "Continue with Email & Password",
@@ -50,7 +55,7 @@ struct SignInScreen: View {
         .fontWeight(.medium)
         .foregroundStyle(.gray)
       NavigationLink {
-        SignUpScreen()
+        RegistrationScreen()
       } label: {
         Text("Sign Up.")
           .font(.subheadline)
@@ -59,9 +64,4 @@ struct SignInScreen: View {
       }
     }
   }
-}
-
-#Preview {
-  SignInScreen()
-    .environmentObject(AuthViewModel.previewMode)
 }
