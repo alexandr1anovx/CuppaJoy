@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CoffeeSelectionCell: View {
+struct CoffeeCatalogCell: View {
   
   let coffee: Coffee
   
@@ -20,6 +20,8 @@ struct CoffeeSelectionCell: View {
       .overlay(alignment: .topTrailing) { priceLabel }
       .overlay(alignment: .center) { coffeeDataLabel }
   }
+  
+  // MARK: - Subviews
   
   private var coinsLabel: some View {
     HStack(spacing: 6) {
@@ -68,5 +70,5 @@ struct CoffeeSelectionCell: View {
 }
 
 #Preview {
-  CoffeeSelectionCell(coffee: MockData.coffee)
+  CoffeeCatalogCell(coffee: MockData.coffee)
 }

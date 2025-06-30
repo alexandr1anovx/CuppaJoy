@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct CoffeeSelectionView: View {
+struct CoffeeCatalogView: View {
   
-  @State private var selectedCoffee: Coffee?
   @Binding var path: NavigationPath
   @Binding var isTabBarVisible: Bool
-  @EnvironmentObject var coffeeСonfigViewModel: CoffeeCatalogViewModel
+  @State private var selectedCoffee: Coffee?
+  @EnvironmentObject var viewModel: CoffeeCatalogViewModel
   
   private let fixedColumns = [
     GridItem(
@@ -28,22 +28,17 @@ struct CoffeeSelectionView: View {
         .ignoresSafeArea()
       ScrollView {
         LazyVGrid(columns: fixedColumns, spacing: 20) {
-          ForEach(coffeeСonfigViewModel.coffees, id: \.id) { coffee in
+          ForEach(viewModel.coffees, id: \.self) { coffee in
             NavigationLink(value: OrderPage.configurator(coffee)) {
-              CoffeeSelectionCell(coffee: coffee)
+              CoffeeCatalogCell(coffee: coffee)
             }
           }
         }.padding(.vertical,30)
       }
-    }.shadow(radius: 8)
+    }
+    .onAppear {
+      Task { await viewModel.fetchCoffees() }
+    }
+    .shadow(radius: 8)
   }
-}
-
-#Preview {
-  CoffeeSelectionView(
-    path: .constant(NavigationPath()),
-    isTabBarVisible: .constant(false)
-  )
-  .environmentObject(AuthViewModel())
-  .environmentObject(CoffeeCatalogViewModel())
 }
