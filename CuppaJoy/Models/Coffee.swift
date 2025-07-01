@@ -6,14 +6,32 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 struct Coffee: Hashable, Decodable {
-  let id: String
+  @DocumentID var id: String?
+  let uid: String
   let title: String
   let description: String
   let rating: Double
   let points: Int
   let price: Double
+  
+  init(
+    uid: String,
+    title: String,
+    description: String,
+    rating: Double,
+    points: Int,
+    price: Double
+  ) {
+    self.uid = uid
+    self.title = title
+    self.description = description
+    self.rating = rating
+    self.points = points
+    self.price = price
+  }
   
   var stringPoints: String {
     "\(points)"
