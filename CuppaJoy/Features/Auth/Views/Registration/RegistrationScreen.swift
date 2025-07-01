@@ -9,7 +9,6 @@ import SwiftUI
 
 struct RegistrationScreen: View {
   
-  //@StateObject var viewModel: RegistrationViewModel
   @EnvironmentObject var viewModel: RegistrationViewModel
   @FocusState private var fieldContent: InputContentType?
   @Environment(\.dismiss) var dismiss
@@ -37,7 +36,7 @@ struct RegistrationScreen: View {
   // MARK: - Subviews
   
   private var textFields: some View {
-    List {
+    Form {
       Section {
         InputField(for: .fullName, data: $viewModel.fullName)
           .focused($fieldContent, equals: .fullName)

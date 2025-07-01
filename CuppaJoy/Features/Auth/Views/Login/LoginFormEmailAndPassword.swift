@@ -7,21 +7,11 @@
 
 import SwiftUI
 
-struct EmailAndPasswordForm: View {
+struct LoginFormEmailAndPassword: View {
   
-  @State private var email = ""
-  @State private var password = ""
-  @State private var isShownHome = false
-  @State private var isShownPasswordRecoveryView = false
+  @StateObject var viewModel: LoginViewModel
   @FocusState private var inputContent: InputContentType?
   @Environment(\.dismiss) var dismiss
-  @EnvironmentObject var authViewModel: AuthViewModel
-  private let validationService = ValidationService.shared
-  
-  private var isValidForm: Bool {
-    validationService.isValid(email: email)
-    && validationService.isValid(password: password)
-  }
   
   var body: some View {
     ZStack {
@@ -29,14 +19,14 @@ struct EmailAndPasswordForm: View {
       VStack(spacing: 15) {
         List {
           Section {
-            InputField(for: .email, data: $email)
+            InputField(for: .email, data: $viewModel.email)
               .focused($inputContent, equals: .email)
               .keyboardType(.emailAddress)
               .textInputAutocapitalization(.never)
               .autocorrectionDisabled(true)
               .submitLabel(.next)
               .onSubmit { inputContent = .password }
-            SecuredInputField(password: $password)
+            SecuredInputField(password: $viewModel.password)
               .focused($inputContent, equals: .password)
               .submitLabel(.done)
               .onSubmit { inputContent = nil }
@@ -47,10 +37,11 @@ struct EmailAndPasswordForm: View {
               .padding(.bottom, 10)
           }
         }
-        .customListStyle(rowSpacing: 8, shadowRadius: 5)
+        .listRowSpacing(8)
         .frame(height: 165)
-        .environment(\.defaultMinListRowHeight, 53)
+        .environment(\.defaultMinListRowHeight, 50)
         .scrollDisabled(true)
+        .shadow(radius: 5)
         
         signInButton
         
@@ -71,10 +62,7 @@ struct EmailAndPasswordForm: View {
           }
         }
       }
-      .fullScreenCover(isPresented: $isShownHome) {
-        AppMainTabView()
-      }
-      .sheet(isPresented: $isShownPasswordRecoveryView) {
+      .sheet(isPresented: $viewModel.isShownPasswordRecoveryView) {
         PasswordRecoveryScreen()
           .presentationCornerRadius(30)
           .presentationDragIndicator(.visible)
@@ -84,10 +72,8 @@ struct EmailAndPasswordForm: View {
   
   private var signInButton: some View {
     Button {
-      Task {
-        await authViewModel.signIn(email: email, password: password)
-        password = ""
-      }
+      Task { await viewModel.signIn() }
+      // ⚠️ Add a method!
     } label: {
       ButtonLabel(
         "Sign In",
@@ -95,9 +81,9 @@ struct EmailAndPasswordForm: View {
         bgColor: .black
       )
     }
-    .disabled(!isValidForm)
-    .opacity(!isValidForm ? 0.3 : 1)
-    .alert(item: $authViewModel.alertItem) { alert in
+    .disabled(!viewModel.isValidForm)
+    .opacity(!viewModel.isValidForm ? 0.3 : 1)
+    .alert(item: $viewModel.alertItem) { alert in
       Alert(
         title: alert.title,
         message: alert.message,
@@ -108,7 +94,7 @@ struct EmailAndPasswordForm: View {
   
   private var forgotPasswordButton: some View {
     Button {
-      isShownPasswordRecoveryView.toggle()
+      viewModel.isShownPasswordRecoveryView.toggle()
     } label: {
       Text("Forgot password?")
         .font(.caption)
@@ -117,9 +103,4 @@ struct EmailAndPasswordForm: View {
         .underline()
     }
   }
-}
-
-#Preview {
-  EmailAndPasswordForm()
-    .environmentObject(AuthViewModel.previewMode)
 }

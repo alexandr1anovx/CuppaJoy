@@ -37,7 +37,7 @@ struct LoginScreen: View {
   
   private var emailAndPasswordButton: some View {
     NavigationLink {
-      EmailAndPasswordForm(viewModel: viewModel)
+      LoginFormEmailAndPassword(viewModel: viewModel)
     } label: {
       ButtonLabelWithIcon(
         "Continue with Email & Password",

@@ -10,8 +10,7 @@ import SwiftUI
 struct PasswordRecoveryScreen: View {
   
   @State private var email = ""
-  @EnvironmentObject var authViewModel: AuthViewModel
-  private let validationService = ValidationService.shared
+  //@EnvironmentObject var authViewModel: AuthViewModel
   
   var body: some View {
     ZStack {
@@ -40,9 +39,7 @@ struct PasswordRecoveryScreen: View {
         .environment(\.defaultMinListRowHeight, 50)
         
         Button {
-          Task {
-            await authViewModel.sendPasswordResetLink(to: email)
-          }
+          // ⚠️ Add a method!
         } label: {
           ButtonLabel(
             "Send Recovery Link",
@@ -50,10 +47,11 @@ struct PasswordRecoveryScreen: View {
             bgColor: .black
           )
         }
-        .disabled(!validationService.isValid(email: email))
-        .opacity(!validationService.isValid(email: email) ? 0.5 : 1)
+        .disabled(!ValidationService.isValid(email: email))
+        .opacity(!ValidationService.isValid(email: email) ? 0.5 : 1)
       }
     }
+    /*
     .alert(item: $authViewModel.alertItem) { alertItem in
       Alert(
         title: alertItem.title,
@@ -61,10 +59,10 @@ struct PasswordRecoveryScreen: View {
         dismissButton: alertItem.dismissButton
       )
     }
+    */
   }
 }
 
 #Preview {
   PasswordRecoveryScreen()
-    .environmentObject(AuthViewModel.previewMode)
 }
