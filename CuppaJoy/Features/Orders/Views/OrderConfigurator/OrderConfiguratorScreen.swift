@@ -9,75 +9,21 @@ import SwiftUI
 
 struct OrderConfiguratorScreen: View {
   
-  let selectedCoffee: Coffee
   @Binding var path: NavigationPath
   @Binding var isTabBarVisible: Bool
-  @EnvironmentObject var coffeeConfigViewModel: CoffeeConfigViewModel
-  
-  // Configuration properties
-  @State private var cupCount: Int = 1
-  @State private var sugarSticks: Int = 0
-  @State private var iceCubes: Int = 0
-  @State private var cupSize: CupSize = .small
-  @State private var variety: Variety = .standart
-  @State private var milk: Milk = .none
-  @State private var flavor: Flavor = .none
-  
-  @State private var isShownHintPopover: Bool = false
-  
-  @State private var selectedConfig: CoffeeConfig?
-  @State private var isShownSaveConfigAlert: Bool = false
-  @State private var configName: String = ""
-  
-  var totalPrice: Double {
-    let basePrice = selectedCoffee.price
-    let configurations = cupSize.price + milk.price + flavor.price
-    let total = (basePrice + configurations) * Double(cupCount)
-    return total
-  }
-  
-  var order: Order {
-    Order(
-      id: UUID().uuidString,
-      coffee: selectedCoffee.title,
-      cupSize: cupSize.title,
-      cupCount: cupCount,
-      sugarSticks: sugarSticks,
-      iceCubes: iceCubes,
-      variety: variety.title,
-      milk: milk.title,
-      flavor: flavor.title,
-      points: selectedCoffee.points,
-      totalPrice: totalPrice,
-      timestamp: .now
-    )
-  }
-  
-  var config: CoffeeConfig {
-    CoffeeConfig(
-      id: UUID().uuidString,
-      title: configName,
-      cupSize: cupSize.title,
-      sugarSticks: sugarSticks,
-      iceCubes: iceCubes,
-      variety: variety.title,
-      milk: milk.title,
-      flavor: flavor.title
-    )
-  }
-  
-  //init() { setupSegmentedControlAppearance() }
+  @StateObject var configVM: CoffeeConfigViewModel
+  @StateObject var configuratorVM: OrderConfiguratorViewModel
   
   var body: some View {
     ZStack {
       Color.appBackgroundDimmed.ignoresSafeArea()
       VStack {
-        if coffeeConfigViewModel.favoriteConfigs.isEmpty {
+        if configVM.configs.isEmpty {
           emptyConfigsView
         } else {
-          scrollableFavoriteConfigs
+          ConfigsScrollableView()
         }
-        configurationList
+        configurationForm
         totalAmountLabel
       }
       .padding(.top)
@@ -94,105 +40,71 @@ struct OrderConfiguratorScreen: View {
       isTabBarVisible = false
       setupSegmentedControlAppearance()
     }
-    .alert("Config Saving", isPresented: $isShownSaveConfigAlert) {
-      TextField("Enter a name", text: $configName)
-      cancelConfigButton
-      addConfigConfirmationButton
-    } message: {
-      Text("Make sure you carefully check your current config.")
-    }
+    .environmentObject(configVM)
+    .environmentObject(configuratorVM)
   }
   
-  // MARK: - Auxilary UI Components
-  
-  private var scrollableFavoriteConfigs: some View {
-    HStack {
-      Text("My Configs:")
-        .font(.footnote)
-        .fontWeight(.medium)
-        .foregroundStyle(.white)
-      
-      ScrollView(.horizontal) {
-        HStack(spacing:10) {
-          ForEach(coffeeConfigViewModel.favoriteConfigs) { config in
-            Button {
-              selectedConfig = config
-              applyConfig()
-            } label: {
-              ButtonLabelShort(
-                config.title,
-                textColor: .orange,
-                bgColor: .csDarkGrey
-              )
-            }
-            .contextMenu {
-              Group {
-                Button("Delete Config", systemImage: "trash") {
-                  Task {
-                    await coffeeConfigViewModel.deleteConfig(config)
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-      
-      Button {
-        isShownSaveConfigAlert.toggle()
-      } label: {
-        Image(systemName: "plus.circle")
-          .foregroundStyle(.orange)
-          .padding(8)
-          .background(.csDarkGrey)
-          .clipShape(.circle)
-          .shadow(radius:3)
-      }
-      
-    }
-    .padding(.horizontal,20)
-  }
+  // MARK: - Subviews
   
   private var emptyConfigsView: some View {
     HStack {
-      Text("You have no configs yet 🫠.")
+      Text("You have no configs yet.")
         .font(.footnote)
         .foregroundStyle(.gray)
       Button("Add", systemImage: "plus.circle.fill") {
-        isShownSaveConfigAlert.toggle()
+        configuratorVM.isShownSaveConfigAlert.toggle()
       }
       .font(.footnote)
       .foregroundStyle(.orange)
       .padding(12)
       .background(.csDarkGrey)
       .clipShape(.capsule)
+      .alert(
+        "Config Saving",
+        isPresented: $configuratorVM.isShownSaveConfigAlert
+      ) {
+        TextField("Enter a name", text: $configuratorVM.configName)
+        Button("Cancel") {
+          configuratorVM.configName = ""
+        }
+        Button("Add") {
+          Task {
+            await configVM.saveConfig(configuratorVM.config)
+          }
+          configuratorVM.configName = ""
+        }
+        .disabled(configuratorVM.configName.isEmpty)
+      } message: {
+        Text("Make sure you carefully check your current config.")
+      }
     }
   }
   
-  private var addConfigConfirmationButton: some View {
-    Button("Add") {
-      Task { await coffeeConfigViewModel.saveConfig(config) }
-    }
-    .disabled(configName.isEmpty)
-  }
-  
-  private var cancelConfigButton: some View {
-    Button("Cancel") { configName = "" }
-  }
-  
-  private var configurationList: some View {
-    List {
+  private var configurationForm: some View {
+    Form {
       Section("Cup Configurations") {
-        OrderItemPicker("Size", selectedItem: $cupSize)
+        OrderItemPicker("Size", selectedItem: $configuratorVM.cupSize)
           .pickerStyle(.segmented)
-        OrderItemCounter("Count:", min: 1, max: 4, count: $cupCount)
+        OrderItemCounter(
+          "Count:",
+          min: 1, max: 4,
+          count: $configuratorVM.cupCount
+        )
       }
       Section("Additives") {
-        OrderItemCounter("Sugar sticks:", min: 0, max: 3, count: $sugarSticks)
-        OrderItemCounter("Ice cubes:", min: 0, max: 3, count: $iceCubes)
-        OrderItemPicker("Variety:", selectedItem: $variety)
-        OrderItemPicker("Milk:", selectedItem: $milk)
-        OrderItemPicker("Flavor:", selectedItem: $flavor)
+        OrderItemCounter(
+          "Sugar sticks:",
+          min: 0, max: 3,
+          count: $configuratorVM.sugarSticks
+        )
+        OrderItemCounter(
+          "Ice cubes:",
+          min: 0, max: 3,
+          count: $configuratorVM.iceCubes
+        )
+        OrderItemPicker("Variety:", selectedItem: $configuratorVM.variety)
+        OrderItemPicker("Milk:", selectedItem: $configuratorVM.milk)
+        OrderItemPicker("Flavor:", selectedItem: $configuratorVM.flavor)
       }
     }
     .customListStyle(rowSpacing: 15, shadowRadius: 3)
@@ -206,16 +118,16 @@ struct OrderConfiguratorScreen: View {
           .font(.subheadline)
           .fontWeight(.bold)
           .foregroundStyle(.white)
-        Text(order.formattedPrice)
+        Text(configuratorVM.order.formattedPrice)
           .font(.headline)
           .fontWeight(.bold)
           .foregroundStyle(.orange)
           .contentTransition(.numericText())
-          .animation(.bouncy, value: totalPrice)
+          .animation(.bouncy, value: configuratorVM.totalPrice)
           .frame(minWidth: 75)
       }
       Button {
-        path.append(OrderPage.summary(order))
+        path.append(OrderPage.summary(configuratorVM.order))
       } label: {
         ButtonLabelWithIcon(
           "Summorize",
@@ -228,7 +140,7 @@ struct OrderConfiguratorScreen: View {
     .background(
       RoundedRectangle(cornerRadius: 35)
         .fill(Color.csBlack)
-        .ignoresSafeArea(.all)
+        .ignoresSafeArea()
         .frame(height: 150)
         .shadow(radius: 5)
     )
@@ -245,13 +157,13 @@ struct OrderConfiguratorScreen: View {
   
   private var toolbarHintButton: some View {
     Button {
-      isShownHintPopover.toggle()
+      configuratorVM.isShownHintPopover.toggle()
     } label: {
       Image(systemName: "info.circle.fill")
         .foregroundStyle(.pink)
     }
     .popover(
-      isPresented: $isShownHintPopover,
+      isPresented: $configuratorVM.isShownHintPopover,
       attachmentAnchor: .point(.trailing),
       arrowEdge: .trailing) {
         VStack(alignment: .leading, spacing:8) {
@@ -262,45 +174,9 @@ struct OrderConfiguratorScreen: View {
         .font(.caption)
         .multilineTextAlignment(.leading)
         .frame(height:80)
-        .presentationBackground(.csCream.tertiary)
+        .presentationBackground(.csBlack)
         .presentationCompactAdaptation(.popover)
         .padding()
       }
   }
-  
-  private func applyConfig() {
-    if let sizeString = selectedConfig?.cupSize,
-       let size = CupSize.allCases.first(where: { $0.title == sizeString }) {
-      cupSize = size
-    }
-    
-    sugarSticks = selectedConfig?.sugarSticks ?? 0
-    iceCubes = selectedConfig?.iceCubes ?? 0
-    
-    if let varietyString = selectedConfig?.variety,
-       let varietyValue = Variety.allCases.first(where: { $0.title == varietyString }) {
-      variety = varietyValue
-    }
-    
-    if let milkString = selectedConfig?.milk,
-       let milkValue = Milk.allCases.first(where: { $0.title == milkString }) {
-      milk = milkValue
-    }
-    
-    if let flavorString = selectedConfig?.flavor,
-       let flavorValue = Flavor.allCases.first(where: { $0.title == flavorString }) {
-      flavor = flavorValue
-    }
-  }
-}
-
-#Preview {
-  OrderConfiguratorScreen(
-    selectedCoffee: MockData.coffee,
-    path: .constant(NavigationPath()),
-    isTabBarVisible: .constant(false)
-  )
-  .environmentObject(OrderViewModel.previewMode)
-  .environmentObject(CoffeeCatalogViewModel.previewMode)
-  .environmentObject(CoffeeConfigViewModel.previewMode)
 }
