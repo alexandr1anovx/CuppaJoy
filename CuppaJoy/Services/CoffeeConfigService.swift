@@ -13,6 +13,8 @@ enum ConfigServiceError: Error {
   case missingConfigID
 }
 
+// MARK: - Coffee Config Service Protocol
+
 protocol CoffeeConfigServiceProtocol {
   func fetchConfigs() -> AsyncStream<Result<[CoffeeConfig], Error>>
   func saveConfig(_ config: CoffeeConfig) async throws
@@ -23,12 +25,14 @@ final class CoffeeConfigService: CoffeeConfigServiceProtocol {
   
   private let db = Firestore.firestore()
   private var configsListener: ListenerRegistration?
+  private let usersCollection: String = "users"
+  private let configsCollection: String = "configs"
   
-  private func configsCollection(forUserID uid: String) -> CollectionReference {
-    return db
-      .collection("users")
-      .document(uid)
-      .collection("configs")
+  init() {
+    print("✅ СoffeeConfigService INITIALIZED")
+  }
+  deinit {
+    print("❌ СoffeeConfigService DEINITIALIZED")
   }
   
   // MARK: - Public Methods
@@ -58,7 +62,7 @@ final class CoffeeConfigService: CoffeeConfigServiceProtocol {
       
       continuation.onTermination = { @Sendable _ in
         listener.remove()
-        print("✅ Coffee configs listener removed.")
+        print("✅ Coffee Config listener removed")
       }
     }
   }
@@ -67,11 +71,8 @@ final class CoffeeConfigService: CoffeeConfigServiceProtocol {
     guard let uid = Auth.auth().currentUser?.uid else {
       throw ConfigServiceError.userNotLoggedIn
     }
-    guard let configID = config.id else {
-      throw ConfigServiceError.missingConfigID
-    }
     try configsCollection(forUserID: uid)
-      .document(configID)
+      .document(config.uid)
       .setData(from: config)
   }
   
@@ -79,11 +80,17 @@ final class CoffeeConfigService: CoffeeConfigServiceProtocol {
     guard let uid = Auth.auth().currentUser?.uid else {
       throw ConfigServiceError.userNotLoggedIn
     }
-    guard let configID = config.id else {
-      throw ConfigServiceError.missingConfigID
-    }
     try await configsCollection(forUserID: uid)
-      .document(configID)
+      .document(config.uid)
       .delete()
+  }
+  
+  // MARK: - Private Methods
+  
+  private func configsCollection(forUserID uid: String) -> CollectionReference {
+    return db
+      .collection(usersCollection)
+      .document(uid)
+      .collection(configsCollection)
   }
 }
