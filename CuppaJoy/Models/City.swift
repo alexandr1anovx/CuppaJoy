@@ -8,8 +8,8 @@
 import Foundation
 
 enum City: String, Identifiable, CaseIterable {
-  case mykolaiv, odesa
+  case mykolaiv = "Mykolaiv"
+  case odesa = "Odesa"
   
   var id: Self { self }
-  var title: String { rawValue.capitalized }
 }
