@@ -20,12 +20,8 @@ protocol AuthServiceProtocol {
 
 final class AuthService: AuthServiceProtocol {
   
-  init() {
-    print("✅ AuthService INITIALIZED")
-  }
-  deinit {
-    print("❌ AuthService DEINITIALIZED")
-  }
+  init() { print("AuthService INITIALIZED") }
+  deinit { print("AuthService DEINITIALIZED") }
   
   // MARK: - Public Methods
   

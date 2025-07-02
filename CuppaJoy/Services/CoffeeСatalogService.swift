@@ -19,12 +19,8 @@ final class CoffeeCatalogService: CoffeeCatalogServiceProtocol {
   private let db = Firestore.firestore()
   private let coffeesCollection: String = "coffees"
   
-  init() {
-    print("✅ СoffeeCatalogService INITIALIZED")
-  }
-  deinit {
-    print("❌ СoffeeCatalogService DEINITIALIZED")
-  }
+  init() { print("СoffeeCatalogService INITIALIZED") }
+  deinit { print("СoffeeCatalogService DEINITIALIZED") }
   
   func fetchCoffees() async throws -> [Coffee] {
     let snapshot = try await db

@@ -22,12 +22,8 @@ final class UserService: UserServiceProtocol {
   private let db = Firestore.firestore()
   private let usersCollection: String = "users"
   
-  init() {
-    print("✅ UserService INITIALIZED")
-  }
-  deinit {
-    print("❌ UserService DEINITIALIZED")
-  }
+  init() { print("UserService INITIALIZED") }
+  deinit { print("UserService DEINITIALIZED") }
   
   // MARK: - Public Methods
   
