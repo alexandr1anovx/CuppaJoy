@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import StoreKit
 
 enum SettingsPageContent: Hashable {
   case settings
@@ -18,15 +17,17 @@ struct GeneralScreen: View {
   @State private var isShownSignOutAlert = false
   @State private var isShownTabBar = true
   @State private var path = NavigationPath()
-  @Environment(\.requestReview) var requestReview
-  @EnvironmentObject var authViewModel: AuthViewModel
+  
+  @EnvironmentObject var sessionManager: SessionManager
+  let userService: UserServiceProtocol
+  let authService: AuthServiceProtocol
   
   var body: some View {
     NavigationStack(path: $path) {
       ZStack {
         Color.appBackgroundDimmed.ignoresSafeArea()
         VStack {
-          if let user = authViewModel.currentUser {
+          if let user = sessionManager.currentUser {
             HStack(spacing: 15) {
               StaticProfileImageView()
                 .shadow(radius: 3)
@@ -35,7 +36,7 @@ struct GeneralScreen: View {
                   .foregroundStyle(.white)
                   .font(.headline)
                   .fontWeight(.bold)
-                Text(user.emailAddress)
+                Text(user.email)
                   .font(.caption)
                   .fontWeight(.medium)
                   .foregroundStyle(.gray)
@@ -45,22 +46,13 @@ struct GeneralScreen: View {
             .padding(.top)
             .padding(.horizontal,20)
           } else {
-            VStack{
-              ProgressView()
-              Text("Data is loading...")
-            }
+            ProgressView("Loading...")
           }
           
           List {
             // Settings Button
             NavigationLink(value: SettingsPageContent.settings) {
               CustomListCell(for: .settings)
-            }
-            // Rate Us Button
-            Button {
-              requestReview()
-            } label: {
-              CustomListCell(for: .rateUS)
             }
             // Sign Out Button
             Button {
@@ -69,8 +61,7 @@ struct GeneralScreen: View {
               CustomListCell(for: .signOut)
             }
           }
-          .customListStyle(rowSpacing: 10, shadowRadius: 3)
-          .environment(\.defaultMinListRowHeight, 60)
+          .customListStyle(minRowHeight: 60, rowSpacing: 10, shadow: 5)
         }
       }
       .navigationTitle("General")
@@ -83,23 +74,28 @@ struct GeneralScreen: View {
           )
         case .editProfile:
           ProfileScreen(
-            path: $path, isShownTabBar: $isShownTabBar
+            path: $path,
+            isShownTabBar: $isShownTabBar,
+            viewModel: ProfileViewModel(
+              sessionManager: sessionManager,
+              authService: authService,
+              userService: userService
+            )
           )
         }
       }
       .toolbar(isShownTabBar ? .visible : .hidden, for: .tabBar)
       .alert("Sign Out", isPresented: $isShownSignOutAlert) {
         Button("Sign Out", role: .destructive) {
-          withAnimation { authViewModel.signOut() }
+          do {
+            try authService.signOut()
+          } catch {
+            print("Failed to log out")
+          }
         }
       } message: {
         Text("Are you sure you want to sign out?")
       }
     }
   }
-}
-
-#Preview {
-  GeneralScreen()
-    .environmentObject(AuthViewModel())
 }

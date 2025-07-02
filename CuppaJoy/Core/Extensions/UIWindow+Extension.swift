@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-// MARK: Used in the interface to get the screen dimensions.
-
 extension UIWindow {
   static var current: UIWindow? {
     for scene in UIApplication.shared.connectedScenes {

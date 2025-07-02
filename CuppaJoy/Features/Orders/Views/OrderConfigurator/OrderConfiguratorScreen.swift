@@ -42,6 +42,21 @@ struct OrderConfiguratorScreen: View {
     }
     .environmentObject(configVM)
     .environmentObject(configuratorVM)
+    .alert(
+      "Config Saving",
+      isPresented: $configuratorVM.isShownSaveConfigAlert
+    ) {
+      TextField("Enter a name", text: $configuratorVM.configName)
+      Button("Cancel") {}
+      Button("Add") {
+        Task {
+          await configVM.saveConfig(configuratorVM.config)
+        }
+      }
+      .disabled(configuratorVM.configName.isEmpty)
+    } message: {
+      Text("Make sure you carefully check your current config.")
+    }
   }
   
   // MARK: - Subviews
@@ -59,24 +74,7 @@ struct OrderConfiguratorScreen: View {
       .padding(12)
       .background(.csDarkGrey)
       .clipShape(.capsule)
-      .alert(
-        "Config Saving",
-        isPresented: $configuratorVM.isShownSaveConfigAlert
-      ) {
-        TextField("Enter a name", text: $configuratorVM.configName)
-        Button("Cancel") {
-          configuratorVM.configName = ""
-        }
-        Button("Add") {
-          Task {
-            await configVM.saveConfig(configuratorVM.config)
-          }
-          configuratorVM.configName = ""
-        }
-        .disabled(configuratorVM.configName.isEmpty)
-      } message: {
-        Text("Make sure you carefully check your current config.")
-      }
+      
     }
   }
   
@@ -107,8 +105,7 @@ struct OrderConfiguratorScreen: View {
         OrderItemPicker("Flavor:", selectedItem: $configuratorVM.flavor)
       }
     }
-    .customListStyle(rowSpacing: 15, shadowRadius: 3)
-    .listSectionSpacing(8)
+    .customListStyle(rowSpacing: 15, sectionSpacing: 8, shadow: 3)
   }
   
   private var totalAmountLabel: some View {
