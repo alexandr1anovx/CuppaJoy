@@ -10,15 +10,24 @@ import SwiftUI
 extension View {
   
   func customListStyle(
-    rowSpacing: CGFloat? = 0,
-    shadowRadius: CGFloat? = 0
+    minRowHeight: CGFloat = 0,
+    rowSpacing: CGFloat = 0,
+    sectionSpacing: CGFloat = 0,
+    scrollDisabled: Bool = false,
+    indicators: ScrollIndicatorVisibility = .hidden,
+    height: CGFloat? = nil,
+    shadow: CGFloat = 0
   ) -> some View {
     self
       .listStyle(.insetGrouped)
+      .environment(\.defaultMinListRowHeight, minRowHeight)
       .listRowSpacing(rowSpacing)
-      //.scrollIndicators(.hidden)
+      .listSectionSpacing(sectionSpacing)
       .scrollContentBackground(.hidden)
-      .shadow(radius: shadowRadius ?? 0)
+      .scrollDisabled(scrollDisabled)
+      .scrollIndicators(indicators)
+      .frame(height: height)
+      .shadow(radius: shadow)
   }
   
   func setupSegmentedControlAppearance() {
