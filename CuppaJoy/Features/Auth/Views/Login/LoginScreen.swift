@@ -18,22 +18,18 @@ struct LoginScreen: View {
       ZStack {
         Color.appBackgroundDimmed.ignoresSafeArea()
         VStack(spacing:25) {
-          HStack(alignment: .firstTextBaseline) {
-            Text("Sign In.")
-              .font(.title3)
-              .fontWeight(.bold)
-              .foregroundStyle(.csCream)
-            Text("Select a convenient way.")
-              .font(.headline)
-              .fontWeight(.medium)
-              .foregroundStyle(.gray)
-          }
+          Text("Login")
+            .font(.title2)
+            .fontWeight(.bold)
+            .foregroundStyle(.csCream)
           emailAndPasswordButton
           signUpButton
         }
       }
     }
   }
+  
+  // MARK: - Subviews
   
   private var emailAndPasswordButton: some View {
     NavigationLink {
@@ -55,7 +51,12 @@ struct LoginScreen: View {
         .fontWeight(.medium)
         .foregroundStyle(.gray)
       NavigationLink {
-        RegistrationScreen()
+        RegistrationScreen(
+          viewModel: RegistrationViewModel(
+            authService: authService,
+            userService: userService
+          )
+        )
       } label: {
         Text("Sign Up.")
           .font(.subheadline)

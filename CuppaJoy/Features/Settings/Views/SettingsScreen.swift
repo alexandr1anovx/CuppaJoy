@@ -25,7 +25,7 @@ struct SettingsScreen: View {
     ZStack {
       Color.appBackgroundDimmed.ignoresSafeArea()
       VStack {
-        List {
+        Form {
           // Appearance Section
           Section("Appearance") {
             Picker("", selection: $selectedTheme) {
@@ -42,8 +42,7 @@ struct SettingsScreen: View {
             }
           }
         }
-        .customListStyle(rowSpacing: 10, shadowRadius: 3)
-        .listSectionSpacing(10)
+        .customListStyle(rowSpacing: 10, sectionSpacing: 10, shadow: 3)
       }
     }
     .onAppear {

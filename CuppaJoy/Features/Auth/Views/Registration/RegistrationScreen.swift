@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RegistrationScreen: View {
   
-  @EnvironmentObject var viewModel: RegistrationViewModel
+  @StateObject var viewModel: RegistrationViewModel
   @FocusState private var fieldContent: InputContentType?
   @Environment(\.dismiss) var dismiss
   
@@ -25,9 +25,10 @@ struct RegistrationScreen: View {
           Spacer()
         }
       }
-      .navigationTitle("Sign Up")
+      .navigationTitle("Registration")
       .navigationBarTitleDisplayMode(.inline)
     }
+    .environmentObject(viewModel)
     .onAppear {
       setupSegmentedControlAppearance()
     }
@@ -57,6 +58,13 @@ struct RegistrationScreen: View {
           .textInputAutocapitalization(.never)
           .autocorrectionDisabled(true)
           .submitLabel(.done)
+          .onSubmit { fieldContent = .confirmPassword }
+        
+        SecuredInputField(password: $viewModel.confirmedPassword)
+          .focused($fieldContent, equals: .confirmPassword)
+          .textInputAutocapitalization(.never)
+          .autocorrectionDisabled(true)
+          .submitLabel(.done)
           .onSubmit { fieldContent = nil }
       } header: {
         Text("Fill in the fields")
@@ -64,33 +72,32 @@ struct RegistrationScreen: View {
           .fontWeight(.semibold)
           .padding(.bottom, 10)
       } footer: {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 10) {
           Text("- Full name cannot be empty.")
           Text("- Email address format: name@example.com.")
-          Text("- Password must be at least 8 characters,")
-          Text("- contain at least one letter,")
-          Text("- contain at least one number.")
+          Text("- Password must be at least 8 characters, contain at least one letter and one number.")
         }
         .font(.caption)
         .padding(.top, 10)
       }
     }
+    .scrollContentBackground(.hidden)
     .listRowSpacing(8)
-    .frame(height: 325)
+    .frame(height: 370)
     .environment(\.defaultMinListRowHeight, 50)
     .shadow(radius: 5)
   }
   
   private var cityPicker: some View {
-    VStack(alignment: .leading) {
+    HStack(spacing:0) {
       Text("Select your city:")
         .font(.footnote)
         .foregroundStyle(.gray)
-      Picker("City", selection: $viewModel.selectedCity) {
+      Picker("Select your city:", selection: $viewModel.selectedCity) {
         ForEach(City.allCases) { city in
-          Text(city.title)
+          Text(city.rawValue)
         }
-      }.pickerStyle(.segmented)
+      }
     }
   }
   
@@ -102,7 +109,7 @@ struct RegistrationScreen: View {
     }
     .disabled(!viewModel.isValidForm)
     .opacity(!viewModel.isValidForm ? 0.3 : 1)
-    .alert(item: $viewModel.alertItem) { alert in
+    .alert(item: $viewModel.alert) { alert in
       Alert(
         title: alert.title,
         message: alert.message,
@@ -117,13 +124,12 @@ struct RegistrationScreen: View {
     } label: {
       HStack {
         Text("Already have an account?")
-          .font(.footnote)
           .foregroundStyle(.gray)
         Text("Sign In.")
-          .font(.subheadline)
           .fontWeight(.semibold)
           .foregroundStyle(.csCream)
       }
+      .font(.footnote)
     }
   }
 }
