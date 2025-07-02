@@ -11,43 +11,15 @@ import CoreImage.CIFilterBuiltins
 
 struct ProfileScreen: View {
   
-  // MARK: Stored Properties
   @Binding var path: NavigationPath
   @Binding var isShownTabBar: Bool
-  @EnvironmentObject var authViewModel: AuthViewModel
-  @State private var fullName = ""
-  @State private var email = ""
-  @State private var accountPassword = ""
-  @State private var selectedCity: City = .mykolaiv
-  @State private var isShownDeleteAccountAlert = false
-  @State private var isShownSavedChangesAlert = false
+  @StateObject var viewModel: ProfileViewModel
   @FocusState var inputContent: InputContentType?
+  private let feedbackGenerator = UINotificationFeedbackGenerator()
   
-  let feedbackGenerator = UINotificationFeedbackGenerator()
-  private let validationService = ValidationService.shared
-
-  // MARK: Computed Properties
-  private var hasChanges: Bool {
-    guard let currentUser = authViewModel.currentUser else {
-      print("Cannot get current user for checking changes.")
-      return false
-    }
-    let changedFullName = fullName != currentUser.fullName
-    let changedEmail = email != currentUser.emailAddress
-    let changedCity = selectedCity.title != currentUser.city
-    
-    return changedFullName || changedEmail || changedCity
-  }
-  
-  private var isValidForm: Bool {
-    validationService.isValid(fullName: fullName) &&
-    (email == authViewModel.currentUser?.emailAddress || validationService.isValid(email: email))
-  }
-  
-  // MARK: Body
   var body: some View {
     ZStack {
-      Color.appBackgroundDimmed.ignoresSafeArea(.all)
+      Color.appBackgroundDimmed.ignoresSafeArea()
       ScrollView {
         VStack {
           EditableProfileImageView()
@@ -62,28 +34,16 @@ struct ProfileScreen: View {
         }
       }
     }
-    .alert("Account Deletion", isPresented: $isShownDeleteAccountAlert) {
-      SecureField("Your password", text: $accountPassword)
-      Button("Cancel", role: .cancel) { accountPassword = "" }
-      Button("Delete", role: .destructive) {
-        Task {
-          await authViewModel.deleteUser(withPassword: accountPassword)
-        }
-      }
-    } message: {
-      Text("Are you sure? It will delete all your data forever.")
-    }
-    // appears when the user changes personal data.
-    .alert(item: $authViewModel.alertItem) { alertItem in
+    .alert(item: $viewModel.alert) { alert in
       Alert(
-        title: alertItem.title,
-        message: alertItem.message,
-        dismissButton: alertItem.dismissButton
+        title: alert.title,
+        message: alert.message,
+        dismissButton: alert.dismissButton
       )
     }
     .onAppear {
       isShownTabBar = false
-      loadUserData()
+      viewModel.loadUserData()
     }
     .navigationTitle("Profile")
     .navigationBarTitleDisplayMode(.inline)
@@ -99,12 +59,12 @@ struct ProfileScreen: View {
     }
   }
   
-  // MARK: - Auxilary UI Components
+  // MARK: - Subviews
   
   private var personalDataList: some View {
-    List {
+    Form {
       HStack {
-        InputField(for: .fullName, data: $fullName)
+        InputField(for: .fullName, data: $viewModel.fullName)
           .focused($inputContent, equals: .fullName)
           .textInputAutocapitalization(.words)
         Button("Edit") { inputContent = .fullName }
@@ -114,7 +74,7 @@ struct ProfileScreen: View {
       .buttonStyle(.plain)
       
       HStack {
-        InputField(for: .email, data: $email)
+        InputField(for: .email, data: $viewModel.email)
           .focused($inputContent, equals: .email)
           .keyboardType(.emailAddress)
           .textInputAutocapitalization(.never)
@@ -128,42 +88,35 @@ struct ProfileScreen: View {
       HStack {
         Image(systemName: "building.2.crop.circle.fill")
           .foregroundStyle(.csCream)
-        Picker("City:", selection: $selectedCity) {
+        Picker("City:", selection: $viewModel.selectedCity) {
           ForEach(City.allCases) { city in
-            Text(city.title)
+            Text(city.rawValue)
           }
         }
         .font(.subheadline)
         .foregroundStyle(.primary)
       }
     }
-    .frame(height: 205)
-    .customListStyle(rowSpacing: 10, shadowRadius: 1)
-    .environment(\.defaultMinListRowHeight, 50)
-    .scrollDisabled(true)
+    .customListStyle(minRowHeight: 50, rowSpacing: 10, scrollDisabled: true, height: 205, shadow: 1)
   }
   
   private var saveChangesButton: some View {
     Button("Save Changes") {
       Task {
-        await authViewModel.updateProfile(
-          fullName: fullName,
-          email: email,
-          city: selectedCity
-        )
+        await viewModel.saveChanges()
         feedbackGenerator.notificationOccurred(.success)
       }
     }
     .font(.subheadline)
-    .foregroundStyle(.blue)
+    .foregroundStyle(.accent)
     .buttonStyle(.bordered)
-    .disabled(!hasChanges || !isValidForm)
-    .opacity(!hasChanges || !isValidForm ? 0:1)
+    .disabled(!viewModel.formHasChanges || !viewModel.isValidForm)
+    .opacity(!viewModel.formHasChanges || !viewModel.isValidForm ? 0:1)
   }
   
   private var deleteAccountButton: some View {
     Button {
-      isShownDeleteAccountAlert.toggle()
+      viewModel.isShownDeleteAccountAlert.toggle()
       feedbackGenerator.notificationOccurred(.error)
     } label: {
       Text("Delete Account")
@@ -171,21 +124,12 @@ struct ProfileScreen: View {
         .foregroundStyle(.gray)
         .underline()
     }
+    .alert("Account Deletion", isPresented: $viewModel.isShownDeleteAccountAlert) {
+      SecureField("Your password", text: $viewModel.deletionPassword)
+      Button("Cancel", role: .cancel) { viewModel.deletionPassword = "" }
+      Button("Delete", role: .destructive) {}
+    } message: {
+      Text("Are you sure? It will delete all your data forever.")
+    }
   }
-  
-  // MARK: Logical Methods
-  
-  private func loadUserData() {
-    guard let user = authViewModel.currentUser else { return }
-    fullName = user.fullName
-    email = user.emailAddress
-  }
-}
-
-#Preview {
-  ProfileScreen(
-    path: .constant(NavigationPath()),
-    isShownTabBar: .constant(false)
-  )
-  .environmentObject(AuthViewModel())
 }
