@@ -8,8 +8,8 @@
 import Foundation
 import FirebaseAuth
 
-enum SessionState {
-  case signedIn(User)
+enum SessionState: Equatable {
+  case signedIn(FirebaseAuth.User)
   case signedOut
 }
 
@@ -17,24 +17,22 @@ enum SessionState {
 final class SessionManager: ObservableObject {
   
   @Published var sessionState: SessionState = .signedOut
-  @Published var currentUser: AppUser? = nil
+  @Published var currentUser: User? = nil
   
   private var authStateListenerHandle: AuthStateDidChangeListenerHandle?
-  private let firestoreUserService: UserServiceProtocol
+  private let userService: UserServiceProtocol
   
-  init(firestoreUserService: UserServiceProtocol) {
-    self.firestoreUserService = firestoreUserService
+  init(userService: UserServiceProtocol) {
+    self.userService = userService
     
     authStateListenerHandle = Auth.auth().addStateDidChangeListener { [weak self] _, user in
       guard let self = self else { return }
-      if let firestoreUser = user {
-        self.sessionState = .signedIn(firestoreUser)
+      if let user {
+        self.sessionState = .signedIn(user)
         Task {
           do {
-            self.currentUser = try await self.firestoreUserService.fetchAppUser(uid: firestoreUser.uid)
-            print("✅ SessionManager: Fetched current user successfully!")
+            self.currentUser = try await self.userService.fetchAppUser(uid: user.uid)
           } catch {
-            print("⚠️ SessionManager: Error fetching current user: \(error.localizedDescription)")
             self.currentUser = nil
           }
         }
@@ -50,5 +48,4 @@ final class SessionManager: ObservableObject {
       Auth.auth().removeStateDidChangeListener(handle)
     }
   }
-  
 }
