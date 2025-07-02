@@ -6,107 +6,111 @@
 //
 
 import Foundation
+import Combine
 import FirebaseAuth
+import SwiftUICore
 
 @MainActor
 final class OrderViewModel: ObservableObject {
   
-  // MARK: - Public Properties
+  // MARK: - Published Properties
   
   @Published var ongoingOrders: [Order] = []
   @Published var receivedOrders: [Order] = []
   
+  @Published var alertItem: AlertItem?
+  @Published var isLoading: Bool = false
+  
+  let sessionManager: SessionManager
+  
   // MARK: - Private Properties
   
-  private let orderService: OrderService
-  private var observer: NSObjectProtocol?
+  private let orderService: OrderServiceProtocol
+  private var cancellables = Set<AnyCancellable>()
+  private var ordersSubscriptionTask: Task<Void, Never>?
   
   // MARK: - Init / Deinit
   
-  init(orderService: OrderService = OrderService()) {
+  init(
+    orderService: OrderServiceProtocol = OrderService(),
+    sessionManager: SessionManager
+  ) {
     self.orderService = orderService
-    setupAuthObserver()
+    self.sessionManager = sessionManager
+    setupSessionObserver()
+    print("✳️ OrderViewModel INITIALIZED")
   }
   
   deinit {
-    if let observer = observer {
-      NotificationCenter.default.removeObserver(observer)
-    }
+    ordersSubscriptionTask?.cancel()
+    print("❌ OrderViewModel DEINITIALIZED")
   }
   
   // MARK: - Public Methods
   
-  func fetchOngoingOrders() {
-    orderService.getOrders(forStatus: .ongoing) { [weak self] result in
-      DispatchQueue.main.async {
-        switch result {
-        case .success(let orders):
-          self?.ongoingOrders = orders
-        case .failure(let error):
-          print("❌ Failed to get ongoing orders: \(error.localizedDescription)")
-        }
-      }
-    }
-  }
-  
-  func fetchReceivedOrders() {
-    orderService.getOrders(forStatus: .received) { [weak self] result in
-      DispatchQueue.main.async {
-        switch result {
-        case .success(let orders):
-          self?.receivedOrders = orders
-        case .failure(let error):
-          print("❌ Failed to get ongoing orders: \(error.localizedDescription)")
-        }
-      }
-    }
-  }
-  
-  func setOngoingOrder(_ order: Order) async {
+  func makeOrder(_ order: Order) async {
     do {
-      try await orderService.setOngoingOrder(order)
+      try await orderService.makeOrder(order)
     } catch {
-      print("❌ Failed to set ongoing order: \(error.localizedDescription)")
+      print("⚠️ Failed to make an order: \(error.localizedDescription)")
     }
   }
   
-  func cancelOngoingOrder(_ order: Order) async {
+  func cancelOrder(_ order: Order) async {
     do {
-     try await orderService.cancelOngoingOrder(order)
+      try await orderService.cancelOrder(order)
     } catch {
-      print("❌ Failed to cancel ongoing order: \(error.localizedDescription)")
+      print("⚠️ Failed to cancel order: \(error.localizedDescription)")
     }
   }
   
-  // MARK:  - Private Methods
+  // MARK: - Private Subscription Logic
   
-  private func setupAuthObserver() {
-    self.observer = NotificationCenter.default.addObserver(
-      forName: .authUserDidChange,
-      object: nil,
-      queue: .main,
-      using: { [weak self] notification in
-        Task { @MainActor in
-          if let _ = notification.object as? FirebaseAuth.User {
-            self?.fetchOngoingOrders()
-            self?.fetchReceivedOrders()
-          } else {
-            self?.ongoingOrders = []
-            self?.receivedOrders = []
-          }
+  private func setupSessionObserver() {
+    sessionManager.$currentUser
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] user in
+        if user != nil {
+          self?.subscribeToAllOrders()
+        } else {
+          self?.cancelSubscriptionAndClearData()
         }
       }
-    )
+      .store(in: &cancellables)
   }
-}
-
-// MARK:  - Preview Mode
-
-extension OrderViewModel {
-  static var previewMode: OrderViewModel {
-    let viewModel = OrderViewModel()
-    viewModel.ongoingOrders = [MockData.order]
-    viewModel.receivedOrders = [MockData.order]
-    return viewModel
+  
+  private func subscribeToAllOrders() {
+    ordersSubscriptionTask?.cancel()
+    isLoading = true
+    
+    ordersSubscriptionTask = Task {
+      let stream = orderService.fetchAllOrders()
+      
+      for await result in stream {
+        if Task.isCancelled { break }
+        
+        self.isLoading = false
+        switch result {
+        case .success(let allOrders):
+          self.ongoingOrders = allOrders
+            .filter { $0.status == "ongoing" }
+            .sorted(by: { $0.timestamp > $1.timestamp })
+          
+          self.receivedOrders = allOrders
+            .filter { $0.status == "received" }
+            .sorted(by: { $0.timestamp > $1.timestamp })
+          
+        case .failure(let error):
+          print("⚠️ Method 'subscribleToAllOrder' failed: \(error.localizedDescription)")
+        }
+      }
+    }
+  }
+  
+  private func cancelSubscriptionAndClearData() {
+    ordersSubscriptionTask?.cancel()
+    ongoingOrders = []
+    receivedOrders = []
+    isLoading = false
   }
 }
