@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct HomeHeaderView: View {
-  @EnvironmentObject var authViewModel: AuthViewModel
+  @EnvironmentObject var sessionManager: SessionManager
   
   var body: some View {
     HStack(spacing:12) {
-      if let user = authViewModel.currentUser {
+      if let user = sessionManager.currentUser {
         Image(systemName: "person.fill")
           .imageScale(.large)
           .foregroundStyle(.white)
@@ -48,12 +48,7 @@ struct HomeHeaderView: View {
           bgColor: .csDarkGrey
         )
       } else {
-        HStack(spacing:10) {
-          Text("Connecting...")
-            .font(.callout)
-            .foregroundStyle(.pink)
-          ProgressView()
-        }
+        ProgressView("Connecting...")
       }
     }
   }
@@ -61,5 +56,4 @@ struct HomeHeaderView: View {
 
 #Preview {
   HomeHeaderView()
-    .environmentObject(AuthViewModel.previewMode)
 }

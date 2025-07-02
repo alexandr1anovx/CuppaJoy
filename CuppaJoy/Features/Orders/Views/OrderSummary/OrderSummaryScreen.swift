@@ -40,7 +40,7 @@ struct OrderSummaryScreen: View {
               visibleIndices.insert(index)
             }
         }
-        .customListStyle(rowSpacing: 10, shadowRadius: 3)
+        .customListStyle(rowSpacing: 10, shadow: 3)
         
         confirmationStack
       }
@@ -97,7 +97,7 @@ struct OrderSummaryScreen: View {
     .background(
       RoundedRectangle(cornerRadius: 35)
         .fill(Color.csBlack)
-        .ignoresSafeArea(.all)
+        .ignoresSafeArea()
         .frame(height: 160)
         .shadow(radius: 5)
     )

@@ -17,7 +17,7 @@ struct OrderPaymentOptionsList: View {
         cell(for: .creditCard, isAvailable: false)
       }
     }
-    .customListStyle(rowSpacing: 15, shadowRadius: 1)
+    .customListStyle(rowSpacing: 15, shadow: 1)
   }
   
   @ViewBuilder
