@@ -8,10 +8,7 @@
 import FirebaseAuth
 import FirebaseFirestore
 
-enum OrderServiceError: Error {
-  case userNotLoggedIn
-  case missingOrderID
-}
+// MARK: - Order Service Protocol
 
 protocol OrderServiceProtocol {
   func fetchAllOrders() -> AsyncStream<Result<[Order], Error>>
@@ -22,18 +19,18 @@ protocol OrderServiceProtocol {
 final class OrderService: OrderServiceProtocol {
   
   private let db = Firestore.firestore()
+  private let usersCollection: String = "users"
+  private let ordersCollection: String = "orders"
   
-  private func ordersCollection(forUserID uid: String) -> CollectionReference {
-    return db
-      .collection("users")
-      .document(uid)
-      .collection("orders")
-  }
+  init() { print("OrderService INITIALIZED") }
+  deinit { print("OrderService DEINITIALIZED") }
+  
+  // MARK: - Public Methods
   
   func fetchAllOrders() -> AsyncStream<Result<[Order], Error>> {
     AsyncStream { continuation in
       guard let uid = Auth.auth().currentUser?.uid else {
-        continuation.yield(.failure(OrderServiceError.userNotLoggedIn))
+        continuation.yield(.failure(AuthErrorCode.userNotFound))
         continuation.finish()
         return
       }
@@ -54,7 +51,6 @@ final class OrderService: OrderServiceProtocol {
         }
       continuation.onTermination = { @Sendable _ in
         listener.remove()
-        print("✅ Orders listener removed.")
       }
     }
   }
@@ -63,11 +59,8 @@ final class OrderService: OrderServiceProtocol {
     guard let uid = Auth.auth().currentUser?.uid else {
       throw AuthErrorCode.nullUser
     }
-    guard let orderId = order.id else {
-      throw OrderServiceError.missingOrderID
-    }
     try ordersCollection(forUserID: uid)
-      .document(orderId)
+      .document(order.uid)
       .setData(from: order)
   }
   
@@ -75,11 +68,17 @@ final class OrderService: OrderServiceProtocol {
     guard let uid = Auth.auth().currentUser?.uid else {
       throw AuthErrorCode.nullUser
     }
-    guard let orderId = order.id else {
-      throw OrderServiceError.missingOrderID
-    }
     try await ordersCollection(forUserID: uid)
-      .document(orderId)
+      .document(order.uid)
       .delete()
+  }
+  
+  // MARK: - Private Methods
+  
+  private func ordersCollection(forUserID uid: String) -> CollectionReference {
+    return db
+      .collection(usersCollection)
+      .document(uid)
+      .collection(ordersCollection)
   }
 }
