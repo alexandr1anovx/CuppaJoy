@@ -17,7 +17,7 @@ struct LoginFormEmailAndPassword: View {
     ZStack {
       Color.appBackgroundDimmed.ignoresSafeArea()
       VStack(spacing: 15) {
-        List {
+        Form {
           Section {
             InputField(for: .email, data: $viewModel.email)
               .focused($inputContent, equals: .email)
@@ -37,11 +37,7 @@ struct LoginFormEmailAndPassword: View {
               .padding(.bottom, 10)
           }
         }
-        .listRowSpacing(8)
-        .frame(height: 165)
-        .environment(\.defaultMinListRowHeight, 50)
-        .scrollDisabled(true)
-        .shadow(radius: 5)
+        .customListStyle(minRowHeight: 50, rowSpacing: 8, scrollDisabled: true, height: 165, shadow: 5)
         
         signInButton
         
@@ -50,7 +46,7 @@ struct LoginFormEmailAndPassword: View {
           .padding(.leading, 25)
       }
       .frame(maxHeight: .infinity, alignment: .top)
-      .navigationTitle("Sign In")
+      .navigationTitle("Login")
       .navigationBarBackButtonHidden(true)
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
@@ -70,20 +66,17 @@ struct LoginFormEmailAndPassword: View {
     }
   }
   
+  // MARK: - Subviews
+  
   private var signInButton: some View {
     Button {
       Task { await viewModel.signIn() }
-      // ⚠️ Add a method!
     } label: {
-      ButtonLabel(
-        "Sign In",
-        textColor: .white,
-        bgColor: .black
-      )
+      ButtonLabel("Sign In", textColor: .white, bgColor: .black)
     }
     .disabled(!viewModel.isValidForm)
     .opacity(!viewModel.isValidForm ? 0.3 : 1)
-    .alert(item: $viewModel.alertItem) { alert in
+    .alert(item: $viewModel.alert) { alert in
       Alert(
         title: alert.title,
         message: alert.message,

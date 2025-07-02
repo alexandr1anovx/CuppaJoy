@@ -18,7 +18,7 @@ final class RegistrationViewModel: ObservableObject {
   @Published var confirmedPassword: String = ""
   @Published var selectedCity: City = .mykolaiv
   
-  @Published var alertItem: AlertItem?
+  @Published var alert: AlertItem?
   @Published var isLoading: Bool = false
   
   // MARK: - Private Properties
@@ -31,8 +31,7 @@ final class RegistrationViewModel: ObservableObject {
   var isValidForm: Bool {
     ValidationService.isValid(fullName: fullName)
     && ValidationService.isValid(email: email)
-    && password.count > 5
-    //&& password == confirmedPassword
+    && password.count > 5 && password == confirmedPassword
   }
   
   // MARK: - Init
@@ -49,7 +48,6 @@ final class RegistrationViewModel: ObservableObject {
   
   func signUp() async {
     isLoading = true
-    
     do {
       let user = try await authService.signUp(
         email: email,
@@ -63,13 +61,26 @@ final class RegistrationViewModel: ObservableObject {
         coins: Int.random(in: 0...5)
       )
       try await userService.createOrUpdateAppUser(user: appUser)
-      print("✅ RegistrationViewModel: Successfully signed up!")
       isLoading = false
     } catch {
       isLoading = false
-      alertItem = Alerts.Auth.registrationFailed
-      print("⚠️ RegistrationViewModel: Failed to sign up: \(error.localizedDescription)")
+      alert = Alerts.Auth.registrationFailed
     }
   }
 }
 
+extension RegistrationViewModel {
+  static var previewMode: RegistrationViewModel {
+    let authService = AuthService()
+    let userService = UserService()
+    let viewModel = RegistrationViewModel(
+      authService: authService,
+      userService: userService
+    )
+    viewModel.fullName = "John Doe"
+    viewModel.email = "johndoe@example.com"
+    viewModel.password = "123456"
+    viewModel.confirmedPassword = "123456"
+    return viewModel
+  }
+}

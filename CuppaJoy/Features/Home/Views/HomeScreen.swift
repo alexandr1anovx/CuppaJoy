@@ -14,8 +14,10 @@ enum OrderPage: Hashable {
 }
 
 struct HomeScreen: View {
+  
+  let coffeeConfigService: CoffeeConfigServiceProtocol
   @State private var path = NavigationPath()
-  @State private var isTabBarVisible = true
+  @State private var isTabBarVisible: Bool = true
   
   var body: some View {
     NavigationStack(path: $path) {
@@ -25,7 +27,7 @@ struct HomeScreen: View {
           HomeHeaderView()
             .padding(.vertical, 30)
             .padding(.horizontal, 15)
-          CoffeeSelectionView(
+          CoffeeCatalogView(
             path: $path,
             isTabBarVisible: $isTabBarVisible
           )
@@ -37,9 +39,10 @@ struct HomeScreen: View {
         switch page {
         case .configurator(let coffee):
           OrderConfiguratorScreen(
-            selectedCoffee: coffee,
             path: $path,
-            isTabBarVisible: $isTabBarVisible
+            isTabBarVisible: $isTabBarVisible,
+            configVM: CoffeeConfigViewModel(coffeeConfigService: coffeeConfigService),
+            configuratorVM: OrderConfiguratorViewModel(selectedCoffee: coffee)
           )
         case .summary(let order):
           OrderSummaryScreen(order: order, path: $path)
@@ -50,15 +53,7 @@ struct HomeScreen: View {
             path: $path
           )
         }
-      }
-      .toolbar(isTabBarVisible ? .visible : .hidden, for: .tabBar)
+      }.toolbar(isTabBarVisible ? .visible : .hidden, for: .tabBar)
     }
   }
-}
-
-#Preview {
-  HomeScreen()
-    .environmentObject(AuthViewModel.previewMode)
-    .environmentObject(CoffeeCatalogViewModel.previewMode)
-    .environmentObject(CoffeeConfigViewModel.previewMode)
 }
