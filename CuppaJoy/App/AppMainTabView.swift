@@ -7,42 +7,55 @@
 
 import SwiftUI
 
+enum Tab {
+  case home, myOrders, general
+}
+
 struct AppMainTabView: View {
   @State private var selectedTab: Tab = .home
+  @EnvironmentObject var sessionManager: SessionManager
+  @StateObject var orderViewModel: OrderViewModel
+  
+  let authService: AuthServiceProtocol
+  let userService: UserServiceProtocol
+  let coffeeConfigService: CoffeeConfigServiceProtocol
+  
+  init(
+    sessionManager: SessionManager,
+    authService: AuthServiceProtocol,
+    userService: UserServiceProtocol,
+    coffeeConfigService: CoffeeConfigServiceProtocol
+  ) {
+    _orderViewModel = StateObject(
+      wrappedValue: OrderViewModel(sessionManager: sessionManager)
+    )
+    self.authService = authService
+    self.userService = userService
+    self.coffeeConfigService = coffeeConfigService
+  }
   
   var body: some View {
     TabView(selection: $selectedTab) {
-      HomeScreen()
+      HomeScreen(coffeeConfigService: coffeeConfigService)
         .tag(Tab.home)
         .tabItem {
           Label("Home", systemImage: "storefront.fill")
         }
-      MyOrdersScreen(selectedTab: $selectedTab)
+      MyOrdersScreen(selectedTab: $selectedTab, sessionManager: sessionManager)
         .tag(Tab.myOrders)
         .tabItem {
           Label("My Orders", systemImage: "list.bullet")
         }
-      GeneralScreen()
+      GeneralScreen(userService: userService, authService: authService)
         .tag(Tab.general)
         .tabItem {
           Label("General", systemImage: "gearshape")
         }
     }
+    .environmentObject(orderViewModel)
     .onChange(of: selectedTab) {
       let generator = UIImpactFeedbackGenerator(style: .soft)
       generator.impactOccurred()
     }
   }
-}
-
-enum Tab {
-  case home, myOrders, general
-}
-
-#Preview {
-  AppMainTabView()
-    .environmentObject(AuthViewModel.previewMode)
-    .environmentObject(CoffeeCatalogViewModel.previewMode)
-    .environmentObject(OrderViewModel.previewMode)
-    .environmentObject(CoffeeConfigViewModel.previewMode)
 }
