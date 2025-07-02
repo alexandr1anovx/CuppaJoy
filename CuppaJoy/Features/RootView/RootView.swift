@@ -14,6 +14,7 @@ struct RootView: View {
   
   let authService: AuthServiceProtocol
   let userService: UserServiceProtocol
+  let coffeeConfigService: CoffeeConfigServiceProtocol
   
   var body: some View {
     Group {
@@ -26,7 +27,8 @@ struct RootView: View {
           AppMainTabView(
             sessionManager: sessionManager,
             authService: authService,
-            userService: userService
+            userService: userService,
+            coffeeConfigService: coffeeConfigService
           )
         }
       case .signedOut:
