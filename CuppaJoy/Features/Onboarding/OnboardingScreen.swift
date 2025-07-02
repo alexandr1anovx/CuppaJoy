@@ -9,16 +9,16 @@ import SwiftUI
 
 struct OnboardingScreen: View {
   
-  @State private var pageIndex = 0
-  @State private var isFinishedOnboarding = false
-  @State private var isAnimating = false
+  @State private var pageIndex: Int = 0
+  @State private var isFinishedOnboarding: Bool = false
+  @State private var isAnimating: Bool = false
   
   private let pages = OnboardingPage.allCases
   private var isIndexLast: Bool { pageIndex == pages.count - 1 }
   
   var body: some View {
     if isFinishedOnboarding {
-      SignInScreen()
+      //
     } else {
       onboardingPage
     }
@@ -33,8 +33,7 @@ struct OnboardingScreen: View {
       }
     }
     .overlay(alignment: .bottom) {
-      continueButton
-        .padding(.bottom,8)
+      continueButton.padding(.bottom,8)
     }
   }
   
@@ -101,7 +100,7 @@ struct OnboardingScreen: View {
         isIndexLast ? "Get Started!": "Continue",
         icon: isIndexLast ? "checkmark.circle.fill": "arrow.right.circle",
         textColor: isIndexLast ? .black : .csCream,
-        bgColor: isIndexLast ? Color.csCream : Color.csDarkGrey
+        bgColor: isIndexLast ? .csCream : .csDarkGrey
       )
     }
   }

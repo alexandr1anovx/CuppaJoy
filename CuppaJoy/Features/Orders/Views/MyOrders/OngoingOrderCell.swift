@@ -12,7 +12,7 @@ struct OngoingOrderCell: View {
   let order: Order
   @State private var isShownConfigurationSheet = false
   @State private var isShownCancelationAlert = false
-  @EnvironmentObject var orderViewModel: OrderViewModel
+  @EnvironmentObject var viewModel: OrderViewModel
 
   init(for order: Order) {
     self.order = order
@@ -32,20 +32,12 @@ struct OngoingOrderCell: View {
       HStack {
         configurationsButton
         Spacer()
-        cancelationButton
+        cancelButton
       }.padding(.top,8)
     }
-    .alert("Cancel Order", isPresented: $isShownCancelationAlert) {
-      Button("Cancel", role: .cancel) {}
-      Button("Confirm", role: .destructive) {
-        Task {
-          await orderViewModel.cancelOngoingOrder(order)
-        }
-      }
-    } message: {
-      Text("Are you sure you want to cancel this order?")
-    }
   }
+  
+  // MARK: - Subviews
   
   private var dateLabel: some View {
     VStack {
@@ -106,7 +98,7 @@ struct OngoingOrderCell: View {
     }
   }
   
-  private var cancelationButton: some View {
+  private var cancelButton: some View {
     Button {
       isShownCancelationAlert.toggle()
     } label: {
@@ -117,7 +109,16 @@ struct OngoingOrderCell: View {
         .padding(8)
         .background(.csDarkGrey)
         .clipShape(.capsule)
-    }.buttonStyle(.plain)
+    }
+    .buttonStyle(.plain)
+    .alert("Cancel Order", isPresented: $isShownCancelationAlert) {
+      Button("Cancel", role: .cancel) {}
+      Button("Confirm", role: .destructive) {
+        Task { await viewModel.cancelOrder(order) }
+      }
+    } message: {
+      Text("Are you sure you want to cancel this order?")
+    }
   }
 }
 

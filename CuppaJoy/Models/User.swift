@@ -6,13 +6,30 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 struct User: Identifiable, Codable {
-  let id: String
-  let fullName: String
-  let emailAddress: String
-  let city: String
+  @DocumentID var id: String?
+  let uid: String
+  var fullName: String
+  var email: String
+  var city: String
   var coins: Int
+  
+  init(
+    uid: String,
+    fullName: String,
+    email: String,
+    city: String,
+    coins: Int
+  ) {
+    self.id = uid
+    self.uid = uid
+    self.fullName = fullName
+    self.email = email
+    self.city = city
+    self.coins = coins
+  }
   
   var stringCoins: String {
     "\(coins)"

@@ -10,7 +10,7 @@ import Foundation
 struct MockData {
   
   static let order = Order(
-    id: "1",
+    uid: "1",
     coffee: "Americano",
     cupSize: "Medium",
     cupCount: 1,
@@ -21,11 +21,12 @@ struct MockData {
     flavor: "Caramel",
     points: 10,
     totalPrice: 35.20,
-    timestamp: .now
+    timestamp: .now,
+    status: "ongoing"
   )
   
   static let coffee = Coffee(
-    id: "2",
+    uid: "2",
     title: "Americano",
     description: "Americano's description",
     rating: 4.5,
@@ -34,15 +35,15 @@ struct MockData {
   )
   
   static let user = User(
-    id: "3",
+    uid: "3",
     fullName: "Alexander Andrianov",
-    emailAddress: "an4lex@gmail.com",
+    email: "an4lex@gmail.com",
     city: "Mykolaiv",
     coins: 20
   )
   
   static let coffeeConfigAmericano = CoffeeConfig(
-    id: "1",
+    uid: "1",
     title: "Americano",
     cupSize: "Medium",
     sugarSticks: 2,
@@ -52,7 +53,7 @@ struct MockData {
     flavor: "Caramel"
   )
   static let coffeeConfigLatte = CoffeeConfig(
-    id: "2",
+    uid: "2",
     title: "Latte",
     cupSize: "Large",
     sugarSticks: 0,

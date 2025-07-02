@@ -12,12 +12,11 @@ struct OrderPaymentScreen: View {
   let order: Order
   @Binding var isTabBarVisible: Bool
   @Binding var path: NavigationPath
-  @State private var isShownDismissAlert = false
+  @State private var isShownDismissAlert: Bool = false
   
   var body: some View {
-    
     ZStack {
-      Color.csBlack.ignoresSafeArea(.all)
+      Color.csBlack.ignoresSafeArea()
       OrderPaymentOptionView(
         order: order,
         path: $path,

@@ -7,17 +7,33 @@
 
 import SwiftUI
 
-struct ApplePayView: View {
+enum PaymentMethod {
+  case applePay, creditCard
   
-  private let feedbackGenerator = UINotificationFeedbackGenerator()
+  var title: String {
+    switch self {
+    case .applePay: "Apple Pay"
+    case .creditCard: "Credit Card"
+    }
+  }
+  var iconName: String {
+    switch self {
+    case .applePay: "apple.logo"
+    case .creditCard: "creditcard.fill"
+    }
+  }
+}
+
+struct ApplePayView: View {
   
   let order: Order
   @Binding var path: NavigationPath
   @Binding var isTabBarVisible: Bool
-  
-  @State private var isShownAlert = false
+  @State private var isShownAlert: Bool = false
   @Environment(\.dismiss) var dismiss
-  @EnvironmentObject var orderViewModel: OrderViewModel
+  @EnvironmentObject var viewModel: OrderViewModel
+  
+  private let feedbackGenerator = UINotificationFeedbackGenerator()
   
   var body: some View {
     VStack(spacing: 5) {
@@ -30,18 +46,17 @@ struct ApplePayView: View {
       .padding(.top, 20)
       .padding(.horizontal, 20)
       
-      List {
+      Form {
         firstSectionView
         secondSectionView
         thirdSectionView
-      }
-      .customListStyle(shadowRadius: 1)
+      }.shadow(radius: 1)
       
       paymentButton
     }
     .alert(isPresented: $isShownAlert) {
       Alert(
-        title: Text("✅ Success!"),
+        title: Text("Success!"),
         message: Text("The order has been placed in the queue."),
         dismissButton: .default(Text("OK")) {
           dismiss()
@@ -53,6 +68,8 @@ struct ApplePayView: View {
       )
     }
   }
+  
+  // MARK: - Subviews
   
   private var firstSectionView: some View {
     HStack(spacing: 20) {
@@ -95,7 +112,7 @@ struct ApplePayView: View {
   private var paymentButton: some View {
     Button {
       Task {
-        await orderViewModel.setOngoingOrder(order)
+        await viewModel.makeOrder(order)
         isShownAlert.toggle()
         feedbackGenerator.notificationOccurred(.success)
       }
@@ -108,12 +125,4 @@ struct ApplePayView: View {
       )
     }
   }
-}
-
-#Preview {
-  ApplePayView(
-    order: MockData.order,
-    path: .constant(NavigationPath()),
-    isTabBarVisible: .constant(false)
-  )
 }

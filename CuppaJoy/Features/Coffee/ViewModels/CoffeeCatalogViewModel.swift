@@ -13,27 +13,25 @@ final class CoffeeCatalogViewModel: ObservableObject {
   // MARK: - Properties
   
   @Published var coffees: [Coffee] = []
-  private let coffeeCatalogService: CoffeeCatalogService
+  private let coffeeCatalogService: CoffeeCatalogServiceProtocol
   
   // MARK: - Init
   
-  init(coffeeCatalogService: CoffeeCatalogService = CoffeeCatalogService()) {
+  init(coffeeCatalogService: CoffeeCatalogServiceProtocol = CoffeeCatalogService()) {
     self.coffeeCatalogService = coffeeCatalogService
-    fetchCoffees()
+    print("✅ Coffee Catalog View Model INITIALIZED")
+  }
+  deinit {
+    print("❌ Coffee Catalog View Model DEINITIALIZED")
   }
   
   // MARK: - Private Methods
   
-  private func fetchCoffees() {
-    coffeeCatalogService.fetchCoffees { [weak self] result in
-      DispatchQueue.main.async {
-        switch result {
-        case .success(let coffees):
-          self?.coffees = coffees
-        case .failure(let error):
-          print("❌ Error loading coffees: \(error.localizedDescription)")
-        }
-      }
+  func fetchCoffees() async {
+    do {
+      coffees = try await coffeeCatalogService.fetchCoffees()
+    } catch {
+      print("❌ Coffee Catalog View Model: Failed to fetch coffees: \(error.localizedDescription)")
     }
   }
 }
