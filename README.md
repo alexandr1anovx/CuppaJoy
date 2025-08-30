@@ -11,16 +11,23 @@ An iOS app designed for ordering coffee.
 ---
 
 ## screenshots:
-[view on Google Drive](https://apple.com)
+<p align="center">
+   <img src="./Screenshots/Login.png" width="250" />
+   <img src="./Screenshots/Registration.png" width="250" />
+   <img src="./Screenshots/Home.png" width="250" />
+   <img src="./Screenshots/OrderConfigurator.png" width="250" />
+   <img src="./Screenshots/OrderSummary.png" width="250" />
+   <img src="./Screenshots/OrderPayment.png" width="250" />
+   <img src="./Screenshots/OngoingOrders.png" width="250" />
+   <img src="./Screenshots/ReceivedOrders.png" width="250" />
+  <img src="./Screenshots/General.png" width="250" />
+  <img src="./Screenshots/EditProfile.png" width="250" />
+</p>
 
 ---
 
 ## tech stack:  
-- Swift
-- SwiftUI  
-- Firebase(authentication, firestore).  
-- async/await  
-- MVVM
+- Swift, SwiftUI, MVVM, async/await, Firebase(Authentication, Firestore).
 ---
 
 ## installation:  
