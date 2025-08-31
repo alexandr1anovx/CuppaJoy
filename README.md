@@ -2,7 +2,7 @@
 
 An iOS app designed for ordering coffee.  
 
-**features**:
+**Features**
 - save your favorite coffee configs to reorder coffee with a single tap.
 - view your previous orders.
 
@@ -10,7 +10,7 @@ An iOS app designed for ordering coffee.
 
 ---
 
-## screenshots:
+## Screenshots
 <p align="center">
    <img src="./Screenshots/Login.png" width="250" />
    <img src="./Screenshots/Registration.png" width="250" />
@@ -26,10 +26,14 @@ An iOS app designed for ordering coffee.
 
 ---
 
-## tech stack:  
-- Swift, SwiftUI, MVVM, async/await, Firebase(Authentication, Firestore).
+## Tech Stack  
+- Swift
+- SwiftUI
+- MVVM
+- async/await
+- Firebase(Authentication, Firestore)
 ---
 
-## installation:  
+## Installation  
 ```bash
 git clone https://github.com/alexandr1anov/LexiGrow.git
