@@ -32,4 +32,4 @@ An iOS app designed for ordering coffee.
 
 ## installation:  
 ```bash
-git clone https://github.com/alexandr1anov/LexiGrow.git
+git clone https://github.com/alexandr1anovx/LexiGrow.git
