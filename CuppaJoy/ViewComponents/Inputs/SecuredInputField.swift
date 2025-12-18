@@ -10,18 +10,18 @@ import SwiftUI
 struct SecuredInputField: View {
   
   @Binding var password: String
-  @State private var isShownPassword = false
+  @State private var showPassword = false
   @FocusState private var inputStatus: InputContentStatus?
   
   var body: some View {
     HStack {
       secureInputField
-      Image(systemName: isShownPassword ? "eye" : "eye.slash")
+      Image(systemName: showPassword ? "eye" : "eye.slash")
         .opacity(!password.isEmpty ? 1:0)
         .disabled(password.isEmpty)
         .foregroundStyle(.gray)
         .onTapGesture {
-          isShownPassword.toggle()
+          showPassword.toggle()
         }
     }
   }
@@ -34,7 +34,7 @@ struct SecuredInputField: View {
           height: UIConstants.Sizes.mediumIcon
         )
         .foregroundStyle(.csCream)
-      if isShownPassword {
+      if showPassword {
         TextField("Password", text: $password)
           .focused($inputStatus, equals: .notSecured)
           .keyboardType(.asciiCapable)
@@ -47,8 +47,8 @@ struct SecuredInputField: View {
     }
     .textInputAutocapitalization(.never)
     .autocorrectionDisabled(true)
-    .onChange(of: isShownPassword) {
-      inputStatus = isShownPassword ? .notSecured : .secured
+    .onChange(of: showPassword) {
+      inputStatus = showPassword ? .notSecured : .secured
     }
     .onChange(of: password) { _, newValue in
       if newValue.count > 20 {

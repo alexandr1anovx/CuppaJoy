@@ -11,7 +11,7 @@ struct LoginScreen: View {
   
   let authService: AuthServiceProtocol
   let userService: UserServiceProtocol
-  @StateObject var viewModel: LoginViewModel
+  @State var viewModel: LoginViewModel
   
   var body: some View {
     NavigationStack {

@@ -12,7 +12,7 @@ struct OrderPaymentOptionView: View {
   let order: Order
   @Binding var path: NavigationPath
   @Binding var isTabBarVisible: Bool
-  @State private var isShownPaymentView = false
+  @State private var showPaymentView = false
   
   var body: some View {
     VStack(spacing: 20) {
@@ -21,7 +21,7 @@ struct OrderPaymentOptionView: View {
       paymentStack
     }
     .padding(.top)
-    .sheet(isPresented: $isShownPaymentView) {
+    .sheet(isPresented: $showPaymentView) {
       ApplePayView(
         order: order,
         path: $path,
@@ -56,7 +56,7 @@ struct OrderPaymentOptionView: View {
       }
       
       Button {
-        isShownPaymentView.toggle()
+        showPaymentView.toggle()
       } label: {
         ButtonLabelWithIcon(
           "Pay",

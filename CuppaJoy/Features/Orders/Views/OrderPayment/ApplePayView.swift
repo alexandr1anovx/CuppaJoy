@@ -26,13 +26,13 @@ enum PaymentMethod {
 }
 
 struct ApplePayView: View {
+  @Environment(\.dismiss) var dismiss
+  @Environment(OrderViewModel.self) var orderViewModel
   
   let order: Order
   @Binding var path: NavigationPath
   @Binding var isTabBarVisible: Bool
-  @State private var isShownAlert: Bool = false
-  @Environment(\.dismiss) var dismiss
-  @Environment(OrderViewModel.self) var orderViewModel
+  @State private var showAlert = false
   
   private let feedbackGenerator = UINotificationFeedbackGenerator()
   
@@ -55,7 +55,7 @@ struct ApplePayView: View {
       
       paymentButton
     }
-    .alert(isPresented: $isShownAlert) {
+    .alert(isPresented: $showAlert) {
       Alert(
         title: Text("Success!"),
         message: Text("The order has been placed in the queue."),
@@ -114,7 +114,7 @@ struct ApplePayView: View {
     Button {
       Task {
         await orderViewModel.makeOrder(order)
-        isShownAlert.toggle()
+        showAlert.toggle()
         feedbackGenerator.notificationOccurred(.success)
       }
     } label: {

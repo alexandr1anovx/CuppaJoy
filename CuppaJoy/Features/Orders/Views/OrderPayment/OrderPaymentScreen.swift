@@ -12,7 +12,7 @@ struct OrderPaymentScreen: View {
   let order: Order
   @Binding var isTabBarVisible: Bool
   @Binding var path: NavigationPath
-  @State private var isShownDismissAlert: Bool = false
+  @State private var showDismissAlert = false
   
   var body: some View {
     ZStack {
@@ -29,7 +29,7 @@ struct OrderPaymentScreen: View {
     .toolbar {
       ToolbarItem(placement: .topBarTrailing) {
         Button {
-          isShownDismissAlert.toggle()
+          showDismissAlert.toggle()
         } label: {
           Image(systemName: "xmark.circle.fill")
             .font(.title3)
@@ -38,7 +38,7 @@ struct OrderPaymentScreen: View {
         }
       }
     }
-    .alert(isPresented: $isShownDismissAlert) {
+    .alert(isPresented: $showDismissAlert) {
       Alert(
         title: Text("You changed your mind?"),
         message: Text("You can return to the main screen to cancel the current order."),

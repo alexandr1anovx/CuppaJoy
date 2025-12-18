@@ -28,19 +28,15 @@ struct GeneralScreen: View {
         Color.appBackgroundDimmed.ignoresSafeArea()
         VStack {
           if let user = sessionManager.currentUser {
-            HStack(spacing: 15) {
-              StaticProfileImageView()
-                .shadow(radius: 3)
-              VStack(alignment: .leading, spacing: 10) {
-                Text(user.fullName)
-                  .foregroundStyle(.white)
-                  .font(.headline)
-                  .fontWeight(.bold)
-                Text(user.email)
-                  .font(.caption)
-                  .fontWeight(.medium)
-                  .foregroundStyle(.gray)
-              }
+            VStack(alignment: .leading, spacing: 10) {
+              Text(user.fullName)
+                .foregroundStyle(.white)
+                .font(.headline)
+                .fontWeight(.bold)
+              Text(user.email)
+                .font(.caption)
+                .fontWeight(.medium)
+                .foregroundStyle(.gray)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.top)
@@ -67,11 +63,11 @@ struct GeneralScreen: View {
       .navigationDestination(for: SettingsPageContent.self) { page in
         switch page {
         case .settings:
-          SettingsScreen(path: $path, isShownTabBar: $showTabBar)
+          SettingsScreen(path: $path, showTabBar: $showTabBar)
         case .editProfile:
           ProfileScreen(
             path: $path,
-            isShownTabBar: $showTabBar,
+            showTabBar: $showTabBar,
             viewModel: ProfileViewModel(
               sessionManager: sessionManager,
               authService: authService,

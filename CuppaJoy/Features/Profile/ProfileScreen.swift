@@ -10,7 +10,7 @@ import SwiftUI
 struct ProfileScreen: View {
   
   @Binding var path: NavigationPath
-  @Binding var isShownTabBar: Bool
+  @Binding var showTabBar: Bool
   @State var viewModel: ProfileViewModel
   @FocusState var inputContent: InputContentType?
   private let feedbackGenerator = UINotificationFeedbackGenerator()
@@ -20,7 +20,6 @@ struct ProfileScreen: View {
       Color.appBackgroundDimmed.ignoresSafeArea()
       ScrollView {
         VStack {
-          EditableProfileImageView()
           personalDataList
           HStack {
             deleteAccountButton
@@ -40,7 +39,7 @@ struct ProfileScreen: View {
       )
     }
     .onAppear {
-      isShownTabBar = false
+      showTabBar = false
       viewModel.loadUserData()
     }
     .navigationTitle("Profile")

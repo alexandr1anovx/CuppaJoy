@@ -18,7 +18,7 @@ enum ColorTheme: String, Identifiable, CaseIterable {
 
 struct SettingsScreen: View {
   @Binding var path: NavigationPath
-  @Binding var isShownTabBar: Bool
+  @Binding var showTabBar: Bool
   @State private var selectedTheme: ColorTheme = .system
   
   var body: some View {
@@ -45,7 +45,7 @@ struct SettingsScreen: View {
       }
     }
     .onAppear {
-      isShownTabBar = false
+      showTabBar = false
       setupSegmentedControlAppearance()
     }
     .navigationTitle("Settings")
@@ -55,7 +55,7 @@ struct SettingsScreen: View {
       ToolbarItem(placement: .topBarLeading) {
         Button {
           path.removeLast()
-          isShownTabBar = true
+          showTabBar = true
         } label: {
           ReturnButtonLabel()
         }
@@ -67,6 +67,6 @@ struct SettingsScreen: View {
 #Preview {
   SettingsScreen(
     path: .constant(NavigationPath()),
-    isShownTabBar: .constant(false)
+    showTabBar: .constant(false)
   )
 }

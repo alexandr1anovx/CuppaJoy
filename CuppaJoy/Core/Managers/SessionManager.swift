@@ -26,8 +26,9 @@ final class SessionManager: ObservableObject {
     authStateListenerHandle = Auth.auth().addStateDidChangeListener { [weak self] _, user in
       guard let self = self else { return }
       if let user {
+        Task { @MainActor in
         self.sessionState = .signedIn(user)
-        Task {
+        
           do {
             self.currentUser = try await self.userService.fetchAppUser(uid: user.uid)
           } catch {

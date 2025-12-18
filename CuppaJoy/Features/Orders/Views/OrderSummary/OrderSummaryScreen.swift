@@ -12,7 +12,6 @@ struct OrderSummaryScreen: View {
   let order: Order
   @Binding var path: NavigationPath
   @State private var visibleIndices: Set<Int> = []
-  @State private var isShownPaymentScreen = false
   
   var orderDetails: [(String, String)] {
     [

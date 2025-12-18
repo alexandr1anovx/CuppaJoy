@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LoginFormEmailAndPassword: View {
   
-  @StateObject var viewModel: LoginViewModel
+  @State var viewModel: LoginViewModel
   @FocusState private var inputContent: InputContentType?
   @Environment(\.dismiss) var dismiss
   
@@ -58,7 +58,7 @@ struct LoginFormEmailAndPassword: View {
           }
         }
       }
-      .sheet(isPresented: $viewModel.isShownPasswordRecoveryView) {
+      .sheet(isPresented: $viewModel.showPasswordRecoveryView) {
         PasswordRecoveryScreen()
           .presentationCornerRadius(30)
           .presentationDragIndicator(.visible)
@@ -87,7 +87,7 @@ struct LoginFormEmailAndPassword: View {
   
   private var forgotPasswordButton: some View {
     Button {
-      viewModel.isShownPasswordRecoveryView.toggle()
+      viewModel.showPasswordRecoveryView.toggle()
     } label: {
       Text("Forgot password?")
         .font(.caption)

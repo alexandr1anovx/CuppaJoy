@@ -10,7 +10,7 @@ import SwiftUI
 struct ReceivedOrderCell: View {
   
   let order: Order
-  @State private var isShownConfigurationSheet = false
+  @State private var showConfigurationView = false
   
   init(for order: Order) {
     self.order = order
@@ -18,7 +18,7 @@ struct ReceivedOrderCell: View {
   
   var body: some View {
     VStack(alignment: .leading, spacing: 12) {
-      // Header
+      
       HStack(spacing: 0) {
         dateLabel
         Spacer()
@@ -26,13 +26,14 @@ struct ReceivedOrderCell: View {
       }
       row("Coffee:", content: order.coffee)
       row("Size:", content: order.cupSize)
-      // Footer
+      
       HStack {
         configurationsButton
         Spacer()
-      }.padding(.top, 8)
+      }
+      .padding(.top, 8)
     }
-    .sheet(isPresented: $isShownConfigurationSheet) {
+    .sheet(isPresented: $showConfigurationView) {
       DetailedOrderView(order: order)
         .presentationDetents([.large])
         .presentationCornerRadius(30)
@@ -80,7 +81,7 @@ struct ReceivedOrderCell: View {
   
   private var configurationsButton: some View {
     Button {
-      isShownConfigurationSheet.toggle()
+      showConfigurationView.toggle()
     } label: {
       Text("Configurations")
         .font(.caption)

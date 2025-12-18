@@ -20,7 +20,6 @@
 		50288ACA2CF7E73300DA7304 /* CoffeeCatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50288AC92CF7E73300DA7304 /* CoffeeCatalogView.swift */; };
 		50DFA8132D046D840058A4D4 /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DFA8122D046D840058A4D4 /* UIWindow+Extension.swift */; };
 		50DFA8232D04AC660058A4D4 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DFA8222D04AC660058A4D4 /* HomeHeaderView.swift */; };
-		D103DDC62DA1CF5B008EAA99 /* StaticProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D103DDC52DA1CF5B008EAA99 /* StaticProfileImageView.swift */; };
 		D103DDC82DA1E4AF008EAA99 /* ReturnButtonLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D103DDC72DA1E4AF008EAA99 /* ReturnButtonLabel.swift */; };
 		D10A1BF92DAABDEB00F10EBA /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10A1BF82DAABDEA00F10EBA /* UserDefaults+Extension.swift */; };
 		D10DDF6B2DA7265F00D857E1 /* OrderStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10DDF6A2DA7265F00D857E1 /* OrderStatus.swift */; };
@@ -40,8 +39,6 @@
 		D15A87D12D66659300259382 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15A87D02D66659300259382 /* Order.swift */; };
 		D15A87D42D6669D900259382 /* OrderSummaryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15A87D32D6669D900259382 /* OrderSummaryScreen.swift */; };
 		D161CC642E14933F00935F44 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D161CC632E14933F00935F44 /* ProfileViewModel.swift */; };
-		D161E8942D9B1D89003BBF78 /* ProfileImageEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D161E8932D9B1D89003BBF78 /* ProfileImageEditorView.swift */; };
-		D161E8962D9B1DB3003BBF78 /* EditableProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D161E8952D9B1DB3003BBF78 /* EditableProfileImageView.swift */; };
 		D161E8982D9B2B51003BBF78 /* InputContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D161E8972D9B2B51003BBF78 /* InputContentType.swift */; };
 		D161E89B2D9B2F4B003BBF78 /* GeneralScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D161E89A2D9B2F4B003BBF78 /* GeneralScreen.swift */; };
 		D16275252D903D4E0001D88C /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16275242D903D4E0001D88C /* AlertManager.swift */; };
@@ -109,7 +106,6 @@
 		50288AC92CF7E73300DA7304 /* CoffeeCatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeCatalogView.swift; sourceTree = "<group>"; };
 		50DFA8122D046D840058A4D4 /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
 		50DFA8222D04AC660058A4D4 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
-		D103DDC52DA1CF5B008EAA99 /* StaticProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticProfileImageView.swift; sourceTree = "<group>"; };
 		D103DDC72DA1E4AF008EAA99 /* ReturnButtonLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnButtonLabel.swift; sourceTree = "<group>"; };
 		D10A1BF82DAABDEA00F10EBA /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		D10DDF6A2DA7265F00D857E1 /* OrderStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderStatus.swift; sourceTree = "<group>"; };
@@ -129,8 +125,6 @@
 		D15A87D02D66659300259382 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		D15A87D32D6669D900259382 /* OrderSummaryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSummaryScreen.swift; sourceTree = "<group>"; };
 		D161CC632E14933F00935F44 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
-		D161E8932D9B1D89003BBF78 /* ProfileImageEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageEditorView.swift; sourceTree = "<group>"; };
-		D161E8952D9B1DB3003BBF78 /* EditableProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableProfileImageView.swift; sourceTree = "<group>"; };
 		D161E8972D9B2B51003BBF78 /* InputContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputContentType.swift; sourceTree = "<group>"; };
 		D161E89A2D9B2F4B003BBF78 /* GeneralScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralScreen.swift; sourceTree = "<group>"; };
 		D16275242D903D4E0001D88C /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
@@ -256,9 +250,6 @@
 			isa = PBXGroup;
 			children = (
 				32FF43AA2CC6CC9E001C0E0C /* ProfileScreen.swift */,
-				D161E8932D9B1D89003BBF78 /* ProfileImageEditorView.swift */,
-				D103DDC52DA1CF5B008EAA99 /* StaticProfileImageView.swift */,
-				D161E8952D9B1DB3003BBF78 /* EditableProfileImageView.swift */,
 				D161CC622E14932A00935F44 /* ViewModels */,
 			);
 			path = Profile;
@@ -711,7 +702,6 @@
 				D10A1BF92DAABDEB00F10EBA /* UserDefaults+Extension.swift in Sources */,
 				D1F061032DAD590D00024160 /* RefreshButton.swift in Sources */,
 				D103DDC82DA1E4AF008EAA99 /* ReturnButtonLabel.swift in Sources */,
-				D161E8962D9B1DB3003BBF78 /* EditableProfileImageView.swift in Sources */,
 				D1A24CBF2D26512800B1632E /* OrderPaymentScreen.swift in Sources */,
 				FFE3FF1A2EF4609800FFCFE2 /* UIConstants.swift in Sources */,
 				D10DDF6B2DA7265F00D857E1 /* OrderStatus.swift in Sources */,
@@ -758,13 +748,11 @@
 				D163014D2E10788800127F79 /* AuthService.swift in Sources */,
 				D11A71CB2D6A0B46007ECD20 /* ButtonLabelWithIcon.swift in Sources */,
 				D1261C362D72011300E8C19B /* MockData.swift in Sources */,
-				D103DDC62DA1CF5B008EAA99 /* StaticProfileImageView.swift in Sources */,
 				D12992EA2D9D21ED002D9A4C /* SettingsScreen.swift in Sources */,
 				50288ACA2CF7E73300DA7304 /* CoffeeCatalogView.swift in Sources */,
 				D163014B2E10760100127F79 /* UserService.swift in Sources */,
 				FFE3FF182EF45D1600FFCFE2 /* PricingConstants.swift in Sources */,
 				D1AF8E192D67B2D2007382AF /* OrderViewModel.swift in Sources */,
-				D161E8942D9B1D89003BBF78 /* ProfileImageEditorView.swift in Sources */,
 				D1EC2FFC2D2637FA008E8265 /* Color+Extension.swift in Sources */,
 				D16301492E10742E00127F79 /* SessionManager.swift in Sources */,
 				D18C032A2DBAE430000F79E2 /* CoffeeConfigService.swift in Sources */,

@@ -8,13 +8,14 @@
 import Foundation
 
 @MainActor
-final class LoginViewModel: ObservableObject {
+@Observable
+final class LoginViewModel {
   
-  @Published var email: String = ""
-  @Published var password: String = ""
-  @Published var alert: AlertItem?
-  @Published var isShownPasswordRecoveryView: Bool = false
-  @Published var isLoading: Bool = false
+  var email = ""
+  var password = ""
+  var alert: AlertItem?
+  var showPasswordRecoveryView = false
+  var isLoading = false
   
   var isValidForm: Bool {
     !email.isEmpty && !password.isEmpty
