@@ -163,14 +163,14 @@ struct OrderConfiguratorScreen: View {
       isPresented: $configuratorVM.isShownHintPopover,
       attachmentAnchor: .point(.trailing),
       arrowEdge: .trailing) {
-        VStack(alignment: .leading, spacing:8) {
+        VStack(alignment: .leading, spacing: 8) {
           Text("• To save the configuration, select all the desired parameters and click the **Add** button.")
           Divider()
           Text("• For additional actions with the configuration, hold down its button.")
         }
         .font(.caption)
         .multilineTextAlignment(.leading)
-        .frame(height:80)
+        .frame(height: 80)
         .presentationBackground(.csBlack)
         .presentationCompactAdaptation(.popover)
         .padding()

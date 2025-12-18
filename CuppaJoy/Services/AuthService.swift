@@ -20,9 +20,6 @@ protocol AuthServiceProtocol {
 
 final class AuthService: AuthServiceProtocol {
   
-  init() { print("AuthService INITIALIZED") }
-  deinit { print("AuthService DEINITIALIZED") }
-  
   // MARK: - Public Methods
   
   func signIn(email: String, password: String) async throws -> FirebaseAuth.User {

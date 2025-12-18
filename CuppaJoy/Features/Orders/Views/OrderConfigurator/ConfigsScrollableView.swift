@@ -19,7 +19,7 @@ struct ConfigsScrollableView: View {
         .fontWeight(.medium)
         .foregroundStyle(.white)
       ScrollView(.horizontal) {
-        HStack(spacing:10) {
+        HStack(spacing: 10) {
           ForEach(configVM.configs) { config in
             Button {
               configuratorVM.selectedConfig = config
@@ -51,8 +51,8 @@ struct ConfigsScrollableView: View {
           .padding(8)
           .background(.csDarkGrey)
           .clipShape(.circle)
-          .shadow(radius:3)
+          .shadow(radius: 3)
       }
-    }.padding(.horizontal,20)
+    }.padding(.horizontal, 20)
   }
 }

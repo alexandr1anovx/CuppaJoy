@@ -30,7 +30,7 @@ struct ReceivedOrderCell: View {
       HStack {
         configurationsButton
         Spacer()
-      }.padding(.top,8)
+      }.padding(.top, 8)
     }
     .sheet(isPresented: $isShownConfigurationSheet) {
       DetailedOrderView(order: order)

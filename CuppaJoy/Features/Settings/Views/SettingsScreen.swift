@@ -26,7 +26,7 @@ struct SettingsScreen: View {
       Color.appBackgroundDimmed.ignoresSafeArea()
       VStack {
         Form {
-          // Appearance Section
+          
           Section("Appearance") {
             Picker("", selection: $selectedTheme) {
               ForEach(ColorTheme.allCases) { theme in
@@ -35,7 +35,6 @@ struct SettingsScreen: View {
             }.pickerStyle(.segmented)
           }
           
-          // Profile Section
           Section("Profile") {
             NavigationLink(value: SettingsPageContent.editProfile) {
               CustomListCell(for: .editProfile)

@@ -99,5 +99,4 @@ final class OrderConfiguratorViewModel: ObservableObject {
       flavor = flavorValue
     }
   }
-  
 }

@@ -29,8 +29,8 @@ struct ProfileScreen: View {
             Spacer()
             saveChangesButton
           }
-          .padding(.horizontal,23)
-          .padding(.top,15)
+          .padding(.horizontal, 23)
+          .padding(.top, 15)
         }
       }
     }

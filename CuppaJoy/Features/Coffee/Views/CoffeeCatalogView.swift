@@ -33,7 +33,7 @@ struct CoffeeCatalogView: View {
               CoffeeCatalogCell(coffee: coffee)
             }
           }
-        }.padding(.vertical,30)
+        }.padding(.vertical, 30)
       }
     }
     .onAppear {

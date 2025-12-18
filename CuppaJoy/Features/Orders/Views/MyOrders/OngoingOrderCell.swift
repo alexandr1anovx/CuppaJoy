@@ -19,7 +19,7 @@ struct OngoingOrderCell: View {
   }
   
   var body: some View {
-    VStack(alignment: .leading, spacing:12) {
+    VStack(alignment: .leading, spacing: 12) {
       // Header
       HStack{
         dateLabel
@@ -33,7 +33,7 @@ struct OngoingOrderCell: View {
         configurationsButton
         Spacer()
         cancelButton
-      }.padding(.top,8)
+      }.padding(.top, 8)
     }
   }
   

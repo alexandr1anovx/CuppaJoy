@@ -22,12 +22,10 @@ final class CoffeeConfigViewModel: ObservableObject {
   init(coffeeConfigService: CoffeeConfigServiceProtocol) {
     self.coffeeConfigService = coffeeConfigService
     subscribeToConfigs()
-    print("✅ Coffee Config View Model INITIALIZED")
   }
   
   deinit {
     subscriptionTask?.cancel()
-    print("❌ Coffee Config View Model DEINITIALIZED")
   }
   
   // MARK: - Public Methods
@@ -36,7 +34,7 @@ final class CoffeeConfigViewModel: ObservableObject {
     do {
       try await coffeeConfigService.saveConfig(config)
     } catch {
-      print("❌ Failed to save config: \(error.localizedDescription)")
+      print("Failed to save config: \(error.localizedDescription)")
     }
   }
   
@@ -44,7 +42,7 @@ final class CoffeeConfigViewModel: ObservableObject {
     do {
       try await coffeeConfigService.deleteConfig(config)
     } catch {
-      print("❌ Failed to delete config: \(error.localizedDescription)")
+      print("Failed to delete config: \(error.localizedDescription)")
       alertItem = Alerts.Config.deletionFailed
     }
   }
@@ -60,24 +58,11 @@ final class CoffeeConfigViewModel: ObservableObject {
         switch result {
         case .success(let configs):
           self.configs = configs
-          print("✅ Configs: \(configs)")
+          print("Configs: \(configs)")
         case .failure(let error):
-          print("❌ Failed to load favorite configs: \(error.localizedDescription)")
+          print("Failed to load favorite configs: \(error.localizedDescription)")
         }
       }
     }
   }
 }
-
-// MARK: - Preview Mode
-
-//extension CoffeeConfigViewModel {
-//  static var previewMode: CoffeeConfigViewModel {
-//    let viewModel = CoffeeConfigViewModel()
-//    viewModel.configs = [
-//      MockData.coffeeConfigLatte,
-//      MockData.coffeeConfigAmericano
-//    ]
-//    return viewModel
-//  }
-//}

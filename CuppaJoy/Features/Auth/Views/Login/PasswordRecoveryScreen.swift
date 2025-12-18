@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct PasswordRecoveryScreen: View {
-  
   @State private var email = ""
-  //@EnvironmentObject var authViewModel: AuthViewModel
   
   var body: some View {
     ZStack {

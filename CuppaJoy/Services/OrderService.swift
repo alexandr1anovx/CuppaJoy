@@ -22,9 +22,6 @@ final class OrderService: OrderServiceProtocol {
   private let usersCollection: String = "users"
   private let ordersCollection: String = "orders"
   
-  init() { print("OrderService INITIALIZED") }
-  deinit { print("OrderService DEINITIALIZED") }
-  
   // MARK: - Public Methods
   
   func fetchAllOrders() -> AsyncStream<Result<[Order], Error>> {

@@ -28,9 +28,6 @@ final class CoffeeConfigService: CoffeeConfigServiceProtocol {
   private let usersCollection: String = "users"
   private let configsCollection: String = "configs"
   
-  init() { print("СoffeeConfigService INITIALIZED") }
-  deinit { print("СoffeeConfigService DEINITIALIZED") }
-  
   // MARK: - Public Methods
   
   func fetchConfigs() -> AsyncStream<Result<[CoffeeConfig], Error>> {
@@ -58,7 +55,6 @@ final class CoffeeConfigService: CoffeeConfigServiceProtocol {
       
       continuation.onTermination = { @Sendable _ in
         listener.remove()
-        print("Coffee Config Listener removed!")
       }
     }
   }

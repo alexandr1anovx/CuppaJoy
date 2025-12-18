@@ -44,7 +44,7 @@ struct GeneralScreen: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.top)
-            .padding(.horizontal,20)
+            .padding(.horizontal, 20)
           } else {
             ProgressView("Loading...")
           }

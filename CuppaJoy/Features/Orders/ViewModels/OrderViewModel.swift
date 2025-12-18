@@ -5,10 +5,9 @@
 //  Created by Alexander Andrianov on 20.02.2025.
 //
 
-import Foundation
 import Combine
 import FirebaseAuth
-import SwiftUICore
+import SwiftUI
 
 @MainActor
 final class OrderViewModel: ObservableObject {
@@ -38,12 +37,10 @@ final class OrderViewModel: ObservableObject {
     self.orderService = orderService
     self.sessionManager = sessionManager
     setupSessionObserver()
-    print("✳️ OrderViewModel INITIALIZED")
   }
   
   deinit {
     ordersSubscriptionTask?.cancel()
-    print("❌ OrderViewModel DEINITIALIZED")
   }
   
   // MARK: - Public Methods
@@ -52,7 +49,7 @@ final class OrderViewModel: ObservableObject {
     do {
       try await orderService.makeOrder(order)
     } catch {
-      print("⚠️ Failed to make an order: \(error.localizedDescription)")
+      print("Failed to make an order: \(error.localizedDescription)")
     }
   }
   
@@ -60,7 +57,7 @@ final class OrderViewModel: ObservableObject {
     do {
       try await orderService.cancelOrder(order)
     } catch {
-      print("⚠️ Failed to cancel order: \(error.localizedDescription)")
+      print("Failed to cancel order: \(error.localizedDescription)")
     }
   }
   
@@ -101,7 +98,7 @@ final class OrderViewModel: ObservableObject {
             .sorted(by: { $0.timestamp > $1.timestamp })
           
         case .failure(let error):
-          print("⚠️ Method 'subscribleToAllOrder' failed: \(error.localizedDescription)")
+          print("Method 'subscribleToAllOrder' failed: \(error.localizedDescription)")
         }
       }
     }

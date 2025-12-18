@@ -19,10 +19,6 @@ final class CoffeeCatalogViewModel: ObservableObject {
   
   init(coffeeCatalogService: CoffeeCatalogServiceProtocol = CoffeeCatalogService()) {
     self.coffeeCatalogService = coffeeCatalogService
-    print("✅ Coffee Catalog View Model INITIALIZED")
-  }
-  deinit {
-    print("❌ Coffee Catalog View Model DEINITIALIZED")
   }
   
   // MARK: - Private Methods
@@ -31,7 +27,7 @@ final class CoffeeCatalogViewModel: ObservableObject {
     do {
       coffees = try await coffeeCatalogService.fetchCoffees()
     } catch {
-      print("❌ Coffee Catalog View Model: Failed to fetch coffees: \(error.localizedDescription)")
+      print("Failed to fetch coffees from the catalog: \(error.localizedDescription)")
     }
   }
 }

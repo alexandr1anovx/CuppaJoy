@@ -72,7 +72,7 @@ struct MyOrdersScreen: View {
           textColor: .black,
           bgColor: .csCream
         )
-      }.padding(.top,10)
+      }.padding(.top, 10)
     }
   }
   
