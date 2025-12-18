@@ -1,5 +1,5 @@
 //
-//  Additives.swift
+//  OrderItems.swift
 //  CuppaJoy
 //
 //  Created by Alexander Andrianov on 20.02.2025.
@@ -14,71 +14,73 @@ protocol OrderItemType: CaseIterable, Hashable {
 }
 
 enum CupSize: String, OrderItemType {
-  case small, medium, large
+  case small
+  case medium
+  case large
   
   var id: String { rawValue }
   var title: String { rawValue.capitalized }
+  
   var price: Double {
     switch self {
-    case .small: 0.0
-    case .medium: 1.5
-    case .large: 3.0
+    case .small: CoffeePrices.CupSize.small
+    case .medium: CoffeePrices.CupSize.medium
+    case .large: CoffeePrices.CupSize.large
     }
   }
 }
 
 enum Variety: String, OrderItemType {
-  case standart, arabica, robusta, excelsa, liberica
+  case standart
+  case arabica
+  case robusta
+  case excelsa
+  case liberica
   
   var id: String { rawValue }
   var title: String { rawValue.capitalized }
+  
   var price: Double {
     switch self {
-    case .standart: 0.0
-    case .arabica: 1.0
-    case .robusta: 1.0
-    case .excelsa: 2.0
-    case .liberica: 2.0
+    case .standart: CoffeePrices.Variety.standart
+    case .arabica: CoffeePrices.Variety.arabica
+    case .robusta: CoffeePrices.Variety.robusta
+    case .excelsa: CoffeePrices.Variety.excelsa
+    case .liberica: CoffeePrices.Variety.liberica
     }
   }
 }
 
 enum Milk: String, OrderItemType {
-  case none, lactose
+  case none
+  case lactose
   
   var id: String { rawValue }
-  var title: String {
-    switch self {
-    case .none: "None"
-    case .lactose: "Lactose"
-    }
-  }
+  var title: String { rawValue.capitalized }
+  
   var price: Double {
     switch self {
-    case .none: 0.0
-    case .lactose: 3.0
+    case .none: CoffeePrices.Milk.none
+    case .lactose: CoffeePrices.Milk.lactose
     }
   }
 }
 
 enum Flavor: String, OrderItemType {
-  case none, vanilla, caramel, coconut
+  case none
+  case vanilla
+  case caramel
+  case coconut
   
   var id: String { rawValue }
-  var title: String {
-    switch self {
-    case .none: "None"
-    case .vanilla: "Vanilla"
-    case .caramel: "Caramel"
-    case .coconut: "Coconut"
-    }
-  }
+  var title: String { rawValue.capitalized }
+  
   var price: Double {
     switch self {
-    case .none: 0.0
-    case .coconut: 1.5
-    case .vanilla: 1.0
-    case .caramel: 2.0
+    case .none: CoffeePrices.Flavor.none
+    case .coconut: CoffeePrices.Flavor.coconut
+    case .vanilla: CoffeePrices.Flavor.vanilla
+    case .caramel: CoffeePrices.Flavor.caramel
     }
   }
 }

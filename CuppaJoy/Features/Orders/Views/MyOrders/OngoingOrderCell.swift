@@ -46,7 +46,7 @@ struct OngoingOrderCell: View {
         .fontDesign(.monospaced)
         .foregroundStyle(.gray)
       Divider()
-        .frame(width: 160)
+        .frame(width: UIConstants.Sizes.orderCard)
     }
   }
   

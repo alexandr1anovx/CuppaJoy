@@ -56,7 +56,7 @@ struct OnboardingScreen: View {
     VStack(spacing: 12) {
       Image(page.image)
         .resizable()
-        .frame(width: 130, height: 130)
+        .frame(width: UIConstants.Sizes.onboardingImage, height: UIConstants.Sizes.onboardingImage)
         .foregroundStyle(.csCream)
         .padding(.bottom)
       Text(page.title)
@@ -78,7 +78,7 @@ struct OnboardingScreen: View {
     HStack(spacing: 15) {
       ForEach(0..<pages.count, id: \.self) { index in
         Capsule()
-          .frame(width: 20, height: 2.5)
+          .frame(width: UIConstants.Sizes.onboardingDot, height: 2.5)
           .foregroundStyle(
             pageIndex >= index ? .csCream : .csDarkGrey
           )

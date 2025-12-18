@@ -13,8 +13,6 @@ enum ConfigServiceError: Error {
   case missingConfigID
 }
 
-// MARK: - Coffee Config Service Protocol
-
 protocol CoffeeConfigServiceProtocol {
   func fetchConfigs() -> AsyncStream<Result<[CoffeeConfig], Error>>
   func saveConfig(_ config: CoffeeConfig) async throws
@@ -25,8 +23,6 @@ final class CoffeeConfigService: CoffeeConfigServiceProtocol {
   
   private let db = Firestore.firestore()
   private var configsListener: ListenerRegistration?
-  private let usersCollection: String = "users"
-  private let configsCollection: String = "configs"
   
   // MARK: - Public Methods
   
@@ -81,8 +77,8 @@ final class CoffeeConfigService: CoffeeConfigServiceProtocol {
   
   private func configsCollection(forUserID uid: String) -> CollectionReference {
     return db
-      .collection(usersCollection)
+      .collection(FirestoreCollection.users)
       .document(uid)
-      .collection(configsCollection)
+      .collection(FirestoreCollection.configs)
   }
 }

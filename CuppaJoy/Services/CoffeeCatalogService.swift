@@ -5,23 +5,18 @@
 //  Created by Alexander Andrianov on 24.04.2025.
 //
 
-import FirebaseFirestore
-import FirebaseAuth
-
-// MARK: - Coffee Catalog Service Protocol
+import Firebase
 
 protocol CoffeeCatalogServiceProtocol {
   func fetchCoffees() async throws -> [Coffee]
 }
 
 final class CoffeeCatalogService: CoffeeCatalogServiceProtocol {
-  
   private let db = Firestore.firestore()
-  private let coffeesCollection: String = "coffees"
   
   func fetchCoffees() async throws -> [Coffee] {
     let snapshot = try await db
-      .collection(coffeesCollection)
+      .collection(FirestoreCollection.coffees)
       .getDocuments()
     let coffees = try snapshot.documents.compactMap { document in
       try document.data(as: Coffee.self)

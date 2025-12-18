@@ -37,7 +37,7 @@ struct ProfileImageEditorView: View {
   var body: some View {
     ZStack {
       Color.black.ignoresSafeArea()
-      Color.black.opacity(0.4).ignoresSafeArea()
+      Color.black.opacity(UIConstants.Opacity.semiTransparent).ignoresSafeArea()
         .overlay {
           Circle()
             .frame(width: circleDiameter, height: circleDiameter)

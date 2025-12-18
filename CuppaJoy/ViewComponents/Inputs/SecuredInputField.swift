@@ -29,7 +29,10 @@ struct SecuredInputField: View {
   var secureInputField: some View {
     HStack(spacing: 15) {
       Image(systemName: "lock")
-        .frame(width: 18, height: 18)
+        .frame(
+          width: UIConstants.Sizes.mediumIcon,
+          height: UIConstants.Sizes.mediumIcon
+        )
         .foregroundStyle(.csCream)
       if isShownPassword {
         TextField("Password", text: $password)

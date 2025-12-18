@@ -27,7 +27,7 @@ struct CoffeeCatalogCell: View {
     HStack(spacing: 6) {
       Image(.star)
         .resizable()
-        .frame(width: 12, height: 12)
+        .frame(width: UIConstants.Sizes.smallIcon, height: UIConstants.Sizes.smallIcon)
       Text(coffee.stringPoints)
         .font(.caption2)
         .fontWeight(.semibold)

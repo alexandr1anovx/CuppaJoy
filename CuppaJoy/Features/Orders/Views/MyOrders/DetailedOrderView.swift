@@ -57,7 +57,7 @@ struct DetailedOrderView: View {
         .font(.subheadline)
         .fontWeight(.semibold)
         .foregroundStyle(.white)
-        .opacity(0.9)
+        .opacity(UIConstants.Opacity.overlay)
       Text(content)
         .font(.callout)
         .fontWeight(.bold)

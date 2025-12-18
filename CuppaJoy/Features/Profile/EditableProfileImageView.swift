@@ -26,14 +26,14 @@ struct EditableProfileImageView: View {
         Image(uiImage: profileImage)
           .resizable()
           .scaledToFill()
-          .frame(width: 100, height: 100)
+          .frame(width: UIConstants.Sizes.profileEditor, height: UIConstants.Sizes.profileEditor)
           .clipShape(.circle)
           .onTapGesture { isShownConfirmationDialog = true }
           .overlay(alignment: .bottomTrailing) {
             ZStack {
               Circle()
                 .foregroundStyle(.black)
-                .opacity(0.5)
+                .opacity(UIConstants.Opacity.profileImage)
                 .frame(width: 30, height: 30)
               Image(systemName: "pencil")
             }
@@ -42,7 +42,7 @@ struct EditableProfileImageView: View {
       } else {
         Circle()
           .fill(Color.black)
-          .frame(width: 100, height: 100)
+          .frame(width: UIConstants.Sizes.profileEditor, height: UIConstants.Sizes.profileEditor)
           .overlay {
             VStack(spacing: 10) {
               Image(systemName: "plus.circle.fill")

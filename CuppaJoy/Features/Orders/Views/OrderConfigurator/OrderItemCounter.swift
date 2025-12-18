@@ -1,5 +1,5 @@
 //
-//  OrderComponentCountView.swift
+//  OrderItemCounter.swift
 //  CuppaJoy
 //
 //  Created by Alexander Andrianov on 21.02.2025.

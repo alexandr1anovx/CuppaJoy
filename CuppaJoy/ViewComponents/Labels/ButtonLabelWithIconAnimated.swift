@@ -39,7 +39,7 @@ struct ButtonLabelWithIconAnimated: View {
       .clipShape(.rect(cornerRadius: 15))
       .padding(.horizontal,30)
       .shadow(radius: 5)
-      .scaleEffect(isAnimating ? 0.98 : 1)
+      .scaleEffect(isAnimating ? UIConstants.Scale.iconPressed : UIConstants.Scale.profileImageReset)
       .onAppear {
         withAnimation(.easeInOut(duration: 2).repeatForever()) {
           isAnimating.toggle()

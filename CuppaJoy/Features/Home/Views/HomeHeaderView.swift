@@ -30,7 +30,7 @@ struct HomeHeaderView: View {
           HStack(spacing: 6) {
             Image(.star)
               .resizable()
-              .frame(width: 12, height: 12)
+              .frame(width: UIConstants.Sizes.smallIcon, height: UIConstants.Sizes.smallIcon)
             Text(user.stringCoins)
               .font(.footnote)
               .fontWeight(.semibold)

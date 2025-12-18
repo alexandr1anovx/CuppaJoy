@@ -23,9 +23,12 @@ struct InputField: View {
   var body: some View {
     HStack(spacing: 15) {
       Image(systemName: inputType.iconName)
-        .frame(width: 18, height: 18)
+        .frame(
+          width: UIConstants.Sizes.mediumIcon,
+          height: UIConstants.Sizes.mediumIcon
+        )
         .foregroundStyle(.csCream)
-        .opacity(0.8)
+        .opacity(UIConstants.Opacity.inputField)
       TextField(inputType.hint, text: $inputData)
         .font(.subheadline)
     }

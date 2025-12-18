@@ -5,11 +5,8 @@
 //  Created by Alexander Andrianov on 28.06.2025.
 //
 
-import Foundation
 import FirebaseFirestore
 import FirebaseAuth
-
-// MARK: - User Service Protocol
 
 protocol UserServiceProtocol {
   func fetchAppUser(uid: String) async throws -> User?
@@ -18,14 +15,12 @@ protocol UserServiceProtocol {
 }
 
 final class UserService: UserServiceProtocol {
-  
   private let db = Firestore.firestore()
-  private let usersCollection: String = "users"
   
   // MARK: - Public Methods
   
   func fetchAppUser(uid: String) async throws -> User? {
-    let documentReference = db.collection(usersCollection).document(uid)
+    let documentReference = db.collection(FirestoreCollection.users).document(uid)
     let document = try await documentReference.getDocument()
     if document.exists {
       return try document.data(as: User.self)
@@ -39,7 +34,7 @@ final class UserService: UserServiceProtocol {
       throw AuthErrorCode.userNotFound
     }
     try db
-      .collection(usersCollection)
+      .collection(FirestoreCollection.users)
       .document(uid)
       .setData(from: user, merge: true)
   }
@@ -55,7 +50,7 @@ final class UserService: UserServiceProtocol {
     )
     try await user.reauthenticate(with: credential)
     try await db
-      .collection(usersCollection)
+      .collection(FirestoreCollection.users)
       .document(user.uid)
       .delete()
   }

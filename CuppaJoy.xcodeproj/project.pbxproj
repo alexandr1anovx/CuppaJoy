@@ -59,7 +59,7 @@
 		D182F4A72D325A8C00A113E8 /* OnboardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D182F4A62D325A8C00A113E8 /* OnboardingScreen.swift */; };
 		D18875AB2E142E2700A52891 /* OrderConfiguratorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18875AA2E142E2700A52891 /* OrderConfiguratorViewModel.swift */; };
 		D18875AD2E142FD100A52891 /* ConfigsScrollableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18875AC2E142FD100A52891 /* ConfigsScrollableView.swift */; };
-		D18C03282DBAB610000F79E2 /* CoffeeСatalogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C03272DBAB610000F79E2 /* CoffeeСatalogService.swift */; };
+		D18C03282DBAB610000F79E2 /* CoffeeCatalogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C03272DBAB610000F79E2 /* CoffeeCatalogService.swift */; };
 		D18C032A2DBAE430000F79E2 /* CoffeeConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18C03292DBAE430000F79E2 /* CoffeeConfigService.swift */; };
 		D194CEBB2D63833500CE409C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D194CEBA2D63833500CE409C /* GoogleService-Info.plist */; };
 		D194CEBF2D63842F00CE409C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D194CEBE2D63842F00CE409C /* FirebaseAuth */; };
@@ -86,6 +86,11 @@
 		D1EF6EAA2DB66D9900232718 /* OrderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EF6EA92DB66D9900232718 /* OrderService.swift */; };
 		D1F061032DAD590D00024160 /* RefreshButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F061022DAD590D00024160 /* RefreshButton.swift */; };
 		D1FEA5262D6603C500B082D8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FEA5252D6603C500B082D8 /* User.swift */; };
+		FFE3FF112EF4538300FFCFE2 /* FirestoreConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE3FF102EF4538300FFCFE2 /* FirestoreConstants.swift */; };
+		FFE3FF142EF45C5C00FFCFE2 /* LimitsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE3FF132EF45C5C00FFCFE2 /* LimitsConstants.swift */; };
+		FFE3FF162EF45CDB00FFCFE2 /* ValidationConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE3FF152EF45CDB00FFCFE2 /* ValidationConstants.swift */; };
+		FFE3FF182EF45D1600FFCFE2 /* PricingConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE3FF172EF45D1600FFCFE2 /* PricingConstants.swift */; };
+		FFE3FF1A2EF4609800FFCFE2 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE3FF192EF4609800FFCFE2 /* UIConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -143,7 +148,7 @@
 		D182F4A62D325A8C00A113E8 /* OnboardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScreen.swift; sourceTree = "<group>"; };
 		D18875AA2E142E2700A52891 /* OrderConfiguratorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderConfiguratorViewModel.swift; sourceTree = "<group>"; };
 		D18875AC2E142FD100A52891 /* ConfigsScrollableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigsScrollableView.swift; sourceTree = "<group>"; };
-		D18C03272DBAB610000F79E2 /* CoffeeСatalogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoffeeСatalogService.swift"; sourceTree = "<group>"; };
+		D18C03272DBAB610000F79E2 /* CoffeeCatalogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeCatalogService.swift; sourceTree = "<group>"; };
 		D18C03292DBAE430000F79E2 /* CoffeeConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeConfigService.swift; sourceTree = "<group>"; };
 		D194CEBA2D63833500CE409C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D197C1F72D68A2CD00010474 /* OrderItemCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderItemCounter.swift; sourceTree = "<group>"; };
@@ -167,6 +172,11 @@
 		D1EF6EA92DB66D9900232718 /* OrderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderService.swift; sourceTree = "<group>"; };
 		D1F061022DAD590D00024160 /* RefreshButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshButton.swift; sourceTree = "<group>"; };
 		D1FEA5252D6603C500B082D8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		FFE3FF102EF4538300FFCFE2 /* FirestoreConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreConstants.swift; sourceTree = "<group>"; };
+		FFE3FF132EF45C5C00FFCFE2 /* LimitsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitsConstants.swift; sourceTree = "<group>"; };
+		FFE3FF152EF45CDB00FFCFE2 /* ValidationConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationConstants.swift; sourceTree = "<group>"; };
+		FFE3FF172EF45D1600FFCFE2 /* PricingConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PricingConstants.swift; sourceTree = "<group>"; };
+		FFE3FF192EF4609800FFCFE2 /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -437,6 +447,7 @@
 		D10DDF7A2DA7397C00D857E1 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				FFE3FF122EF45BA500FFCFE2 /* Constants */,
 				D16301472E10736F00127F79 /* Managers */,
 				3239D8FA2CB22BE50094D38B /* Extensions */,
 			);
@@ -590,7 +601,7 @@
 			children = (
 				D163014C2E10788800127F79 /* AuthService.swift */,
 				D163014A2E10760100127F79 /* UserService.swift */,
-				D18C03272DBAB610000F79E2 /* CoffeeСatalogService.swift */,
+				D18C03272DBAB610000F79E2 /* CoffeeCatalogService.swift */,
 				D18C03292DBAE430000F79E2 /* CoffeeConfigService.swift */,
 				D1EF6EA92DB66D9900232718 /* OrderService.swift */,
 				D1EF6E902DB5672500232718 /* ValidationService.swift */,
@@ -609,6 +620,18 @@
 				D1261C352D72011200E8C19B /* MockData.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		FFE3FF122EF45BA500FFCFE2 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				FFE3FF102EF4538300FFCFE2 /* FirestoreConstants.swift */,
+				FFE3FF132EF45C5C00FFCFE2 /* LimitsConstants.swift */,
+				FFE3FF152EF45CDB00FFCFE2 /* ValidationConstants.swift */,
+				FFE3FF172EF45D1600FFCFE2 /* PricingConstants.swift */,
+				FFE3FF192EF4609800FFCFE2 /* UIConstants.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -690,6 +713,7 @@
 				D103DDC82DA1E4AF008EAA99 /* ReturnButtonLabel.swift in Sources */,
 				D161E8962D9B1DB3003BBF78 /* EditableProfileImageView.swift in Sources */,
 				D1A24CBF2D26512800B1632E /* OrderPaymentScreen.swift in Sources */,
+				FFE3FF1A2EF4609800FFCFE2 /* UIConstants.swift in Sources */,
 				D10DDF6B2DA7265F00D857E1 /* OrderStatus.swift in Sources */,
 				D18875AD2E142FD100A52891 /* ConfigsScrollableView.swift in Sources */,
 				D148B8232D67D61F002F0344 /* OrderItemPicker.swift in Sources */,
@@ -704,12 +728,14 @@
 				D1B57CA42DAAA116007FF521 /* LaunchScreen.swift in Sources */,
 				D138A9492D6A85BB00AB1257 /* ReceivedOrderCell.swift in Sources */,
 				D1B57CA62DAAB3A5007FF521 /* RootView.swift in Sources */,
+				FFE3FF112EF4538300FFCFE2 /* FirestoreConstants.swift in Sources */,
+				FFE3FF162EF45CDB00FFCFE2 /* ValidationConstants.swift in Sources */,
 				D1D1F1BB2D7474D800B7D035 /* LoginFormEmailAndPassword.swift in Sources */,
 				D1D58DDB2D731F4000BD54EE /* ButtonLabelWithIconAnimated.swift in Sources */,
 				50DFA8232D04AC660058A4D4 /* HomeHeaderView.swift in Sources */,
 				D1DD423B2DAD97AF00F4FBD9 /* View+Extension.swift in Sources */,
 				321D48142CAF6098007A0B20 /* CuppaJoyApp.swift in Sources */,
-				D18C03282DBAB610000F79E2 /* CoffeeСatalogService.swift in Sources */,
+				D18C03282DBAB610000F79E2 /* CoffeeCatalogService.swift in Sources */,
 				D163014F2E107C1300127F79 /* LoginViewModel.swift in Sources */,
 				D161CC642E14933F00935F44 /* ProfileViewModel.swift in Sources */,
 				D1C803E22D91945700674C04 /* PasswordRecoveryScreen.swift in Sources */,
@@ -736,6 +762,7 @@
 				D12992EA2D9D21ED002D9A4C /* SettingsScreen.swift in Sources */,
 				50288ACA2CF7E73300DA7304 /* CoffeeCatalogView.swift in Sources */,
 				D163014B2E10760100127F79 /* UserService.swift in Sources */,
+				FFE3FF182EF45D1600FFCFE2 /* PricingConstants.swift in Sources */,
 				D1AF8E192D67B2D2007382AF /* OrderViewModel.swift in Sources */,
 				D161E8942D9B1D89003BBF78 /* ProfileImageEditorView.swift in Sources */,
 				D1EC2FFC2D2637FA008E8265 /* Color+Extension.swift in Sources */,
@@ -746,6 +773,7 @@
 				D1FEA5262D6603C500B082D8 /* User.swift in Sources */,
 				326108402CBAD3B10072D238 /* HomeScreen.swift in Sources */,
 				D1CD6C3B2D274B11007FF006 /* MyOrdersScreen.swift in Sources */,
+				FFE3FF142EF45C5C00FFCFE2 /* LimitsConstants.swift in Sources */,
 				D161E89B2D9B2F4B003BBF78 /* GeneralScreen.swift in Sources */,
 				D174B3112D6E4AB900188C69 /* SecuredInputField.swift in Sources */,
 				D181356B2D4502BE00F77824 /* DismissButton.swift in Sources */,
@@ -908,7 +936,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.alexandr1anov.CuppaJoy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alexandr1anovx.CuppaJoy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -946,7 +974,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.alexandr1anov.CuppaJoy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alexandr1anovx.CuppaJoy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

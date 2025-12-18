@@ -14,22 +14,12 @@ extension Color {
     endPoint: .bottomTrailing
   )
   static let appBackgroundDimmed = AngularGradient(
-    colors: [.csBrown.opacity(0.4), .csBlack],
+    colors: [.csBrown.opacity(UIConstants.Opacity.semiTransparent), .csBlack],
     center: .trailing,
     angle: .degrees(360)
   )
-  static let gradientCream = LinearGradient(
-    colors: [.csCream],
-    startPoint: .topTrailing,
-    endPoint: .bottomLeading
-  )
   static let gradientBrown = LinearGradient(
     colors: [.csBrown],
-    startPoint: .leading,
-    endPoint: .trailing
-  )
-  static let gradientBrownBlack = LinearGradient(
-    colors: [.csBrown, .csBlack],
     startPoint: .leading,
     endPoint: .trailing
   )

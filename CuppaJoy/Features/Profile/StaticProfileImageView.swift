@@ -15,12 +15,12 @@ struct StaticProfileImageView: View {
       Image(uiImage: profileImage)
         .resizable()
         .scaledToFill()
-        .frame(width: 80, height: 80)
+        .frame(width: UIConstants.Sizes.profileImage, height: UIConstants.Sizes.profileImage)
         .clipShape(.circle)
     } else {
       Circle()
         .fill(Color.black)
-        .frame(width: 80, height: 80)
+        .frame(width: UIConstants.Sizes.profileImage, height: UIConstants.Sizes.profileImage)
         .overlay {
           Text("No Image")
             .font(.footnote)

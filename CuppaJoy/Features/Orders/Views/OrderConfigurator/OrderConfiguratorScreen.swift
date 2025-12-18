@@ -1,5 +1,5 @@
 //
-//  CoffeeOrderScreen.swift
+//  OrderConfiguratorScreen.swift
 //  CuppaJoy
 //
 //  Created by Alexander Andrianov on 22.10.2024.

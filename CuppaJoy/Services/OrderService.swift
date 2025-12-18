@@ -8,8 +8,6 @@
 import FirebaseAuth
 import FirebaseFirestore
 
-// MARK: - Order Service Protocol
-
 protocol OrderServiceProtocol {
   func fetchAllOrders() -> AsyncStream<Result<[Order], Error>>
   func makeOrder(_ order: Order) async throws
@@ -17,10 +15,7 @@ protocol OrderServiceProtocol {
 }
 
 final class OrderService: OrderServiceProtocol {
-  
   private let db = Firestore.firestore()
-  private let usersCollection: String = "users"
-  private let ordersCollection: String = "orders"
   
   // MARK: - Public Methods
   
@@ -74,8 +69,8 @@ final class OrderService: OrderServiceProtocol {
   
   private func ordersCollection(forUserID uid: String) -> CollectionReference {
     return db
-      .collection(usersCollection)
+      .collection(FirestoreCollection.users)
       .document(uid)
-      .collection(ordersCollection)
+      .collection(FirestoreCollection.orders)
   }
 }
