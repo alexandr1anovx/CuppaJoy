@@ -6,14 +6,12 @@
 //
 
 import SwiftUI
-import CoreImage
-import CoreImage.CIFilterBuiltins
 
 struct ProfileScreen: View {
   
   @Binding var path: NavigationPath
   @Binding var isShownTabBar: Bool
-  @StateObject var viewModel: ProfileViewModel
+  @State var viewModel: ProfileViewModel
   @FocusState var inputContent: InputContentType?
   private let feedbackGenerator = UINotificationFeedbackGenerator()
   
@@ -116,7 +114,7 @@ struct ProfileScreen: View {
   
   private var deleteAccountButton: some View {
     Button {
-      viewModel.isShownDeleteAccountAlert.toggle()
+      viewModel.showDeleteAccountAlert.toggle()
       feedbackGenerator.notificationOccurred(.error)
     } label: {
       Text("Delete Account")
@@ -124,7 +122,7 @@ struct ProfileScreen: View {
         .foregroundStyle(.gray)
         .underline()
     }
-    .alert("Account Deletion", isPresented: $viewModel.isShownDeleteAccountAlert) {
+    .alert("Account Deletion", isPresented: $viewModel.showDeleteAccountAlert) {
       SecureField("Your password", text: $viewModel.deletionPassword)
       Button("Cancel", role: .cancel) { viewModel.deletionPassword = "" }
       Button("Delete", role: .destructive) {}

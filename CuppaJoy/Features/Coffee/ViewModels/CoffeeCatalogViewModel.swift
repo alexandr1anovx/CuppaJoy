@@ -10,8 +10,6 @@ import Foundation
 @MainActor
 final class CoffeeCatalogViewModel: ObservableObject {
   
-  // MARK: - Properties
-  
   @Published var coffees: [Coffee] = []
   private let coffeeCatalogService: CoffeeCatalogServiceProtocol
   

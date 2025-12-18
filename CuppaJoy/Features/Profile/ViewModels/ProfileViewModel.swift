@@ -7,16 +7,16 @@
 
 import Foundation
 
-@MainActor
-final class ProfileViewModel: ObservableObject {
+@Observable
+final class ProfileViewModel {
   
-  @Published var fullName: String = ""
-  @Published var email: String = ""
-  @Published var deletionPassword: String = ""
-  @Published var selectedCity: City = .mykolaiv
-  @Published var isShownDeleteAccountAlert: Bool = false
-  @Published var isShownSavedChangesAlert: Bool = false
-  @Published var alert: AlertItem?
+  var fullName = ""
+  var email = ""
+  var deletionPassword = ""
+  var selectedCity: City = .mykolaiv
+  var showDeleteAccountAlert = false
+  var showSavedChangesAlert = false
+  var alert: AlertItem?
   
   // MARK: - Computed Properties
   

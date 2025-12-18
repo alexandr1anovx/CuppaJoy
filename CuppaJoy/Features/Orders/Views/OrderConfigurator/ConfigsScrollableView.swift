@@ -9,8 +9,8 @@ import SwiftUI
 
 struct ConfigsScrollableView: View {
   
-  @EnvironmentObject var configVM: CoffeeConfigViewModel
-  @EnvironmentObject var configuratorVM: OrderConfiguratorViewModel
+  @Environment(CoffeeConfigViewModel.self) var coffeeConfigViewModel
+  @Environment(OrderConfiguratorViewModel.self) var orderConfigViewModel
   
   var body: some View {
     HStack {
@@ -20,10 +20,10 @@ struct ConfigsScrollableView: View {
         .foregroundStyle(.white)
       ScrollView(.horizontal) {
         HStack(spacing: 10) {
-          ForEach(configVM.configs) { config in
+          ForEach(coffeeConfigViewModel.configs) { config in
             Button {
-              configuratorVM.selectedConfig = config
-              configuratorVM.applyConfig()
+              orderConfigViewModel.selectedConfig = config
+              orderConfigViewModel.applyConfig()
             } label: {
               ButtonLabelShort(
                 config.title,
@@ -35,7 +35,7 @@ struct ConfigsScrollableView: View {
               Group {
                 Button("Delete Config", systemImage: "trash") {
                   Task {
-                    await configVM.deleteConfig(config)
+                    await coffeeConfigViewModel.deleteConfig(config)
                   }
                 }
               }
@@ -44,7 +44,7 @@ struct ConfigsScrollableView: View {
         }
       }
       Button {
-        configuratorVM.isShownSaveConfigAlert.toggle()
+        orderConfigViewModel.showSaveConfigAlert.toggle()
       } label: {
         Image(systemName: "plus.circle")
           .foregroundStyle(.orange)

@@ -11,14 +11,14 @@ struct OrderConfiguratorScreen: View {
   
   @Binding var path: NavigationPath
   @Binding var isTabBarVisible: Bool
-  @StateObject var configVM: CoffeeConfigViewModel
-  @StateObject var configuratorVM: OrderConfiguratorViewModel
+  @State var coffeeConfigViewModel: CoffeeConfigViewModel
+  @State var orderConfigViewModel: OrderConfiguratorViewModel
   
   var body: some View {
     ZStack {
       Color.appBackgroundDimmed.ignoresSafeArea()
       VStack {
-        if configVM.configs.isEmpty {
+        if coffeeConfigViewModel.configs.isEmpty {
           emptyConfigsView
         } else {
           ConfigsScrollableView()
@@ -40,20 +40,20 @@ struct OrderConfiguratorScreen: View {
       isTabBarVisible = false
       setupSegmentedControlAppearance()
     }
-    .environmentObject(configVM)
-    .environmentObject(configuratorVM)
+    .environment(coffeeConfigViewModel)
+    .environment(orderConfigViewModel)
     .alert(
       "Config Saving",
-      isPresented: $configuratorVM.isShownSaveConfigAlert
+      isPresented: $orderConfigViewModel.showSaveConfigAlert
     ) {
-      TextField("Enter a name", text: $configuratorVM.configName)
+      TextField("Enter a name", text: $orderConfigViewModel.configName)
       Button("Cancel") {}
       Button("Add") {
         Task {
-          await configVM.saveConfig(configuratorVM.config)
+          await coffeeConfigViewModel.saveConfig(orderConfigViewModel.config)
         }
       }
-      .disabled(configuratorVM.configName.isEmpty)
+      .disabled(orderConfigViewModel.configName.isEmpty)
     } message: {
       Text("Make sure you carefully check your current config.")
     }
@@ -67,7 +67,7 @@ struct OrderConfiguratorScreen: View {
         .font(.footnote)
         .foregroundStyle(.gray)
       Button("Add", systemImage: "plus.circle.fill") {
-        configuratorVM.isShownSaveConfigAlert.toggle()
+        orderConfigViewModel.showSaveConfigAlert.toggle()
       }
       .font(.footnote)
       .foregroundStyle(.orange)
@@ -81,28 +81,28 @@ struct OrderConfiguratorScreen: View {
   private var configurationForm: some View {
     Form {
       Section("Cup Configurations") {
-        OrderItemPicker("Size", selectedItem: $configuratorVM.cupSize)
+        OrderItemPicker("Size", selectedItem: $orderConfigViewModel.cupSize)
           .pickerStyle(.segmented)
         OrderItemCounter(
           "Count:",
           min: 1, max: 4,
-          count: $configuratorVM.cupCount
+          count: $orderConfigViewModel.cupCount
         )
       }
       Section("Additives") {
         OrderItemCounter(
           "Sugar sticks:",
           min: 0, max: 3,
-          count: $configuratorVM.sugarSticks
+          count: $orderConfigViewModel.sugarSticks
         )
         OrderItemCounter(
           "Ice cubes:",
           min: 0, max: 3,
-          count: $configuratorVM.iceCubes
+          count: $orderConfigViewModel.iceCubes
         )
-        OrderItemPicker("Variety:", selectedItem: $configuratorVM.variety)
-        OrderItemPicker("Milk:", selectedItem: $configuratorVM.milk)
-        OrderItemPicker("Flavor:", selectedItem: $configuratorVM.flavor)
+        OrderItemPicker("Variety:", selectedItem: $orderConfigViewModel.variety)
+        OrderItemPicker("Milk:", selectedItem: $orderConfigViewModel.milk)
+        OrderItemPicker("Flavor:", selectedItem: $orderConfigViewModel.flavor)
       }
     }
     .customListStyle(rowSpacing: 15, sectionSpacing: 8, shadow: 3)
@@ -115,16 +115,16 @@ struct OrderConfiguratorScreen: View {
           .font(.subheadline)
           .fontWeight(.bold)
           .foregroundStyle(.white)
-        Text(configuratorVM.order.formattedPrice)
+        Text(orderConfigViewModel.order.formattedPrice)
           .font(.headline)
           .fontWeight(.bold)
           .foregroundStyle(.orange)
           .contentTransition(.numericText())
-          .animation(.bouncy, value: configuratorVM.totalPrice)
+          .animation(.bouncy, value: orderConfigViewModel.totalPrice)
           .frame(minWidth: 75)
       }
       Button {
-        path.append(OrderPage.summary(configuratorVM.order))
+        path.append(OrderPage.summary(orderConfigViewModel.order))
       } label: {
         ButtonLabelWithIcon(
           "Summorize",
@@ -154,13 +154,13 @@ struct OrderConfiguratorScreen: View {
   
   private var toolbarHintButton: some View {
     Button {
-      configuratorVM.isShownHintPopover.toggle()
+      orderConfigViewModel.showHintPopover.toggle()
     } label: {
       Image(systemName: "info.circle.fill")
         .foregroundStyle(.pink)
     }
     .popover(
-      isPresented: $configuratorVM.isShownHintPopover,
+      isPresented: $orderConfigViewModel.showHintPopover,
       attachmentAnchor: .point(.trailing),
       arrowEdge: .trailing) {
         VStack(alignment: .leading, spacing: 8) {

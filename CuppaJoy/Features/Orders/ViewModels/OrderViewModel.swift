@@ -9,18 +9,15 @@ import Combine
 import FirebaseAuth
 import SwiftUI
 
-@MainActor
-final class OrderViewModel: ObservableObject {
+@Observable
+final class OrderViewModel {
   
-  // MARK: - Published Properties
+  var ongoingOrders: [Order] = []
+  var receivedOrders: [Order] = []
+  var isLoading = false
+  var alertItem: AlertItem?
   
-  @Published var ongoingOrders: [Order] = []
-  @Published var receivedOrders: [Order] = []
-  
-  @Published var alertItem: AlertItem?
-  @Published var isLoading: Bool = false
-  
-  let sessionManager: SessionManager
+  var sessionManager: SessionManager
   
   // MARK: - Private Properties
   

@@ -13,12 +13,12 @@ enum SettingsPageContent: Hashable {
 }
 
 struct GeneralScreen: View {
+  @EnvironmentObject var sessionManager: SessionManager
   
-  @State private var isShownSignOutAlert = false
-  @State private var isShownTabBar = true
+  @State private var showSignOutAlert = false
+  @State private var showTabBar = true
   @State private var path = NavigationPath()
   
-  @EnvironmentObject var sessionManager: SessionManager
   let userService: UserServiceProtocol
   let authService: AuthServiceProtocol
   
@@ -50,13 +50,11 @@ struct GeneralScreen: View {
           }
           
           List {
-            // Settings Button
             NavigationLink(value: SettingsPageContent.settings) {
               CustomListCell(for: .settings)
             }
-            // Sign Out Button
             Button {
-              isShownSignOutAlert = true
+              showSignOutAlert = true
             } label: {
               CustomListCell(for: .signOut)
             }
@@ -69,13 +67,11 @@ struct GeneralScreen: View {
       .navigationDestination(for: SettingsPageContent.self) { page in
         switch page {
         case .settings:
-          SettingsScreen(
-            path: $path, isShownTabBar: $isShownTabBar
-          )
+          SettingsScreen(path: $path, isShownTabBar: $showTabBar)
         case .editProfile:
           ProfileScreen(
             path: $path,
-            isShownTabBar: $isShownTabBar,
+            isShownTabBar: $showTabBar,
             viewModel: ProfileViewModel(
               sessionManager: sessionManager,
               authService: authService,
@@ -84,8 +80,8 @@ struct GeneralScreen: View {
           )
         }
       }
-      .toolbar(isShownTabBar ? .visible : .hidden, for: .tabBar)
-      .alert("Sign Out", isPresented: $isShownSignOutAlert) {
+      .toolbar(showTabBar ? .visible : .hidden, for: .tabBar)
+      .alert("Sign Out", isPresented: $showSignOutAlert) {
         Button("Sign Out", role: .destructive) {
           do {
             try authService.signOut()

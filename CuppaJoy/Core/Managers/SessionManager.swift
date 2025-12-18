@@ -13,9 +13,7 @@ enum SessionState: Equatable {
   case signedOut
 }
 
-@MainActor
 final class SessionManager: ObservableObject {
-  
   @Published var sessionState: SessionState = .signedOut
   @Published var currentUser: User? = nil
   

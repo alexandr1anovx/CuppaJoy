@@ -20,8 +20,8 @@ protocol CoffeeConfigServiceProtocol {
 }
 
 final class CoffeeConfigService: CoffeeConfigServiceProtocol {
-  
-  private let db = Firestore.firestore()
+
+  private var db = Firestore.firestore()
   private var configsListener: ListenerRegistration?
   
   // MARK: - Public Methods

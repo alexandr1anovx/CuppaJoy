@@ -12,11 +12,11 @@ import Firebase
 struct CuppaJoyApp: App {
   @StateObject private var coffeeCatalogViewModel = CoffeeCatalogViewModel()
   @StateObject private var sessionManager: SessionManager
-  
+
   private let authService: AuthServiceProtocol
   private let userService: UserServiceProtocol
   private let coffeeConfigService: CoffeeConfigServiceProtocol
-  
+
   init() {
     FirebaseApp.configure()
     let authService = AuthService()

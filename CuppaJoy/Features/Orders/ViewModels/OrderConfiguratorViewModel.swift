@@ -8,26 +8,23 @@
 import Foundation
 
 @MainActor
-final class OrderConfiguratorViewModel: ObservableObject {
-  
+@Observable
+final class OrderConfiguratorViewModel {
   let selectedCoffee: Coffee
   
-  // Order Configuration Settings
-  @Published var cupCount: Int = 1
-  @Published var sugarSticks: Int = 0
-  @Published var iceCubes: Int = 0
-  @Published var cupSize: CupSize = .small
-  @Published var variety: Variety = .standart
-  @Published var milk: Milk = .none
-  @Published var flavor: Flavor = .none
+  var cupCount: Int = 1
+  var sugarSticks: Int = 0
+  var iceCubes: Int = 0
+  var cupSize: CupSize = .small
+  var variety: Variety = .standart
+  var milk: Milk = .none
+  var flavor: Flavor = .none
   
-  // Alerts
-  @Published var isShownHintPopover: Bool = false
-  @Published var isShownSaveConfigAlert: Bool = false
+  var configName = ""
+  var selectedConfig: CoffeeConfig?
   
-  // Coffee Config Settings
-  @Published var configName: String = ""
-  @Published var selectedConfig: CoffeeConfig?
+  var showHintPopover = false
+  var showSaveConfigAlert = false
   
   var totalPrice: Double {
     let basePrice = selectedCoffee.price

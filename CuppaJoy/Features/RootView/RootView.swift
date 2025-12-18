@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RootView: View {
   
-  @State private var isShownLoadingAnimation: Bool = true
+  @State private var showLoadingAnimation = true
   @StateObject var sessionManager: SessionManager
   
   let authService: AuthServiceProtocol
@@ -21,7 +21,7 @@ struct RootView: View {
       switch sessionManager.sessionState {
       
       case .signedIn(_):
-        if isShownLoadingAnimation {
+        if showLoadingAnimation {
           LaunchScreen()
         } else {
           AppMainTabView(
@@ -42,7 +42,7 @@ struct RootView: View {
     .animation(.easeInOut, value: sessionManager.sessionState)
     .onAppear {
       DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-        isShownLoadingAnimation = false
+        showLoadingAnimation = false
       }
     }
   }

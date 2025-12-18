@@ -10,9 +10,9 @@ import SwiftUI
 struct OngoingOrderCell: View {
 
   let order: Order
-  @State private var isShownConfigurationSheet = false
-  @State private var isShownCancelationAlert = false
-  @EnvironmentObject var viewModel: OrderViewModel
+  @State private var showConfigurationView = false
+  @State private var showCancellationAlert = false
+  @Environment(OrderViewModel.self) var viewModel
 
   init(for order: Order) {
     self.order = order
@@ -20,15 +20,16 @@ struct OngoingOrderCell: View {
   
   var body: some View {
     VStack(alignment: .leading, spacing: 12) {
-      // Header
-      HStack{
+      
+      HStack {
         dateLabel
         Spacer()
         priceAndPointsLabel
       }
+      
       row("Coffee:", content: order.coffee)
       row("Size:", content: order.cupSize)
-      // Footer
+      
       HStack {
         configurationsButton
         Spacer()
@@ -80,7 +81,7 @@ struct OngoingOrderCell: View {
   
   private var configurationsButton: some View {
     Button {
-      isShownConfigurationSheet.toggle()
+      showConfigurationView.toggle()
     } label: {
       Text("Configurations")
         .font(.caption)
@@ -91,7 +92,7 @@ struct OngoingOrderCell: View {
         .clipShape(.capsule)
     }
     .buttonStyle(.plain)
-    .sheet(isPresented: $isShownConfigurationSheet) {
+    .sheet(isPresented: $showConfigurationView) {
       DetailedOrderView(order: order)
         .presentationDetents([.large])
         .presentationCornerRadius(30)
@@ -100,7 +101,7 @@ struct OngoingOrderCell: View {
   
   private var cancelButton: some View {
     Button {
-      isShownCancelationAlert.toggle()
+      showCancellationAlert.toggle()
     } label: {
       Text("Cancel Order")
         .font(.caption)
@@ -111,7 +112,7 @@ struct OngoingOrderCell: View {
         .clipShape(.capsule)
     }
     .buttonStyle(.plain)
-    .alert("Cancel Order", isPresented: $isShownCancelationAlert) {
+    .alert("Cancel Order", isPresented: $showCancellationAlert) {
       Button("Cancel", role: .cancel) {}
       Button("Confirm", role: .destructive) {
         Task { await viewModel.cancelOrder(order) }

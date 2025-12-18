@@ -8,7 +8,8 @@
 import SwiftUI
 
 enum PaymentMethod {
-  case applePay, creditCard
+  case applePay
+  case creditCard
   
   var title: String {
     switch self {
@@ -31,7 +32,7 @@ struct ApplePayView: View {
   @Binding var isTabBarVisible: Bool
   @State private var isShownAlert: Bool = false
   @Environment(\.dismiss) var dismiss
-  @EnvironmentObject var viewModel: OrderViewModel
+  @Environment(OrderViewModel.self) var orderViewModel
   
   private let feedbackGenerator = UINotificationFeedbackGenerator()
   
@@ -112,7 +113,7 @@ struct ApplePayView: View {
   private var paymentButton: some View {
     Button {
       Task {
-        await viewModel.makeOrder(order)
+        await orderViewModel.makeOrder(order)
         isShownAlert.toggle()
         feedbackGenerator.notificationOccurred(.success)
       }

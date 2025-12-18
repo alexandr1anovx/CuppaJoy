@@ -5,28 +5,19 @@
 //  Created by Alexander Andrianov on 28.06.2025.
 //
 
-import Foundation
+import SwiftUI
 
 @MainActor
-final class RegistrationViewModel: ObservableObject {
+@Observable
+final class RegistrationViewModel {
   
-  // MARK: - Public Properties
-  
-  @Published var fullName: String = ""
-  @Published var email: String = ""
-  @Published var password: String = ""
-  @Published var confirmedPassword: String = ""
-  @Published var selectedCity: City = .mykolaiv
-  
-  @Published var alert: AlertItem?
-  @Published var isLoading: Bool = false
-  
-  // MARK: - Private Properties
-  
-  private let authService: AuthServiceProtocol
-  private let userService: UserServiceProtocol
-  
-  // MARK: - Computed Properties
+  var fullName = ""
+  var email = ""
+  var password = ""
+  var confirmedPassword = ""
+  var selectedCity: City = .mykolaiv
+  var isLoading = false
+  var alert: AlertItem?
   
   var isValidForm: Bool {
     ValidationService.isValid(fullName: fullName)
@@ -34,12 +25,10 @@ final class RegistrationViewModel: ObservableObject {
     && password.count > 5 && password == confirmedPassword
   }
   
-  // MARK: - Init
+  private let authService: AuthServiceProtocol
+  private let userService: UserServiceProtocol
   
-  init(
-    authService: AuthServiceProtocol,
-    userService: UserServiceProtocol
-  ) {
+  init(authService: AuthServiceProtocol, userService: UserServiceProtocol) {
     self.authService = authService
     self.userService = userService
   }

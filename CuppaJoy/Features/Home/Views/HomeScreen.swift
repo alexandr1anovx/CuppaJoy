@@ -17,7 +17,7 @@ struct HomeScreen: View {
   
   let coffeeConfigService: CoffeeConfigServiceProtocol
   @State private var path = NavigationPath()
-  @State private var isTabBarVisible: Bool = true
+  @State private var isTabBarVisible = true
   
   var body: some View {
     NavigationStack(path: $path) {
@@ -41,8 +41,8 @@ struct HomeScreen: View {
           OrderConfiguratorScreen(
             path: $path,
             isTabBarVisible: $isTabBarVisible,
-            configVM: CoffeeConfigViewModel(coffeeConfigService: coffeeConfigService),
-            configuratorVM: OrderConfiguratorViewModel(selectedCoffee: coffee)
+            coffeeConfigViewModel: CoffeeConfigViewModel(coffeeConfigService: coffeeConfigService),
+            orderConfigViewModel: OrderConfiguratorViewModel(selectedCoffee: coffee)
           )
         case .summary(let order):
           OrderSummaryScreen(order: order, path: $path)

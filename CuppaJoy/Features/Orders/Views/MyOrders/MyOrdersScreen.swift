@@ -12,12 +12,9 @@ struct MyOrdersScreen: View {
   @Binding var selectedTab: Tab
   @State private var selectedStatus: OrderStatus = .ongoing
   @EnvironmentObject var sessionManager: SessionManager
-  @EnvironmentObject var viewModel: OrderViewModel
+  @Environment(OrderViewModel.self) var viewModel
   
-  init(
-    selectedTab: Binding<Tab>,
-    sessionManager: SessionManager
-  ) {
+  init(selectedTab: Binding<Tab>) {
     self._selectedTab = selectedTab
   }
   

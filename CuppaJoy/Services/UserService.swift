@@ -15,7 +15,7 @@ protocol UserServiceProtocol {
 }
 
 final class UserService: UserServiceProtocol {
-  private let db = Firestore.firestore()
+  private var db = Firestore.firestore()
   
   // MARK: - Public Methods
   

@@ -8,11 +8,11 @@
 import Foundation
 import FirebaseAuth
 
-@MainActor
-final class CoffeeConfigViewModel: ObservableObject {
+@Observable
+final class CoffeeConfigViewModel {
   
-  @Published var configs: [CoffeeConfig] = []
-  @Published var alertItem: AlertItem?
+  var configs: [CoffeeConfig] = []
+  var alertItem: AlertItem?
   
   private let coffeeConfigService: CoffeeConfigServiceProtocol
   private var subscriptionTask: Task<Void, Never>?

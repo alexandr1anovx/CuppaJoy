@@ -12,9 +12,9 @@ enum Tab {
 }
 
 struct AppMainTabView: View {
+  @EnvironmentObject var sessionManager: SessionManager 
   @State private var selectedTab: Tab = .home
-  @EnvironmentObject var sessionManager: SessionManager
-  @StateObject var orderViewModel: OrderViewModel
+  @State var orderViewModel: OrderViewModel
   
   let authService: AuthServiceProtocol
   let userService: UserServiceProtocol
@@ -26,9 +26,7 @@ struct AppMainTabView: View {
     userService: UserServiceProtocol,
     coffeeConfigService: CoffeeConfigServiceProtocol
   ) {
-    _orderViewModel = StateObject(
-      wrappedValue: OrderViewModel(sessionManager: sessionManager)
-    )
+    _orderViewModel = State(wrappedValue: OrderViewModel(sessionManager: sessionManager))
     self.authService = authService
     self.userService = userService
     self.coffeeConfigService = coffeeConfigService
@@ -41,7 +39,7 @@ struct AppMainTabView: View {
         .tabItem {
           Label("Home", systemImage: "storefront.fill")
         }
-      MyOrdersScreen(selectedTab: $selectedTab, sessionManager: sessionManager)
+      MyOrdersScreen(selectedTab: $selectedTab)
         .tag(Tab.myOrders)
         .tabItem {
           Label("My Orders", systemImage: "list.bullet")
@@ -52,7 +50,7 @@ struct AppMainTabView: View {
           Label("General", systemImage: "gearshape")
         }
     }
-    .environmentObject(orderViewModel)
+    .environment(orderViewModel)
     .onChange(of: selectedTab) {
       let generator = UIImpactFeedbackGenerator(style: .soft)
       generator.impactOccurred()

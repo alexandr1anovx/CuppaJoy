@@ -12,7 +12,7 @@ protocol CoffeeCatalogServiceProtocol {
 }
 
 final class CoffeeCatalogService: CoffeeCatalogServiceProtocol {
-  private let db = Firestore.firestore()
+  private var db = Firestore.firestore()
   
   func fetchCoffees() async throws -> [Coffee] {
     let snapshot = try await db

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RegistrationScreen: View {
   
-  @StateObject var viewModel: RegistrationViewModel
+  @State var viewModel: RegistrationViewModel
   @FocusState private var fieldContent: InputContentType?
   @Environment(\.dismiss) var dismiss
   
@@ -28,7 +28,7 @@ struct RegistrationScreen: View {
       .navigationTitle("Registration")
       .navigationBarTitleDisplayMode(.inline)
     }
-    .environmentObject(viewModel)
+    .environment(viewModel)
     .onAppear {
       setupSegmentedControlAppearance()
     }
