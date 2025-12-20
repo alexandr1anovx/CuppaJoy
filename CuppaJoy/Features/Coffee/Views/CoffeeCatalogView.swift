@@ -36,9 +36,11 @@ struct CoffeeCatalogView: View {
         }.padding(.vertical, 30)
       }
     }
-    .onAppear {
-      Task { await viewModel.fetchCoffees() }
-    }
     .shadow(radius: 8)
+    .task {
+      if viewModel.coffees.isEmpty {
+        await viewModel.fetchCoffees()
+      }
+    }
   }
 }
