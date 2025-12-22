@@ -83,6 +83,9 @@
 		D1EF6EAA2DB66D9900232718 /* OrderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EF6EA92DB66D9900232718 /* OrderService.swift */; };
 		D1F061032DAD590D00024160 /* RefreshButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F061022DAD590D00024160 /* RefreshButton.swift */; };
 		D1FEA5262D6603C500B082D8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FEA5252D6603C500B082D8 /* User.swift */; };
+		FF9AADFD2EF4C89C005721EE /* RemoteConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9AADFC2EF4C89C005721EE /* RemoteConfigService.swift */; };
+		FF9AADFF2EF4C8F6005721EE /* RemoteConfigConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9AADFE2EF4C8F6005721EE /* RemoteConfigConstants.swift */; };
+		FF9AAE012EF4C9E4005721EE /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = FF9AAE002EF4C9E4005721EE /* FirebaseRemoteConfig */; };
 		FFE3FF112EF4538300FFCFE2 /* FirestoreConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE3FF102EF4538300FFCFE2 /* FirestoreConstants.swift */; };
 		FFE3FF142EF45C5C00FFCFE2 /* LimitsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE3FF132EF45C5C00FFCFE2 /* LimitsConstants.swift */; };
 		FFE3FF162EF45CDB00FFCFE2 /* ValidationConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE3FF152EF45CDB00FFCFE2 /* ValidationConstants.swift */; };
@@ -166,6 +169,8 @@
 		D1EF6EA92DB66D9900232718 /* OrderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderService.swift; sourceTree = "<group>"; };
 		D1F061022DAD590D00024160 /* RefreshButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshButton.swift; sourceTree = "<group>"; };
 		D1FEA5252D6603C500B082D8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		FF9AADFC2EF4C89C005721EE /* RemoteConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigService.swift; sourceTree = "<group>"; };
+		FF9AADFE2EF4C8F6005721EE /* RemoteConfigConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigConstants.swift; sourceTree = "<group>"; };
 		FFE3FF102EF4538300FFCFE2 /* FirestoreConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreConstants.swift; sourceTree = "<group>"; };
 		FFE3FF132EF45C5C00FFCFE2 /* LimitsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitsConstants.swift; sourceTree = "<group>"; };
 		FFE3FF152EF45CDB00FFCFE2 /* ValidationConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationConstants.swift; sourceTree = "<group>"; };
@@ -181,6 +186,7 @@
 				D194CEC12D63843500CE409C /* FirebaseCore in Frameworks */,
 				D194CEBF2D63842F00CE409C /* FirebaseAuth in Frameworks */,
 				D194CEC32D63843B00CE409C /* FirebaseFirestore in Frameworks */,
+				FF9AAE012EF4C9E4005721EE /* FirebaseRemoteConfig in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -596,6 +602,7 @@
 				D18C03292DBAE430000F79E2 /* CoffeeConfigService.swift */,
 				D1EF6EA92DB66D9900232718 /* OrderService.swift */,
 				D1EF6E902DB5672500232718 /* ValidationService.swift */,
+				FF9AADFC2EF4C89C005721EE /* RemoteConfigService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -621,6 +628,7 @@
 				FFE3FF152EF45CDB00FFCFE2 /* ValidationConstants.swift */,
 				FFE3FF172EF45D1600FFCFE2 /* PricingConstants.swift */,
 				FFE3FF192EF4609800FFCFE2 /* UIConstants.swift */,
+				FF9AADFE2EF4C8F6005721EE /* RemoteConfigConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -722,6 +730,7 @@
 				FFE3FF162EF45CDB00FFCFE2 /* ValidationConstants.swift in Sources */,
 				D1D1F1BB2D7474D800B7D035 /* LoginFormEmailAndPassword.swift in Sources */,
 				D1D58DDB2D731F4000BD54EE /* ButtonLabelWithIconAnimated.swift in Sources */,
+				FF9AADFD2EF4C89C005721EE /* RemoteConfigService.swift in Sources */,
 				50DFA8232D04AC660058A4D4 /* HomeHeaderView.swift in Sources */,
 				D1DD423B2DAD97AF00F4FBD9 /* View+Extension.swift in Sources */,
 				321D48142CAF6098007A0B20 /* CuppaJoyApp.swift in Sources */,
@@ -758,6 +767,7 @@
 				D18C032A2DBAE430000F79E2 /* CoffeeConfigService.swift in Sources */,
 				32FF43BB2CC6FA35001C0E0C /* AppMainTabView.swift in Sources */,
 				32FF43AB2CC6CC9E001C0E0C /* ProfileScreen.swift in Sources */,
+				FF9AADFF2EF4C8F6005721EE /* RemoteConfigConstants.swift in Sources */,
 				D1FEA5262D6603C500B082D8 /* User.swift in Sources */,
 				326108402CBAD3B10072D238 /* HomeScreen.swift in Sources */,
 				D1CD6C3B2D274B11007FF006 /* MyOrdersScreen.swift in Sources */,
@@ -1024,6 +1034,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D194CEBC2D63835400CE409C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		FF9AAE002EF4C9E4005721EE /* FirebaseRemoteConfig */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D194CEBC2D63835400CE409C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseRemoteConfig;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

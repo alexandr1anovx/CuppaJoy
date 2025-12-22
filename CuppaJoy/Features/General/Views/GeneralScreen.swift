@@ -21,6 +21,7 @@ struct GeneralScreen: View {
   
   let userService: UserServiceProtocol
   let authService: AuthServiceProtocol
+  let remoteConfigService: RemoteConfigServiceProtocol
   
   var body: some View {
     NavigationStack(path: $path) {

@@ -12,7 +12,7 @@ struct CoffeeCatalogCell: View {
   let coffee: Coffee
   
   var body: some View {
-    RoundedRectangle(cornerRadius: 20)
+    RoundedRectangle(cornerRadius: 25)
       .foregroundStyle(.csBlack)
       .shadow(radius: 5)
       .aspectRatio(1.1, contentMode: .fit)

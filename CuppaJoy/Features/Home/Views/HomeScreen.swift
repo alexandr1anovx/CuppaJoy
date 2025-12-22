@@ -15,9 +15,10 @@ enum OrderPage: Hashable {
 
 struct HomeScreen: View {
   
-  let coffeeConfigService: CoffeeConfigServiceProtocol
   @State private var path = NavigationPath()
   @State private var isTabBarVisible = true
+  let coffeeConfigService: CoffeeConfigServiceProtocol
+  let remoteConfigService: RemoteConfigServiceProtocol
   
   var body: some View {
     NavigationStack(path: $path) {
@@ -42,7 +43,8 @@ struct HomeScreen: View {
             path: $path,
             isTabBarVisible: $isTabBarVisible,
             coffeeConfigViewModel: CoffeeConfigViewModel(coffeeConfigService: coffeeConfigService),
-            orderConfigViewModel: OrderConfiguratorViewModel(selectedCoffee: coffee)
+            orderConfigViewModel: OrderConfiguratorViewModel(selectedCoffee: coffee),
+            remoteConfigService: remoteConfigService
           )
         case .summary(let order):
           OrderSummaryScreen(order: order, path: $path)
