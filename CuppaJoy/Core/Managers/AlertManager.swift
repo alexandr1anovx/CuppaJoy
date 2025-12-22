@@ -41,7 +41,7 @@ struct Alerts {
     
     static let loginFailed = AlertItem(
       "Login Failed",
-      "We couldn't find an account matching that email and password. Please check your details and try again.",
+      "The email or password you entered is incorrect. Please double-check your credentials and try again.",
       dismissButton: .default(Text("OK"))
     )
     
@@ -68,8 +68,8 @@ struct Alerts {
     )
     
     static let updateFailed = AlertItem(
-      "Failed to Update Profile",
-      "An error occurred while updating your profile. Please try again later.",
+      "Update Failed",
+      "We couldn't update your profile right now. Please check your internet connection and try again.",
       dismissButton: .default(Text("OK"))
     )
     
@@ -86,8 +86,8 @@ struct Alerts {
     )
     
     static let deleteFailed = AlertItem(
-      "Failed to Delete Account",
-      "An error occurred while deleting your account. Please contact our support for assistance.",
+      "Deletion Failed",
+      "We couldn't delete your account right now. Please check your internet connection and try again, or contact support if the problem continues.",
       dismissButton: .default(Text("OK"))
     )
   }
@@ -96,14 +96,14 @@ struct Alerts {
   
   struct CoffeeRecipe {
     static let deletionSuccess = AlertItem(
-      "Recipe deleted",
+      "Recipe Deleted",
       "The selected recipe has been successfully deleted.",
       dismissButton: .default(Text("OK"))
     )
     
     static let deletionFailed = AlertItem(
-      "Failed to Delete Recipe",
-      "An error occurred. Please try again, or contact support if the problem persists.",
+      "Deletion Failed",
+      "We couldn't delete this recipe right now. Please check your internet connection and try again.",
       dismissButton: .default(Text("OK"))
     )
   }
@@ -112,8 +112,8 @@ struct Alerts {
   
   struct Generic {
     static let unknownError = AlertItem(
-      "An Error Occurred",
-      "Something went wrong. Please try again later or contact support.",
+      "Something Went Wrong",
+      "An unexpected error occurred. Please check your internet connection and try again, or contact support if the problem continues.",
       dismissButton: .default(Text("OK"))
     )
   }
