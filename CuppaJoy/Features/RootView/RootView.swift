@@ -14,7 +14,7 @@ struct RootView: View {
   
   let authService: AuthServiceProtocol
   let userService: UserServiceProtocol
-  let coffeeConfigService: CoffeeConfigServiceProtocol
+  let coffeeRecipeService: CoffeeRecipeServiceProtocol
   let remoteConfigService: RemoteConfigServiceProtocol
   
   var body: some View {
@@ -29,7 +29,7 @@ struct RootView: View {
             sessionManager: sessionManager,
             authService: authService,
             userService: userService,
-            coffeeConfigService: coffeeConfigService,
+            coffeeRecipeService: coffeeRecipeService,
             remoteConfigService: remoteConfigService
           )
         }

@@ -17,7 +17,7 @@ struct HomeScreen: View {
   
   @State private var path = NavigationPath()
   @State private var isTabBarVisible = true
-  let coffeeConfigService: CoffeeConfigServiceProtocol
+  let coffeeRecipeService: CoffeeRecipeServiceProtocol
   let remoteConfigService: RemoteConfigServiceProtocol
   
   var body: some View {
@@ -42,7 +42,7 @@ struct HomeScreen: View {
           OrderConfiguratorScreen(
             path: $path,
             isTabBarVisible: $isTabBarVisible,
-            coffeeConfigViewModel: CoffeeConfigViewModel(coffeeConfigService: coffeeConfigService),
+            coffeeRecipeViewModel: CoffeeRecipeViewModel(coffeeRecipeService: coffeeRecipeService),
             orderConfigViewModel: OrderConfiguratorViewModel(selectedCoffee: coffee),
             remoteConfigService: remoteConfigService
           )

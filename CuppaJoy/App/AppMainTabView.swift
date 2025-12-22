@@ -19,27 +19,27 @@ struct AppMainTabView: View {
   @State var orderViewModel: OrderViewModel
   let authService: AuthServiceProtocol
   let userService: UserServiceProtocol
-  let coffeeConfigService: CoffeeConfigServiceProtocol
+  let coffeeRecipeService: CoffeeRecipeServiceProtocol
   let remoteConfigService: RemoteConfigServiceProtocol
   
   init(
     sessionManager: SessionManager,
     authService: AuthServiceProtocol,
     userService: UserServiceProtocol,
-    coffeeConfigService: CoffeeConfigServiceProtocol,
+    coffeeRecipeService: CoffeeRecipeServiceProtocol,
     remoteConfigService: RemoteConfigServiceProtocol
   ) {
     _orderViewModel = State(wrappedValue: OrderViewModel(sessionManager: sessionManager))
     self.authService = authService
     self.userService = userService
-    self.coffeeConfigService = coffeeConfigService
+    self.coffeeRecipeService = coffeeRecipeService
     self.remoteConfigService = remoteConfigService
   }
   
   var body: some View {
     TabView(selection: $selectedTab) {
       HomeScreen(
-        coffeeConfigService: coffeeConfigService,
+        coffeeRecipeService: coffeeRecipeService,
         remoteConfigService: remoteConfigService
       )
       .tag(Tab.home)

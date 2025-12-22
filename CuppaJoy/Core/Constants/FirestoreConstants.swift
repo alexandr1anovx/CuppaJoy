@@ -10,6 +10,6 @@ import Foundation
 enum FirestoreCollection {
   static let users = "users"
   static let orders = "orders"
-  static let configs = "configs"
+  static let recipes = "recipes"
   static let coffees = "coffees"
 }

@@ -1,5 +1,5 @@
 //
-//  ConfigsScrollableView.swift
+//  RecipesScrollableView.swift
 //  CuppaJoy
 //
 //  Created by Alexander Andrianov on 01.07.2025.
@@ -7,35 +7,35 @@
 
 import SwiftUI
 
-struct ConfigsScrollableView: View {
+struct RecipesScrollableView: View {
   
-  @Environment(CoffeeConfigViewModel.self) var coffeeConfigViewModel
+  @Environment(CoffeeRecipeViewModel.self) var coffeeRecipeViewModel
   @Environment(OrderConfiguratorViewModel.self) var orderConfigViewModel
   
   var body: some View {
     HStack {
-      Text("My Configs:")
+      Text("My Recipes:")
         .font(.footnote)
         .fontWeight(.medium)
         .foregroundStyle(.white)
       ScrollView(.horizontal) {
         HStack(spacing: 10) {
-          ForEach(coffeeConfigViewModel.configs) { config in
+          ForEach(coffeeRecipeViewModel.recipes) { recipe in
             Button {
-              orderConfigViewModel.selectedConfig = config
-              orderConfigViewModel.applyConfig()
+              orderConfigViewModel.selectedRecipe = recipe
+              orderConfigViewModel.applyRecipe()
             } label: {
               ButtonLabelShort(
-                config.title,
+                recipe.title,
                 textColor: .orange,
                 bgColor: .csDarkGrey
               )
             }
             .contextMenu {
               Group {
-                Button("Delete Config", systemImage: "trash") {
+                Button("Delete Recipe", systemImage: "trash") {
                   Task {
-                    await coffeeConfigViewModel.deleteConfig(config)
+                    await coffeeRecipeViewModel.deleteRecipe(recipe)
                   }
                 }
               }
@@ -44,7 +44,7 @@ struct ConfigsScrollableView: View {
         }
       }
       Button {
-        orderConfigViewModel.showSaveConfigAlert.toggle()
+        orderConfigViewModel.showSaveRecipeAlert.toggle()
       } label: {
         Image(systemName: "plus.circle")
           .foregroundStyle(.orange)

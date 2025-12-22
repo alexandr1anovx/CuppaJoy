@@ -11,22 +11,36 @@ struct OrderConfiguratorScreen: View {
   
   @Binding var path: NavigationPath
   @Binding var isTabBarVisible: Bool
-  @State var coffeeConfigViewModel: CoffeeConfigViewModel
+  @State var coffeeRecipeViewModel: CoffeeRecipeViewModel
   @State var orderConfigViewModel: OrderConfiguratorViewModel
+  
+  let remoteConfigService: RemoteConfigServiceProtocol
   
   var body: some View {
     ZStack {
       Color.appBackgroundDimmed.ignoresSafeArea()
       VStack {
-        if coffeeConfigViewModel.configs.isEmpty {
-          emptyConfigsView
+        if coffeeRecipeViewModel.recipes.isEmpty {
+          emptyRecipesView
         } else {
-          ConfigsScrollableView()
+          RecipesScrollableView()
         }
         configurationForm
         totalAmountLabel
       }
       .padding(.top)
+    }
+    .alert("Save Your Coffee Recipe", isPresented: $orderConfigViewModel.showSaveRecipeAlert) {
+      TextField("Recipe name", text: $orderConfigViewModel.recipeName)
+      Button("Not now") {}
+      Button("Save recipe") {
+        Task {
+          await coffeeRecipeViewModel.saveRecipe(orderConfigViewModel.recipe)
+        }
+      }
+      .disabled(orderConfigViewModel.recipeName.isEmpty)
+    } message: {
+      Text("Give your coffee a name so you can easily find it again later.")
     }
     .navigationTitle("Configurator")
     .navigationBarTitleDisplayMode(.inline)
@@ -40,41 +54,25 @@ struct OrderConfiguratorScreen: View {
       isTabBarVisible = false
       setupSegmentedControlAppearance()
     }
-    .environment(coffeeConfigViewModel)
+    .environment(coffeeRecipeViewModel)
     .environment(orderConfigViewModel)
-    .alert(
-      "Config Saving",
-      isPresented: $orderConfigViewModel.showSaveConfigAlert
-    ) {
-      TextField("Enter a name", text: $orderConfigViewModel.configName)
-      Button("Cancel") {}
-      Button("Add") {
-        Task {
-          await coffeeConfigViewModel.saveConfig(orderConfigViewModel.config)
-        }
-      }
-      .disabled(orderConfigViewModel.configName.isEmpty)
-    } message: {
-      Text("Make sure you carefully check your current config.")
-    }
   }
   
   // MARK: - Subviews
   
-  private var emptyConfigsView: some View {
+  private var emptyRecipesView: some View {
     HStack {
-      Text("You have no configs yet.")
+      Text("You haven’t saved any recipes yet.")
         .font(.footnote)
         .foregroundStyle(.gray)
-      Button("Add", systemImage: "plus.circle.fill") {
-        orderConfigViewModel.showSaveConfigAlert.toggle()
+      Button("Create recipe", systemImage: "plus.circle.fill") {
+        orderConfigViewModel.showSaveRecipeAlert.toggle()
       }
       .font(.footnote)
       .foregroundStyle(.orange)
       .padding(12)
       .background(.csDarkGrey)
       .clipShape(.capsule)
-      
     }
   }
   
@@ -85,7 +83,8 @@ struct OrderConfiguratorScreen: View {
           .pickerStyle(.segmented)
         OrderItemCounter(
           "Count:",
-          min: 1, max: 4,
+          min: 1,
+          max: remoteConfigService.getInt(forKey: RemoteConfigKeys.maxCoffeeItems),
           count: $orderConfigViewModel.cupCount
         )
       }
@@ -135,8 +134,8 @@ struct OrderConfiguratorScreen: View {
       }
     }
     .background(
-      RoundedRectangle(cornerRadius: 35)
-        .fill(Color.csBlack)
+      RoundedRectangle(cornerRadius: 50)
+        .fill(.csBlack)
         .ignoresSafeArea()
         .frame(height: 150)
         .shadow(radius: 5)

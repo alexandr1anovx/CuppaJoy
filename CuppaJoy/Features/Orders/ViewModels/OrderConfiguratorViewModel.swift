@@ -20,11 +20,11 @@ final class OrderConfiguratorViewModel {
   var milk: Milk = .none
   var flavor: Flavor = .none
   
-  var configName = ""
-  var selectedConfig: CoffeeConfig?
+  var recipeName = ""
+  var selectedRecipe: CoffeeRecipe?
   
   var showHintPopover = false
-  var showSaveConfigAlert = false
+  var showSaveRecipeAlert = false
   
   var totalPrice: Double {
     let basePrice = selectedCoffee.price
@@ -51,10 +51,10 @@ final class OrderConfiguratorViewModel {
     )
   }
   
-  var config: CoffeeConfig {
-    CoffeeConfig(
+  var recipe: CoffeeRecipe {
+    CoffeeRecipe(
       uid: UUID().uuidString,
-      title: configName,
+      title: recipeName,
       cupSize: cupSize.title,
       sugarSticks: sugarSticks,
       iceCubes: iceCubes,
@@ -72,26 +72,26 @@ final class OrderConfiguratorViewModel {
   
   // MARK: - Public Methods
   
-  func applyConfig() {
-    if let sizeString = selectedConfig?.cupSize,
+  func applyRecipe() {
+    if let sizeString = selectedRecipe?.cupSize,
        let size = CupSize.allCases.first(where: { $0.title == sizeString }) {
       cupSize = size
     }
     
-    sugarSticks = selectedConfig?.sugarSticks ?? 0
-    iceCubes = selectedConfig?.iceCubes ?? 0
+    sugarSticks = selectedRecipe?.sugarSticks ?? 0
+    iceCubes = selectedRecipe?.iceCubes ?? 0
     
-    if let varietyString = selectedConfig?.variety,
+    if let varietyString = selectedRecipe?.variety,
        let varietyValue = Variety.allCases.first(where: { $0.title == varietyString }) {
       variety = varietyValue
     }
     
-    if let milkString = selectedConfig?.milk,
+    if let milkString = selectedRecipe?.milk,
        let milkValue = Milk.allCases.first(where: { $0.title == milkString }) {
       milk = milkValue
     }
     
-    if let flavorString = selectedConfig?.flavor,
+    if let flavorString = selectedRecipe?.flavor,
        let flavorValue = Flavor.allCases.first(where: { $0.title == flavorString }) {
       flavor = flavorValue
     }

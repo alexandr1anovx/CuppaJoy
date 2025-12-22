@@ -92,17 +92,17 @@ struct Alerts {
     )
   }
   
-  // MARK: - Coffee Configurations
+  // MARK: - Coffee Recipe
   
-  struct Config {
+  struct CoffeeRecipe {
     static let deletionSuccess = AlertItem(
-      "Configuration Deleted",
-      "The selected configuration has been successfully deleted.",
+      "Recipe deleted",
+      "The selected recipe has been successfully deleted.",
       dismissButton: .default(Text("OK"))
     )
     
     static let deletionFailed = AlertItem(
-      "Failed to Delete Configuration",
+      "Failed to Delete Recipe",
       "An error occurred. Please try again, or contact support if the problem persists.",
       dismissButton: .default(Text("OK"))
     )

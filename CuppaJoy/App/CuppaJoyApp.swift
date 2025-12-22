@@ -16,7 +16,7 @@ struct CuppaJoyApp: App {
 
   private let authService: AuthServiceProtocol
   private let userService: UserServiceProtocol
-  private let coffeeConfigService: CoffeeConfigServiceProtocol
+  private let coffeeRecipeService: CoffeeRecipeServiceProtocol
   private let remoteConfigService: RemoteConfigServiceProtocol
 
   init() {
@@ -24,12 +24,12 @@ struct CuppaJoyApp: App {
     
     let authService = AuthService()
     let userService = UserService()
-    let coffeeConfigService = CoffeeConfigService()
+    let coffeeRecipeService = CoffeeRecipeService()
     let remoteConfigService = RemoteConfigService()
     
     self.authService = authService
     self.userService = userService
-    self.coffeeConfigService = coffeeConfigService
+    self.coffeeRecipeService = coffeeRecipeService
     self.remoteConfigService = remoteConfigService
     
     _sessionManager = StateObject(
@@ -53,7 +53,7 @@ struct CuppaJoyApp: App {
         sessionManager: sessionManager,
         authService: authService,
         userService: userService,
-        coffeeConfigService: coffeeConfigService,
+        coffeeRecipeService: coffeeRecipeService,
         remoteConfigService: remoteConfigService
       )
       .preferredColorScheme(.dark)

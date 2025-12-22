@@ -1,5 +1,5 @@
 //
-//  CoffeeConfig.swift
+//  CoffeeRecipe.swift
 //  CuppaJoy
 //
 //  Created by Alexander Andrianov on 18.04.2025.
@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-struct CoffeeConfig: Identifiable, Hashable, Codable {
+struct CoffeeRecipe: Identifiable, Hashable, Codable {
   @DocumentID var id: String?
   let uid: String
   var title: String

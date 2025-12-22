@@ -42,7 +42,7 @@ struct MockData {
     coins: 20
   )
   
-  static let coffeeConfigAmericano = CoffeeConfig(
+  static let coffeeRecipeAmericano = CoffeeRecipe(
     uid: "1",
     title: "Americano",
     cupSize: "Medium",
@@ -52,7 +52,7 @@ struct MockData {
     milk: "Lactose",
     flavor: "Caramel"
   )
-  static let coffeeConfigLatte = CoffeeConfig(
+  static let coffeeRecipeLatte = CoffeeRecipe(
     uid: "2",
     title: "Latte",
     cupSize: "Large",
