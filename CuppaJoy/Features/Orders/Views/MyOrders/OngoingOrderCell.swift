@@ -83,7 +83,7 @@ struct OngoingOrderCell: View {
     Button {
       showConfigurationView.toggle()
     } label: {
-      Text("Configurations")
+      Text("Your Customizations")
         .font(.caption)
         .fontWeight(.medium)
         .foregroundStyle(.white)

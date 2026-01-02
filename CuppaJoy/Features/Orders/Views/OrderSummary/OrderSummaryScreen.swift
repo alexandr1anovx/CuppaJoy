@@ -44,7 +44,7 @@ struct OrderSummaryScreen: View {
         confirmationStack
       }
     }
-    .navigationTitle("Order Summary")
+      .navigationTitle("Review Your Order")
     .navigationBarTitleDisplayMode(.large)
     .navigationBarBackButtonHidden(true)
     .toolbar {

@@ -48,7 +48,7 @@ struct SettingsScreen: View {
       showTabBar = false
       setupSegmentedControlAppearance()
     }
-    .navigationTitle("Settings")
+    .navigationTitle("App Settings")
     .navigationBarTitleDisplayMode(.inline)
     .navigationBarBackButtonHidden(true)
     .toolbar {

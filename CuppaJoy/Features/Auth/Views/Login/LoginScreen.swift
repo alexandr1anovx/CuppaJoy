@@ -46,7 +46,7 @@ struct LoginScreen: View {
   
   private var signUpButton: some View {
     HStack(spacing:5) {
-      Text("Don't have an account?")
+      Text("New to Cuppa Joy?")
         .font(.footnote)
         .fontWeight(.medium)
         .foregroundStyle(.gray)
@@ -58,7 +58,7 @@ struct LoginScreen: View {
           )
         )
       } label: {
-        Text("Sign Up.")
+        Text("Create Account")
           .font(.subheadline)
           .fontWeight(.bold)
           .foregroundStyle(.csCream)

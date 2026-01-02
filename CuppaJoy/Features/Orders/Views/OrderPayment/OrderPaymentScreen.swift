@@ -23,7 +23,7 @@ struct OrderPaymentScreen: View {
         isTabBarVisible: $isTabBarVisible
       )
     }
-    .navigationTitle("Payment")
+    .navigationTitle("Complete Your Order")
     .navigationBarTitleDisplayMode(.large)
     .navigationBarBackButtonHidden(true)
     .toolbar {
@@ -40,8 +40,8 @@ struct OrderPaymentScreen: View {
     }
     .alert(isPresented: $showDismissAlert) {
       Alert(
-        title: Text("You changed your mind?"),
-        message: Text("You can return to the main screen to cancel the current order."),
+        title: Text("Cancel Payment?"),
+        message: Text("Are you sure you want to cancel this payment? Your order details will be lost."),
         primaryButton: .destructive(Text("Cancel")),
         secondaryButton: .default(Text("Go Home")) {
           path.removeLast(path.count)

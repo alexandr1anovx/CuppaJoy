@@ -14,7 +14,7 @@ struct RecipesScrollableView: View {
   
   var body: some View {
     HStack {
-      Text("My Recipes:")
+      Text("My Saved Recipes")
         .font(.footnote)
         .fontWeight(.medium)
         .foregroundStyle(.white)
@@ -33,7 +33,7 @@ struct RecipesScrollableView: View {
             }
             .contextMenu {
               Group {
-                Button("Delete Recipe", systemImage: "trash") {
+                Button("Delete", systemImage: "trash") {
                   Task {
                     await coffeeRecipeViewModel.deleteRecipe(recipe)
                   }

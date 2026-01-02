@@ -38,7 +38,7 @@ struct OrderPaymentOptionView: View {
       Button {
         // ...
       } label: {
-        Text("Check my order details.")
+        Text("Review your order details")
           .font(.callout)
           .foregroundStyle(.orange)
           .underline()

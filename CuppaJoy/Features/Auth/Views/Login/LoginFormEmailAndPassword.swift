@@ -31,7 +31,7 @@ struct LoginFormEmailAndPassword: View {
               .submitLabel(.done)
               .onSubmit { inputContent = nil }
           } header: {
-            Text("Enter your email and password")
+            Text("Welcome back! Please sign in to continue.")
               .font(.caption)
               .fontWeight(.semibold)
               .padding(.bottom, 10)

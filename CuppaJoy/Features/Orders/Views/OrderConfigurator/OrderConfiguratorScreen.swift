@@ -31,9 +31,9 @@ struct OrderConfiguratorScreen: View {
       .padding(.top)
     }
     .alert("Save Your Coffee Recipe", isPresented: $orderConfigViewModel.showSaveRecipeAlert) {
-      TextField("Recipe name", text: $orderConfigViewModel.recipeName)
-      Button("Not now") {}
-      Button("Save recipe") {
+      TextField("Give your recipe a name", text: $orderConfigViewModel.recipeName)
+      Button("Maybe Later") {}
+      Button("Save Recipe") {
         Task {
           await coffeeRecipeViewModel.saveRecipe(orderConfigViewModel.recipe)
         }
@@ -42,7 +42,7 @@ struct OrderConfiguratorScreen: View {
     } message: {
       Text("Give your coffee a name so you can easily find it again later.")
     }
-    .navigationTitle("Configurator")
+    .navigationTitle("Customize Your Coffee")
     .navigationBarTitleDisplayMode(.inline)
     .navigationBarBackButtonHidden(true)
     .ignoresSafeArea(.keyboard)
@@ -62,10 +62,10 @@ struct OrderConfiguratorScreen: View {
   
   private var emptyRecipesView: some View {
     HStack {
-      Text("You haven’t saved any recipes yet.")
+      Text("No saved recipes yet. Create your first one above!")
         .font(.footnote)
         .foregroundStyle(.gray)
-      Button("Create recipe", systemImage: "plus.circle.fill") {
+      Button("Create Recipe", systemImage: "plus.circle.fill") {
         orderConfigViewModel.showSaveRecipeAlert.toggle()
       }
       .font(.footnote)

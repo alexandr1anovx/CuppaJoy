@@ -103,8 +103,8 @@ struct ApplePayView: View {
   
   private var thirdSectionView: some View {
     HStack {
-      Text("Account:")
-      Text("icloudname@icloud.com").tint(.gray)
+        Text("Account:")
+        Text("your.email@example.com").tint(.gray)
     }
     .font(.subheadline)
     .fontWeight(.medium)

@@ -122,11 +122,11 @@ struct ProfileScreen: View {
         .underline()
     }
     .alert("Account Deletion", isPresented: $viewModel.showDeleteAccountAlert) {
-      SecureField("Your password", text: $viewModel.deletionPassword)
+      SecureField("Enter your password to confirm", text: $viewModel.deletionPassword)
       Button("Cancel", role: .cancel) { viewModel.deletionPassword = "" }
       Button("Delete", role: .destructive) {}
     } message: {
-      Text("Are you sure? It will delete all your data forever.")
+      Text("This action cannot be undone. All your orders, recipes, and profile data will be permanently deleted from our servers.")
     }
   }
 }

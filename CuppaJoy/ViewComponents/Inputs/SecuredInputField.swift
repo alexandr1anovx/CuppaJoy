@@ -35,12 +35,12 @@ struct SecuredInputField: View {
         )
         .foregroundStyle(.csCream)
       if showPassword {
-        TextField("Password", text: $password)
+        TextField("Enter password", text: $password)
           .focused($inputStatus, equals: .notSecured)
           .keyboardType(.asciiCapable)
           
       } else {
-        SecureField("Password", text: $password)
+        SecureField("Enter password", text: $password)
           .focused($inputStatus, equals: .secured)
           .keyboardType(.asciiCapable)
       }
