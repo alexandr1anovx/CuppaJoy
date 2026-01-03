@@ -16,7 +16,7 @@ struct OrderPaymentScreen: View {
   
   var body: some View {
     ZStack {
-      Color.csBlack.ignoresSafeArea()
+      Color.csDarkGrey.ignoresSafeArea()
       OrderPaymentOptionView(
         order: order,
         path: $path,
@@ -40,13 +40,13 @@ struct OrderPaymentScreen: View {
     }
     .alert(isPresented: $showDismissAlert) {
       Alert(
-        title: Text("Cancel Payment?"),
-        message: Text("Are you sure you want to cancel this payment? Your order details will be lost."),
-        primaryButton: .destructive(Text("Cancel")),
-        secondaryButton: .default(Text("Go Home")) {
+        title: Text("Cancel Order?"),
+        message: Text("Are you sure you want to cancel this order? Your order details will be lost."),
+        primaryButton: .destructive(Text("Cancel Order")) {
           path.removeLast(path.count)
           isTabBarVisible = true
-        }
+        },
+        secondaryButton: .default(Text("Continue Payment"))
       )
     }
   }

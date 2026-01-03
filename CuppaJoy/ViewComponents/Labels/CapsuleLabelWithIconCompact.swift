@@ -1,5 +1,5 @@
 //
-//  ButtonLabelWithIconShort.swift
+//  CapsuleLabelWithIconCompact.swift
 //  CuppaJoy
 //
 //  Created by Alexander Andrianov on 14.04.2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ButtonLabelWithIconShort: View {
+struct CapsuleLabelWithIconCompact: View {
   let title: String
   let iconName: String
   let textColor: Color
@@ -31,29 +31,31 @@ struct ButtonLabelWithIconShort: View {
       .fontWeight(.medium)
       .foregroundStyle(textColor)
       .padding(11)
-      .background(bgColor)
-      .clipShape(.capsule)
-      .shadow(radius: 3)
+      .background {
+        Capsule()
+          .fill(bgColor)
+          .shadow(radius: 3)
+      }
   }
 }
 
 #Preview {
-  ButtonLabelWithIconShort(
+  CapsuleLabelWithIconCompact(
     "Add",
     icon: "plus.circle.fill",
     textColor: .orange,
-    bgColor: .csDarkGrey
+    bgColor: .csBlack
   )
-  ButtonLabelWithIconShort(
+  CapsuleLabelWithIconCompact(
     "Ongoing",
     icon: "cart.badge.clock",
     textColor: .orange,
-    bgColor: .csDarkGrey
+    bgColor: .csBlack
   )
-  ButtonLabelWithIconShort(
+  CapsuleLabelWithIconCompact(
     "Received",
     icon: "cart.fill",
     textColor: .orange,
-    bgColor: .csDarkGrey
+    bgColor: .csBlack
   )
 }

@@ -58,7 +58,7 @@ struct OrderPaymentOptionView: View {
       Button {
         showPaymentView.toggle()
       } label: {
-        ButtonLabelWithIcon(
+        CapsuleLabelWithIcon(
           "Pay",
           icon: "apple.logo",
           textColor: .white,
@@ -68,7 +68,7 @@ struct OrderPaymentOptionView: View {
     }
     .background(
       RoundedRectangle(cornerRadius: 30)
-        .fill(Color.csBlack)
+        .fill(Color.csDarkGrey)
         .shadow(color: .white, radius: 1)
         .ignoresSafeArea(.all)
         .frame(height: 200)

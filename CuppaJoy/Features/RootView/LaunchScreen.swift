@@ -24,7 +24,7 @@ struct LaunchScreen: View {
       }
       .foregroundStyle(isAnimating ? .csCream : .black)
       .padding(15)
-      .background(isAnimating ? .csDarkGrey : .csCream)
+      .background(isAnimating ? .csBlack : .csCream)
       .clipShape(.capsule)
       .shadow(radius: 5)
     }

@@ -105,7 +105,7 @@ struct RegistrationScreen: View {
     Button {
       Task { await viewModel.signUp() }
     } label: {
-      ButtonLabel("Sign Up", textColor: .white, bgColor: .black)
+      CapsuleLabel("Sign Up", textColor: .white, bgColor: .black)
     }
     .disabled(!viewModel.isValidForm)
     .opacity(!viewModel.isValidForm ? 0.3 : 1)

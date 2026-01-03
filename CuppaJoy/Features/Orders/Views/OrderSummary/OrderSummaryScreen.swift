@@ -52,7 +52,7 @@ struct OrderSummaryScreen: View {
         Button {
           path.removeLast()
         } label: {
-          ReturnButtonLabel()
+          BackButton()
         }
       }
     }
@@ -75,27 +75,27 @@ struct OrderSummaryScreen: View {
       Button {
         path.removeLast()
       } label: {
-        ButtonLabelWithIcon(
+        CapsuleLabelWithIcon(
           "Edit",
           icon: "slider.horizontal.3",
           textColor: .orange,
-          bgColor: .csDarkGrey
+          bgColor: .csBlack
         )
       }
       Button {
         path.append(OrderPage.payment(order))
       } label: {
-        ButtonLabelWithIcon(
+        CapsuleLabelWithIcon(
           "Confirm for \(order.formattedPrice)",
           icon: "checkmark.circle.fill",
           textColor: .csCream,
-          bgColor: .csDarkGrey
+          bgColor: .csBlack
         )
       }
     }
     .background(
       RoundedRectangle(cornerRadius: 35)
-        .fill(Color.csBlack)
+        .fill(Color.csDarkGrey)
         .ignoresSafeArea()
         .frame(height: 160)
         .shadow(radius: 5)

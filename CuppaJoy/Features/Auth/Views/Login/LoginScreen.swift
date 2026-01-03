@@ -35,7 +35,7 @@ struct LoginScreen: View {
     NavigationLink {
       LoginFormEmailAndPassword(viewModel: viewModel)
     } label: {
-      ButtonLabelWithIcon(
+      CapsuleLabelWithIcon(
         "Continue with Email & Password",
         icon: "envelope",
         textColor: .white,

@@ -59,7 +59,7 @@ struct GeneralScreen: View {
           .customListStyle(minRowHeight: 60, rowSpacing: 10, shadow: 5)
         }
       }
-      .navigationTitle("Account & Support")
+      .navigationTitle("General")
       .navigationBarTitleDisplayMode(.large)
       .navigationDestination(for: SettingsPageContent.self) { page in
         switch page {

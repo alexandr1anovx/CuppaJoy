@@ -41,14 +41,32 @@ struct HomeHeaderView: View {
           .clipShape(.capsule)
         }
         Spacer()
-        ButtonLabelWithIconShort(
-          user.city,
-          icon: "building.2.crop.circle.fill",
-          textColor: .accent,
-          bgColor: .csDarkGrey
-        )
+        CapsuleLabel(user.city, textColor: .accent, bgColor: .csDarkGrey)
       } else {
-        ProgressView("Connecting...")
+        VStack(alignment: .leading, spacing: 10) {
+          Text("Name Surname")
+            .font(.subheadline)
+            .fontWeight(.semibold)
+            .foregroundStyle(.primary)
+            .lineLimit(2)
+          
+          HStack(spacing: 6) {
+            Image(.star)
+              .resizable()
+              .frame(width: UIConstants.Sizes.smallIcon, height: UIConstants.Sizes.smallIcon)
+            Text("150")
+              .font(.footnote)
+              .fontWeight(.semibold)
+          }
+          .foregroundStyle(.orange)
+          .padding(8)
+          .background(.csDarkGrey)
+          .clipShape(.capsule)
+        }
+        
+        Spacer()
+        
+        CapsuleLabelCompact("Odesa", textColor: .accent, bgColor: .csDarkGrey)
       }
     }
   }
@@ -56,4 +74,5 @@ struct HomeHeaderView: View {
 
 #Preview {
   HomeHeaderView()
+    .environmentObject(SessionManager(userService: UserService()))
 }

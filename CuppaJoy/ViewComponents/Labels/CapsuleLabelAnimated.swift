@@ -1,5 +1,5 @@
 //
-//  ButtonLabelAnimated.swift
+//  CapsuleLabelAnimated.swift
 //  CuppaJoy
 //
 //  Created by Alexander Andrianov on 28.02.2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ButtonLabelAnimated: View {
+struct CapsuleLabelAnimated: View {
   
   @State private var isAnimating = false
   let title: String
@@ -30,11 +30,13 @@ struct ButtonLabelAnimated: View {
       .fontWeight(.medium)
       .foregroundStyle(textColor)
       .frame(maxWidth: .infinity)
-      .padding(.vertical,15)
-      .background(bgColor)
-      .clipShape(.rect(cornerRadius: 15))
-      .padding(.horizontal,20)
-      .shadow(radius: 5)
+      .padding(.vertical,16)
+      .background {
+        Capsule()
+          .fill(bgColor)
+          .padding(.horizontal,30)
+          .shadow(radius: 5)
+      }
       .scaleEffect(isAnimating ? UIConstants.Scale.buttonPressed : UIConstants.Scale.profileImageReset)
       .onAppear {
         withAnimation(.easeInOut(duration: 1.8).repeatForever()) {
@@ -45,7 +47,7 @@ struct ButtonLabelAnimated: View {
 }
 
 #Preview {
-  ButtonLabelAnimated(
+  CapsuleLabelAnimated(
     "Check Order Details",
     textColor: .white,
     bgColor: Color.gradientBrown

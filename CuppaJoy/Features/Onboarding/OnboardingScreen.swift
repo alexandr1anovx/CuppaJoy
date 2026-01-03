@@ -80,7 +80,7 @@ struct OnboardingScreen: View {
         Capsule()
           .frame(width: UIConstants.Sizes.onboardingDot, height: 2.5)
           .foregroundStyle(
-            pageIndex >= index ? .csCream : .csDarkGrey
+            pageIndex >= index ? .csCream : .csBlack
           )
           .animation(.spring, value: pageIndex)
       }
@@ -96,11 +96,11 @@ struct OnboardingScreen: View {
         withAnimation { isFinishedOnboarding = true }
       }
     } label: {
-      ButtonLabelWithIcon(
+      CapsuleLabelWithIcon(
         isIndexLast ? "Get Started!": "Continue",
         icon: isIndexLast ? "checkmark.circle.fill": "arrow.right.circle",
         textColor: isIndexLast ? .black : .csCream,
-        bgColor: isIndexLast ? .csCream : .csDarkGrey
+        bgColor: isIndexLast ? .csCream : .csBlack
       )
     }
   }

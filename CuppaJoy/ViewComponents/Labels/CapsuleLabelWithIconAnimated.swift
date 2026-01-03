@@ -1,5 +1,5 @@
 //
-//  ButtonLabelWithIconAnimated.swift
+//  CapsuleLabelWithIconAnimated.swift
 //  CuppaJoy
 //
 //  Created by Alexander Andrianov on 01.03.2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ButtonLabelWithIconAnimated: View {
+struct CapsuleLabelWithIconAnimated: View {
   
   @State private var isAnimating = false
   
@@ -34,11 +34,13 @@ struct ButtonLabelWithIconAnimated: View {
       .fontWeight(.medium)
       .foregroundStyle(textColor)
       .frame(maxWidth: .infinity)
-      .padding(.vertical,17)
-      .background(bgColor)
-      .clipShape(.rect(cornerRadius: 15))
+      .padding(.vertical,16)
+      .background {
+        Capsule()
+          .fill(bgColor)
+          .shadow(radius: 3)
+      }
       .padding(.horizontal,30)
-      .shadow(radius: 5)
       .scaleEffect(isAnimating ? UIConstants.Scale.iconPressed : UIConstants.Scale.profileImageReset)
       .onAppear {
         withAnimation(.easeInOut(duration: 2).repeatForever()) {
@@ -49,9 +51,9 @@ struct ButtonLabelWithIconAnimated: View {
 }
 
 #Preview {
-  ButtonLabelWithIconAnimated(
+  CapsuleLabelWithIconAnimated(
     "Confirm",
-    icon: "checkmark",
+    icon: "checkmark.circle.fill",
     textColor: .white,
     bgColor: Color.gradientBrown
   )

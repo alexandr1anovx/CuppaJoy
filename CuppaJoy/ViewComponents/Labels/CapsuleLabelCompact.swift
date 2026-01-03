@@ -1,5 +1,5 @@
 //
-//  ButtonLabelShort.swift
+//  CapsuleLabelCompact.swift
 //  CuppaJoy
 //
 //  Created by Alexander Andrianov on 02.04.2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ButtonLabelShort: View {
+struct CapsuleLabelCompact: View {
   
   let title: String
   let textColor: Color
@@ -22,18 +22,20 @@ struct ButtonLabelShort: View {
   var body: some View {
     Text(title)
       .font(.subheadline)
+      .fontWeight(.medium)
       .foregroundStyle(textColor)
-      .padding(10)
-      .background(bgColor)
-      .clipShape(.capsule)
-      .shadow(radius: 3)
+      .padding(12)
+      .background {
+        Capsule()
+          .fill(bgColor)
+      }
   }
 }
 
 #Preview {
-  ButtonLabelShort(
+  CapsuleLabelCompact(
     "Save Changes",
-    textColor: .white,
-    bgColor: .blue
+    textColor: .accent,
+    bgColor: .csBlack
   )
 }

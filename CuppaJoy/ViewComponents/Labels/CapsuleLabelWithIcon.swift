@@ -1,5 +1,5 @@
 //
-//  ButtonLabelWithIcon.swift
+//  CapsuleLabelWithIcon.swift
 //  CuppaJoy
 //
 //  Created by Alexander Andrianov on 22.02.2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ButtonLabelWithIcon: View {
+struct CapsuleLabelWithIcon: View {
   
   let title: String
   let icon: String
@@ -33,15 +33,17 @@ struct ButtonLabelWithIcon: View {
       .foregroundStyle(textColor)
       .frame(maxWidth: .infinity)
       .padding(.vertical,16)
-      .background(bgColor)
-      .clipShape(.rect(cornerRadius: 15))
-      .padding(.horizontal,30)
-      .shadow(radius: 5)
+      .background {
+        Capsule()
+          .fill(bgColor)
+          .padding(.horizontal,20)
+          .shadow(radius: 5)
+      }
   }
 }
 
 #Preview {
-  ButtonLabelWithIcon(
+  CapsuleLabelWithIcon(
     "Continue",
     icon: "arrow.right",
     textColor: .white,

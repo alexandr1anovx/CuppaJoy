@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ButtonLabel: View {
+struct CapsuleLabel: View {
   
   let title: String
   let textColor: Color
@@ -26,17 +26,19 @@ struct ButtonLabel: View {
       .foregroundStyle(textColor)
       .frame(maxWidth: .infinity)
       .padding(.vertical,15)
-      .background(bgColor)
-      .clipShape(.rect(cornerRadius: 15))
-      .padding(.horizontal,20)
-      .shadow(radius: 5)
+      .background {
+        Capsule()
+          .fill(bgColor)
+          .padding(.horizontal,20)
+          .shadow(radius: 3)
+      }
   }
 }
 
 #Preview {
-  ButtonLabel(
+  CapsuleLabel(
     "Continue",
-    textColor: .yellow,
-    bgColor: .black
+    textColor: .accent,
+    bgColor: .csBlack
   )
 }

@@ -13,7 +13,7 @@ struct CoffeeCatalogCell: View {
   
   var body: some View {
     RoundedRectangle(cornerRadius: 25)
-      .foregroundStyle(.csBlack)
+      .foregroundStyle(.csDarkGrey)
       .shadow(radius: 5)
       .aspectRatio(1.1, contentMode: .fit)
       .overlay(alignment: .topLeading) { coinsLabel }

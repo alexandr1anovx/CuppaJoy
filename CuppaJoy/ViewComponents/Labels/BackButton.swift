@@ -1,5 +1,5 @@
 //
-//  ReturnButtonLabel.swift
+//  BackButton.swift
 //  CuppaJoy
 //
 //  Created by Alexander Andrianov on 06.04.2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ReturnButtonLabel: View {
+struct BackButton: View {
   var body: some View {
     Image(systemName: "arrowshape.left.circle.fill")
       .font(.callout)
@@ -16,5 +16,5 @@ struct ReturnButtonLabel: View {
 }
 
 #Preview {
-  ReturnButtonLabel()
+  BackButton()
 }

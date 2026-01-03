@@ -50,7 +50,7 @@ struct ProfileScreen: View {
         Button {
           path.removeLast()
         } label: {
-          ReturnButtonLabel()
+          BackButton()
         }
       }
     }

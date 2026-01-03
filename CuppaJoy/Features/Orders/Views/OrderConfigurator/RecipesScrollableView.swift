@@ -25,7 +25,7 @@ struct RecipesScrollableView: View {
               orderConfigViewModel.selectedRecipe = recipe
               orderConfigViewModel.applyRecipe()
             } label: {
-              ButtonLabelShort(
+              CapsuleLabelCompact(
                 recipe.title,
                 textColor: .orange,
                 bgColor: .csDarkGrey

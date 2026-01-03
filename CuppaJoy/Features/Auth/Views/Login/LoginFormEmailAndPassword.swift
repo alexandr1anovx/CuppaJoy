@@ -54,7 +54,7 @@ struct LoginFormEmailAndPassword: View {
           Button {
             dismiss()
           } label: {
-            ReturnButtonLabel()
+            BackButton()
           }
         }
       }
@@ -72,7 +72,7 @@ struct LoginFormEmailAndPassword: View {
     Button {
       Task { await viewModel.signIn() }
     } label: {
-      ButtonLabel("Sign In", textColor: .white, bgColor: .black)
+      CapsuleLabel("Sign In", textColor: .white, bgColor: .black)
     }
     .disabled(!viewModel.isValidForm)
     .opacity(!viewModel.isValidForm ? 0.3 : 1)

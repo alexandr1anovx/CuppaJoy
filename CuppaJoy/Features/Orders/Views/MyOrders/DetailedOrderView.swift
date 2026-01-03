@@ -27,7 +27,7 @@ struct DetailedOrderView: View {
   
   var body: some View {
     ZStack{
-      Color.csBlack.ignoresSafeArea(.all)
+      Color.csDarkGrey.ignoresSafeArea(.all)
       VStack(spacing: 0) {
         Label("Configurations", systemImage: "list.bullet")
           .font(.headline)
@@ -45,7 +45,7 @@ struct DetailedOrderView: View {
         Button {
           dismiss()
         } label: {
-          ButtonLabel("Close", textColor: .red, bgColor: .black)
+          CapsuleLabel("Close", textColor: .red, bgColor: .black)
         }
       }.padding(.top)
     }

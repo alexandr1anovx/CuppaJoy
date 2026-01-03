@@ -48,7 +48,6 @@ struct OrderConfiguratorScreen: View {
     .ignoresSafeArea(.keyboard)
     .toolbar {
       ToolbarItem(placement: .topBarLeading) { toolbarBackButton }
-      ToolbarItem(placement: .topBarTrailing) { toolbarHintButton }
     }
     .onAppear {
       isTabBarVisible = false
@@ -62,13 +61,15 @@ struct OrderConfiguratorScreen: View {
   
   private var emptyRecipesView: some View {
     HStack {
-      Text("No saved recipes yet. Create your first one above!")
+      Text("No saved recipes yet.")
         .font(.footnote)
         .foregroundStyle(.gray)
+        .multilineTextAlignment(.center)
       Button("Create Recipe", systemImage: "plus.circle.fill") {
         orderConfigViewModel.showSaveRecipeAlert.toggle()
       }
       .font(.footnote)
+      .fontWeight(.medium)
       .foregroundStyle(.orange)
       .padding(12)
       .background(.csDarkGrey)
@@ -78,7 +79,7 @@ struct OrderConfiguratorScreen: View {
   
   private var configurationForm: some View {
     Form {
-      Section("Cup Configurations") {
+      Section("Cup") {
         OrderItemPicker("Size", selectedItem: $orderConfigViewModel.cupSize)
           .pickerStyle(.segmented)
         OrderItemCounter(
@@ -125,7 +126,7 @@ struct OrderConfiguratorScreen: View {
       Button {
         path.append(OrderPage.summary(orderConfigViewModel.order))
       } label: {
-        ButtonLabelWithIcon(
+        CapsuleLabelWithIcon(
           "Summorize",
           icon: "plus.circle.fill",
           textColor: .csCream,
@@ -135,7 +136,7 @@ struct OrderConfiguratorScreen: View {
     }
     .background(
       RoundedRectangle(cornerRadius: 50)
-        .fill(.csBlack)
+        .fill(.csDarkGrey)
         .ignoresSafeArea()
         .frame(height: 150)
         .shadow(radius: 5)
@@ -147,32 +148,7 @@ struct OrderConfiguratorScreen: View {
       path.removeLast()
       isTabBarVisible = true
     } label: {
-      ReturnButtonLabel()
+      BackButton()
     }
-  }
-  
-  private var toolbarHintButton: some View {
-    Button {
-      orderConfigViewModel.showHintPopover.toggle()
-    } label: {
-      Image(systemName: "info.circle.fill")
-        .foregroundStyle(.pink)
-    }
-    .popover(
-      isPresented: $orderConfigViewModel.showHintPopover,
-      attachmentAnchor: .point(.trailing),
-      arrowEdge: .trailing) {
-        VStack(alignment: .leading, spacing: 8) {
-          Text("• To save the configuration, select all the desired parameters and click the **Add** button.")
-          Divider()
-          Text("• For additional actions with the configuration, hold down its button.")
-        }
-        .font(.caption)
-        .multilineTextAlignment(.leading)
-        .frame(height: 80)
-        .presentationBackground(.csBlack)
-        .presentationCompactAdaptation(.popover)
-        .padding()
-      }
   }
 }

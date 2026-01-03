@@ -57,7 +57,7 @@ struct SettingsScreen: View {
           path.removeLast()
           showTabBar = true
         } label: {
-          ReturnButtonLabel()
+          BackButton()
         }
       }
     }

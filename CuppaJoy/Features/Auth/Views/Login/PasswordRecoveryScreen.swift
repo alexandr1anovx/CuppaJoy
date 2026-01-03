@@ -39,7 +39,7 @@ struct PasswordRecoveryScreen: View {
         Button {
           // ⚠️ Add a method!
         } label: {
-          ButtonLabel(
+          CapsuleLabel(
             "Send Recovery Link",
             textColor: .csCream,
             bgColor: .black

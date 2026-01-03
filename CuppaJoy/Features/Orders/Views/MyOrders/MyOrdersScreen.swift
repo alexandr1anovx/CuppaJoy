@@ -42,11 +42,11 @@ struct MyOrdersScreen: View {
         Button {
           selectedStatus = status
         } label: {
-          ButtonLabelWithIconShort(
+          CapsuleLabelWithIconCompact(
             status.title,
             icon: status.iconName,
             textColor: status == selectedStatus ? .orange : .gray,
-            bgColor: status == selectedStatus ? .csDarkGrey : .clear
+            bgColor: status == selectedStatus ? .csBlack : .clear
           )
         }
       }
@@ -63,7 +63,7 @@ struct MyOrdersScreen: View {
       Button {
         selectedTab = .home
       } label: {
-        ButtonLabelWithIconShort(
+        CapsuleLabelWithIconCompact(
           "Add",
           icon: "plus.circle.fill",
           textColor: .black,
@@ -89,7 +89,7 @@ struct MyOrdersScreen: View {
     } else {
       List(viewModel.ongoingOrders) { order in
         OngoingOrderCell(for: order)
-          .listRowBackground(Color.csBlack)
+          .listRowBackground(Color.csDarkGrey)
       }
       .customListStyle(rowSpacing: 15, shadow: 5)
     }
@@ -102,7 +102,7 @@ struct MyOrdersScreen: View {
     } else {
       List(viewModel.receivedOrders) { order in
         ReceivedOrderCell(for: order)
-          .listRowBackground(Color.csBlack)
+          .listRowBackground(Color.csDarkGrey)
       }
       .customListStyle(rowSpacing: 15, shadow: 5)
     }

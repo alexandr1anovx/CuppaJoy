@@ -118,7 +118,7 @@ struct ApplePayView: View {
         feedbackGenerator.notificationOccurred(.success)
       }
     } label: {
-      ButtonLabelWithIcon(
+      CapsuleLabelWithIcon(
         "Confirm Payment",
         icon: "checkmark.circle.fill",
         textColor: .white,
